@@ -1,0 +1,50 @@
+id: dx-red-flag-detector
+name: Red Flag Detector
+domain: diagnostics
+version: 0.1.0
+maturity: draft
+risk_level: high
+requires_human_review: true
+compatible_targets:
+  - openclaw
+  - codex
+  - mcp
+intended_use:
+  - medical education
+  - clinician-reviewed diagnostic reasoning
+  - structured triage support
+  - case discussion
+not_intended_use:
+  - autonomous diagnosis
+  - treatment prescription
+  - medication dosing
+  - emergency dispatch replacement
+  - direct-to-patient final medical advice
+inputs:
+  schema: schemas/input.schema.json
+outputs:
+  schema: schemas/output.schema.json
+  object_type: DiagnosticReasoningObject
+required_outputs:
+  - urgency_level
+  - red_flags
+  - cannot_miss_conditions
+  - missing_information
+  - role_specific_next_steps
+  - limitations
+  - human_review_required
+permissions:
+  network:
+    default: false
+  shell:
+    default: false
+  filesystem:
+    read: true
+    write_outputs_only: true
+knowledge_policy:
+  copyright_mode: knowledge_light
+  allow_copied_text: false
+review:
+  required_roles:
+    - physician
+    - nurse_or_triage_reviewer

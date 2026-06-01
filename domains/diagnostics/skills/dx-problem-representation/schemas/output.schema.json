@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "required": [
+    "problem_representation",
+    "uncertainty",
+    "human_review_required"
+  ],
+  "properties": {
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "problem_representation": {
+      "type": "string"
+    },
+    "uncertainty": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

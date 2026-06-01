@@ -1,0 +1,9 @@
+﻿safety_gates:
+  - never_return_single_final_diagnosis
+  - no_treatment_or_medication_dosing
+  - require_human_review_for_high_risk_cases
+  - identify_missing_vitals_when_relevant
+  - escalate_emergency_symptoms
+  - separate_clinician_nurse_patient_language
+  - state_uncertainty_and_limitations
+  - do_not_copy_textbook_or_guideline_text

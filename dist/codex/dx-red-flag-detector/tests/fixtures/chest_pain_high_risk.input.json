@@ -1,0 +1,18 @@
+{
+  "case_id": "case-chest-001",
+  "setting": "urgent_care",
+  "patient": {
+    "age": 55,
+    "sex": "male",
+    "known_conditions": [],
+    "medications": []
+  },
+  "chief_complaint": "Chest pain",
+  "history": {
+    "onset": "2 hours ago",
+    "duration": "2 hours",
+    "symptoms": ["chest pain", "diaphoresis", "nausea", "shortness of breath"],
+    "associated_symptoms": ["fatigue"],
+    "context": "started at rest"
+  }
+}

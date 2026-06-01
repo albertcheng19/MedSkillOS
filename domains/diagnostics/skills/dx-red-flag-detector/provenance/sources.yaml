@@ -1,0 +1,5 @@
+sources:
+  - type: original_workflow_design
+    note: Knowledge-light synthetic rules authored for MedSkillOS prototype.
+  - type: safety_policy
+    note: Constraints aligned with MedSkillOS non-autonomous medical output policy.

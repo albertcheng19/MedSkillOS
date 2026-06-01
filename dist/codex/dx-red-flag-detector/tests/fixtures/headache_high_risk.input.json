@@ -1,0 +1,17 @@
+{
+  "case_id": "case-headache-001",
+  "setting": "emergency_department",
+  "patient": {
+    "age": 34,
+    "sex": "female",
+    "pregnancy_possible": false
+  },
+  "chief_complaint": "Worst headache of life",
+  "history": {
+    "onset": "sudden",
+    "duration": "3 hours",
+    "symptoms": ["sudden worst headache", "neck stiffness", "fever", "vomiting"],
+    "associated_symptoms": ["photophobia"],
+    "context": "no trauma"
+  }
+}

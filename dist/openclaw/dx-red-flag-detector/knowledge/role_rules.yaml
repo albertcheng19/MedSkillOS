@@ -1,0 +1,7 @@
+role_rules:
+  clinician:
+    - Provide structured urgency framing and missing data priorities.
+  nurse:
+    - Focus on observation priorities, trend monitoring, and handoff clarity.
+  patient:
+    - Encourage prompt professional evaluation; use emergency wording when risk is high.

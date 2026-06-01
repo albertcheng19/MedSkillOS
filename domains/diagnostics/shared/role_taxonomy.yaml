@@ -1,0 +1,7 @@
+﻿roles:
+  - clinician
+  - nurse
+  - patient
+  - caregiver
+  - researcher
+  - medical_student

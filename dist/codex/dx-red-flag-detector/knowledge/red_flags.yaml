@@ -1,0 +1,26 @@
+rules:
+  - id: chest_pain_instability
+    trigger_keywords: [chest pain, diaphoresis, syncope, hypotension, dyspnea, shortness of breath, neurologic deficit]
+    concern: Potential cardiopulmonary or vascular emergency pattern.
+    urgency: emergency_or_urgent
+    missing_info_to_check: [blood pressure, heart rate, oxygen saturation, ECG status, neurologic exam]
+  - id: headache_critical_pattern
+    trigger_keywords: [sudden headache, worst headache, thunderclap, neurologic deficit, fever, neck stiffness, postpartum, pregnancy, immunosuppression]
+    concern: Potential intracranial, infectious, or vascular emergency pattern.
+    urgency: emergency_or_urgent
+    missing_info_to_check: [neurologic exam, temperature trend, blood pressure, pregnancy/postpartum status, immune status]
+  - id: abdominal_pain_high_risk
+    trigger_keywords: [abdominal pain, lower abdominal pain, pregnancy possible, peritonitis, rebound, guarding, hypotension, gi bleeding, persistent severe pain]
+    concern: Potential surgical, hemorrhagic, or pregnancy-related emergency pattern.
+    urgency: emergency_or_urgent
+    missing_info_to_check: [pregnancy test status, blood pressure, heart rate, bleeding amount, peritoneal signs]
+  - id: fever_systemic_instability
+    trigger_keywords: [fever, altered mental status, hypotension, dyspnea, rash, purpura, immunosuppression]
+    concern: Potential severe infection or systemic instability.
+    urgency: emergency_or_urgent
+    missing_info_to_check: [blood pressure, respiratory status, mental status trend, immune status]
+  - id: dyspnea_critical_pattern
+    trigger_keywords: [dyspnea, hypoxia, chest pain, cyanosis, altered mental status]
+    concern: Potential respiratory or circulatory failure pattern.
+    urgency: emergency_or_urgent
+    missing_info_to_check: [oxygen saturation, respiratory rate, chest pain character, mental status]

@@ -1,0 +1,17 @@
+{
+  "case_id": "case-abd-001",
+  "setting": "urgent_care",
+  "patient": {
+    "age": 28,
+    "sex": "female",
+    "pregnancy_possible": "unknown"
+  },
+  "chief_complaint": "Lower abdominal pain",
+  "history": {
+    "onset": "today",
+    "duration": "6 hours",
+    "symptoms": ["lower abdominal pain", "dizziness"],
+    "associated_symptoms": [],
+    "context": "pregnancy status unknown"
+  }
+}

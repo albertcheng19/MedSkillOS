@@ -1,0 +1,22 @@
+id: dx-problem-representation
+name: Problem Representation
+domain: diagnostics
+version: 0.1.0
+maturity: draft
+risk_level: medium
+requires_human_review: true
+compatible_targets:
+  - openclaw
+  - codex
+inputs:
+  schema: schemas/input.schema.json
+outputs:
+  schema: schemas/output.schema.json
+permissions:
+  network:
+    default: false
+  shell:
+    default: false
+  filesystem:
+    read: true
+    write_outputs_only: true

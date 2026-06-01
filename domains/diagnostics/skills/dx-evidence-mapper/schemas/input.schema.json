@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "required": [
+    "case_id",
+    "candidate_conditions",
+    "case_facts"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "candidate_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "case_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

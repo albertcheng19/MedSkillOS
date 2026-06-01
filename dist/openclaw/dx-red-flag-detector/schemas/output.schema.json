@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "object_type",
+    "status",
+    "urgency_level",
+    "red_flags",
+    "cannot_miss_conditions",
+    "missing_information",
+    "role_specific_next_steps",
+    "limitations",
+    "human_review_required"
+  ],
+  "properties": {
+    "object_type": { "type": "string", "const": "DiagnosticReasoningObject" },
+    "status": { "type": "string" },
+    "urgency_level": { "type": "string" },
+    "red_flags": { "type": "array", "items": { "type": "string" } },
+    "cannot_miss_conditions": { "type": "array", "items": { "type": "string" } },
+    "missing_information": { "type": "array", "items": { "type": "string" } },
+    "role_specific_next_steps": {
+      "type": "object",
+      "required": ["clinician", "nurse", "patient"],
+      "properties": {
+        "clinician": { "type": "array", "items": { "type": "string" } },
+        "nurse": { "type": "array", "items": { "type": "string" } },
+        "patient": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "human_review_required": { "type": "boolean" }
+  },
+  "additionalProperties": true
+}

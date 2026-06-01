@@ -1,0 +1,5 @@
+safety_rules:
+  - never_output_final_diagnosis
+  - never_recommend_medication_or_dose
+  - always_include_uncertainty
+  - always_set_human_review_required_true

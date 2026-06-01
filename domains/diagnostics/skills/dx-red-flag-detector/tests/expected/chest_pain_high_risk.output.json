@@ -1,0 +1,9 @@
+{
+  "urgency_level": "emergency_or_urgent",
+  "red_flags": ["chest_pain_instability"],
+  "cannot_miss_conditions_any": [
+    "acute coronary syndrome",
+    "aortic dissection",
+    "pulmonary embolism"
+  ]
+}

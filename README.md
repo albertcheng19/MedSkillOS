@@ -240,3 +240,17 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
 MedSkillOS is for research, education, workflow support, and expert-reviewed agent development. It is not a validated clinical tool and must not be used as a replacement for qualified medical judgment, diagnosis, or treatment.
 
 Medical outputs generated using MedSkillOS require appropriate human review.
+
+## Quick test
+
+```bash
+python domains/diagnostics/skills/dx-red-flag-detector/scripts/self_test.py
+python scripts/build_skill_exports.py
+```
+
+Generated installable artifacts:
+
+```text
+dist/MedSkillOS-diagnostics-openclaw.zip
+dist/MedSkillOS-diagnostics-codex.zip
+```

@@ -11,6 +11,11 @@ import json
 import os
 import re
 
+def read_text(path):
+    """Read skill text files consistently across Windows locales."""
+    with open(path, "r", encoding="utf-8", errors="replace") as f:
+        return f.read()
+
 # ─────────────────────────────────────────────
 # Step 1: Basic Veto
 # ─────────────────────────────────────────────
@@ -33,8 +38,7 @@ def run_basic_veto(skill_path):
             if fname.endswith(".py") and fname != "evaluate_skill.py":
                 fpath = os.path.join(scripts_path, fname)
                 try:
-                    with open(fpath, "r") as f:
-                        source = f.read()
+                    source = read_text(fpath)
                     compile(source, fpath, "exec")
                 except SyntaxError as e:
                     t1_issues.append(f"Syntax error in {fname}: {e}")
@@ -43,8 +47,7 @@ def run_basic_veto(skill_path):
     # T2: Structural Consistency — check YAML frontmatter has required fields
     t2_issues = []
     if os.path.isfile(skill_md_path):
-        with open(skill_md_path, "r") as f:
-            content = f.read()
+        content = read_text(skill_md_path)
         if not content.startswith("---"):
             t2_issues.append("Missing YAML frontmatter")
         else:
@@ -60,8 +63,7 @@ def run_basic_veto(skill_path):
         for fname in os.listdir(scripts_path):
             if fname.endswith(".py"):
                 fpath = os.path.join(scripts_path, fname)
-                with open(fpath, "r") as f:
-                    source = f.read()
+                source = read_text(fpath)
                 if "random.random()" in source and "seed" not in source:
                     t3_issues.append(f"{fname}: uses random without seed")
                 if re.search(r"while\s+True", source) and "break" not in source:
@@ -81,8 +83,7 @@ def run_basic_veto(skill_path):
         for fname in os.listdir(scripts_path):
             if fname.endswith(".py") and fname != "evaluate_skill.py":
                 fpath = os.path.join(scripts_path, fname)
-                with open(fpath, "r") as f:
-                    source = f.read()
+                source = read_text(fpath)
                 for pattern, label in dangerous_patterns:
                     if re.search(pattern, source):
                         t4_issues.append(f"{fname}: {label}")
@@ -101,8 +102,7 @@ def extract_static_metadata(skill_path):
     if not os.path.isfile(skill_md_path):
         return {"error": "SKILL.md not found"}
 
-    with open(skill_md_path, "r") as f:
-        content = f.read()
+    content = read_text(skill_md_path)
 
     # Parse frontmatter
     fm = {}
@@ -163,8 +163,7 @@ def classify_skill(skill_path):
     if not os.path.isfile(skill_md_path):
         return {"category": "Unknown", "execution_mode": "Unknown"}
 
-    with open(skill_md_path, "r") as f:
-        content = f.read().lower()
+    content = read_text(skill_md_path).lower()
 
     # Category classification — keyword sets per canonical category
     evidence_insight_keywords = ["search strategy", "literature search", "evidence level",

@@ -8,7 +8,7 @@
 
 <br>
 
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-2f80ed?style=for-the-badge)](./LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2f80ed?style=for-the-badge)](./LICENSE)
 ![Stage](https://img.shields.io/badge/Stage-Early%20Development-7c3aed?style=for-the-badge)
 ![Agent Native](https://img.shields.io/badge/Agent--Native-Skills-10b981?style=for-the-badge)
 ![Medical AI](https://img.shields.io/badge/Medical%20AI-Research%20%26%20Workflow-ef4444?style=for-the-badge)
@@ -557,7 +557,7 @@ docs/third-party-notices.md
 
 ## 📄 License
 
-MedSkillOS is licensed under the [Apache License 2.0](./LICENSE).
+MedSkillOS is licensed under the [MIT License](./LICENSE).
 
 Third-party content, adapted skills, bundled checklists, datasets, scripts, and examples may be subject to their own licenses. Their original licenses and attribution notices must be preserved.
 

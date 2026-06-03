@@ -1,0 +1,310 @@
+{
+    "meta": {
+        "skill_name": "gokegg-analysis",
+        "description": "Run Gene Ontology (GO) and KEGG pathway enrichment analysis on gene lists using clusterProfiler. Inputs: DEG or candidate gene list, organism background. Outputs: enrichment result tables, dot plots, bar plots, enrichment map.",
+        "evaluated_on": "2026-04-15",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated statistics, citations, or invented biological claims were observed in any tested output."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "Outputs stayed within enrichment-analysis scope and did not provide diagnostic or prescriptive medical advice."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "The ORA-based GO and KEGG workflow was appropriate for the tested gene-list inputs, although one summary line overstated empty KEGG results."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "R scripts executed successfully on four valid scenarios and failed safely with a controlled validation error on the invalid scenario."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 87,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 11,
+                "max": 12,
+                "note": "Core enrichment, plotting, and reporting coverage is strong after the empty-result summary fix, with only minor recovery guidance gaps remaining."
+            },
+            "reliability": {
+                "score": 10,
+                "max": 12,
+                "note": "Validation and regression coverage are solid, and empty-result handling now aligns warnings with final summary states."
+            },
+            "performance_context": {
+                "score": 7,
+                "max": 8,
+                "note": "Documentation is layered reasonably well and the workflow is concise, though the SKILL.md still carries a fair amount of inline detail."
+            },
+            "agent_usability": {
+                "score": 14,
+                "max": 16,
+                "note": "Sectioning and expected outputs are clear, and the repaired CLI guide now provides consistent examples for agents to follow."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Trigger language is natural and the fixed CLI examples improve forgiveness for users following the documentation literally."
+            },
+            "security": {
+                "score": 11,
+                "max": 12,
+                "note": "No unsafe shell execution or credential handling issues were found, and user parameters are validated before analysis starts."
+            },
+            "maintainability": {
+                "score": 10,
+                "max": 12,
+                "note": "The code is modular and testable, but duplicated documentation content increases drift risk across references and behavior."
+            },
+            "agent_specific": {
+                "score": 17,
+                "max": 20,
+                "note": "Trigger precision and scope boundaries are good, and partial-success reporting is now clearer for empty enrichment outputs."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 85.8,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 21,
+            "total": 22
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Human SYMBOL smoke test",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed perfectly and produced all documented outputs.",
+                "basic": 38,
+                "specialized": 55,
+                "total": 93,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output completes GO, KEGG, plotting, and session-info generation",
+                        "result": "PASS",
+                        "note": "All expected artifacts were generated successfully."
+                    },
+                    {
+                        "text": "Output reports parsed gene count and final status fields",
+                        "result": "PASS",
+                        "note": "Summary lines include parsed count plus GO, KEGG, and plot status."
+                    },
+                    {
+                        "text": "Output enumerates key files promised by the skill",
+                        "result": "PASS",
+                        "note": "The summary lists CSV, RDA, plot, and session-info files."
+                    },
+                    {
+                        "text": "Output stays within enrichment-analysis scope",
+                        "result": "PASS",
+                        "note": "No unsupported analysis or fabricated interpretation was added."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Mouse ENSEMBL example",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Completed cleanly with a KEGG-empty warning and an accurate EMPTY summary state.",
+                "basic": 35,
+                "specialized": 53,
+                "total": 88,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Output handles the documented mouse ENSEMBL input without crashing",
+                        "result": "PASS",
+                        "note": "The command finished and produced GO and plot artifacts."
+                    },
+                    {
+                        "text": "Output warns when KEGG returns no enriched pathways",
+                        "result": "PASS",
+                        "note": "A SKILL_EMPTY_DATA warning was emitted for KEGG."
+                    },
+                    {
+                        "text": "Summary does not overstate KEGG success when KEGG results are empty",
+                        "result": "PASS",
+                        "note": "The rerun reported summary.kegg_status as EMPTY for a header-only KEGG CSV."
+                    },
+                    {
+                        "text": "Plot generation degrades gracefully when only GO results remain",
+                        "result": "PASS",
+                        "note": "The dot-chart data file contains GO rows and the plot was still created."
+                    },
+                    {
+                        "text": "Run still records reproducibility metadata",
+                        "result": "PASS",
+                        "note": "session_info.txt was written successfully."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Unsupported species validation",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "Failed safely with a clear SKILL_INVALID_PARAMETER error before analysis work began.",
+                "basic": 26,
+                "specialized": 38,
+                "total": 64,
+                "assertions_passed": 3,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Unsupported species is rejected safely before downstream analysis",
+                        "result": "PASS",
+                        "note": "The run stopped on validation with no partial outputs reported."
+                    },
+                    {
+                        "text": "Error output includes an exact SKILL code",
+                        "result": "PASS",
+                        "note": "The emitted code was SKILL_INVALID_PARAMETER."
+                    },
+                    {
+                        "text": "Error output gives a concrete next step for retry",
+                        "result": "FAIL",
+                        "note": "The message names the bad species but does not list supported alternatives or a retry hint."
+                    },
+                    {
+                        "text": "Failure path avoids misleading success summaries",
+                        "result": "PASS",
+                        "note": "No success summary was emitted after the validation failure."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Mixed-separator human input",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed cleanly and confirmed separator normalization in the logs.",
+                "basic": 37,
+                "specialized": 54,
+                "total": 91,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Mixed separators are normalized into the expected four genes",
+                        "result": "PASS",
+                        "note": "The parsed feature line showed TP53, EGFR, BRCA1, and MYC."
+                    },
+                    {
+                        "text": "The documented SVG output path is produced",
+                        "result": "PASS",
+                        "note": "The run wrote gokegg_dot_chart.svg successfully."
+                    },
+                    {
+                        "text": "Summary reports the expected artifact set",
+                        "result": "PASS",
+                        "note": "The output directory and key files were listed in the summary block."
+                    },
+                    {
+                        "text": "Output remains within the skill's stated scope",
+                        "result": "PASS",
+                        "note": "Only enrichment and visualization behavior was performed."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Custom plotting parameter run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Handled the multi-parameter plotting request cleanly and produced all expected artifacts.",
+                "basic": 38,
+                "specialized": 55,
+                "total": 93,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Advanced plotting parameters execute successfully",
+                        "result": "PASS",
+                        "note": "PNG output was generated with the requested custom settings."
+                    },
+                    {
+                        "text": "Output keeps the documented summary structure",
+                        "result": "PASS",
+                        "note": "Parsed count, statuses, output directory, and key files were all present."
+                    },
+                    {
+                        "text": "Stress input does not break reproducibility controls",
+                        "result": "PASS",
+                        "note": "The run honored the fixed seed and completed without instability."
+                    },
+                    {
+                        "text": "Output does not drift outside the skill scope under multi-parameter input",
+                        "result": "PASS",
+                        "note": "No unrelated analysis or unsafe operation appeared."
+                    },
+                    {
+                        "text": "Plot data artifacts are preserved for downstream reuse",
+                        "result": "PASS",
+                        "note": "Both CSV and RDA plot bundles were written successfully."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 34.8,
+        "dynamic_weighted": 51.5,
+        "score": 86,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The core R workflow is genuinely executable and passed four non-trivial runtime scenarios in this audit.",
+        "Input validation and regression tests cover important boundary cases such as separator parsing, empty input, and malformed plotting parameters.",
+        "Documentation clearly states supported species, gene ID types, expected artifacts, and out-of-scope analysis types, and the CLI guide examples are now complete and consistent.",
+        "The implementation is modular, separating parsing, analysis, plotting, and utility logic into focused script files."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Strengthen failure-path recovery hints",
+            "observed_in": [
+                3
+            ],
+            "problem": "Validation failures surface the right SKILL code, but some messages stop short of giving the user an immediate retry path.",
+            "root_cause": "Error messages focus on the failing value and not on the supported alternatives or next-step examples.",
+            "fix": "Expand high-frequency validation errors to include the accepted choices directly in the message, for example the supported species list or a short retry template."
+        }
+    ]
+}

@@ -1,0 +1,298 @@
+{
+    "meta": {
+        "skill_name": "lncrna-regulatory-network-construction-analysis",
+        "description": "Construct lncRNA regulatory networks including co-expression modules, ceRNA interactions, and TF-target associations. Inputs: expression matrix, lncRNA annotation. Outputs: network edge/node table, hub lncRNA rankings, Cytoscape-ready network file.",
+        "evaluated_on": "2026-04-20",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "D",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "Scientific integrity check completed without reportable redline findings."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "No diagnostic or prescriptive medical behavior was observed."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "The workflow remains within database-backed ceRNA projection and warns against expression-based inference."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "Bundled tests and live R CLI runs completed successfully, including visualize-only reuse after the audit fix."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 94,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 12,
+                "max": 12,
+                "note": "Functional suitability was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "Append-only run logs reduce strict idempotency, but recovery remains clear and safe."
+            },
+            "performance_context": {
+                "score": 7,
+                "max": 8,
+                "note": "Performance and context was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "Agent usability was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Trigger language is still somewhat technical for non-bioinformatics users."
+            },
+            "security": {
+                "score": 12,
+                "max": 12,
+                "note": "Security was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "maintainability": {
+                "score": 12,
+                "max": 12,
+                "note": "Maintainability was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "agent_specific": {
+                "score": 18,
+                "max": 20,
+                "note": "Repeat runs append manifest and run-history files by design."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 91.4,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Full demo workflow",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Produced 4 projected edges, 5 evidence rows, and 5 nodes.",
+                "basic": 38,
+                "specialized": 56,
+                "total": 94,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Gene-only network",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Produced 533 edges across 251 nodes and remained stable under a large result set.",
+                "basic": 37,
+                "specialized": 54,
+                "total": 91,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Empty target hit set",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Expected SKILL_EMPTY_DATA was surfaced cleanly with a recoverable error path.",
+                "basic": 37,
+                "specialized": 52,
+                "total": 89,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Visualization reuse",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Reused the saved .rda object and regenerated the PDF successfully.",
+                "basic": 37,
+                "specialized": 53,
+                "total": 90,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Cross-database focused full run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Produced 6 edges and 33 evidence rows under alternate dataset settings.",
+                "basic": 38,
+                "specialized": 55,
+                "total": 93,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 37.6,
+        "dynamic_weighted": 54.8,
+        "score": 92,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "Clear scope boundary between database-driven ceRNA lookup and expression-based inference.",
+        "Strong CLI validation and path-containment logic for output locations and plot filenames.",
+        "Modular R implementation with deterministic seed handling, bundled tests, and provenance outputs.",
+        "Visualization reuse now matches the saved-object workflow and is covered by regression testing."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Maintain regression coverage",
+            "observed_in": [],
+            "problem": "No blocking issue was identified, but continued regression coverage is needed before public distribution.",
+            "root_cause": "Data Analysis skills depend on local package and data assumptions that can drift.",
+            "fix": "Keep smoke tests and example inputs synchronized with each release."
+        }
+    ]
+}

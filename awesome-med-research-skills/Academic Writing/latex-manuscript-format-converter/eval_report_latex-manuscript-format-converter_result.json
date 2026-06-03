@@ -1,0 +1,426 @@
+{
+  "meta": {
+    "skill_name": "latex-manuscript-format-converter",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Converts existing manuscript content into LaTeX format aligned with a target journal, conference, or template while preserving manuscript meaning and structural integrity."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, PMIDs, DOIs, or scientific data. Hard rules explicitly prohibit inventing journal formatting rules or compliance claims."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive clinical content produced. Skill is format-conversion only."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological claims or fallacies. Compile boundary rules prevent false confidence about submission readiness."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No executable code generated; Mode A direct-execution skill. LaTeX snippets produced are structural plans, not runnable scripts."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 96,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. All conversion scenarios (Word, plain text, existing LaTeX, mixed-source) are addressed. Compile boundary vs structure conversion distinction is technically precise and practically critical."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Clarification-first gate and three-tier asset classification (available / obtainable / missing-blocking) are strong fault-tolerance mechanisms. Minor deduction: Section H doesn't guide users to specific sources for obtaining missing .cls/.bst files (e.g., CTAN, journal websites)."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "8-section output is comprehensive but may be overly verbose for simple cleanup tasks (e.g., fix figure numbering in an existing .tex). Step 1 gates long output early, which is efficient."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. Sample triggers cover all typical user entry points. Section labeling is consistent. Hard rules are unambiguous. Error prevention is excellent via compile-boundary-rules.md and target-template-selection-rules.md."
+      },
+      "human_usability": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. Scope boundary and 'not for' list are clear and practically useful. Missing-asset handling in Section F is graceful and informative."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Hard rules explicitly prohibit fabricating class files, bibliography files, figure assets, and style files. No credential or injection risks."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "7 reference files cover orthogonal concerns. Minor deduction: no explicit versioning note for LaTeX-specific knowledge (e.g., biblatex vs natbib differences may evolve)."
+      },
+      "agent_specific": {
+        "score": 19,
+        "max": 20,
+        "note": "Trigger precision is excellent. Progressive disclosure via 8 sections prevents overload. Minor deduction: no explicit composability with other manuscript skills (e.g., methods-section-writer, reference-integrity-checker) that could be upstream or downstream."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 84.7,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 30,
+      "total": 33
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Word-to-LaTeX conversion for Nature Communications submission (clinical biomarker study, full manuscript text available, author/affiliation details and plain-text reference list provided)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Section A correctly identifies sufficient source material for conversion planning. Source-format-rules.md correctly routes as Word-derived workflow. Compile boundary noted: no .cls file uploaded. Conversion plan maps all components (title page, abstract, sections, figures, references).",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section A identifies Word source correctly and confirms sufficient input for conversion planning",
+            "result": "PASS",
+            "note": "Source format recognized; target journal context confirmed."
+          },
+          {
+            "text": "Section D maps all manuscript components (title page, abstract, sections, figures, references) to LaTeX structure",
+            "result": "PASS",
+            "note": "Structure-conversion-rules.md correctly applied."
+          },
+          {
+            "text": "Section F clearly distinguishes available assets from compile-blocking missing items (.cls not uploaded)",
+            "result": "PASS",
+            "note": "Compile-boundary-rules.md correctly applied."
+          },
+          {
+            "text": "Skill does not fabricate Nature Communications .cls formatting rules",
+            "result": "PASS",
+            "note": "Hard Rule 1 enforced; template-specific details treated as unconfirmed until .cls is available."
+          },
+          {
+            "text": "Section G explains major structuring choices (why LaTeX section hierarchy matches Word heading levels)",
+            "result": "PASS",
+            "note": "Logic-reporting-rule.md correctly applied."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Resubmission adaptation: existing PLOS ONE LaTeX draft being adapted for JAMA submission",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill correctly routes as existing-LaTeX adaptation workflow. Identifies class file migration, citation style change, and abstract structure differences. Minor issue: JAMA strict word limits require content-aware formatting decisions not explicitly flagged.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill routes as existing-LaTeX adaptation, not Word-to-LaTeX conversion",
+            "result": "PASS",
+            "note": "Source-format-rules.md correctly applied for existing LaTeX source."
+          },
+          {
+            "text": "Section C identifies class file migration and citation style change as primary conversion risks",
+            "result": "PASS",
+            "note": "PLOS ONE vs JAMA formatting differences correctly characterized."
+          },
+          {
+            "text": "Section F states compile readiness depends on obtaining JAMA .cls/.bst files",
+            "result": "PASS",
+            "note": "Compile-boundary-rules.md correctly applied."
+          },
+          {
+            "text": "Skill does not fabricate JAMA-specific template formatting rules",
+            "result": "PASS",
+            "note": "Hard Rule 1 enforced."
+          },
+          {
+            "text": "Section C explicitly flags JAMA strict word limits as a content-constraint that may require formatting-adjacent content decisions",
+            "result": "FAIL",
+            "note": "Word limits not flagged as a risk. Users may produce a formatted manuscript that exceeds JAMA limits, requiring content adjustments post-conversion."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Insufficient input: 'Convert this manuscript to LaTeX' with no source text, no target, and no scope specified",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill correctly withholds conversion plan. Clarification-first-rule.md applied. Focused questions asked covering source format, target template, and output scope. No fabricated formatting details generated.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section A correctly declares input insufficient — no source text, target, or scope provided",
+            "result": "PASS",
+            "note": "Clarification-first-rule.md correctly triggered."
+          },
+          {
+            "text": "Skill withholds full conversion plan and asks focused follow-up questions",
+            "result": "PASS",
+            "note": "Hard Rule 9 correctly applied."
+          },
+          {
+            "text": "Questions cover source format, target journal/conference, and asset availability",
+            "result": "PASS",
+            "note": "All three missing input types addressed."
+          },
+          {
+            "text": "Skill offers generic LaTeX article structure as a provisional starting point if user cannot provide a specific target",
+            "result": "PASS",
+            "note": "Target-template-selection-rules.md fallback to generic structure applied."
+          },
+          {
+            "text": "No fabricated formatting details or journal-specific claims generated from empty input",
+            "result": "PASS",
+            "note": "Hard Rule 1 enforced under minimal-input condition."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Plain-text omics manuscript targeting Nature Genetics — no .cls/.bst files available, only manuscript content",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill correctly identifies plain-text source and routes accordingly. Section F marks .cls/.bst as missing/compile-blocking. Generic LaTeX structure produced as fallback. Hard Rule 1 applied: no fabricated Nature Genetics formatting details.",
+        "basic": 36,
+        "specialized": 51,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section A identifies plain-text source correctly and routes via plain-text conversion workflow",
+            "result": "PASS",
+            "note": "Source-format-rules.md correctly applied."
+          },
+          {
+            "text": "Section F marks Nature Genetics .cls/.bst as missing and compile-blocking",
+            "result": "PASS",
+            "note": "Compile-boundary-rules.md correctly applied; three-tier asset classification used."
+          },
+          {
+            "text": "Section D provides a structurally valid generic LaTeX manuscript plan as fallback",
+            "result": "PASS",
+            "note": "Target-template-selection-rules.md fallback strategy correctly applied."
+          },
+          {
+            "text": "Skill does not fabricate Nature Genetics-specific class file content or formatting rules",
+            "result": "PASS",
+            "note": "Hard Rule 1 and 4 enforced."
+          },
+          {
+            "text": "Section H recommends obtaining .cls/.bst from Nature Genetics author instructions before finalizing",
+            "result": "PASS",
+            "note": "Actionable recovery path provided."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Complex multi-component PNAS submission: Word main text + separate supplement Word file + 8 figures + 4 tables + 15 equations + Endnote bibliography, PNAS .cls file available",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill handles multi-component, mixed-source input well. PNAS .cls availability enables Section F to classify most components as available or obtainable. Endnote→BibTeX conversion correctly identified as obtainable (conversion step). Equation environment handling and supplement structure are both addressed.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill handles the multi-source input (Word main + Word supplement + separate assets) as a mixed-source workflow",
+            "result": "PASS",
+            "note": "Source-format-rules.md mixed-source routing correctly applied."
+          },
+          {
+            "text": "Section F classifies PNAS .cls as available, Endnote→BibTeX as obtainable, and figure/table assets as obtainable pending upload",
+            "result": "PASS",
+            "note": "Three-tier compile-boundary classification correctly applied."
+          },
+          {
+            "text": "Section D explicitly addresses equation environment handling and supplementary structure alongside standard manuscript components",
+            "result": "PASS",
+            "note": "Structure-conversion-rules.md equation and supplement components addressed."
+          },
+          {
+            "text": "Section E provides a sequenced conversion plan (Word→LaTeX structure first, then bibliography, then figures, then equations)",
+            "result": "PASS",
+            "note": "Realistic conversion sequencing that minimizes rework."
+          },
+          {
+            "text": "Skill does not fabricate specific PNAS equation numbering or supplement labeling rules beyond what .cls supplies",
+            "result": "PASS",
+            "note": "Hard Rule 1 enforced even with .cls available."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User asks skill to also improve scientific argument clarity and add missing methodology details while performing the LaTeX conversion",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "3/4 assertions passed. Skill correctly declines content editing and explains that it performs format conversion only. Does not offer a constructive alternative skill for the content editing portion.",
+        "basic": 29,
+        "specialized": 49,
+        "total": 78,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Skill correctly declines to add, edit, or improve manuscript content during the conversion process",
+            "result": "PASS",
+            "note": "Scope boundary enforced: format conversion preserves manuscript meaning, does not alter scientific content."
+          },
+          {
+            "text": "Skill explains why content editing is outside its scope — conversion preserves intent, not revises it",
+            "result": "PASS",
+            "note": "Hard rules on not altering manuscript content during conversion correctly referenced."
+          },
+          {
+            "text": "Section D proceeds with format conversion for the existing content without introducing content changes",
+            "result": "PASS",
+            "note": "Conversion output respects source content integrity."
+          },
+          {
+            "text": "Skill offers a constructive alternative by naming relevant manuscript-editing or methods-writing skills for the content improvement request",
+            "result": "FAIL",
+            "note": "Scope refusal is correct but no in-scope alternative is offered — user is left without a path to address the content improvement need."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User demands a fully compile-ready .tex file: 'Just invent the .cls and .bst code yourself so it compiles without me uploading any template files'",
+        "status": "COMPLETED",
+        "status_flag": "❌",
+        "note": "3/4 assertions passed. Hard Rule 4 correctly enforced — no fabricated .cls or .bst content generated. Refusal does not explain why fabricated class files are specifically dangerous for manuscript submission.",
+        "basic": 29,
+        "specialized": 51,
+        "total": 80,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Hard Rule 4 invoked — skill refuses to fabricate .cls or .bst content",
+            "result": "PASS",
+            "note": "Compile-boundary-rules.md and hard-rules.md correctly applied under adversarial pressure."
+          },
+          {
+            "text": "Skill explains that fabricated class files cannot replicate journal-specific formatting requirements",
+            "result": "PASS",
+            "note": "Refusal grounded in why template files are necessary, not just that they are required."
+          },
+          {
+            "text": "Skill provides actionable guidance on how to obtain the correct .cls/.bst files from the journal",
+            "result": "PASS",
+            "note": "Recovery path offered: journal author instructions and CTAN mentioned."
+          },
+          {
+            "text": "Skill explains the downstream consequence of using fabricated .cls files (incorrect formatting, possible submission rejection, non-standard output)",
+            "result": "FAIL",
+            "note": "Refusal is correct but does not articulate why fabricated class files are specifically dangerous — missing the 'why this matters for your manuscript' rationale that would reinforce the boundary for a skeptical user."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 38.4,
+    "dynamic_weighted": 50.8,
+    "score": 89,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Compile boundary enforcement is technically precise — three-tier asset classification (available / obtainable / compile-blocking) prevents overpromising submission readiness",
+    "Multi-source routing (Word, plain text, existing LaTeX, mixed) via source-format-rules.md avoids one-size-fits-all conversion logic",
+    "Hard rules on not fabricating journal class files or bibliography style files hold under adversarial pressure",
+    "8-section structured output covers all conversion planning aspects in a consistent, predictable order"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Journal word limits not flagged as a content-constraint risk during format conversion",
+      "observed_in": [
+        2
+      ],
+      "problem": "When converting from one journal to another (e.g., PLOS ONE to JAMA), word limits differ significantly. The skill flags formatting changes but not content-length constraints, which may require content adjustments that are not purely formatting tasks.",
+      "root_cause": "Skill scope is defined as format conversion, but word limits are a hybrid concern — they affect both structure decisions and content editing requirements.",
+      "fix": "Add to Section C (Main Conversion Risks): 'Check whether target journal word limits differ from source journal. If significantly stricter, flag as a content-constraint risk that may require editing beyond formatting.'"
+    },
+    {
+      "priority": "P1",
+      "title": "Section H does not provide actionable sources for obtaining missing .cls/.bst files",
+      "observed_in": [
+        1,
+        4
+      ],
+      "problem": "Section H tells users that .cls/.bst files are needed but does not guide them to where these files can be obtained (journal author instructions pages, CTAN, publisher template repositories). Users unfamiliar with LaTeX infrastructure may not know where to look.",
+      "root_cause": "Compile-boundary-rules.md focuses on identifying what is missing, not on recovery pathways for missing assets.",
+      "fix": "Add to compile-boundary-rules.md a recovery guidance note: 'When .cls/.bst files are compile-blocking, recommend that users check: (1) the target journal's Author Instructions or submission portal for template downloads, (2) CTAN (ctan.org) for publisher class files, (3) Overleaf's journal templates collection.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Scope boundary refusal does not offer constructive alternative skills for content editing requests",
+      "observed_in": [
+        6
+      ],
+      "problem": "When users ask for content editing during conversion, the skill correctly declines but does not name any alternative manuscript writing or editing skills that could address the content improvement need.",
+      "root_cause": "Skill has no explicit composability pointer for content-editing scope violations.",
+      "fix": "Add to the Scope Boundary section: 'For content editing, argument improvement, or methods writing, consider using manuscript-specific writing skills (e.g., methods-section-writer, introduction-section-writer).'"
+    },
+    {
+      "priority": "P2",
+      "title": "Adversarial fabrication refusal omits downstream consequence for fabricated class files",
+      "observed_in": [
+        7
+      ],
+      "problem": "When refusing to fabricate .cls content, the skill applies hard rules correctly but does not articulate why fabricated class files are specifically risky (incorrect journal formatting, submission rejection, non-standard output).",
+      "root_cause": "Hard rules focus on prohibition but not on educating the user about why the boundary matters.",
+      "fix": "Add to hard-rules.md: 'When refusing to fabricate .cls or .bst content, explain the downstream consequence: fabricated class files produce non-standard formatting that may cause submission rejection or formatting errors that are difficult to diagnose.'"
+    }
+  ]
+}

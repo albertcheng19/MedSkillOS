@@ -1,0 +1,261 @@
+{
+  "meta": {
+    "skill_name": "poster-storyline-builder",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Simple",
+    "n_inputs": 3,
+    "description": "Reorganizes a paper into a storyline suitable for scientific posters. Plans section structure, title hierarchy, figure selection, and live-explanation flow for academic conference posters."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated results or conclusions. Hard rules explicitly prohibit recommending figures not mentioned in the user's study and fabricating results not in the source material."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No clinical advice or prescriptive recommendations. Scope limited to poster layout planning."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological claims. Poster layout advice is evidence-based communication design rather than scientific methodology."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No executable code generated; Mode A direct-execution skill."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 87,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "5-step workflow covers story extraction, figure selection, text compression, layout plan, and design tips. Space allocation table and per-section word count targets are specific and actionable. Minor deduction: no mention of conference-specific poster format variations (portrait/landscape, A0/A1, digital vs physical) that meaningfully affect layout decisions."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Input validation correctly triggers follow-up questions when source material is too sparse. Hard rules prevent figure fabrication. Minor deductions: no explicit flagging when primary result is unquantified (affects figure selection quality), and font size recommendations are not verified against specific conference templates."
+      },
+      "performance_context": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. SKILL.md is compact (~133 lines). Reference file is a stub (3 lines). Step 1 story extraction runs before layout plan generation, which is efficient."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "Trigger phrases are specific and cover all major entry points. Poster section structure ASCII diagram is highly readable. Minor deductions: no confirmation step between story extraction and full layout plan delivery (user cannot correct Step 1 interpretation before Step 4 output), and no explicit guidance for when user provides too many figures to prioritize."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong 'When to Use' section with 5 specific scenarios. Out-of-scope note about design tools prevents scope confusion. Minor deduction: no clear path described when user has only a partial manuscript (e.g., abstract only, no methods or figure list)."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Hard rules explicitly prohibit fabricating results and recommending unmentioned figures. No credential or injection risks."
+      },
+      "maintainability": {
+        "score": 8,
+        "max": 12,
+        "note": "references/guidelines.md is a stub (3 lines, no substantive content). All functional content is inline in SKILL.md without modular separation. Low modularity — adding conference-specific guidelines would require editing SKILL.md directly. Significant maintainability deduction."
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Trigger precision is excellent. Progressive disclosure via 5 steps prevents output overload. Idempotent: same abstract → same layout plan. Minor deductions: no composability with graphical-abstract-generator or slide-deck-for-lab-meeting despite natural workflow adjacency; and escape hatch for unknown conference format is not explicitly described."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.3,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 14,
+      "total": 15
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Phase 2 RCT poster for ASH: BTKi vs control in relapsed/refractory CLL (ORR 78% vs 45%, p<0.001, n=120, 36×48 inch portrait). Figures: KM curves, waterfall plot, AE table.",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Step 1 correctly extracts all 5 story elements. Figure plan: KM curves (must-include primary result), waterfall plot (should-include), AE table (convert to visual bar chart or summarize in text). Layout plan with 4-column structure, word count targets per section, take-home sentence, and design tips produced.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Step 1 correctly identifies all 5 story elements (problem, objective, approach, answer, implication)",
+            "result": "PASS",
+            "note": "CLL unmet need, BTKi ORR objective, phase 2 RCT design, 78% vs 45% finding, and treatment implication all correctly extracted."
+          },
+          {
+            "text": "Figure plan recommends 2-4 figures maximum with clear must-include/should-include/cut guidance",
+            "result": "PASS",
+            "note": "Step 2 figure selection applied: KM curves (must-include), waterfall plot (should-include), AE table (recommended to convert or summarize)."
+          },
+          {
+            "text": "Section plan includes word count targets per the text compression table",
+            "result": "PASS",
+            "note": "Step 3 word count targets correctly applied to all sections."
+          },
+          {
+            "text": "Take-home sentence is quantitative and specific (includes primary endpoint numbers)",
+            "result": "PASS",
+            "note": "Take-home includes ORR numbers rather than generic 'drug X improves outcomes.'"
+          },
+          {
+            "text": "No results or conclusions fabricated beyond what was provided in the input",
+            "result": "PASS",
+            "note": "Hard rule enforced; layout plan based entirely on user-provided data."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Basic science poster for AACR: CRISPR screen identifying PARP1 as synthetic lethal partner with BRCA2 in TNBC (10-fold olaparib sensitization). Figures: volcano plot, cell viability curves, western blot.",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Layout plan adapted for basic science: Methods column given more space than clinical RCT (novel CRISPR methodology). Volcano plot as primary results/methods figure, viability curves as main result, western blot as supporting. Minor: layout does not explicitly note that AACR-specific size requirements should be verified.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Story extracted correctly for basic science format (biological problem, mechanistic objective, experimental approach, key finding, translational implication)",
+            "result": "PASS",
+            "note": "Step 1 adapted correctly for basic science vs clinical study framing."
+          },
+          {
+            "text": "Methods section allocated more poster space than standard clinical RCT layout due to novel CRISPR methodology",
+            "result": "PASS",
+            "note": "Space allocation correctly adapted for methods-heavy basic science poster."
+          },
+          {
+            "text": "Figure plan prioritizes cell viability curves as primary result figure with volcano plot as context",
+            "result": "PASS",
+            "note": "Must-include correctly identified as the figure showing the quantitative sensitization result."
+          },
+          {
+            "text": "Layout plan notes that AACR conference-specific poster format should be verified",
+            "result": "FAIL",
+            "note": "No conference-specific verification note included. General A0 format used without flagging potential AACR format requirements."
+          },
+          {
+            "text": "No figures recommended beyond the three user-specified figures",
+            "result": "PASS",
+            "note": "Hard rule against recommending unmentioned figures correctly enforced."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Sparse input: 'Help me make a poster about my research on immune cells and cancer'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Hard rule triggered: source material too sparse to create a layout. Focused questions asked covering primary result with numbers, available figures, conference/size, and primary audience. No layout plan produced from vague 'immune cells and cancer' topic.",
+        "basic": 35,
+        "specialized": 49,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill correctly withholds layout plan from topic-only sparse input",
+            "result": "PASS",
+            "note": "Hard rule ('if source material is too sparse, ask for key finding and methods before proceeding') correctly applied."
+          },
+          {
+            "text": "Focused questions cover primary result (with numbers), available figures, conference format, and audience type",
+            "result": "PASS",
+            "note": "Step 2 figure selection and Step 1 story extraction prerequisites correctly identified."
+          },
+          {
+            "text": "No fabricated immune cell or cancer results generated from the vague input",
+            "result": "PASS",
+            "note": "Hard rule against fabricating results enforced."
+          },
+          {
+            "text": "Response explains what information is needed and why each piece matters for layout planning",
+            "result": "PASS",
+            "note": "Users understand why specificity is required for a useful layout plan."
+          },
+          {
+            "text": "Provisional section structure offered as a starting template for common oncology posters",
+            "result": "PASS",
+            "note": "Generic template offered as a provisional starting point while awaiting specific content."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.8,
+    "dynamic_weighted": 52.4,
+    "score": 87,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Space allocation guidelines (Results 35-45%, Introduction 10-15%) are practically calibrated and rare in academic communication tools",
+    "Figure selection strategy (Must-include/Should-include/Cut-for-poster) converts vague figure priority decisions into actionable guidance",
+    "Text compression table with per-section word count targets gives users measurable goals rather than generic advice",
+    "Design accessibility tip (colorblind-safe color scheme, avoid red/green) addresses a commonly overlooked poster quality issue"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "references/guidelines.md is a stub with no substantive content — contributes nothing to skill quality",
+      "observed_in": [],
+      "problem": "The only reference file contains 3 lines ('Academic Poster Guidelines', 'Visual Design Principles') with no actual content. This creates false confidence about the skill's reference coverage and contributes nothing to output quality.",
+      "root_cause": "Reference file appears to be a placeholder that was never populated.",
+      "fix": "Either delete references/guidelines.md or replace it with substantive content: conference-specific poster format table (ASH, ASCO, AACR, ISMB common sizes and format requirements), colorblind-accessible color palette guidance, and font size requirements for print poster readability."
+    },
+    {
+      "priority": "P1",
+      "title": "No composability with graphical-abstract-generator or slide-deck-for-lab-meeting despite natural workflow adjacency",
+      "observed_in": [],
+      "problem": "Poster planning is a natural precursor to graphical abstracts (same figure curation logic) and shares content with slide decks. Users who need both a poster and a talk frequently run these tasks sequentially, but no workflow guidance is provided.",
+      "root_cause": "Skill designed as a standalone tool without pipeline positioning.",
+      "fix": "Add a 'Position in Research Communication Pipeline' note: 'This skill creates the poster content plan. For graphical abstracts, use graphical-abstract-generator (shares the figure selection rationale). For conference talk slides, use slide-deck-for-lab-meeting (builds on the same storyline structure).'"
+    },
+    {
+      "priority": "P2",
+      "title": "Conference-specific format variations not addressed — font and space recommendations may not match conference requirements",
+      "observed_in": [
+        2
+      ],
+      "problem": "Layout plan uses A0/36×48 inch as default without flagging when conference-specific dimensions (e.g., ASCO 48×48 inch, ASH 44×44 inch, or digital e-poster formats) differ. Font size recommendations (72pt title, 36pt headers) are best practice but not conference-validated.",
+      "root_cause": "Design guidance is general rather than conference-specific.",
+      "fix": "Add a conference verification note at the start of Step 4: 'Font sizes and section proportions are calibrated for standard A0 or 36×48 inch posters. Always verify poster dimensions, font minimums, and mandatory sections against the specific conference poster guidelines before printing.'"
+    }
+  ]
+}

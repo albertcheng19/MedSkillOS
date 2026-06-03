@@ -1,0 +1,413 @@
+{
+  "meta": {
+    "skill_name": "prognostic-biomarker-protocol-designer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Designs discovery, modeling, and validation workflows for prognostic biomarkers in biomedical and clinical research. Always use this skill when the user needs a prognostic biomarker study blueprint rather than a diagnostic test protocol, predictive biomarker design, treatment rec"
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies detected; ethical compliance requirements noted where applicable."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A skill"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 93,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "SKILL.md at 422 lines is the longest in the collection — above threshold"
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Comprehensive biomarker protocol coverage; SKILL.md length is the main performance concern"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Strong score (15/16); minor gaps noted."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Strong score (11/12); minor gaps noted."
+      },
+      "agent_specific": {
+        "score": 20,
+        "max": 20,
+        "note": "Twelve reference modules covering all aspects of prognostic biomarker design; time-to-event endpoint discipline is stron"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.7,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Canonical input for prognostic-biomarker-protocol-designer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 55,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Variant A input for prognostic-biomarker-protocol-designer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 55,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Variant B input for prognostic-biomarker-protocol-designer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Edge input for prognostic-biomarker-protocol-designer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Stress input for prognostic-biomarker-protocol-designer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Scope Boundary input for prognostic-biomarker-protocol-designer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Adversarial input for prognostic-biomarker-protocol-designer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for adversarial input",
+            "result": "FAIL",
+            "note": "Minor deviation observed"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.2,
+    "dynamic_weighted": 52.6,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Time-to-event endpoint discipline (Cox/Kaplan-Meier alignment) is rigorously enforced",
+    "Candidate marker strategy (single marker vs panel vs model) is explicitly specified with selection logic",
+    "Internal and external validation requirements clearly separated in the validation architecture",
+    "Risk stratification framework output is a unique practical deliverable for clinical translation planning"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "SKILL.md at 422 lines significantly exceeds recommended threshold",
+      "observed_in": [],
+      "problem": "At 422 lines, this SKILL.md is the longest in the collection and loads fully into context on every trigger, creating significant token cost.",
+      "root_cause": "Comprehensive coverage of prognostic biomarker design required extensive instruction content.",
+      "fix": "Move Hard Rules to references/hard-rules.md, Execution Steps to references/workflow-step-template.md, and Workload Configuration details to references/workload-configurations.md. Target 250-300 lines for SKILL.md."
+    },
+    {
+      "priority": "P1",
+      "title": "One assertion failure: competing events not addressed in simple survival endpoint case",
+      "observed_in": [
+        6
+      ],
+      "problem": "When a simple time-to-death endpoint was used without competing events consideration, the skill did not flag the potential competing events issue in a cancer cohort.",
+      "root_cause": "Competing events check is defined in endpoint-definition-framework.md but not triggered for all survival endpoint scenarios.",
+      "fix": "Add a competing events trigger: for any cancer or cardiovascular survival endpoint, automatically check whether competing causes of death or competing events are plausible and require Fine-Gray or cause-specific hazard modeling."
+    }
+  ]
+}

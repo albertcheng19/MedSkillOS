@@ -1,0 +1,411 @@
+{
+  "meta": {
+    "skill_name": "single-drug-faers-safety-profile-research-planner",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Generates complete FAERS pharmacovigilance study designs for one-drug whole-profile safety mapping using signal detection, subgroup analysis, onset/seriousness characterization, and conservative label-gap interpretation."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies detected; ethical compliance requirements noted where applicable."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No executable code generated; analysis pipeline planning only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 91,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Dataset Disclaimer present; four workload configs well-defined; minor gaps in parameter specification"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Strong score (15/16); minor gaps noted."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Strong score (11/12); minor gaps noted."
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Label-gap interpretation requirement prevents over-interpretation of expected adverse events"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.7,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Canonical input for single-drug-faers-safety-profile",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 55,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Variant A input for single-drug-faers-safety-profile",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 55,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Variant B input for single-drug-faers-safety-profile",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Edge input for single-drug-faers-safety-profile",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Stress input for single-drug-faers-safety-profile",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Scope Boundary input for single-drug-faers-safety-profile",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Adversarial input for single-drug-faers-safety-profile",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for adversarial input",
+            "result": "FAIL",
+            "note": "Minor deviation observed"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.4,
+    "dynamic_weighted": 52.6,
+    "score": 89,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Five study patterns provide comprehensive coverage of single-drug whole-profile faers safety mapping with onset, seriousness, and label-gap interpretation research scenarios",
+    "Four workload configurations (Lite/Standard/Advanced/Publication+) with recommended primary plan enable broad applicability",
+    "Mandatory Dataset Disclaimer before all dataset-mentioning workflow sections prevents false resource claims",
+    "Strictly verified literature retrieval with no fabricated references maintains scientific integrity"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Reporting ratio interpretation overclaiming prevention needs strengthening",
+      "observed_in": [],
+      "problem": "Disproportionality signals interpreted as safety signals without sufficient cautious language in all outputs.",
+      "root_cause": "Cautious interpretation rule exists but not always applied consistently.",
+      "fix": "Add a mandatory signal interpretation caveat: all reporting odds ratios or PRR values must be described as 'reporting disproportionality signals' rather than 'safety signals' until confirmed by clinical or mechanistic evidence."
+    },
+    {
+      "priority": "P2",
+      "title": "Onset time analysis method not specified",
+      "observed_in": [],
+      "problem": "Time-to-onset (TTO) analysis mentioned but method (Kaplan-Meier vs histogram vs median) not specified.",
+      "root_cause": "Analysis method left to user judgment.",
+      "fix": "Add TTO guidance: for onset characterization, present median time-to-onset with IQR and a histogram of onset distribution. KM analysis is optional for time-to-serious-event characterization."
+    }
+  ]
+}

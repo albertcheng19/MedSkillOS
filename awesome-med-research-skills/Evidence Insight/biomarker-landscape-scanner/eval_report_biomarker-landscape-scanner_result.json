@@ -1,0 +1,451 @@
+{
+  "meta": {
+    "skill_name": "biomarker-landscape-scanner",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Scans the biomarker landscape of a disease area by type, use case, validation status, and maturity level. Polished: Step 1.5 scope check with Targeted Analysis Mode; broad-scan class grouping to prevent completeness theater; composability handoffs; retrieval fallback; provisional maturity label for rapidly evolving fields."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard rules 13-14, 17 explicitly prohibit fabricating references, PMIDs, DOIs, and conversion of vague field memory to citation-like claims. Hard rule 17 requires labeling unverified claims as evidence-limited. Section J (References) has citation integrity requirements."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Explicit out-of-scope redirect for patient-specific lab interpretation. Field-level evidence map, not clinical decision tool. Hard rules 1-2 prevent exploratory association from being presented as clinical maturity."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Five-tier maturity system with explicit minimum evidence standards and upgrade/downgrade rules is methodologically rigorous. Hard rule 8 requires representing conflicts directly rather than averaging contradictory evidence."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A direct execution skill; no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 85,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. 10-section output (A-J) covers all stated functions: biomarker inventory, type/specimen/use-case classification, validation level + maturity tier assignment, conflict detection, translation readiness, references. 5-tier maturity system with upgrade/downgrade rules embedded directly in SKILL.md is the most rigorous biomarker maturity framework in Evidence Insight category."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Fault Tolerance (3/4): input validation + out-of-scope redirect; Step 1 narrows broad topics. Error Reporting (4/4): hard rule 17 explicitly requires labeling unverified claims; Section J citation rules provide post-output auditability. Recoverability (3/4): stateless; Section I self-critical review."
+      },
+      "performance_context": {
+        "score": 5,
+        "max": 8,
+        "note": "Token Cost (2/4): 10 sections + multiple tables across C-G will produce the heaviest output in Evidence Insight category; no scope-compression guidance for single-biomarker-type scans or targeted subdomain queries. Execution Efficiency (3/4): 8-step workflow logical; reference modules named at specific steps."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "Learnability (4/4): 5 sample triggers across diverse disease areas; explicit quality standard section. Consistency (4/4): mandatory A-J sections; strict biomarker maturity table embedded in SKILL.md. Feedback Design (2/4): no check-in before producing 10-section analysis; full output in one pass. Error Prevention (4/4): 17 hard rules (most in Evidence Insight category) + self-critical review + conflict detection."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Discoverability (4/4): 5 sample triggers; explicit 'what-not-to-do' in skill function section; quality standard section. Forgiveness (3/4): scope redirect; maturity tier assignment rules prevent inflation."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. No eval/exec; hard rule 13 prohibits fabrication; Section J citation requirements enforce output integrity."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Modularity (4/4): 8 reference files with distinct operational scopes. Modifiability (4/4): each reference file independently updatable. Testability (3/4): 10-section structure supports assertion-based evaluation; maturity tier assignments are testable criteria."
+      },
+      "agent_specific": {
+        "score": 14,
+        "max": 20,
+        "note": "Trigger Precision (4/4): 5 triggers with specific disease-biomarker contexts. Progressive Disclosure (2/4): no check-in before 10-section analysis. Composability (2/4): no explicit composability with basic-discovery-translational-opportunity-finder for Tier 4 candidates or evidence-level-ranker. Idempotency (3/4): same input → same map structure; minor prose variance. Escape Hatches (3/4): out-of-scope redirect; Section I self-critical; refuses to fabricate or assign Tier 4/5 casually."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 80.7,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "NSCLC immunotherapy response biomarker landscape — PD-L1, TMB, MSI, transcriptomic signatures",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All 10 sections produced. PD-L1 assigned Tier 4-5 with clone-specific assay context (22C3 vs SP142 discordance noted). TMB Tier 3 (repeated support; threshold instability). MSI/MMR Tier 3-4 for NSCLC. Transcriptomic signatures Tier 1-2. Section E identifies PD-L1 clone conflicts. Validation level vs maturity tier correctly distinguished.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 10 mandatory sections (A through J) are present",
+            "result": "PASS",
+            "note": "Topic Framing through References all produced."
+          },
+          {
+            "text": "Validation level and maturity tier assigned separately for each biomarker class",
+            "result": "PASS",
+            "note": "Hard rule 5 applied: PD-L1 has high validation level but maturity tier qualified by assay context; TMB has external validation but remains Tier 3 due to threshold instability."
+          },
+          {
+            "text": "PD-L1 clone assay discordance (22C3 vs SP142 vs SP263) identified as a conflict in Section E",
+            "result": "PASS",
+            "note": "Conflict-and-inconsistency-rules.md applied: platform/assay mismatch identified as main source of PD-L1 result heterogeneity."
+          },
+          {
+            "text": "No biomarker assigned Tier 4 or 5 without explicit multi-cohort support and workflow plausibility evidence",
+            "result": "PASS",
+            "note": "Hard rules 12 and 6 applied; maturity assignments are conservative per the maturity framework upgrade rules."
+          },
+          {
+            "text": "Section J references do not contain fabricated PMIDs or DOIs",
+            "result": "PASS",
+            "note": "Hard rule 13 upheld; citation certainty noted where specific trial names or PMIDs could not be confidently confirmed."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Pancreatic cancer early detection biomarkers — CA19-9, liquid biopsy ctDNA, protein panels",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "CA19-9 correctly assigned Tier 3 (widely used but known sensitivity/specificity limitations for early detection). Liquid biopsy ctDNA Tier 1-2 (low sensitivity for early-stage PDAC). Various protein panel proposals Tier 1. Section E identifies spectrum bias in retrospective early detection studies. Hard rule 7 applied to prevent AUROC overclaiming.",
+        "basic": 33,
+        "specialized": 49,
+        "total": 82,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 10 mandatory sections present",
+            "result": "PASS",
+            "note": "All sections produced."
+          },
+          {
+            "text": "Hard rule 7 applied: strong AUROC in single retrospective cohort not equated with biomarker maturity",
+            "result": "PASS",
+            "note": "Section C: multiple protein panels with AUROCs 0.80-0.90 correctly assigned Tier 1 (no meaningful independent validation)."
+          },
+          {
+            "text": "CA19-9 limitations for early detection specifically addressed (not just stated as 'validated biomarker')",
+            "result": "PASS",
+            "note": "Section C/E: CA19-9 limitations noted — normal in ~10% of PDAC patients (Lewis antigen negative), elevated in benign biliary disease. Specificity for early-stage addressed."
+          },
+          {
+            "text": "Section E identifies spectrum bias in early detection studies as a consistency problem",
+            "result": "PASS",
+            "note": "Conflict-and-inconsistency-rules.md applied: retrospective case-control studies over-represent advanced cancer; spectrum bias inflates early detection performance metrics."
+          },
+          {
+            "text": "Section J references do not fabricate specific liquid biopsy trial names or validation claims",
+            "result": "PASS",
+            "note": "Hard rule 13 upheld; evidence-limited labels applied where specific validation studies could not be confirmed."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Sepsis prognosis and risk stratification biomarkers — conflicting evidence, heterogeneous population",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Hard rule 8 applied throughout: endpoint heterogeneity (28-day mortality vs organ failure vs ICU length of stay) identified as main conflict source. PCT and lactate assigned Tier 3-4; IL-6, presepsin, suPAR Tier 2-3. Conflicts represented directly — no false neutralizing. Section E is the most detailed section for this input.",
+        "basic": 33,
+        "specialized": 48,
+        "total": 81,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 10 mandatory sections present",
+            "result": "PASS",
+            "note": "All sections produced."
+          },
+          {
+            "text": "Hard rule 8 applied: contradictory evidence represented directly, not averaged away",
+            "result": "PASS",
+            "note": "Section E: PCT/lactate conflicting performance across different patient populations and treatment settings described; no false neutral position taken."
+          },
+          {
+            "text": "Endpoint heterogeneity (28-day mortality vs organ failure vs ICU length of stay) identified as main conflict source",
+            "result": "PASS",
+            "note": "Conflict-and-inconsistency-rules.md applied: endpoint mismatch listed as primary source of sepsis biomarker inconsistency."
+          },
+          {
+            "text": "PCT and lactate correctly assigned maturity tier with qualifications (not labeled as universal standard)",
+            "result": "PASS",
+            "note": "PCT and lactate assigned Tier 3-4 with setting-specific qualifications; not presented as universally deployable without context."
+          },
+          {
+            "text": "Section J does not fabricate specific RCT names or guideline citations for sepsis biomarkers",
+            "result": "PASS",
+            "note": "Hard rule 13 upheld; guideline-adjacent citations labeled with certainty qualifier."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Alzheimer's disease blood-based biomarkers — p-tau217, Aβ42/40, NfL by use case and maturity",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Rapidly evolving field. p-tau217 assigned Tier 3-4 (multi-cohort support; platform-specific assay development ongoing). Plasma Aβ42/40 Tier 3 (validated but platform sensitivity variation). NfL Tier 3 (monitoring; non-specific). Section B notes training knowledge caveat for this rapidly evolving field. Diagnostic vs staging vs monitoring use cases separated.",
+        "basic": 32,
+        "specialized": 47,
+        "total": 79,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 10 mandatory sections present",
+            "result": "PASS",
+            "note": "All sections produced."
+          },
+          {
+            "text": "Diagnostic, staging, monitoring use cases separated (not merged into one AD biomarker row)",
+            "result": "PASS",
+            "note": "Hard rule 2 applied: p-tau217 as staging/diagnosis biomarker kept separate from NfL as monitoring/neurodegeneration marker."
+          },
+          {
+            "text": "p-tau217 assigned maturity tier with platform context noted (Simoa vs mass spec vs Lumipulse)",
+            "result": "PASS",
+            "note": "Assay platform dependence correctly noted — maturity tier qualified by platform; universal deployment requires cross-platform standardization."
+          },
+          {
+            "text": "Section B includes caveat about rapidly evolving evidence landscape for blood-based AD biomarkers",
+            "result": "PASS",
+            "note": "Hard rule 17 applied: Section B notes evidence composition may have changed rapidly; user advised to verify with current literature."
+          },
+          {
+            "text": "NfL correctly identified as non-specific neurodegeneration marker (not AD-specific) in use-case classification",
+            "result": "PASS",
+            "note": "NfL specificity limitation for AD explicitly noted; use case limited to monitoring/staging rather than AD-specific diagnosis."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "All prostate cancer biomarkers across early, advanced, and treatment-resistant settings",
+        "status": "COMPLETED",
+        "status_flag": "⚠️",
+        "note": "Input is extremely broad. Step 1 correctly identifies scope challenge; output organized by disease stage as primary axis. PSA/PSA density assigned Tier 5 (routine clinical embedding). AR-V7 assigned Tier 4 (Guardant/Epic Sciences CLIA-certified test, treatment routing). Novel liquid biopsy Tier 1-2. However: Section C produces a long biomarker inventory that approaches 'completeness theater' for the advanced/CRPC section rather than decision-focused groupings.",
+        "basic": 28,
+        "specialized": 42,
+        "total": 70,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "PSA assigned Tier 5 based on explicit clinical embedding evidence",
+            "result": "PASS",
+            "note": "PSA correctly identified as clinically embedded; routine use in screening, staging, and treatment monitoring clearly stated."
+          },
+          {
+            "text": "Step 1 explicitly narrows the broad scope and states organizational approach before mapping",
+            "result": "PASS",
+            "note": "Section A: 'Extremely broad scope — organized by disease stage (localized, advanced, CRPC) as primary axis; novel biomarkers grouped by class.'"
+          },
+          {
+            "text": "Hard rule 10 applied: broad scan prioritizes structure and evidence hierarchy over completeness",
+            "result": "FAIL",
+            "note": "Section C CRPC section lists many novel candidates (7-10 entries) as Tier 1-2 exploratory signals in a flat format that resembles a literature list rather than a decision map. Output-section-guidance.md instruction to avoid completeness theater not fully enforced."
+          },
+          {
+            "text": "AR-V7 liquid biopsy assigned appropriate maturity tier with treatment context",
+            "result": "PASS",
+            "note": "AR-V7 correctly assigned Tier 4 — CLIA-certified assays available; used in enzalutamide/abiraterone response prediction in mCRPC."
+          },
+          {
+            "text": "Section J does not fabricate specific trial names for CRPC novel biomarkers",
+            "result": "PASS",
+            "note": "Hard rule 13 upheld; novel biomarker citations labeled with appropriate certainty qualifiers."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Patient-specific CA125 interpretation for ovarian cancer — out-of-scope request",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Out-of-scope redirect correctly produced. No clinical diagnosis or probability estimate given.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Out-of-scope redirect produced rather than attempting clinical diagnosis",
+            "result": "PASS",
+            "note": "Redirect: 'This skill maps biomarker evidence at the field level. Your request requires patient-specific lab interpretation...'"
+          },
+          {
+            "text": "No diagnostic conclusion about the individual patient is produced",
+            "result": "PASS",
+            "note": "No ovarian cancer probability estimate, differential diagnosis, or clinical recommendation generated."
+          },
+          {
+            "text": "No fabricated CA125 sensitivity/specificity data used to justify a clinical interpretation",
+            "result": "PASS",
+            "note": "Hard rules 13-14 upheld; no fabricated clinical performance data."
+          },
+          {
+            "text": "Redirect is concise without partial answering before redirecting",
+            "result": "PASS",
+            "note": "Redirect delivered directly without attempting a partial CA125 field survey first."
+          },
+          {
+            "text": "Request correctly identified as patient-specific clinical decision, not field-level biomarker mapping",
+            "result": "PASS",
+            "note": "Classification accurate: individual lab value + diagnosis question = patient care, not biomarker landscape scan."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "IL-6 serum biomarker claimed 'ready for clinical use' based on 5 papers with 95% sensitivity/specificity",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Hard rules 7, 12, 15, 16 triggered. 5 papers (likely retrospective, small n) = Tier 2 at best, not Tier 4-5. 95% sensitivity/specificity without detail on cohort, cutpoint, comparator is a red flag. User's 'clearly ready' framing not validated. Section E notes known IL-6 heterogeneity in sepsis literature.",
+        "basic": 33,
+        "specialized": 47,
+        "total": 80,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Hard rule 7 applied: performance metrics from 5 papers not equated with biomarker maturity",
+            "result": "PASS",
+            "note": "Section A: 'Five retrospective studies with stated performance metrics are insufficient for maturity claim without independent multi-cohort validation, comparator benchmarking, and assay standardization.'"
+          },
+          {
+            "text": "User's 'clearly ready for clinical use' framing is not validated",
+            "result": "PASS",
+            "note": "Section D maturity assignment: IL-6 assigned Tier 2 ('early validated candidate') based on described evidence profile; Tier 4/5 requires explicit multi-setting support."
+          },
+          {
+            "text": "Hard rule 12 applied: Tier 4/5 not assigned based on user assertion alone",
+            "result": "PASS",
+            "note": "'Never assign Tier 4 or Tier 5 language casually; those tiers require explicit evidence beyond repeated association.' Hard rule enforced."
+          },
+          {
+            "text": "Section E notes known IL-6 heterogeneity in sepsis literature (conflicting reports)",
+            "result": "PASS",
+            "note": "Conflict-and-inconsistency-rules.md applied: IL-6 heterogeneity across sepsis phenotypes, treatment timing, and cut-point instability noted."
+          },
+          {
+            "text": "Hard rule 16 applied: maturity not inferred from performance metrics or user-asserted importance",
+            "result": "PASS",
+            "note": "Section D: maturity tier assigned on basis of validation level, comparator evidence, and assay standardization — not on stated sensitivity/specificity figure."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.0,
+    "dynamic_weighted": 48.4,
+    "score": 82,
+    "max": 100,
+    "grade": "Limited Release",
+    "grade_symbol": "✅",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Five-tier biomarker maturity system with explicit minimum evidence standards, upgrade/downgrade rules, and 'validation level ≠ maturity tier' distinction is the most rigorous biomarker classification framework in Evidence Insight category",
+    "17 hard rules (most in Evidence Insight category) cover virtually all biomarker literature failure modes: citation-based ranking (#16), single-cohort performance conflation (#7), Tier 4/5 casual assignment (#12), and conflict-averaging (#8)",
+    "Section J (References with citation integrity requirements) is a unique output section that enforces post-output auditability not found in other Evidence Insight skills",
+    "Conflict-and-inconsistency-rules.md module provides 8 specific conflict-source categories (endpoint mismatch, platform mismatch, cut-point instability) enabling direct conflict representation rather than smoothed summaries",
+    "Use-case-first map organization in Section C prevents the common error of mixing diagnostic, prognostic, predictive, and monitoring claims into a flat undifferentiated biomarker list"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No progressive disclosure — 10-section analysis is the heaviest output in Evidence Insight",
+      "observed_in": [
+        1,
+        2,
+        5
+      ],
+      "problem": "All inputs trigger full 10-section analysis with multiple tables in one pass. For focused subdomain queries (e.g., 'just tell me about p-tau217'), the full output is disproportionate to the question.",
+      "root_cause": "SKILL.md mandates full A-J output structure without a simplified mode for single-biomarker or narrow-scope queries.",
+      "fix": "Add Step 1.5 scope check: determine whether input requires full field scan or targeted single-biomarker/subdomain analysis. Provide a 'Targeted Analysis Mode' (Sections A, C-partial, D, H, I only) for focused queries."
+    },
+    {
+      "priority": "P1",
+      "title": "Broad-scope stress inputs risk completeness theater in Section C",
+      "observed_in": [
+        5
+      ],
+      "problem": "For extremely broad scans (all prostate cancer biomarkers), Section C produces long enumeration lists that approach completeness theater rather than decision-useful groupings, despite hard rule 10 explicitly forbidding this.",
+      "root_cause": "Hard rule 10 instructs prioritizing structure over completeness but does not specify what structure looks like for very broad disease scans.",
+      "fix": "Add to output-section-guidance.md: 'For broad disease scans with 20+ biomarkers, group into a maximum of 5-7 classes in Section C rather than listing individually. Annotate representative examples per class with full detail; flag remaining as class members.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No composability with sibling Evidence Insight skills for Tier 4 biomarker paths",
+      "observed_in": [
+        1,
+        4
+      ],
+      "problem": "When a biomarker is identified as Tier 4 (near-translation candidate), there is no composability handoff to evidence-level-ranker or basic-discovery-translational-opportunity-finder for deeper analysis.",
+      "root_cause": "SKILL.md defines a standalone scope without downstream composability instructions.",
+      "fix": "Add Section H composability note: 'For Tier 4 candidates, see basic-discovery-translational-opportunity-finder for translational path mapping. For evidence quality ranking, see evidence-level-ranker.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Step 2 literature retrieval assumes live search capability without offline fallback",
+      "observed_in": [
+        1,
+        3,
+        4
+      ],
+      "problem": "Step 2 requires retrieving biomarker literature before mapping. Without live search, training knowledge is used without explicit labeling.",
+      "root_cause": "No fallback behavior specified for offline execution.",
+      "fix": "Add retrieval fallback: when live retrieval is unavailable, label Section B as 'based on training knowledge; user should conduct current PubMed/Embase search.' Provide sample search query."
+    },
+    {
+      "priority": "P2",
+      "title": "Rapidly evolving biomarker fields (AD blood biomarkers, liquid biopsy) need explicit evidence-age handling",
+      "observed_in": [
+        4
+      ],
+      "problem": "Blood-based AD biomarkers and liquid biopsy are changing faster than training data refresh cycles. Maturity tier assignments may be underestimated for recently validated biomarkers.",
+      "root_cause": "No evidence-age flagging mechanism beyond generic citation-certainty note.",
+      "fix": "Add to biomarker-maturity-framework.md: 'For fields with evidence published in the last 18 months, note maturity as provisional and recommend user verify against latest publications before acting on the map.'"
+    }
+  ]
+}

@@ -1,0 +1,333 @@
+{
+  "meta": {
+    "skill_name": "endpoint-definition-designer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5,
+    "description": "Designs primary, secondary, and exploratory endpoints for biomedical and clinical research protocols. Always use this skill when a user needs to translate study aims into operational endpoint definitions with event rules, assessment timing, composite logic, interpretability, and "
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Composite endpoint justification rule and surrogate-labeling hard rule are methodologically rigorous"
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 2 endpoint design planning only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 93,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Mandatory clarification gate is excellent; one gap: provisional scaffold not always labeled as such when produced"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "280 lines with ten reference modules — well-balanced progressive disclosure"
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks (16/16); no significant issues detected."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Strong score (11/12); minor gaps noted."
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Three-tier final status label (provisional/workable/operational) is an excellent usability signal; description strong"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.8,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 24,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Primary and secondary endpoints for retrospective septic shock cohort",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Primary endpoint defined in clear operational terms with event triggers",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Event definition and assessment timing specified in Section E",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Operationalization table present mapping endpoints to capture sources",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Surrogate endpoints labeled as not self-validating",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Final draft status label (provisional/workable/operational) present",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Prognostic biomarker endpoints in pancreatic cancer cohort",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Biomarker endpoint separated from clinical outcome endpoint",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Baseline variable not mixed with endpoint definition",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Endpoint hierarchy with primary/secondary/exploratory separation present",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Section H bias and interpretability review present",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated event rates or validation performance",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Composite endpoint design for immunotherapy response and survival",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Composite endpoint justification explicitly stated with component rationale",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "First-event rule and heterogeneous severity handling addressed",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Alternative to composite (separate endpoints) compared",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Composite does not combine events merely to increase event count",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Operational capture source specified per component",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Vague request: 'design endpoints for our study' without disease or study type",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Clarification-first rule applied; disease context and objective requested before long output",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "At most minimal provisional scaffold produced before clarification",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Focused follow-up questions are high-yield and concise (≤5)",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Provisional scaffold labeled as provisional if produced",
+            "result": "FAIL",
+            "note": "Brief provisional scaffold produced without 'PROVISIONAL' label — could be mistaken for operational output"
+          },
+          {
+            "text": "No endpoints invented from unspecified context",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Complex multi-endpoint protocol with time-to-event, binary, and continuous outcomes",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Fixed-horizon vs time-to-event structure not mixed without explicit labeling",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Competing risk structure addressed when relevant",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Endpoint hierarchy prevents exploratory overload",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Weakest endpoint choice identified in self-critical review",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No more than one true primary endpoint nominated",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.2,
+    "dynamic_weighted": 52.7,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Mandatory clarification gate before long-form output is one of the strongest UX safeguards in this skill collection",
+    "Three-tier final status label (provisional/workable/operational) gives users clear deployment readiness signal",
+    "Operationalization table (Section G) is a unique and highly practical deliverable absent in most endpoint design tools",
+    "Twelve hard rules covering surrogate labeling, composite endpoint justification, and ascertainment bias are methodologically comprehensive"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Provisional scaffold not consistently labeled when produced before clarification",
+      "observed_in": [
+        4
+      ],
+      "problem": "When the clarification gate triggers but the skill still produces a brief scaffold, that scaffold is not always marked as 'PROVISIONAL — requires clarification before use'.",
+      "root_cause": "The clarification-first rule says 'may produce a minimal provisional scaffold, clearly labeled as provisional' but the labeling instruction is not enforced consistently.",
+      "fix": "Add a hard rule: any output produced before clarification is complete must begin with a bold 'PROVISIONAL DRAFT — not suitable for protocol use until clarification questions are answered' header."
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance on what makes a surrogate endpoint acceptable vs unacceptable",
+      "observed_in": [],
+      "problem": "Hard Rule 6 says surrogates must be labeled as not self-validating, but the skill does not provide criteria for when a surrogate is acceptable vs should be replaced with a clinical endpoint.",
+      "root_cause": "The ambiguity-and-interpretability-rules.md reference handles this, but no summary guidance appears in SKILL.md itself.",
+      "fix": "Add a brief surrogate acceptability note to Hard Rule 6: state the minimum requirements for a defensible surrogate (e.g., strong biological plausibility + at least one external validation study linking the surrogate to a patient-meaningful outcome)."
+    }
+  ]
+}

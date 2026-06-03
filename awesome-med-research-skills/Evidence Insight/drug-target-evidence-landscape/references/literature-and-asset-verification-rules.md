@@ -1,0 +1,1 @@
+Never fabricate citations, trials, approvals, company activity, or asset stage. Verify before naming. If a trial, regulatory status, company program, or study metadata cannot be directly verified, label it as unverified or omit it from formal claims. Do not present rumor, memory, or unsourced market chatter as evidence.

@@ -1,0 +1,316 @@
+{
+    "meta": {
+        "skill_name": "pca-dimensionality-reduction",
+        "description": "Reduce high-dimensional gene expression data using PCA and visualize sample clustering and variance structure. Inputs: expression matrix, sample annotation table. Outputs: PCA score plots, scree plot, variance-explained table, 2D/3D scatter plots.",
+        "evaluated_on": "2026-04-15",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated claims, invented statistics, or unverifiable research statements were produced across the test runs."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill stayed within PCA execution scope and did not emit diagnostic, prescriptive, or medically unsafe guidance."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "All successful runs used an appropriate PCA workflow for numeric tabular data, and the edge case rejected invalid parameters cleanly."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "The R code executed successfully on all valid scenarios and handled the invalid scenario with a clean validation failure."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 92,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 12,
+                "max": 12,
+                "note": "Full score achieved"
+            },
+            "reliability": {
+                "score": 10,
+                "max": 12,
+                "note": "Validation and recovery behavior are strong, but failures after output directory creation can still leave partial directories and there are no fallback paths beyond aborting."
+            },
+            "performance_context": {
+                "score": 7,
+                "max": 8,
+                "note": "Progressive disclosure is good, but very wide datasets produce extremely verbose stdout because the full retained feature list is logged."
+            },
+            "agent_usability": {
+                "score": 16,
+                "max": 16,
+                "note": "Full score achieved"
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Trigger language is natural, but the workflow remains rigid for loosely phrased requests because it is primarily a CLI skill."
+            },
+            "security": {
+                "score": 10,
+                "max": 12,
+                "note": "No secret-handling issues were found, but output_prefix is only checked for emptiness and the tool always writes a filtered copy of the input data into the output directory."
+            },
+            "maintainability": {
+                "score": 12,
+                "max": 12,
+                "note": "Full score achieved"
+            },
+            "agent_specific": {
+                "score": 18,
+                "max": 20,
+                "note": "Triggering and layering are strong, but out-of-scope guidance could be more explicit and composability would improve with a concise machine-readable execution summary."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 93.2,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Explicit gene-feature PCA",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed perfectly on the documented happy-path example.",
+                "basic": 39,
+                "specialized": 57,
+                "total": 96,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output creates the documented table, figure, and data directories",
+                        "result": "PASS",
+                        "note": "All expected directories and artifacts were written under run1."
+                    },
+                    {
+                        "text": "Summary output includes the documented variance fields",
+                        "result": "PASS",
+                        "note": "The summary file contains proportion_variance and cumulative_variance."
+                    },
+                    {
+                        "text": "Score output preserves sample and group information",
+                        "result": "PASS",
+                        "note": "The scores table includes sample_id and group columns."
+                    },
+                    {
+                        "text": "Run completes without warnings or errors on the canonical example",
+                        "result": "PASS",
+                        "note": "The log contains only INFO lines and ends successfully."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "High-dimensional auto-feature PCA",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Methodology and execution were sound, but stdout became extremely verbose because all 16690 feature names were logged.",
+                "basic": 37,
+                "specialized": 54,
+                "total": 91,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Auto-detection resolves a usable sample ID column",
+                        "result": "PASS",
+                        "note": "Metadata shows sample_id_source=auto_first_non_numeric and sample_id_column=V1."
+                    },
+                    {
+                        "text": "The run exports exactly the requested number of components",
+                        "result": "PASS",
+                        "note": "The summary file contains only PC1 through PC3."
+                    },
+                    {
+                        "text": "The documented tables and figures are written successfully",
+                        "result": "PASS",
+                        "note": "All primary outputs plus metadata and filtered input were produced."
+                    },
+                    {
+                        "text": "The method remains executable on a high-dimensional p greater than n dataset",
+                        "result": "PASS",
+                        "note": "The script completed cleanly on 15 samples and 16690 features."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Invalid component count",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "Expected validation failure surfaced clearly before any analysis or file writes.",
+                "basic": 36,
+                "specialized": 50,
+                "total": 86,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Invalid n_components is rejected before analysis begins",
+                        "result": "PASS",
+                        "note": "The script exits immediately with SKILL_INVALID_PARAMETER."
+                    },
+                    {
+                        "text": "Error reporting is specific and actionable",
+                        "result": "PASS",
+                        "note": "The message names the invalid parameter and prints the help text."
+                    },
+                    {
+                        "text": "No partial output directory is created for this validation failure",
+                        "result": "PASS",
+                        "note": "No run3 directory or result artifacts were present after the failed invocation."
+                    },
+                    {
+                        "text": "The failure stays safely in scope without unsafe side effects",
+                        "result": "PASS",
+                        "note": "No PCA, plotting, or result-writing steps were attempted."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Missing-value filtering with groups",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Excellent degraded-path behavior with clear warnings and complete output generation.",
+                "basic": 39,
+                "specialized": 58,
+                "total": 97,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Rows with incomplete feature values are removed and reported",
+                        "result": "PASS",
+                        "note": "The log warns that 2 rows were removed and metadata confirms the count."
+                    },
+                    {
+                        "text": "Requested components are reduced safely when the data cannot support them",
+                        "result": "PASS",
+                        "note": "The run warns and exports 4 components instead of 5."
+                    },
+                    {
+                        "text": "Group information is preserved after filtering",
+                        "result": "PASS",
+                        "note": "The scores table includes the group column with B1 and B2 values."
+                    },
+                    {
+                        "text": "Standard outputs are still generated after filtering",
+                        "result": "PASS",
+                        "note": "Tables, figures, filtered input, and session info were all written successfully."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "TXT export with custom parameters",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Custom output format and parameter overrides were handled cleanly without regressions.",
+                "basic": 39,
+                "specialized": 57,
+                "total": 96,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "TXT outputs use the requested prefix consistently",
+                        "result": "PASS",
+                        "note": "All table and data files are named study_pca_* with txt extensions."
+                    },
+                    {
+                        "text": "Metadata records the parameter override correctly",
+                        "result": "PASS",
+                        "note": "Metadata shows scale_data=FALSE and components_exported=2."
+                    },
+                    {
+                        "text": "Top-loadings output respects the requested limit",
+                        "result": "PASS",
+                        "note": "The top-loadings file contains 3 rows per exported component."
+                    },
+                    {
+                        "text": "Figures are still generated for the customized run",
+                        "result": "PASS",
+                        "note": "Both scree and score plots were written successfully."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 36.8,
+        "dynamic_weighted": 55.9,
+        "score": 93,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The skill is tightly aligned with its stated scope and all documented core workflows executed successfully.",
+        "Validation and error messages are concrete, namespaced, and easy for both humans and agents to act on.",
+        "The implementation is modular, deterministic, and produces reproducible tabular and figure outputs.",
+        "Degraded-path behavior is strong: missing-value filtering and component downscaling are both surfaced clearly."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Cap verbose feature-list logging",
+            "observed_in": [
+                2
+            ],
+            "problem": "The high-dimensional run printed all 16690 retained feature names to stdout, causing log bloat and output truncation in the audit environment.",
+            "root_cause": "The logger prints the entire feature_columns vector unconditionally after input preparation.",
+            "fix": "Log the feature count plus a short preview instead of the entire list. If the full list is still useful, write it to a metadata file rather than stdout."
+        },
+        {
+            "priority": "P2",
+            "title": "Harden output_prefix validation",
+            "observed_in": [],
+            "problem": "The skill only checks that output_prefix is non-empty, so path separators or awkward filesystem characters can still be passed through to output filenames.",
+            "root_cause": "Parameter validation trims whitespace but does not constrain output_prefix to filename-safe characters.",
+            "fix": "Validate output_prefix against a safe filename regex or sanitize path separators before composing output file paths."
+        },
+        {
+            "priority": "P2",
+            "title": "Document auxiliary and conditional outputs",
+            "observed_in": [],
+            "problem": "SKILL.md lists the main output files but does not explicitly call out the metadata table, filtered input export, or the fact that score plots depend on at least two exported components.",
+            "root_cause": "The documentation output section is slightly narrower than the actual implementation behavior.",
+            "fix": "Expand the Outputs section to include metadata and filtered-input files, and note that the score plot is skipped when fewer than two components are available."
+        }
+    ]
+}

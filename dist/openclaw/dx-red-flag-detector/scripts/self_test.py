@@ -49,6 +49,10 @@ def main():
     if not cannot_miss.intersection(required_any):
         raise RuntimeError("Expected ACS or aortic dissection or pulmonary embolism in cannot_miss_conditions")
 
+    for p in TMP_OUT.glob("*.json"):
+        p.unlink(missing_ok=True)
+    TMP_OUT.rmdir()
+
     print("OK: self-test passed")
 
 

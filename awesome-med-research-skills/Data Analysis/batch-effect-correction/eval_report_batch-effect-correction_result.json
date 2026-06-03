@@ -1,0 +1,177 @@
+{
+  "meta": {
+    "skill_name": "batch-effect-correction",
+    "description": "Corrects batch effects in merged bulk expression matrices with sample-level batch metadata using sva::ComBat(), preserves biological group structure, applies limma normalization, and generates paired before-and-after QC plots (boxplot, PCA, hierarchical clustering).",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabrication of statistical values; ComBat and normalizeBetweenArrays outputs derive from sva and limma package computations on user data" },
+      "practice_boundaries": { "result": "PASS", "detail": "No medical diagnoses; skill corrects technical batch variation without clinical conclusions" },
+      "methodological_ground": { "result": "PASS", "detail": "ComBat with biological group as covariate (mod matrix) is the correct approach for preserving biological signal during batch correction; post-ComBat limma normalization is methodologically sound" },
+      "code_usability": { "result": "PASS", "detail": "Syntactically correct; sva::ComBat() called with proper mod matrix; limma::normalizeBetweenArrays() applied post-correction; OMP thread limit set at startup for reproducibility; no infinite loops; clean exit codes" }
+    }
+  },
+  "static_score": {
+    "subtotal": 90,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 12, "max": 12, "note": "Covers all promised use cases: auto/yes/no log transform, custom metadata columns, extra sample handling, paired QC plots, and both core correction steps (ComBat + normalizeBetweenArrays)" },
+      "reliability": { "score": 11, "max": 12, "note": "Nine SKILL_* codes including SKILL_INVALID_DATA, SKILL_INVALID_TYPE, and SKILL_TIMEOUT; validate_design() enforces ComBat design requirements; align_inputs() handles extra samples gracefully; one minor gap: negative value error does not identify source genes/samples" },
+      "performance_context": { "score": 7, "max": 8, "note": "SKILL.md is 291 lines within budget; references directory for algorithm details; OMP thread limit env vars set for cross-platform reproducibility; one minor gap: no guidance on dataset size limits before ComBat performance degrades" },
+      "agent_usability": { "score": 15, "max": 16, "note": "Agent Response Contract specifies 5 structured outputs; When to Read External Files table guides navigation; four examples cover common scenarios including custom columns and disabled transforms; feedback design excellent with GC snapshot logging" },
+      "human_usability": { "score": 8, "max": 8, "note": "Natural trigger language; When Not to Use clearly excludes scRNA-seq, raw FASTQ, DEG without batch labels, and single-batch datasets; prerequisites section clear; extra sample subset behavior explicitly documented" },
+      "security": { "score": 11, "max": 12, "note": "No hardcoded credentials; no eval/exec; OMP env vars set at top level are safe system-level settings; one minor gap: output_dir path not checked for traversal" },
+      "maintainability": { "score": 11, "max": 12, "note": "Clean 7-script modular structure; input_functions.R separated for testability; implementation checklist present; one gap: no unit tests in polished package" },
+      "agent_specific": { "score": 15, "max": 20, "note": "Precise trigger language for ComBat batch correction; SKILL.md under 500 lines; idempotent via set.seed; escape hatches present; nine structured error codes; minor gap: GC snapshot logged to agent stdout may add noise; composability docs missing" }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 88.2,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 24, "total": 25 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "ComBat correction on 2-batch 2-group expression matrix",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Full 4-step workflow documented; auto log-transform correct; 9 output files produced; Agent Response Contract complete",
+        "basic": 37,
+        "specialized": 55,
+        "total": 92,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Output routes to CLI with required parameters", "result": "PASS", "note": "Usage section provides exact command" },
+          { "text": "Auto log-transform detection logic documented and implemented", "result": "PASS", "note": "Methods section and should_log_transform() in functions.R cover auto mode" },
+          { "text": "SKILL_* codes cover all failure modes including SKILL_INVALID_DATA and SKILL_TIMEOUT", "result": "PASS", "note": "Nine distinct error codes in Error Handling table" },
+          { "text": "Paired before/after QC plots documented and produced", "result": "PASS", "note": "Output Files table lists all 6 paired QC plots" },
+          { "text": "Agent Response Contract specifies 5 structured outputs including QC assessment", "result": "PASS", "note": "Contract section present with QC assessment step" }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Custom metadata columns with log_transform disabled",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Custom column resolution correct; log_transform no bypasses log2; example in SKILL.md",
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Custom column names resolved via validate_metadata_columns()", "result": "PASS", "note": "input_functions.R validates all three specified columns" },
+          { "text": "log_transform no correctly bypasses log2 transformation", "result": "PASS", "note": "should_log_transform() returns FALSE for no mode" },
+          { "text": "Custom column name example documented in SKILL.md", "result": "PASS", "note": "Examples section provides command with custom column names" },
+          { "text": "SKILL_MISSING_COLUMNS fires when custom column name not found", "result": "PASS", "note": "validate_metadata_columns() checks column presence" },
+          { "text": "set.seed applied for reproducibility", "result": "PASS", "note": "Implementation Checklist confirms; --seed parameter exposed" }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Batch with only 1 sample (below ComBat minimum)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "SKILL_INVALID_DATA correctly triggered; ComBat design requirement enforced; minimum requirements documented",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_INVALID_DATA triggered for batch with only 1 sample", "result": "PASS", "note": "validate_design() enforces minimum 2 per batch" },
+          { "text": "Rationale for minimum batch size documented", "result": "PASS", "note": "ComBat EB estimation requires at least 2 samples per batch" },
+          { "text": "Minimum 2 per group also enforced", "result": "PASS", "note": "validate_design() also checks group_counts" },
+          { "text": "Minimum sample requirements documented in Input Format section", "result": "PASS", "note": "Requirements list in Sample Metadata section" },
+          { "text": "Error exits cleanly with status 1", "result": "PASS", "note": "tryCatch error handler calls quit(status=1)" }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Expression matrix with extra QC sample columns not in metadata",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Extra columns ignored with warning; subset behavior documented; SKILL_SAMPLE_MISMATCH for reverse case",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Extra expression columns trigger warning, not error", "result": "PASS", "note": "align_inputs() emits log_warn() for extra samples" },
+          { "text": "Analysis continues with metadata-matched samples only", "result": "PASS", "note": "align_inputs() subsets to metadata$sample_id" },
+          { "text": "Subset behavior documented in SKILL.md Input Format", "result": "PASS", "note": "Expression matrix Requirements explicitly states this" },
+          { "text": "Corrected output matrix contains only matched samples", "result": "PASS", "note": "write_core_outputs() uses aligned data from align_inputs()" },
+          { "text": "SKILL_SAMPLE_MISMATCH fires when metadata samples absent from matrix", "result": "PASS", "note": "align_inputs() checks setdiff(metadata, expr_cols)" }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Expression matrix with negative values and forced log-transform",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "SKILL_INVALID_DATA correctly triggered; source genes/samples not identified in error message",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_INVALID_DATA triggered for negative values with log_transform yes", "result": "PASS", "note": "prepare_expression_matrix() checks for negatives before log2()" },
+          { "text": "Error message clearly states negative values cannot be log-transformed", "result": "PASS", "note": "Message is specific and actionable" },
+          { "text": "auto mode would not trigger this for log-scale data", "result": "PASS", "note": "should_log_transform() returns FALSE when max < 50 and q99 < 16" },
+          { "text": "Error message identifies which genes or samples contain negative values", "result": "FAIL", "note": "No gene/sample identification in error; agent must search data independently" },
+          { "text": "No silent coercion of negative values", "result": "PASS", "note": "Hard stop prevents misleading log transformation results" }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.0,
+    "dynamic_weighted": 52.9,
+    "score": 89,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Most complete error handling of the five skills: nine SKILL_* codes covering SKILL_INVALID_DATA, SKILL_INVALID_TYPE, SKILL_EMPTY_FILE, SKILL_RUNTIME_ERROR, and SKILL_TIMEOUT",
+    "OMP/BLAS thread limit env vars set at startup ensure cross-platform reproducibility for ComBat's numerical computations",
+    "Graceful handling of extra expression columns (warn and continue) matches real-world pipeline usage where QC samples may be present",
+    "Auto log-transform detection with documented thresholds (max > 50 or 99th quantile > 16) prevents silent misclassification",
+    "Comprehensive paired before/after QC plots (boxplot, PCA, hierarchical clustering) provide full batch correction assessment"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "Add gene/sample identification to negative-value error message",
+      "observed_in": [5],
+      "problem": "When SKILL_INVALID_DATA fires for negative expression values, the error does not identify which genes or samples contain the negatives, requiring the agent to scan the entire matrix.",
+      "root_cause": "prepare_expression_matrix() in functions.R checks any(expr_mat < 0) but does not compute which rows/columns contain negatives.",
+      "fix": "Before stopping, compute which genes (rownames) and how many samples contain negative values, and include a sample in the error message: 'Negative values found in N genes (e.g., GeneA, GeneB). Consider using --log_transform no if data is already on log scale.'"
+    }
+  ]
+}

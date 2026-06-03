@@ -1,0 +1,314 @@
+{
+    "meta": {
+        "skill_name": "svm-model-importance-analysis",
+        "description": "Train support vector machine classifiers and assess feature importance via recursive feature elimination (RFE). Inputs: feature matrix, binary class labels. Outputs: trained SVM model, RFE importance ranking, optimal feature subset, ROC performance curve.",
+        "evaluated_on": "2026-04-20",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated scientific claims or invented performance numbers were observed in any output."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill stayed within a computational feature-ranking workflow and made no diagnostic or prescriptive claims."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "The documented two-class linear SVM-RFE approach matched the tested binary dataset and scope restrictions."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "Canonical, custom, missing-bundle, plot-only reuse, and corrupt-bundle executions all behaved as documented during the audit."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 94,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 11,
+                "max": 12,
+                "note": "The skill covers the main binary SVM-RFE workflow, plot-only reuse, scope limits, and reproducibility expectations clearly."
+            },
+            "reliability": {
+                "score": 10,
+                "max": 12,
+                "note": "Input validation, path confinement, and recovery guidance are strong; the main remaining gap is limited automated coverage for negative parameter cases."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "Documentation is layered well and the execution path is linear with no redundant steps."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "Instructions are easy to follow and outputs are well specified; the only deduction is that one selection heuristic is implicit rather than user-controlled."
+            },
+            "human_usability": {
+                "score": 8,
+                "max": 8,
+                "note": "Trigger language is natural, runnable examples are present, and out-of-scope boundaries are clearly called out."
+            },
+            "security": {
+                "score": 12,
+                "max": 12,
+                "note": "Path confinement, no network activity, and no dynamic code execution were all confirmed."
+            },
+            "maintainability": {
+                "score": 11,
+                "max": 12,
+                "note": "Scripts are modular and tests exist, but the automated suite can still cover more documented failure branches."
+            },
+            "agent_specific": {
+                "score": 20,
+                "max": 20,
+                "note": "Trigger precision, progressive disclosure, composability, idempotency, and escape hatches are all strong."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 92.2,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Bundled binary SVM-RFE run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Canonical run completed successfully and produced the documented bundle, tables, plots, and session info.",
+                "basic": 38,
+                "specialized": 57,
+                "total": 95,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Command completes successfully and logs the expected major stages",
+                        "result": "PASS",
+                        "note": "Input reading, analysis, plotting, and successful completion were all logged."
+                    },
+                    {
+                        "text": "The documented analysis artifacts are created in the requested output directory",
+                        "result": "PASS",
+                        "note": "The result bundle, two CSV tables, two PDF plots, and session info file were present."
+                    },
+                    {
+                        "text": "The selected feature table is consistent with the ranking output",
+                        "result": "PASS",
+                        "note": "The selected-feature CSV was a prefix of the full ranking table."
+                    },
+                    {
+                        "text": "The workflow stays within the documented scope",
+                        "result": "PASS",
+                        "note": "No preprocessing, remote fetching, or dynamic code execution was observed."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Tolerance-rule custom run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Custom tolerance-rule settings executed cleanly and produced a full output set in a separate directory.",
+                "basic": 38,
+                "specialized": 56,
+                "total": 94,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Custom feature-selection settings execute successfully",
+                        "result": "PASS",
+                        "note": "The tolerance rule, tolerance value, and custom plotting options were accepted without errors."
+                    },
+                    {
+                        "text": "The run still produces the expected result bundle, tables, and plots",
+                        "result": "PASS",
+                        "note": "All expected artifacts were written under the custom output directory."
+                    },
+                    {
+                        "text": "The skill remains reproducible under fixed seed settings",
+                        "result": "PASS",
+                        "note": "The custom run completed deterministically with the requested seed."
+                    },
+                    {
+                        "text": "The workflow remains scoped to two-class SVM-RFE ranking",
+                        "result": "PASS",
+                        "note": "No unrelated preprocessing or alternate modeling workflow was triggered."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Missing plot-only bundle",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Missing plot-only artifact was rejected with a clear standardized error and an obvious recovery path.",
+                "basic": 37,
+                "specialized": 54,
+                "total": 91,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Plot-only mode rejects missing result bundles before plotting",
+                        "result": "PASS",
+                        "note": "Execution stopped immediately and did not attempt plot generation."
+                    },
+                    {
+                        "text": "The error uses a standardized skill error code",
+                        "result": "PASS",
+                        "note": "The error began with SKILL_FILE_NOT_FOUND."
+                    },
+                    {
+                        "text": "The error is actionable and recoverable",
+                        "result": "PASS",
+                        "note": "The message states that plot-only mode requires an existing model file."
+                    },
+                    {
+                        "text": "The failure is safe and scoped",
+                        "result": "PASS",
+                        "note": "No undefined processing or unsafe side effects were observed."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Successful plot-only regeneration",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Existing result bundles were reused cleanly and plots were regenerated without rerunning analysis.",
+                "basic": 37,
+                "specialized": 55,
+                "total": 92,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Existing result bundles can be reused without re-reading raw inputs",
+                        "result": "PASS",
+                        "note": "The logs skipped input-reading and analysis and went straight to plot generation."
+                    },
+                    {
+                        "text": "Plot regeneration succeeds with the documented minimal arguments",
+                        "result": "PASS",
+                        "note": "The plot-only command completed successfully with only output directory, seed, and timeout parameters."
+                    },
+                    {
+                        "text": "The command avoids unnecessary reruns of the full SVM-RFE workflow",
+                        "result": "PASS",
+                        "note": "Only the plotting phase ran during the plot-only invocation."
+                    },
+                    {
+                        "text": "Behavior remains deterministic on the same stored bundle",
+                        "result": "PASS",
+                        "note": "Repeated reuse of the same bundle completed consistently."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Corrupt plot-only bundle",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The corrupt RDS bundle was rejected with a standardized skill error and explicit recovery guidance.",
+                "basic": 36,
+                "specialized": 53,
+                "total": 89,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Corrupt svm_result.rds input is rejected instead of producing undefined plots",
+                        "result": "PASS",
+                        "note": "Execution stopped immediately after readRDS failed."
+                    },
+                    {
+                        "text": "Corrupt bundle errors use a standardized SKILL_* code",
+                        "result": "PASS",
+                        "note": "The message was wrapped as SKILL_INVALID_PARAMETER instead of surfacing only the raw R error."
+                    },
+                    {
+                        "text": "Corrupt bundle errors provide actionable recovery guidance",
+                        "result": "PASS",
+                        "note": "The error tells the user to rerun the full analysis to regenerate the saved bundle."
+                    },
+                    {
+                        "text": "Failure handling remains non-destructive and within scope",
+                        "result": "PASS",
+                        "note": "No unsafe side effects or out-of-root writes were observed."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 37.6,
+        "dynamic_weighted": 55.3,
+        "score": 93,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The skill has a strong CLI contract with clear inputs, outputs, and scope boundaries for two-class SVM-RFE work.",
+        "Path confinement is implemented correctly: output traversal outside the skill root was rejected with a standardized error.",
+        "Determinism is strong: repeat canonical runs produced byte-identical ranking CSV outputs under a fixed seed.",
+        "The implementation is modular and backed by a runnable packaged test suite that passed during the audit."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Silence expected CLI warning noise in tests",
+            "observed_in": [],
+            "problem": "The packaged test suite passes, but intentional negative tests still emit a system2 warning about non-zero exit status, which makes the audit and CI logs noisier than necessary.",
+            "root_cause": "test_skill.R captures expected failures with system2, and R still warns when a subprocess exits with status 1 even when that status is being asserted deliberately.",
+            "fix": "Wrap expected-failure system2 calls in suppressWarnings or a small helper that treats non-zero exit status as data, then assert on the returned status and output explicitly. This keeps the test logs clean without weakening coverage."
+        },
+        {
+            "priority": "P2",
+            "title": "Expand negative-path regression coverage",
+            "observed_in": [],
+            "problem": "Manual audit checks confirmed output-dir path confinement and argument validation, but these documented branches are not all covered by the packaged test suite.",
+            "root_cause": "Automated tests currently focus on the main happy path plus plot-only bundle scenarios and leave some validation branches to manual verification.",
+            "fix": "Add regression tests for path traversal attempts, invalid numeric parameters, and unsupported selector values so the documented contract stays locked in as the skill evolves."
+        },
+        {
+            "priority": "P2",
+            "title": "Document group-column selection heuristic",
+            "observed_in": [],
+            "problem": "The implementation auto-detects the group column by scanning for the case and control labels or a column name containing 'group', but this fallback behavior is not described in the public contract.",
+            "root_cause": "detect_group_column() contains a helpful heuristic that remains implicit in the documentation.",
+            "fix": "Document the current heuristic in SKILL.md and cli-guide.md, or add an explicit --group_column argument if deterministic column selection needs to be user-controlled."
+        }
+    ]
+}

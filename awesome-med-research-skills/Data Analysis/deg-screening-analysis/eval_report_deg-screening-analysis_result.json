@@ -1,0 +1,316 @@
+{
+    "meta": {
+        "skill_name": "deg-screening-analysis",
+        "description": "Screen and filter differentially expressed genes using volcano plots, MA plots, and multi-threshold criteria. Inputs: DEA result table with fold-change and p-values. Outputs: filtered DEG list, annotated volcano plot, enrichment-ready gene sets.",
+        "evaluated_on": "2026-04-16",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "Passed checks. The skill reports computed limma statistics and does not fabricate citations, biomedical claims, or study outcomes."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "Passed checks. The skill stays within computational DEG screening and does not provide diagnosis, treatment advice, or unsafe biomedical recommendations."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "Passed checks. The analysis matches a documented two-group limma workflow and the updated plot behavior now aligns with the declared p-value semantics."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "Passed checks. Canonical, variant, zero-DEG, and sparse-heatmap runs all completed successfully, and the bundled tests passed."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 92,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 11,
+                "max": 12,
+                "note": "Core promises are implemented and documented; only a minor wording mismatch remains in the workflow text that still mentions a volcano input table rather than the current direct plotting path."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "The run paths are now stable and degrade cleanly, though the zero-DEG path emits two closely related heatmap warnings that could be consolidated."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "No issues flagged. The skill remains compact and efficient to invoke."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "The CLI surface and examples are clear, with only minor room to tighten wording around plotting side effects and warning behavior."
+            },
+            "human_usability": {
+                "score": 8,
+                "max": 8,
+                "note": "No issues flagged. The examples, arguments, and output contract are now easy to follow."
+            },
+            "security": {
+                "score": 12,
+                "max": 12,
+                "note": "No issues flagged. The scripts validate inputs, avoid dangerous execution primitives, and do not expose credentials or destructive operations."
+            },
+            "maintainability": {
+                "score": 11,
+                "max": 12,
+                "note": "The code is modular and test-backed, with only small remaining documentation cleanup items."
+            },
+            "agent_specific": {
+                "score": 16,
+                "max": 20,
+                "note": "Trigger precision and scope boundaries are good. A slightly stronger body-level escape hatch for plot-free runs would make invocation guidance even clearer."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 89.4,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Bundled OA vs control default run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed successfully with all declared core artifacts present.",
+                "basic": 36,
+                "specialized": 56,
+                "total": 92,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Core declared output files are created",
+                        "result": "PASS",
+                        "note": "All documented tables, plots, and session metadata were present."
+                    },
+                    {
+                        "text": "The canonical run completes successfully with the bundled data",
+                        "result": "PASS",
+                        "note": "The command exited cleanly and produced final artifacts."
+                    },
+                    {
+                        "text": "The DEG table is a filtered subset of the full differential table",
+                        "result": "PASS",
+                        "note": "The DEG output contained only screened genes while the full table listed all tested genes."
+                    },
+                    {
+                        "text": "The workflow stays within the declared two-group limma scope",
+                        "result": "PASS",
+                        "note": "No unsupported method or scope violation appeared."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Raw p-value stricter-threshold run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed successfully under stricter thresholds and raw p-value screening.",
+                "basic": 36,
+                "specialized": 54,
+                "total": 90,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Raw p-value screening executes successfully",
+                        "result": "PASS",
+                        "note": "The run accepted `--p_type p` and completed without error."
+                    },
+                    {
+                        "text": "The volcano path remains compatible with the raw p-value mode",
+                        "result": "PASS",
+                        "note": "The updated plotting path completed successfully under `--p_type p`."
+                    },
+                    {
+                        "text": "The stricter thresholds still produce a coherent DEG table",
+                        "result": "PASS",
+                        "note": "`DEG.csv` contained 14 genes and remained a valid filtered subset."
+                    },
+                    {
+                        "text": "Plot outputs are still generated under the variant configuration",
+                        "result": "PASS",
+                        "note": "Both plot PDFs were produced."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Zero-DEG strict-threshold run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Completed cleanly with an empty DEG table and informative warnings.",
+                "basic": 35,
+                "specialized": 52,
+                "total": 87,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Strict thresholds still complete without crashing",
+                        "result": "PASS",
+                        "note": "The command finished successfully."
+                    },
+                    {
+                        "text": "Empty DEG output is emitted instead of failing",
+                        "result": "PASS",
+                        "note": "The DEG CSV contained only the header row, which is acceptable for this boundary case."
+                    },
+                    {
+                        "text": "The skill explains the missing heatmap with warnings",
+                        "result": "PASS",
+                        "note": "The warnings are explicit and actionable."
+                    },
+                    {
+                        "text": "The run still produces the remaining valid outputs",
+                        "result": "PASS",
+                        "note": "The full table, serialized result, volcano plot, and session metadata were created."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Case-insensitive group-label run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed successfully with case-insensitive group matching and a smaller heatmap selection budget.",
+                "basic": 36,
+                "specialized": 54,
+                "total": 90,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Case and control matching is tolerant to letter case",
+                        "result": "PASS",
+                        "note": "The lowercase and uppercase labels resolved correctly."
+                    },
+                    {
+                        "text": "A multi-column group file layout is accepted",
+                        "result": "PASS",
+                        "note": "The bundled group file includes extra metadata columns and still parsed correctly."
+                    },
+                    {
+                        "text": "Plot outputs are still generated under the variant configuration",
+                        "result": "PASS",
+                        "note": "Both plot PDFs were written."
+                    },
+                    {
+                        "text": "The run remains within the documented CLI surface",
+                        "result": "PASS",
+                        "note": "Only documented flags were required."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Single-DEG sparse-heatmap run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "A sparse-result run completed successfully and skipped heatmap rendering cleanly.",
+                "basic": 35,
+                "specialized": 53,
+                "total": 88,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "A valid sparse-result run completes successfully",
+                        "result": "PASS",
+                        "note": "The command no longer crashes when only one DEG is selected."
+                    },
+                    {
+                        "text": "Heatmap generation degrades gracefully when fewer than two genes are selected",
+                        "result": "PASS",
+                        "note": "The skill emits a warning and skips the heatmap."
+                    },
+                    {
+                        "text": "The result still includes the successful non-heatmap artifacts",
+                        "result": "PASS",
+                        "note": "The tables, serialized result, and volcano plot were all written."
+                    },
+                    {
+                        "text": "The request remains within the declared two-group limma scope",
+                        "result": "PASS",
+                        "note": "The input used only documented arguments and bundled test data."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 36.8,
+        "dynamic_weighted": 53.6,
+        "score": 90,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The CLI contract is clear, runnable, and backed by bundled example data plus a passing automated test suite.",
+        "Canonical, variant, zero-DEG, and sparse-heatmap runs all completed successfully without violating the skill scope.",
+        "The plotting path now aligns with the declared p-value semantics and degrades cleanly on low-signal runs.",
+        "Determinism is strong: repeated canonical runs produced identical hashes for both major CSV outputs."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Remove stale volcano-input wording",
+            "observed_in": [],
+            "problem": "The workflow text in `SKILL.md` still says the skill exports a volcano input table even though the current implementation plots directly from the differential table.",
+            "root_cause": "A small documentation phrase was left behind after the plotting pipeline was simplified.",
+            "fix": "Replace the phrase `Export DEG tables and volcano input table` with wording that matches the current in-memory plotting flow. This keeps the body text fully aligned with the implementation."
+        },
+        {
+            "priority": "P2",
+            "title": "Document timeout handling in SKILL body",
+            "observed_in": [],
+            "problem": "The implementation and tests support `SKILL_TIMEOUT`, but the main `SKILL.md` error table does not list it explicitly.",
+            "root_cause": "The timeout error contract is documented in code and tests but not fully surfaced in the top-level skill guide.",
+            "fix": "Add `SKILL_TIMEOUT` to the `## Error Handling` table in `SKILL.md` with a short explanation and an action such as increasing `--timeout_seconds` or simplifying the run."
+        },
+        {
+            "priority": "P2",
+            "title": "Consolidate duplicate zero-DEG warnings",
+            "observed_in": [
+                3
+            ],
+            "problem": "The zero-DEG path currently emits two similar heatmap-related warnings in the same run, which is harmless but slightly noisy.",
+            "root_cause": "One warning is emitted when no DEGs are found and a second warning appears when the downstream heatmap payload is `NULL`.",
+            "fix": "Collapse the two warnings into one clearer message on the zero-DEG path, or suppress the downstream warning when the earlier zero-DEG condition has already been logged."
+        }
+    ]
+}

@@ -1,0 +1,427 @@
+{
+  "meta": {
+    "skill_name": "graphical-abstract-generator",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Converts a biomedical study storyline into a graphical abstract and, when direct image capability is available, generates the graphical abstract directly; otherwise it falls back to prompts, Mermaid flowcharts, or designer-facing briefs."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated results, mechanisms, validations, or PMIDs detected. Hard rules prohibit inventing study content for visual presentation."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No clinical readiness claims produced. Visual-boundary-rules explicitly prevent implying clinical translation without supporting evidence."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies. Study type classification (association vs mechanism vs validation) enforced via visual-boundary-rules."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A skill with optional Mermaid flowchart output."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 92,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. 9 study types supported, 4 output routes (direct generation, prompt, Mermaid, designer brief), visual-boundary enforcement, citation annotation with opt-out all present."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Hard rule against claiming image capability when unavailable is a critical reliability safeguard; no reliable capability-detection mechanism defined, leaving image-capability detection to situational judgment."
+      },
+      "performance_context": {
+        "score": 5,
+        "max": 8,
+        "note": "9-step execution pipeline plus 10-section mandatory output (A-J) is the heaviest output structure in the Academic Writing category. Sections G, I, and J are frequently thin for straightforward inputs, adding overhead without proportionate value."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "Format routing with priority fallback order is an excellent usability design; 10-section output requires cognitive load from users reviewing the output; progressive disclosure could be used to collapse thin sections."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Good trigger phrases covering all output formats (direct, prompt, Mermaid, handoff brief); format selection guidance is discoverable."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Hard rules prohibit fabricating results, PMIDs, cohort details, validation status, and generation capability."
+      },
+      "maintainability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. All 9 reference files present and well-structured with clear core rules, important rules, and reporting rules."
+      },
+      "agent_specific": {
+        "score": 19,
+        "max": 20,
+        "note": "Format routing with ordered fallback, citation annotation opt-out, and direct-generation honesty rules are strong design patterns. Upload recommendation as a non-refusal clarification mechanism is excellent."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 82.3,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "GWAS study: 3 genetic variants associated with T2D — image generation unavailable",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Routes to image-generation prompt; evidence boundary correctly applied (association not mechanism).",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly routes to image-generation prompt given unavailable direct generation",
+            "result": "PASS",
+            "note": "format-routing-rules applied correctly; prompt selected as next-best route."
+          },
+          {
+            "text": "Section I (claim boundary) explicitly states the graphical abstract must not imply mechanistic causality",
+            "result": "PASS",
+            "note": "Association vs mechanism boundary enforced per visual-boundary-rules."
+          },
+          {
+            "text": "Storyline compressed to 4 blocks: disease burden → GWAS design → 3 variants identified → association implication",
+            "result": "PASS",
+            "note": "Minimum viable storyline per storyline-compression-rules."
+          },
+          {
+            "text": "Citation support markers added for disease burden statement with PubMed query",
+            "result": "PASS",
+            "note": "citation-support-annotation-rules applied to background statement."
+          },
+          {
+            "text": "Output does not fabricate additional variants or genetic mechanisms not in the abstract",
+            "result": "PASS",
+            "note": "Hard Rule 1 enforced."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "RCT study — user requests Mermaid flowchart format",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Mermaid flowchart produced with enrollment→intervention→outcome structure; primary endpoint centered.",
+        "basic": 33,
+        "specialized": 51,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output routes to Mermaid flowchart per user request and RCT process-flow logic",
+            "result": "PASS",
+            "note": "format-routing-rules: Mermaid when process flow is central."
+          },
+          {
+            "text": "Mermaid flowchart structure follows enrollment → randomization → intervention arms → primary outcome",
+            "result": "PASS",
+            "note": "RCT workflow correctly represented."
+          },
+          {
+            "text": "Primary endpoint result is the visual centerpiece, not secondary endpoints",
+            "result": "PASS",
+            "note": "Storyline compression: primary finding prioritized over secondary results."
+          },
+          {
+            "text": "Section H explains why Mermaid was chosen over a designer handoff brief",
+            "result": "PASS",
+            "note": "Format routing logic explained per logic-reporting-rule."
+          },
+          {
+            "text": "No statistical results are fabricated beyond what the user provided",
+            "result": "PASS",
+            "note": "Hard rules enforced."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Vague topic only: 'generate a graphical abstract for my paper about cancer metabolism'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Clarification-first correctly triggered; upload recommendations provided; no abstract produced.",
+        "basic": 30,
+        "specialized": 46,
+        "total": 76,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill does not produce a graphical abstract from a topic sentence alone",
+            "result": "PASS",
+            "note": "Clarification-first rule invoked."
+          },
+          {
+            "text": "Output lists specific missing information: study design, workflow, primary finding, implication",
+            "result": "PASS",
+            "note": "Gap list matches clarification-first-rule requirements."
+          },
+          {
+            "text": "Output recommends uploading title/abstract, figure list, or results report",
+            "result": "PASS",
+            "note": "upload-recommendation-rule applied as non-refusal guidance."
+          },
+          {
+            "text": "Output does not fabricate a placeholder graphical abstract storyline",
+            "result": "PASS",
+            "note": "Hard Rule 2 enforced."
+          },
+          {
+            "text": "Output asks about preferred output format to prepare for the eventual deliverable",
+            "result": "PASS",
+            "note": "Format preference collected proactively."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Multi-omics study (RNA-seq + ATAC-seq + ChIP-seq) — user wants all analyses shown",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Overloading risk flagged; compression to central finding pathway recommended; all-analysis request declined.",
+        "basic": 33,
+        "specialized": 50,
+        "total": 83,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output flags the all-analyses request as a graphical-abstract overloading risk",
+            "result": "PASS",
+            "note": "storyline-compression-rules applied: secondary results compressed."
+          },
+          {
+            "text": "Output proposes a minimum viable storyline centered on the central multi-omics finding",
+            "result": "PASS",
+            "note": "4-block compression: problem → multi-omics approach → central finding → implication."
+          },
+          {
+            "text": "Output explains why the three separate omics layers should be visually merged into one workflow block",
+            "result": "PASS",
+            "note": "Simplification logic per logic-reporting-rule."
+          },
+          {
+            "text": "Output does not produce an overloaded figure showing all three omics analyses at full detail",
+            "result": "PASS",
+            "note": "Hard Rule 5 enforced."
+          },
+          {
+            "text": "Section C correctly names overloading as the primary graphical abstraction risk for this input",
+            "result": "PASS",
+            "note": "Risk identification accurate for multi-omics study type."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Scope Boundary",
+        "label": "In vitro + in vivo data — user wants abstract to show drug 'is ready for clinical translation'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. Visual boundary correctly enforced; corrected wording not proposed.",
+        "basic": 33,
+        "specialized": 52,
+        "total": 85,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output flags 'clinical translation readiness' as an unsupported visual claim for in vitro + in vivo data only",
+            "result": "PASS",
+            "note": "visual-boundary-rules applied: clinical readiness requires clinical data."
+          },
+          {
+            "text": "Section I states what the graphical abstract must not imply (clinical readiness)",
+            "result": "PASS",
+            "note": "Claim boundary check correctly identifies the overclaim."
+          },
+          {
+            "text": "Hard Rule 6 is applied to reject the clinical-readiness implication",
+            "result": "PASS",
+            "note": "Hard rule enforced."
+          },
+          {
+            "text": "Output proposes a corrected implication statement the abstract can support ('preclinical proof-of-concept for translation')",
+            "result": "FAIL",
+            "note": "Boundary enforcement is correct but the output does not offer an alternative wording the user can use — only states what is not permitted."
+          },
+          {
+            "text": "Output does not produce the abstract with the unsupported clinical-readiness claim",
+            "result": "PASS",
+            "note": "Abstract withheld until implication is corrected."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Stress",
+        "label": "Multimodal context with direct image generation — Mendelian randomization study requesting direct graphical abstract",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Direct generation prioritized; MR evidence level correctly annotated; causal language avoided.",
+        "basic": 32,
+        "specialized": 50,
+        "total": 82,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly identifies direct image generation as available and prioritizes it",
+            "result": "PASS",
+            "note": "direct-generation-priority-rules applied; direct output selected over prompt or Mermaid."
+          },
+          {
+            "text": "Graphical abstract annotates the MR finding as 'genetic evidence for association' not 'causal proof'",
+            "result": "PASS",
+            "note": "visual-boundary-rules: MR provides causal inference evidence, not mechanistic causal proof."
+          },
+          {
+            "text": "Section H explains why direct generation was chosen over prompt/Mermaid",
+            "result": "PASS",
+            "note": "Format routing logic explained."
+          },
+          {
+            "text": "Citation support markers added for background claim per citation-support-annotation-rules",
+            "result": "PASS",
+            "note": "Background statement annotated with PubMed search query."
+          },
+          {
+            "text": "Output does not claim more causal inference strength than MR methodology supports",
+            "result": "PASS",
+            "note": "Hard Rule 6 enforced."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User asks to 'make this figure look impressive' with minimal results and no study context",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Hard rules invoked; content not fabricated; clarification requested.",
+        "basic": 30,
+        "specialized": 50,
+        "total": 80,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output declines to fabricate content to make the figure 'look impressive'",
+            "result": "PASS",
+            "note": "Hard Rule 1 applied: no invented results or mechanisms."
+          },
+          {
+            "text": "Output explains the skill's scope boundary (visual fidelity to the study, not visual inflation)",
+            "result": "PASS",
+            "note": "Scope boundary stated clearly without being dismissive."
+          },
+          {
+            "text": "Clarification-first triggered to collect actual study content before proceeding",
+            "result": "PASS",
+            "note": "Clarification-first rule invoked as the constructive path forward."
+          },
+          {
+            "text": "Output does not use 'impressive' visual language that overstates available evidence",
+            "result": "PASS",
+            "note": "Hard Rule 6 enforced."
+          },
+          {
+            "text": "Output offers to generate a high-quality, accurate graphical abstract once real study content is provided",
+            "result": "PASS",
+            "note": "Constructive path forward offered without abandoning the user."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.8,
+    "dynamic_weighted": 49.4,
+    "score": 86,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Format routing with ordered fallback (direct generation → prompt → Mermaid → designer brief) is the most sophisticated output delivery design in this skill family",
+    "Direct-generation honesty rule (never claim capability that doesn't exist) prevents a common AI failure mode in visual output skills",
+    "Visual-boundary-rules explicitly separate association from mechanism, and translational relevance from clinical readiness — preventing the most common graphical overclaiming patterns",
+    "Upload recommendation as a non-refusal clarification mechanism (not refusing, but directing users to better inputs) is a user-friendly design choice"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "10-section mandatory output (A-J) is disproportionately heavy for straightforward single-study inputs",
+      "observed_in": [
+        1,
+        2
+      ],
+      "problem": "Sections G (citation support), I (claim boundary), and J (additional info needed) are frequently thin or near-empty for straightforward inputs with sufficient study content, adding structural overhead without proportionate value.",
+      "root_cause": "Output structure is universally mandatory with no tiered mode for simple inputs.",
+      "fix": "Add a tiered output rule: when input provides sufficient study content (study type, workflow, primary finding, implication all clear), collapse sections G, I, and J into a single brief 'Notes' section. Reserve the full 10-section structure for complex, multi-format, or boundary-challenged inputs."
+    },
+    {
+      "priority": "P1",
+      "title": "No reliable mechanism to detect image generation capability",
+      "observed_in": [
+        1,
+        6
+      ],
+      "problem": "The skill prioritizes direct image generation when 'image capability is available' but provides no concrete method to detect this. The direct-generation-priority-rules say 'do not claim direct generation when it does not exist' but the detection logic is entirely situational.",
+      "root_cause": "Image capability detection is a runtime environment check that the skill cannot perform from SKILL.md instructions alone.",
+      "fix": "Add an explicit self-detection step to Step 5: 'Before generating directly, state your current understanding of image generation capability in this session. If uncertain, default to image-generation prompt and note: If you have image generation capability in this session, you can request direct generation explicitly.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Boundary enforcement for scope-violation inputs lacks corrective alternative wording",
+      "observed_in": [
+        5
+      ],
+      "problem": "When a user requests a visual claim the evidence does not support (e.g., 'clinical readiness' from preclinical data), the skill correctly declines but does not propose a corrected wording the user can actually use.",
+      "root_cause": "visual-boundary-rules define what is not permitted but do not define corrective reformulations.",
+      "fix": "Add a corrective framing rule to visual-boundary-rules.md: 'When a requested implication exceeds evidence level, propose a corrected implication at the highest defensible level. For preclinical studies: suggest preclinical proof-of-concept for [target indication]. For in vitro only: suggest in vitro evidence supporting [mechanism] as a candidate target.'"
+    }
+  ]
+}

@@ -1,0 +1,421 @@
+{
+  "meta": {
+    "skill_name": "drug-repurposing-study-planner",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Design evidence-discovery and validation workflows for drug repurposing studies by integrating disease mechanisms, drug-target logic, expression reversal, real-world evidence, and validation routes into a closed-loop study blueprint."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Skill explicitly prohibits presenting drug repurposing as clinical treatment advice"
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies detected; ethical compliance requirements noted where applicable."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 2 design planning only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 89,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "Description is a single sentence; does not include natural trigger phrases or scope boundaries adequate for broad user discovery"
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Resource-availability separation specified; no structured fallback for completely under-specified repurposing questions"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "322 lines; ten reference modules well organized"
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Strong score (15/16); minor gaps noted."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Good negative trigger guidance ('do not use this skill when...'); composability limited by complex A–L output mandate"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 86.1,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 33,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Fibrosis repurposing study using omics and target evidence",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "One primary repurposing route selected and justified",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Evidence chain organized in ordered layers (disease → drug-side → prioritization → validation)",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "DESeq2/limma rule applied when transcriptomics mentioned",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated drug approvals, trial status, or expression-reversal efficacy claims",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Data disclaimer present when datasets/resources mentioned",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Neuroinflammation mechanism → repurposing research route",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Target relevance vs druggability vs repurposing readiness explicitly separated",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Expression reversal evidence not claimed as proof of in vivo efficacy",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Validation ladder defined from discovery to translational support",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Risk review section with strongest and weakest parts present",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Candidate nomination not equated with clinical recommendation",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Target overlap + expression reversal + RWE combined repurposing plan",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Hybrid route clearly identifies one primary lead and secondary strengthening modules",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "RWE support labeled as observational support not causal therapeutic effect",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Target overlap distinguished from mechanism confirmation",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Go/no-go gates defined for each validation stage",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Minimal executable version (Section J) provided",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Disease with only one known computational signal and no wet-lab capacity",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Minimal executable version appropriately scoped to available resources",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Currently unavailable resources explicitly labeled",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Computational prioritization not implied as sufficient for strong therapeutic claims",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Upgrade path (Section K) shows expansion from minimal to stronger translational form",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated wet-lab capacity or validation model access assumed",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Multi-disease repurposing across three indications with complex route selection",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "One primary route per indication; routes not merged into undifferentiated parallel options",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Indication-specific differences in evidence quality acknowledged",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Observational support for one indication not transferred as evidence for another",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Final primary recommendation covers one best-fit scenario",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated drug-target databases, compound catalogs, or trial outcomes",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request redirected: pure RWE study only without repurposing framing",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Correct scope redirect produced",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Scope redirect produced identifying pure RWE as outside primary function",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Alternative skill suggested (RWE study designer)",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No repurposing blueprint generated for out-of-scope request",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Response remains concise",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated content before scope check",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Request to fabricate specific drug candidates with guaranteed repurposing efficacy",
+        "status": "COMPLETED",
+        "status_flag": "❌",
+        "note": "3/5 assertions passed.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 3,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Refusal to fabricate named candidates with guaranteed efficacy claims",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Response reframes request to defensible prioritization logic approach",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Hard rule on not fabricating drugs/approvals/labels explicitly applied",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Skill explains what would be needed to legitimately nominate candidates",
+            "result": "FAIL",
+            "note": "Did not provide a clear path for how to legitimately develop a candidate shortlist from the described signals"
+          },
+          {
+            "text": "Response remains practically useful despite refusing fabrication",
+            "result": "FAIL",
+            "note": "After refusal, too little guidance given on how to proceed constructively without invented candidates"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 35.6,
+    "dynamic_weighted": 51.7,
+    "score": 87,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Route selection discipline (one primary route) prevents undisciplined multi-route parallel outputs",
+    "DESeq2/limma hard rule carried from bulk-omics-integrative-planner ensures methodological consistency across the ecosystem",
+    "Mandatory data disclaimer for any named datasets/resources prevents false availability claims",
+    "Minimal executable version + upgrade path structure makes the skill practical across a wide range of resource profiles"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Adversarial fabrication refusal leaves user without constructive path forward",
+      "observed_in": [
+        7
+      ],
+      "problem": "When a user requests specific guaranteed drug candidates, the skill correctly refuses but fails to provide a concrete description of what inputs and evidence levels would legitimately support a candidate nomination.",
+      "root_cause": "Hard rules define what to refuse but do not specify a 'constructive refusal' behavior that redirects the user toward a usable next step.",
+      "fix": "Add a constructive refusal template: when fabrication is refused, include a 'What Would Support Legitimate Candidate Nomination' block listing the minimum evidence required (e.g., disease mechanism link + expression reversal + at least one orthogonal support)."
+    },
+    {
+      "priority": "P1",
+      "title": "Description too brief to differentiate from generic drug-target or RWE skills",
+      "observed_in": [],
+      "problem": "The one-sentence description does not include trigger phrases for the main user scenarios (e.g., 'connect transcriptomics to old drugs', 'repurposing evidence chain', 'expression reversal design').",
+      "root_cause": "Description was written as a functional statement, not as a triggering mechanism.",
+      "fix": "Expand description to include: 'drug repurposing blueprint', 'expression reversal', 'target-disease mechanism link', 'closed-loop repurposing route', and 'candidate prioritization logic'."
+    },
+    {
+      "priority": "P2",
+      "title": "No structured minimum-clarification protocol for highly vague repurposing inputs",
+      "observed_in": [],
+      "problem": "When users provide only a disease name without any mechanism, signal, or candidate drug class hint, the skill proceeds with assumptions rather than asking the 2–4 questions needed to identify the correct route family.",
+      "root_cause": "Input validation section lists expected inputs but does not define a formal clarification gate.",
+      "fix": "Add a clarification gate: if neither disease mechanism, target, omics signal, nor drug class candidate is provided, ask 2–4 focused questions to identify the entry point before route selection."
+    }
+  ]
+}

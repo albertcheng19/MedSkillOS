@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "skill_name": "figure-legend-writer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Simple",
+    "n_inputs": 3,
+    "description": "Writes complete, publication-grade figure legends that can stand on their own. Use when writing or revising figure legends for any scientific figure."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated sample sizes, p-values, or statistical tests detected. Placeholder convention explicitly used for missing values."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No clinical interpretations produced. Skill scope is figure legend writing only."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies. Statistical notation conventions correctly applied."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A text-output skill."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 94,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. 11 figure types covered with type-specific additional elements; 8 template variants in legend_templates.md; journal-specific requirements for Nature, Cell, and Science journals included."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Placeholder convention prevents fabrication; Step 3 quality checklist with 7 verifiable criteria; no explicit handling for supplementary figure legends vs. main figure legends."
+      },
+      "performance_context": {
+        "score": 6,
+        "max": 8,
+        "note": "Figure-type-specific elements table adds necessary but non-trivial token overhead; overall 3-step workflow is lean for the complexity covered."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. Type-specific elements table, standardized placeholder convention, journal-specific requirements, and per-panel multi-panel format all well-designed."
+      },
+      "human_usability": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. Description lists specific figure type names as triggers; immediately recognizable by any researcher needing to write a legend."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Hard rules prohibit fabricated sample sizes, p-values, and statistical tests; placeholder convention enforces this at the output level."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Both reference files (academic_style_guide.md, legend_templates.md) present and well-structured; journal-specific word limits and requirements will need periodic updates; no version tracking or 'last verified' date in reference files."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Trigger precision via specific figure type names is excellent; placeholder composability enables downstream verification workflow; progressive disclosure could be more explicit for asking figure type before generating type-specific elements."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 83.7,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 15,
+      "total": 15
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Bar chart: 3 groups (control, treatment A, treatment B), n=6/group, one-way ANOVA + Tukey, SEM error bars",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Complete legend using bar chart template; all required universal and type-specific elements present.",
+        "basic": 38,
+        "specialized": 52,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Legend includes figure number, brief title, and what each bar represents",
+            "result": "PASS",
+            "note": "Universal elements complete and correctly formatted."
+          },
+          {
+            "text": "Sample size (n=6 per group) is explicitly stated",
+            "result": "PASS",
+            "note": "N stated per group as required."
+          },
+          {
+            "text": "Statistical test (one-way ANOVA + Tukey) and significance thresholds are stated",
+            "result": "PASS",
+            "note": "Statistical notation matches user-provided test and standard threshold format."
+          },
+          {
+            "text": "Error bar type (SEM) is explicitly defined in the legend",
+            "result": "PASS",
+            "note": "Error bar definition present per checklist requirement."
+          },
+          {
+            "text": "Legend does not fabricate statistical results not provided by the user",
+            "result": "PASS",
+            "note": "Hard rules enforced; no invented p-values or group differences."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "3-panel figure: (A) western blot, (B) bar graph quantification, (C) microscopy — loading control not specified",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Per-panel structure applied; loading control placeholder correctly inserted.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output addresses each panel separately using (A), (B), (C) structure",
+            "result": "PASS",
+            "note": "Per-panel format applied as specified in Step 2 multi-panel guidance."
+          },
+          {
+            "text": "Western blot panel legend includes loading control placeholder",
+            "result": "PASS",
+            "note": "[AUTHOR: specify loading control] placeholder inserted rather than inventing a loading control."
+          },
+          {
+            "text": "Microscopy panel legend includes scale bar placeholder",
+            "result": "PASS",
+            "note": "[AUTHOR: specify scale bar and magnification] placeholder correctly inserted."
+          },
+          {
+            "text": "Step 4 output notes all placeholders that need to be filled before submission",
+            "result": "PASS",
+            "note": "Placeholder summary note provided."
+          },
+          {
+            "text": "Legend does not fabricate the loading control protein or scale bar value",
+            "result": "PASS",
+            "note": "Hard rules enforced throughout multi-panel output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Minimal input: 'Write a legend for my figure' — no figure type or details",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Figure type and critical details requested before proceeding; no legend produced.",
+        "basic": 30,
+        "specialized": 46,
+        "total": 76,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill does not produce a legend without knowing the figure type",
+            "result": "PASS",
+            "note": "Input validation triggered; figure type requested first."
+          },
+          {
+            "text": "Output asks for figure type, sample size, statistical test, and error bar type",
+            "result": "PASS",
+            "note": "All critical missing inputs requested in Step 1 format."
+          },
+          {
+            "text": "Output does not invent a figure description or placeholder legend",
+            "result": "PASS",
+            "note": "Hard rules enforced; no fabricated figure content."
+          },
+          {
+            "text": "Output lists the universal elements that will be needed regardless of figure type",
+            "result": "PASS",
+            "note": "User informed of required inputs up front."
+          },
+          {
+            "text": "Output communicates that type-specific elements will be applied once figure type is known",
+            "result": "PASS",
+            "note": "Progressive disclosure: user informed of what differentiates legend by figure type."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.6,
+    "dynamic_weighted": 50.2,
+    "score": 88,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "11-figure-type coverage with type-specific additional elements is the most comprehensive figure legend framework in this skill family",
+    "Standardized placeholder convention ([n = X per group], [AUTHOR: specify error bar type]) prevents fabrication while keeping the output usable",
+    "Journal-specific requirements (Nature, Cell Press, Science) in academic_style_guide.md enable direct journal-targeted output",
+    "8 legend templates in legend_templates.md provide copy-ready starting points for the most common figure types"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "Journal-specific word limits and requirements in academic_style_guide.md will go stale without version tracking",
+      "observed_in": [],
+      "problem": "The Nature Series 350-word limit, Cell Press formatting requirements, and Science style preferences change periodically. The reference file has no 'last verified' date, making it impossible to know if the guidelines are current.",
+      "root_cause": "No version tracking or update reminder in the reference file.",
+      "fix": "Add a 'last-verified' date field to the top of academic_style_guide.md and a note: 'Verify current journal requirements at the official author guidelines page before submission. Requirements change with journal guide updates.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance for multi-panel figures where panels share statistical context",
+      "observed_in": [
+        2
+      ],
+      "problem": "When panels (A) and (B) show the same experiment at different representations (e.g., representative blot and quantification bar), the statistical notation and sample size should appear once in a shared note, not separately for each panel. The skill currently produces redundant statistical declarations.",
+      "root_cause": "Multi-panel format guidance in Step 2 addresses each panel separately without a shared-context mechanism.",
+      "fix": "Add to Step 2: 'For multi-panel figures where panels share the same experiment or sample (e.g., representative image and quantification), state sample size and statistics once in a shared note after the last panel description: All panels: n=[N] per group; statistical test; significance thresholds.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No distinction between main figure legends and supplementary figure legends",
+      "observed_in": [
+        1
+      ],
+      "problem": "Some journals have different length or formatting requirements for supplementary figure legends vs. main figure legends. The skill does not ask whether the legend is for a main or supplementary figure.",
+      "root_cause": "Input validation does not include figure location (main vs. supplementary).",
+      "fix": "Add to Step 1: 'Is this legend for a main figure or a supplementary figure? Some journals have shorter length limits or different formatting rules for supplementary legends.'"
+    }
+  ]
+}

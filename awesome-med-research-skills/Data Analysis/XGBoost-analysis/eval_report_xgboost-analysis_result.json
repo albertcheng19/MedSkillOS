@@ -1,0 +1,316 @@
+{
+    "meta": {
+        "skill_name": "xgboost-analysis",
+        "description": "Train XGBoost gradient boosting classifiers with cross-validated hyperparameter tuning and SHAP-based feature importance. Inputs: feature matrix, class labels. Outputs: trained model, SHAP summary and dependence plots, feature importance ranking, CV metrics.",
+        "evaluated_on": "2026-04-20",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated numerical claims or invented study results were observed in any tested output."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill stayed within technical modeling scope and did not produce diagnostic, prescriptive, or clinical advice."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "Classification and regression paths aligned with target types, and invalid input was rejected before analysis."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "All intended execution paths were runnable in this environment, and repeated seeded runs produced identical core outputs."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 87,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 10,
+                "max": 12,
+                "note": "Regression is supported in code, but the published SKILL.md does not include a regression example or regression validation command."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "Validation and recovery hints are strong; retry guidance after successful runs is slightly implicit rather than explicit."
+            },
+            "performance_context": {
+                "score": 7,
+                "max": 8,
+                "note": "References are layered well; one minor point of friction is documenting an unused data/ subdirectory without explaining its role."
+            },
+            "agent_usability": {
+                "score": 14,
+                "max": 16,
+                "note": "Instructions are clear and consistent, but a short agent-facing output contract would improve response shaping after success or failure."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Trigger language is natural; forgiveness is good but still depends on exact column-name matching."
+            },
+            "security": {
+                "score": 11,
+                "max": 12,
+                "note": "Input validation is strong; data-handling guidance could be more explicit for sensitive real-world datasets."
+            },
+            "maintainability": {
+                "score": 10,
+                "max": 12,
+                "note": "The R implementation is modular, but the documented validation path does not cover every advertised mode, especially regression."
+            },
+            "agent_specific": {
+                "score": 17,
+                "max": 20,
+                "note": "Triggering and layering are strong; composability and stop-condition guidance can be tightened slightly."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 88.4,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Auto binary classification on dt_sample1",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Generated performance table, feature-importance table, figure, and session info exactly as documented.",
+                "basic": 36,
+                "specialized": 53,
+                "total": 89,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output contains the documented performance table",
+                        "result": "PASS",
+                        "note": "The file tests/audit_output1/table/xgboost_model_performance.csv was created."
+                    },
+                    {
+                        "text": "Output contains the documented feature-importance table",
+                        "result": "PASS",
+                        "note": "The file tests/audit_output1/table/xgboost_feature_importance.csv was created."
+                    },
+                    {
+                        "text": "Output contains the documented PNG figure",
+                        "result": "PASS",
+                        "note": "The file tests/audit_output1/figure/xgboost_feature_importance_gain.png was created."
+                    },
+                    {
+                        "text": "Auto-excluded sample ID behavior is surfaced to the user",
+                        "result": "PASS",
+                        "note": "The log explicitly reports automatic exclusion of V1."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Character-label classification on dt_sample3",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Handled wide TXT input with a positive-class override and produced all expected artifacts.",
+                "basic": 37,
+                "specialized": 55,
+                "total": 92,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Character-label classification works with explicit positive class",
+                        "result": "PASS",
+                        "note": "The output records ClassLevels as low|high."
+                    },
+                    {
+                        "text": "Wide TXT input is parsed successfully",
+                        "result": "PASS",
+                        "note": "The run completed on a 50-row, 201-column dataset."
+                    },
+                    {
+                        "text": "A ranked feature-importance table is produced",
+                        "result": "PASS",
+                        "note": "The file tests/audit_output2/table/xgboost_feature_importance.csv was created."
+                    },
+                    {
+                        "text": "A feature-importance figure is produced",
+                        "result": "PASS",
+                        "note": "The file tests/audit_output2/figure/xgboost_feature_importance_gain.png was created."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Missing target column rejection",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Graceful validation stop with a precise error and recovery hint; no partial outputs were emitted.",
+                "basic": 34,
+                "specialized": 50,
+                "total": 84,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Missing target column is detected before training starts",
+                        "result": "PASS",
+                        "note": "Execution stops during model-data preparation, before any model fitting occurs."
+                    },
+                    {
+                        "text": "The error names the offending column clearly",
+                        "result": "PASS",
+                        "note": "The message includes the exact missing column name, outcome."
+                    },
+                    {
+                        "text": "The failure path includes actionable recovery guidance",
+                        "result": "PASS",
+                        "note": "A next step and reference file are printed immediately after the error."
+                    },
+                    {
+                        "text": "No partial output directory is created for the failed run",
+                        "result": "PASS",
+                        "note": "No files were emitted under tests/audit_output3."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Frequency metric TXT export on dt_sample2",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Produced TXT tables and a frequency-ranked figure with the requested custom prefix.",
+                "basic": 36,
+                "specialized": 52,
+                "total": 88,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "TXT table export is honored",
+                        "result": "PASS",
+                        "note": "Both emitted tables use the .txt extension."
+                    },
+                    {
+                        "text": "The selected importance metric is honored",
+                        "result": "PASS",
+                        "note": "The table field and PNG filename both use frequency."
+                    },
+                    {
+                        "text": "Custom output prefix is honored",
+                        "result": "PASS",
+                        "note": "The emitted files are prefixed with freqdemo."
+                    },
+                    {
+                        "text": "Session metadata is written",
+                        "result": "PASS",
+                        "note": "The file tests/audit_output4/session_info.txt exists."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Regression run on dt_sample1 using RIBC2 target",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Completed the regression path and emitted RMSE, MAE, R-squared, feature importance, and figure outputs.",
+                "basic": 36,
+                "specialized": 53,
+                "total": 89,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Regression metrics are emitted",
+                        "result": "PASS",
+                        "note": "The performance table includes rmse, mae, and rsquared."
+                    },
+                    {
+                        "text": "Regression output avoids fake class labels",
+                        "result": "PASS",
+                        "note": "ClassLevels is recorded as NA for the regression run."
+                    },
+                    {
+                        "text": "Regression still produces a ranked feature-importance table",
+                        "result": "PASS",
+                        "note": "The file tests/audit_output6/table/regression_feature_importance.csv exists."
+                    },
+                    {
+                        "text": "Regression still produces a figure artifact",
+                        "result": "PASS",
+                        "note": "The file tests/audit_output6/figure/regression_feature_importance_gain.png exists."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 34.8,
+        "dynamic_weighted": 53,
+        "score": 88,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "Seeded runs are deterministic: a repeated canonical run produced identical performance and feature-importance files.",
+        "Validation failures are explicit and actionable, with recovery hints that point users back to the right parameter or reference file.",
+        "The skill executed successfully across binary classification, character-label classification, TXT export, and regression paths.",
+        "The implementation is modular and the generated artifacts align closely with the documented command surface."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Document the regression path explicitly",
+            "observed_in": [
+                5
+            ],
+            "problem": "The implementation supports regression, but the public SKILL.md examples and validation section cover only classification scenarios.",
+            "root_cause": "Documentation and smoke-test examples were written around the bundled classification fixtures and never expanded to the regression path.",
+            "fix": "Add at least one regression example and one regression validation command to SKILL.md. If possible, include a small bundled regression fixture so users can verify the advertised path directly."
+        },
+        {
+            "priority": "P2",
+            "title": "Clarify the data directory contract",
+            "observed_in": [],
+            "problem": "The documented output tree always includes data/, but current runs do not place any analysis artifact there, which can make successful runs look incomplete.",
+            "root_cause": "The script pre-creates a reserved data/ directory without explaining whether it is intentionally empty or intended for future outputs.",
+            "fix": "Update SKILL.md to say that data/ is reserved and may remain empty, or start writing a concrete artifact there so the directory has an observable purpose."
+        },
+        {
+            "priority": "P2",
+            "title": "Add a short agent-facing response contract",
+            "observed_in": [],
+            "problem": "The command surface is clear, but the skill does not explicitly tell an agent what to report back after success, partial success, or validation failure.",
+            "root_cause": "The document is optimized for CLI usage and leaves the final response shape implicit.",
+            "fix": "Add a brief section telling the agent to report the task type detected, key output file paths, and the exact SKILL_* error plus next step when execution fails."
+        }
+    ]
+}

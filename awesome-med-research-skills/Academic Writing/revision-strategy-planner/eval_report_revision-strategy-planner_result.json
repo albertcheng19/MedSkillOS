@@ -1,0 +1,429 @@
+{
+  "meta": {
+    "skill_name": "revision-strategy-planner",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Builds prioritized manuscript revision plans for major or minor revisions by separating comments that require experiments, analyses, clarification, restructuring, or wording changes."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated reviewer comments, editor positions, PMIDs, or assay feasibility claims. Hard rule 7 explicitly prohibits fabricating dataset availability or validation status."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive medical conclusions. Revision planning is strategic, not clinical."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Hard rule 2 prevents reflexive new-experiment promises. Hard rule 3 prevents assuming all misunderstandings can be resolved with wording. Feasibility boundary rules enforce resource-aware planning."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A skill — no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 92,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Comprehensive revision strategy planning. Seven use cases including reject-and-resubmit. Nine-step workflow + ten-section output (A–J). Eight action routes (new experiment/analysis/re-analysis/clarification/wording/figure/restructuring/bounded rebuttal). Three feasibility tiers. Section H (Main Strategic Risk) is unique across all Academic Writing skills reviewed."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Clarification-first gate. Five-dimension triage (severity, editorial sensitivity, revision burden, credibility, centrality). 'Lightest credible action' principle prevents reflexive overcommitment. Minor deduction: no partial-results mode when input is sparse but user insists on proceeding."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Seven compact reference files. SKILL.md 314 lines — longest in Academic Writing category. Ten-section output is verbose but each section has distinct purpose. Minor deduction: Section D (Priority Revision Plan) and Section G (Recommended Revision Phases) have structural overlap — both sequence the revision work."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. Seven sample triggers (most in set). Eight-item core function list. Quality standard comparison. Ten fixed A–J labels. Five feedback mechanisms across sections A, C, F, H, J. 'Lightest credible action' is an explicit usability principle that guides output quality."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Seven sample triggers make entry points very clear. Section J + upload recommendation provide follow-up guidance. Minor deduction: no restart path when user provides more reviewer comments after partial triage begins."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials, APIs, or code execution. Hard rules 1 and 7 prevent fabricating reviewer comments or assay feasibility. Hard rule 4 prevents overcommitment to experiments without feasibility support. Hard rule 8 requires explicit three-tier feasibility classification."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven focused reference files; adding new action route requires only updating action-routing-rules.md. Clean separation between triage logic, action routing, feasibility, and priority staging. Minor deduction: no worked example of a complete revision plan for a specific revision scenario."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Trigger precision: seven specific sample triggers (4/4). Progressive disclosure: clarification gate + Section A + Section J (3/4 — no three-way decision fork). Composability: no explicit handoff to author-response-builder for executing the plan (2/4). Idempotency: A–J structure stable (4/4). Escape hatches: Section J + upload recommendation + bounded rebuttal as formal action route (3/4 — bounded rebuttal is unique but no partial-plan mode)."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 89.6,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 34
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Major revision with 3 reviewer comments: one requesting new experiments, one requesting additional analysis, one requesting clarification",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Comments correctly triaged by severity. New experiment request correctly assessed for feasibility before accepting. Lightest credible action applied to clarification request.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly triages the three comments by severity, not by length or order",
+            "result": "PASS",
+            "note": "comment-triage-rules.md applied — scientific severity and editorial sensitivity assessed per comment."
+          },
+          {
+            "text": "New experiment request routed with explicit feasibility assessment before commitment",
+            "result": "PASS",
+            "note": "feasibility-boundary-rules.md applied — new experiment classified as 'potentially feasible' pending resource check."
+          },
+          {
+            "text": "Clarification-only comment correctly routed to wording change, not new analysis",
+            "result": "PASS",
+            "note": "action-routing-rules.md applied — lightest credible action used; no unnecessary new analysis suggested."
+          },
+          {
+            "text": "Section H identifies the new-experiment request as the main strategic risk",
+            "result": "PASS",
+            "note": "Main Strategic Risk correctly identifies that failing to deliver the new experiment threatens resubmission."
+          },
+          {
+            "text": "Section F explicitly separates currently feasible vs. potentially feasible vs. unrealistic actions",
+            "result": "PASS",
+            "note": "Three-tier feasibility model applied with explicit classification for each of the three comments."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Minor revision with 4 reviewer comments, all presentation and clarity related",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. All four comments correctly classified as presentation-only. No new experiment or analysis suggested. Realistic timeline for minor revision stated.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly identifies all four comments as presentation-only, not evidence gaps",
+            "result": "PASS",
+            "note": "comment-triage-rules.md applied — presentation issues distinguished from scientific severity."
+          },
+          {
+            "text": "No new experiments or re-analyses suggested for presentation-only comments",
+            "result": "PASS",
+            "note": "action-routing-rules.md applied — lightest credible action is wording/figure revision for all four."
+          },
+          {
+            "text": "Section F classifies all four actions as currently feasible",
+            "result": "PASS",
+            "note": "All presentation changes classified as feasible without new data collection."
+          },
+          {
+            "text": "Section H correctly states the main strategic risk is low for this minor revision set",
+            "result": "PASS",
+            "note": "Main strategic risk = missing the resubmission deadline, not scientific gaps."
+          },
+          {
+            "text": "Output does not over-weight minor comments as requiring extensive new evidence",
+            "result": "PASS",
+            "note": "Hard rule 5 holds — comments not treated as equal; minor presentation correctly downgraded."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "User provides only 'we got a major revision, now what?' with no reviewer comments",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Clarification-first gate triggered. No fabricated revision plan produced. Specific missing inputs listed.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output triggers clarification-first gate and requests reviewer comments before planning",
+            "result": "PASS",
+            "note": "Hard rule 10 applied — full revision plan refused without actual review package."
+          },
+          {
+            "text": "Section A states explicitly that input is insufficient for high-confidence revision planning",
+            "result": "PASS",
+            "note": "Input Match Check correctly downgrades confidence — no comments, no manuscript summary, no decision type."
+          },
+          {
+            "text": "Output does not invent reviewer comments or revision items",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — no fabricated reviewer pressure points."
+          },
+          {
+            "text": "Section J lists specific missing inputs that would enable a real revision plan",
+            "result": "PASS",
+            "note": "Reviewer comments, editor letter, manuscript type, study design, feasibility constraints all listed."
+          },
+          {
+            "text": "Output explains what information is needed and why, not just that it is missing",
+            "result": "PASS",
+            "note": "Triage requires comment content and context — purpose of each missing input explained."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Reject-and-resubmit decision with one fundamental design concern about confounding variables",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Reject-and-resubmit correctly identified as highest-stakes context. Confounding concern correctly classified as major scientific issue. Bounded rebuttal vs. new analysis trade-off correctly assessed.",
+        "basic": 37,
+        "specialized": 51,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output identifies reject-and-resubmit as requiring a higher evidence bar than major revision",
+            "result": "PASS",
+            "note": "Context correctly distinguished — R&R requires more substantive response than in-house major revision."
+          },
+          {
+            "text": "Confounding variable concern classified as a major scientific issue, not a wording issue",
+            "result": "PASS",
+            "note": "Hard rule 3 applied — misunderstanding vs. true evidence gap distinction made correctly."
+          },
+          {
+            "text": "Section E routes confounding concern to re-analysis with existing data first, then new experiment if needed",
+            "result": "PASS",
+            "note": "action-routing-rules.md applied — lightest credible action is re-analysis of existing data before new data collection."
+          },
+          {
+            "text": "Section H identifies the confounding concern as the primary acceptance risk",
+            "result": "PASS",
+            "note": "Main Strategic Risk correctly identifies that unresolved confounding concern is a single-point rejection risk."
+          },
+          {
+            "text": "Section F distinguishes re-analysis as currently feasible from new experiment as potentially feasible",
+            "result": "PASS",
+            "note": "Three-tier feasibility applied with explicit rationale for each classification."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Full review package with 3 reviewers providing 18 comments total, including contradictory requests",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. 18 comments correctly clustered into priority tiers. Contradictory requests identified. Editor-sensitive comments correctly elevated.",
+        "basic": 36,
+        "specialized": 50,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output clusters 18 comments into thematic priority groups, not a flat 18-item list",
+            "result": "PASS",
+            "note": "comment-triage-rules.md applied — thematic clustering reduces revision cognitive load."
+          },
+          {
+            "text": "Contradictory reviewer requests identified and flagged with a resolution strategy",
+            "result": "PASS",
+            "note": "When Reviewer 1 and 3 conflict, output explicitly flags the conflict and recommends transparent editor disclosure."
+          },
+          {
+            "text": "Editor-sensitive comments elevated above peripheral reviewer comments in priority",
+            "result": "PASS",
+            "note": "Editorial sensitivity dimension applied — editor-raised concerns prioritized per comment-triage-rules.md."
+          },
+          {
+            "text": "Section G produces a staged revision phase plan, not a flat to-do list",
+            "result": "PASS",
+            "note": "priority-staging-rules.md applied — scientific salvage → analysis → structure → wording → rebuttal phases."
+          },
+          {
+            "text": "Section F clearly distinguishes which of the 18 comment responses are feasible vs. unrealistic",
+            "result": "PASS",
+            "note": "Feasibility three-tier applied for the full comment set — no silent overcommitment."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User asks to write the actual point-by-point rebuttal letter rather than a revision plan",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four assertions passed. Rebuttal writing correctly declined as out of scope. Revision plan offered as the correct output. Author-response-builder mentioned as the appropriate skill for rebuttal writing.",
+        "basic": 38,
+        "specialized": 53,
+        "total": 91,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Output declines writing the point-by-point rebuttal as outside the skill's scope",
+            "result": "PASS",
+            "note": "Scope boundary correctly invoked — strategy planning vs. rebuttal writing are distinct tasks."
+          },
+          {
+            "text": "Output offers to produce the revision strategy plan instead",
+            "result": "PASS",
+            "note": "Constructive alternative provided — strategy plan is the appropriate output for this skill."
+          },
+          {
+            "text": "Output mentions author-response-builder or an equivalent rebuttal-writing skill as the next step",
+            "result": "PASS",
+            "note": "Downstream composability surfaced — revision plan feeds into rebuttal writing."
+          },
+          {
+            "text": "Scope refusal explains the value of planning before writing the rebuttal",
+            "result": "PASS",
+            "note": "Strategic planning before rebuttal writing prevents overcommitment and inconsistent responses."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User says they want to promise new animal experiments in 3 months to satisfy Reviewer 2's demand",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Hard rule 4 applied. Feasibility boundary assessed before accepting the commitment. Lighter credible alternatives surfaced.",
+        "basic": 38,
+        "specialized": 53,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output applies feasibility-boundary-rules.md before accepting the 3-month animal experiment promise",
+            "result": "PASS",
+            "note": "Hard rule 4 applied — overcommitment without feasibility support refused."
+          },
+          {
+            "text": "Output assesses whether existing data re-analysis could credibly address Reviewer 2's concern first",
+            "result": "PASS",
+            "note": "action-routing-rules.md applied — lightest credible action explored before new animal experiment."
+          },
+          {
+            "text": "If animal experiments are truly needed, output flags timeline as 'potentially feasible' not 'committed'",
+            "result": "PASS",
+            "note": "feasibility-boundary-rules.md applied — potentially feasible does not become already committed."
+          },
+          {
+            "text": "Output suggests a bounded rebuttal approach as an alternative to overcommitting",
+            "result": "PASS",
+            "note": "Bounded rebuttal route offered: acknowledge limitation transparently with timeline caveats rather than promising delivery."
+          },
+          {
+            "text": "Section H flags that overpromising animal experiments and failing to deliver is a worse strategic outcome than a bounded response",
+            "result": "PASS",
+            "note": "Main Strategic Risk correctly identifies overcommitment failure as worse than transparent limitation acknowledgment."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.8,
+    "dynamic_weighted": 53.8,
+    "score": 91,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "'Lightest credible action' principle in action-routing-rules.md prevents reflexive new-experiment promises — the most common failure mode in revision planning",
+    "Section H (Main Strategic Risk) is a unique dedicated output section for the single biggest acceptance threat — not present in any other Academic Writing skill reviewed",
+    "Three-tier feasibility model (currently feasible/potentially feasible/currently unrealistic) with explicit prohibition on silently converting 'potentially feasible' to 'committed'",
+    "Seven action routes (including 'bounded rebuttal') cover the full spectrum from new experiments to transparent limitation acknowledgment",
+    "Five-dimension comment triage (severity, editorial sensitivity, burden, credibility, centrality) prevents flat comment-list outputs"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No explicit composability with author-response-builder for executing the plan",
+      "observed_in": [
+        6
+      ],
+      "problem": "The scope boundary correctly declines to write the rebuttal but mentions downstream skills only informally. There is no documented pipeline: revision-strategy-planner → author-response-builder.",
+      "root_cause": "Skill designed as standalone without explicit downstream positioning.",
+      "fix": "Add to SKILL.md scope boundary: 'After completing the revision strategy with this skill, use author-response-builder to write the point-by-point rebuttal. Pass the Section E (Comment-to-Action Routing) and Section G (Revision Phases) to author-response-builder as structured input.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No guidance on timeline constraints in revision planning",
+      "observed_in": [
+        7
+      ],
+      "problem": "Revision deadlines (typically 2–3 months for major revisions) are critical feasibility constraints, but the skill's input validation does not ask for the deadline, and feasibility-boundary-rules.md does not reference timeline as a feasibility dimension.",
+      "root_cause": "Feasibility rules focus on resource availability but not temporal constraints.",
+      "fix": "Add 'revision deadline' to the input validation checklist. Add to feasibility-boundary-rules.md: 'If new experiments are requested, assess whether they can be completed, analyzed, and incorporated into the manuscript within the available revision window. Flag if the timeline makes the experiment currently unrealistic.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Section D (Priority Revision Plan) and Section G (Recommended Revision Phases) structurally overlap",
+      "observed_in": [],
+      "problem": "Both sections sequence revision work. Section D prioritizes by importance, Section G sequences by phase — but in practice, the phase sequence and the priority order are often the same content presented twice.",
+      "root_cause": "Sections designed independently without checking content overlap.",
+      "fix": "Clarify the distinct purpose of each section: Section D should show the strategic priority ranking (which comments matter most), while Section G should show the temporal work sequence (which tasks are done in which week). Emphasize in SKILL.md that these answer different questions."
+    },
+    {
+      "priority": "P2",
+      "title": "No structured cross-reviewer conflict resolution protocol",
+      "observed_in": [
+        5
+      ],
+      "problem": "When reviewers give contradictory comments, the skill identifies the conflict but does not have a documented resolution protocol in comment-triage-rules.md or action-routing-rules.md.",
+      "root_cause": "Triage rules handle single-reviewer cases well but cross-reviewer conflicts are not explicitly addressed.",
+      "fix": "Add to comment-triage-rules.md: 'When reviewer comments conflict, document the conflict explicitly in Section C. Route the conflict to a bounded rebuttal that transparently explains the trade-off made and the scientific rationale for the decision taken.'"
+    }
+  ]
+}

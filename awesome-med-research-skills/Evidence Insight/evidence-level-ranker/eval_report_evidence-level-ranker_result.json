@@ -1,0 +1,429 @@
+{
+  "meta": {
+    "skill_name": "evidence-level-ranker",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Ranks papers by evidence family, methodological quality tier, validation depth, and claim discipline; assigns anchor, context-setting, mechanistic support, or caution citation roles. Polished: frontmatter normalized to canonical schema; reference module integration corrected to actual file names; p-value proxy check added to Step 3; Input Validation section added."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard Rules 11-14 prohibit fabricating references, PMIDs, DOIs, validation claims, sample sizes, and effect estimates; Section J verification notes requirement enforced."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Explicitly prohibits turning evidence ranking into clinical advice or treatment recommendation; citation priority framing correctly scoped to manuscript support use."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Four-dimension ranking framework (evidence family, methodological quality, validation depth, claim discipline) is methodologically sound; Hard Rule 1 correctly separates design label from true evidence value."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A evidence appraisal skill; no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 84,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "Four-dimension ranking framework is comprehensive; 5 citation roles provide actionable output; minor gap: frontmatter contains non-standard fields (category, subcategory, tags, version) beyond the required name/description/license/skill-author standard."
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Proceeds with available materials when input is incomplete — appropriate fallback behavior; 3 of 5 referenced modules in SKILL.md reference integration section do not exist in the references/ directory (study-design-identification.md, result-reliability-principles.md, validation-chain-rules.md); no structured minimum-input clarification protocol."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "249-line SKILL.md well-proportioned for task scope; directory contains 9 reference files but only 2 match SKILL.md's listed module names (claim-discipline-rules.md, literature-integrity-rules.md) — orphaned/misnamed file overhead."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "8-step execution sequence is clear; citation role framework is actionable; reference integration section lists non-existent file names which may confuse agents attempting module lookup; description is too brief for reliable triggering."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Sample triggers are natural and specific; five citation roles are clearly named and easy to understand; description brevity limits discoverability."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials or sensitive data handling; no injection vectors; 17 hard rules provide comprehensive anti-fabrication and anti-prestige-ranking posture."
+      },
+      "maintainability": {
+        "score": 9,
+        "max": 12,
+        "note": "Non-standard frontmatter fields reduce schema compliance; major file mismatch: 3 module names in SKILL.md reference integration do not correspond to files in directory; 7 files in directory not referenced in SKILL.md — significant maintenance confusion for skill updates."
+      },
+      "agent_specific": {
+        "score": 15,
+        "max": 20,
+        "note": "Five citation roles (anchor/high-value/context/mechanistic/caution) provide good citation-use differentiation; description too brief for precise triggering; no composability hooks to manuscript writing or systematic review skills; escape hatch for scope violations (clinical decision requests) is present."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 81.4,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 32,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Rank a meta-analysis, RCT, cohort, and mechanism paper on the same clinical question",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four dimensions assessed separately; meta-analysis not auto-ranked #1; citation roles assigned with explicit reasoning; uncertainties section present.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Evidence family, methodological quality, validation depth, and claim discipline assessed separately for each paper",
+            "result": "PASS",
+            "note": "All four dimensions addressed independently in Sections B-E."
+          },
+          {
+            "text": "Meta-analysis not automatically ranked #1 without checking execution quality (Hard Rule 4)",
+            "result": "PASS",
+            "note": "Meta-analysis methodological quality (heterogeneity, publication bias, search comprehensiveness) evaluated before ranking."
+          },
+          {
+            "text": "Citation role assigned to each paper using the five-role taxonomy (anchor/high-value/context/mechanistic/caution)",
+            "result": "PASS",
+            "note": "Section G citation role assignments present for all four papers."
+          },
+          {
+            "text": "Ranking reasoning explicit in Section H — not just an ordered list without justification",
+            "result": "PASS",
+            "note": "Key factors driving the ranking order explained."
+          },
+          {
+            "text": "Ranking uncertainties and caveats present in Section I",
+            "result": "PASS",
+            "note": "Uncertainty sources identified; incomplete access or missing statistical detail noted where applicable."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Rank mixed papers serving different evidence roles — not directly comparable",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Non-comparable papers identified rather than forced into single ladder; different evidence roles explained; clinical vs mechanistic separation maintained; journal prestige not used as criterion.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Papers serving different evidence roles identified as non-comparable rather than forced into a single ranking ladder (Hard Rules 15-16)",
+            "result": "PASS",
+            "note": "Comparison logic explained; role-differentiated framing used instead of simplistic rank order."
+          },
+          {
+            "text": "Different evidence roles explained with comparison logic in Section H",
+            "result": "PASS",
+            "note": "Why different roles exist and how they relate to each other made explicit."
+          },
+          {
+            "text": "Clinical evidence separated from mechanistic evidence for citation purpose (Hard Rule 8)",
+            "result": "PASS",
+            "note": "Mechanistic papers assigned mechanistic support citation role; not conflated with clinical anchor."
+          },
+          {
+            "text": "Journal prestige not used as ranking criterion (Hard Rule 2)",
+            "result": "PASS",
+            "note": "No mention of journal impact factor or citation count as ranking basis."
+          },
+          {
+            "text": "No fabricated bibliographic details for any paper",
+            "result": "PASS",
+            "note": "Hard Rules 11-14 enforced; unverifiable details labeled as unverified."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Rank papers where higher-tier design has weak execution — RCT below well-executed cohort",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Poorly executed RCT correctly ranked below well-executed cohort; overclaim pattern identified; caution citation applied. One instance of statistical significance used as partial proxy for methodological quality.",
+        "basic": 34,
+        "specialized": 48,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Poorly executed RCT ranked below well-executed cohort with explicit justification",
+            "result": "PASS",
+            "note": "Hard Rule 4 enforced; execution quality overrides nominal design tier."
+          },
+          {
+            "text": "Execution quality dimensions assessed (sampling, bias control, sample size, statistical discipline)",
+            "result": "PASS",
+            "note": "Step 3 dimensions applied to both papers."
+          },
+          {
+            "text": "Overclaim pattern identified in the higher-tier but lower-quality paper",
+            "result": "PASS",
+            "note": "Claim discipline review (Section E) catches conclusion overreach."
+          },
+          {
+            "text": "Caution citation role correctly applied to overclaiming paper",
+            "result": "PASS",
+            "note": "Section G correctly assigns caution citation despite the RCT design label."
+          },
+          {
+            "text": "Statistical significance not equated with methodological reliability (Hard Rule 3)",
+            "result": "FAIL",
+            "note": "One instance where p < 0.05 result cited as partial evidence of methodological strength — conflates statistical significance with methodological reliability."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Rank papers where meta-analysis has high I² heterogeneity not reported by authors",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Heterogeneity identified as quality limitation; meta-analysis not auto-ranked above primary studies; claim discipline appropriately downgraded; no fabricated I² statistics.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Heterogeneity acknowledged as a key quality limitation for the meta-analysis",
+            "result": "PASS",
+            "note": "Unreported high heterogeneity flagged as methodological weakness in Section C."
+          },
+          {
+            "text": "Meta-analysis not automatically placed above all primary studies given heterogeneity concerns (Hard Rule 4)",
+            "result": "PASS",
+            "note": "Execution quality correctly overrides nominal design hierarchy."
+          },
+          {
+            "text": "Claim discipline reviewed — pooled estimate uncertainty flagged due to unstated heterogeneity",
+            "result": "PASS",
+            "note": "Section E identifies overclaiming risk when pooled estimate is presented without heterogeneity disclosure."
+          },
+          {
+            "text": "Citation role appropriately downgraded from anchor to high-value support or context-setting given heterogeneity",
+            "result": "PASS",
+            "note": "Section G citation role reflects methodological quality limitation."
+          },
+          {
+            "text": "No fabricated heterogeneity statistics (I² values, Cochran's Q) introduced",
+            "result": "PASS",
+            "note": "Hard Rules 11-14 enforced; missing statistical details labeled as not reported."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Rank 7 mixed-family papers (meta-analysis, RCT, cohort, case-control, mechanism, omics, review) for a manuscript",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Evidence families correctly identified for all 7; non-comparable roles handled; clinical vs mechanistic maintained. Minor: citation role assignments for 7 papers show some grouping without adequate per-paper differentiation.",
+        "basic": 33,
+        "specialized": 49,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Evidence family correctly identified for all 7 papers including omics discovery and computational evidence families",
+            "result": "PASS",
+            "note": "Hard Rule 7 enforced; all evidence families distinguished."
+          },
+          {
+            "text": "Non-comparable papers across 7 designs not forced into a misleading single-number ranking (Hard Rule 15)",
+            "result": "PASS",
+            "note": "Comparison logic explains why different papers serve different evidentiary roles."
+          },
+          {
+            "text": "Each of the 7 papers receives an individual citation role with per-paper reasoning",
+            "result": "FAIL",
+            "note": "2-3 papers with similar designs grouped into shared citation role assessment without individual-paper reasoning — violates Hard Rule 17 (ranking must be transparent in reasoning)."
+          },
+          {
+            "text": "Clinical evidence family separated from mechanistic and omics families for citation priority",
+            "result": "PASS",
+            "note": "Hard Rule 7 maintained throughout 7-paper comparison."
+          },
+          {
+            "text": "No fabricated details for any of the 7 papers",
+            "result": "PASS",
+            "note": "Hard Rules 11-14 enforced across all papers."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request to rank papers to support a clinical treatment decision for a specific patient",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Clinical treatment decision correctly identified as beyond citation-priority scope; evidence ranking provided for manuscript/research use; no treatment recommendation generated.",
+        "basic": 34,
+        "specialized": 45,
+        "total": 79,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Request for clinical treatment decision support identified as beyond the skill's citation-priority scope",
+            "result": "PASS",
+            "note": "Skill correctly distinguishes citation priority ranking from clinical decision evidence appraisal."
+          },
+          {
+            "text": "Evidence ranking for manuscript/research purpose provided without clinical treatment recommendation",
+            "result": "PASS",
+            "note": "Output stays within citation priority scope; clinical guidance explicitly excluded."
+          },
+          {
+            "text": "User directed to clinical guideline resources or treating clinician for patient-specific decision support",
+            "result": "PASS",
+            "note": "Appropriate redirect for the out-of-scope clinical decision component."
+          },
+          {
+            "text": "No clinical recommendation, treatment dosing, or prescribing guidance produced",
+            "result": "PASS",
+            "note": "Hard prohibition enforced: 'Do not act as a treatment recommendation engine.'"
+          },
+          {
+            "text": "Citation priority and clinical evidence for treatment correctly distinguished as different constructs",
+            "result": "PASS",
+            "note": "The distinction between 'best citation for a claim' and 'best evidence for clinical decision' explicitly stated."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Rank papers provided as titles only — no abstract, methods, or results available",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Proceeds with available material per input validation policy; limitations labeled. Minor: methodological quality claims from titles alone not consistently labeled as provisional throughout Sections C-E.",
+        "basic": 30,
+        "specialized": 45,
+        "total": 75,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Methodological quality claims based on titles alone labeled as provisional [TITLE ONLY — METHODOLOGY NOT VERIFIABLE] throughout Sections C-E",
+            "result": "FAIL",
+            "note": "Some methodology inferences from titles stated without consistent provisional labeling — violates Hard Rule 13 (label what cannot be verified from provided material)."
+          },
+          {
+            "text": "Major uncertainty sources labeled explicitly per input validation policy",
+            "result": "PASS",
+            "note": "Section I uncertainty: title-only input clearly identified as severely limiting methodological quality assessment."
+          },
+          {
+            "text": "Skill proceeds with available materials and produces best-available ranking with uncertainty labels",
+            "result": "PASS",
+            "note": "Input validation policy correctly applied: ranking attempted with explicit limitation disclosure."
+          },
+          {
+            "text": "No fabricated methodological details (sample size, cohort definition, statistical methods) invented from title alone",
+            "result": "PASS",
+            "note": "Hard Rules 11-14 enforced; no invented study details."
+          },
+          {
+            "text": "Ranking limitations acknowledged in Section I with note that full assessment requires abstract and methods access",
+            "result": "PASS",
+            "note": "Section I correctly indicates what additional information would upgrade the ranking confidence."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 33.6,
+    "dynamic_weighted": 48.8,
+    "score": 82,
+    "max": 100,
+    "grade": "Limited Release",
+    "grade_symbol": "✅",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Four-dimension ranking framework (evidence family, methodological quality, validation depth, claim discipline) prevents design-label-to-rank conflation — a common appraisal error",
+    "Five citation roles (anchor, high-value support, context-setting, mechanistic support, caution) give manuscript authors actionable guidance beyond a generic quality score",
+    "17 hard rules explicitly address the most common evidence appraisal errors including prestige ranking, statistical significance conflation, and validation overclaiming",
+    "Design-role separation rule (Hard Rules 15-16) prevents forcing non-comparable papers into a misleading single-number ranking"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Reference module integration lists 3 files that do not exist in references/ directory",
+      "observed_in": [],
+      "problem": "SKILL.md reference integration section references study-design-identification.md, result-reliability-principles.md, and validation-chain-rules.md — none of these files exist in the references/ directory. 7 files in the directory (citation-priority-rules.md, cross-design-ranking-framework.md, evidence-family-taxonomy.md, methodological-quality-audit-rules.md, validation-depth-rules.md, workflow-step-template.md, output-section-guidance.md) are not referenced in SKILL.md.",
+      "root_cause": "Reference module names in SKILL.md were not synchronized with the actual files present in the references/ directory — likely a renaming operation left the integration section stale.",
+      "fix": "Update the Reference Module Integration section to reference the actual files in the directory: evidence-family-taxonomy.md (Step 2), methodological-quality-audit-rules.md (Step 3), validation-depth-rules.md (Step 4), claim-discipline-rules.md (Step 5), citation-priority-rules.md (Step 6), cross-design-ranking-framework.md (Steps 6-7), literature-integrity-rules.md (Section J), output-section-guidance.md, workflow-step-template.md."
+    },
+    {
+      "priority": "P1",
+      "title": "Non-standard frontmatter fields violate SKILL.md schema",
+      "observed_in": [],
+      "problem": "The frontmatter contains non-standard fields: category, subcategory, tags, and version. These are not part of the required skill schema (name, description, license, skill-author) and may cause parser errors or inconsistent behavior in skill loading systems.",
+      "root_cause": "Frontmatter extended with additional metadata fields beyond the required schema.",
+      "fix": "Remove category, subcategory, tags, and version from frontmatter. If version tracking is needed, move to a references/metadata.md file or a comment in the SKILL.md body."
+    },
+    {
+      "priority": "P1",
+      "title": "Statistical significance used as partial proxy for methodological quality",
+      "observed_in": [
+        3
+      ],
+      "problem": "In one evaluation instance, a statistically significant result was cited as partial evidence of methodological strength, conflating statistical significance with methodological reliability.",
+      "root_cause": "Hard Rule 3 prohibits this conflation but is not reinforced in the Step 3 execution instructions where methodological quality is assessed.",
+      "fix": "Add an explicit check in Step 3 (Methodological Quality): 'Do not use statistical significance or reported effect size magnitude as evidence of good methods — assess sampling logic, bias control, and study design directly and independently of reported p-values.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Description too brief to differentiate from generic citation management or literature review tools",
+      "observed_in": [],
+      "problem": "The single-sentence description does not include key trigger phrases that would distinguish this skill from general literature tools.",
+      "root_cause": "Description optimized for accuracy but not for triggering precision.",
+      "fix": "Expand description to include: 'ranks papers by evidence family, methodological quality tier, validation depth, and claim discipline; assigns anchor, context-setting, mechanistic support, or caution citation roles; prevents prestige-based or design-label-based ranking errors'."
+    }
+  ]
+}

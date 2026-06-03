@@ -1,0 +1,26 @@
+Package: tf-target-gene-regulatory-network
+Type: Skill
+Title: Transcription Factor Regulatory Network Analysis
+Version: 2.0.0
+Date: 2026-04-14
+Description: Analyze transcription factor (TF) regulatory networks using Dorothea database. 
+    Input gene list, identify regulating transcription factors, generate TF-Target network visualization.
+Author: Skill Developer
+Maintainer: Skill Developer <developer@example.com>
+License: MIT
+Encoding: UTF-8
+Depends: 
+    R (>= 4.1.0)
+Imports:
+    optparse (>= 1.7.1),
+    dplyr (>= 1.1.4),
+    openxlsx (>= 4.2.6),
+    tidyverse (>= 1.3.1),
+    tidygraph (>= 1.2.0),
+    ggraph (>= 2.0.5),
+    showtext (>= 0.9.5)
+Suggests:
+    dorothea (>= 1.6.0)
+SystemRequirements: Local database files (dorothea_hs.rds, dorothea_mm.rds) in database/ directory
+URL: https://github.com/saezlab/dorothea
+BugReports: https://github.com/saezlab/dorothea/issues

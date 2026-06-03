@@ -1,0 +1,332 @@
+{
+    "meta": {
+        "skill_name": "sample-correlation-analysis",
+        "description": "Compute pairwise sample Pearson or Spearman correlations and visualize as correlation heatmaps for QC and batch detection. Inputs: expression matrix, sample annotation. Outputs: correlation matrix, annotated heatmap, outlier sample flagging report.",
+        "evaluated_on": "2026-04-15",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "Outputs were generated from real bundled datasets and no fabricated statistical claims were detected."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill stays within statistical computation and does not make diagnostic, prescriptive, or treatment claims."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "Pearson and Spearman were applied to appropriate two-variable correlation tasks with documented assumptions and bounded scope."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "All audited success-path commands executed successfully in the current environment without code changes."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 89,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 10,
+                "max": 12,
+                "note": "Core Pearson and Spearman workflows are covered well, but a few runtime behaviors are not fully documented."
+            },
+            "reliability": {
+                "score": 10,
+                "max": 12,
+                "note": "Error codes are strong, but failed runs still create empty output directories and one troubleshooting dependency note is inconsistent."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "Full score achieved. The skill layers detail into references and keeps the top-level workflow concise."
+            },
+            "agent_usability": {
+                "score": 14,
+                "max": 16,
+                "note": "Instructions are easy to follow, though a few wording inconsistencies slightly raise inference cost."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Trigger language is natural, but the interface remains strict on exact variable names and file-based inputs."
+            },
+            "security": {
+                "score": 11,
+                "max": 12,
+                "note": "Input validation is strong and no dangerous execution patterns were found. Routine session metadata is still written to disk on success."
+            },
+            "maintainability": {
+                "score": 11,
+                "max": 12,
+                "note": "Scripts and references are well separated, but some documentation has drifted from observed runtime behavior."
+            },
+            "agent_specific": {
+                "score": 18,
+                "max": 20,
+                "note": "Triggering, layering, and idempotency are strong. Out-of-scope guidance could be more explicit."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 84.4,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 19,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Basic Pearson column analysis",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed cleanly and produced the expected CSV output.",
+                "basic": 37,
+                "specialized": 54,
+                "total": 91,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output creates the expected Pearson result file in table/.",
+                        "result": "PASS",
+                        "note": "The CSV file was created in the documented location."
+                    },
+                    {
+                        "text": "Output reports both requested variables and the correct sample size.",
+                        "result": "PASS",
+                        "note": "The result includes both variable names and sample_size=10."
+                    },
+                    {
+                        "text": "Output includes the core statistical fields promised by the skill.",
+                        "result": "PASS",
+                        "note": "Correlation, statistic, p-value, and confidence interval fields are present."
+                    },
+                    {
+                        "text": "Output stays within the skill's two-variable correlation scope.",
+                        "result": "PASS",
+                        "note": "The run performed one Pearson analysis and made no extra claims."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Row-labeled Spearman analysis",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Row-oriented input handling worked correctly and the result stayed accurate.",
+                "basic": 35,
+                "specialized": 50,
+                "total": 85,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "The skill handles variables stored as first-column row labels.",
+                        "result": "PASS",
+                        "note": "The output reports variable_orientation=rows."
+                    },
+                    {
+                        "text": "The requested Spearman method is preserved in the output.",
+                        "result": "PASS",
+                        "note": "The method field and file name both indicate Spearman."
+                    },
+                    {
+                        "text": "The result includes the requested variable names and a valid sample size.",
+                        "result": "PASS",
+                        "note": "Both row labels are preserved and sample_size=17 is reported."
+                    },
+                    {
+                        "text": "The skill does not invent confidence intervals when this path does not provide them.",
+                        "result": "PASS",
+                        "note": "The output uses explicit NA values for conf_low and conf_high."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Missing output variable",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "The failure message is clear, but the run still leaves an empty output directory tree behind.",
+                "basic": 28,
+                "specialized": 39,
+                "total": 67,
+                "assertions_passed": 3,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "The skill surfaces a specific, actionable missing-column error.",
+                        "result": "PASS",
+                        "note": "The stderr message names the missing variable and uses the documented error code."
+                    },
+                    {
+                        "text": "The run does not fabricate a result file after the validation failure.",
+                        "result": "PASS",
+                        "note": "No result table was written after the error."
+                    },
+                    {
+                        "text": "The skill avoids unnecessary side effects on failed validation.",
+                        "result": "FAIL",
+                        "note": "The output directory structure is created before variable validation completes."
+                    },
+                    {
+                        "text": "The failure path stays within scope and does not produce misleading statistics.",
+                        "result": "PASS",
+                        "note": "The run aborts with an error instead of producing partial statistics."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Large Pearson TXT export",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Custom parameters and TXT output worked as documented on the large bundled dataset.",
+                "basic": 36,
+                "specialized": 53,
+                "total": 89,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "The skill respects custom output format and prefix settings.",
+                        "result": "PASS",
+                        "note": "It wrote the expected TXT file with the requested prefix."
+                    },
+                    {
+                        "text": "The output preserves the requested hypothesis and confidence level.",
+                        "result": "PASS",
+                        "note": "The table contains alternative=less and conf_level=0.99."
+                    },
+                    {
+                        "text": "The larger dataset executes cleanly without manual tuning.",
+                        "result": "PASS",
+                        "note": "The run completed on 489 complete observation pairs."
+                    },
+                    {
+                        "text": "The output remains constrained to the requested statistical summary.",
+                        "result": "PASS",
+                        "note": "Only the requested result table was emitted."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Large Spearman one-sided run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The large Spearman run completed successfully and preserved all requested parameters.",
+                "basic": 36,
+                "specialized": 54,
+                "total": 90,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "The skill completes a large-dataset Spearman run successfully.",
+                        "result": "PASS",
+                        "note": "The command completed with 489 complete pairs."
+                    },
+                    {
+                        "text": "The output preserves the requested method, variables, and one-sided alternative.",
+                        "result": "PASS",
+                        "note": "All requested parameters appear in the output file."
+                    },
+                    {
+                        "text": "The output includes the promised core statistics.",
+                        "result": "PASS",
+                        "note": "Correlation, statistic, p-value, and sample size fields are present."
+                    },
+                    {
+                        "text": "The skill does not overstep into unsupported interpretation or causal claims.",
+                        "result": "PASS",
+                        "note": "It emits only the requested statistical summary."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 35.6,
+        "dynamic_weighted": 50.6,
+        "score": 86,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The core Pearson and Spearman workflows execute successfully on both column-oriented and row-labeled bundled datasets.",
+        "The skill exposes clear CLI parameters, deterministic outputs, and a lightweight reference structure that keeps the main SKILL.md concise.",
+        "Error reporting uses stable, human-readable SKILL_* codes that make failures easy to diagnose in automation or manual use."
+    ],
+    "recommendations": [
+        {
+            "priority": "P1",
+            "title": "Delay output directory creation until validation passes",
+            "observed_in": [
+                3
+            ],
+            "problem": "A failed validation run still creates the `data/`, `figure/`, and `table/` directories, which leaves misleading artifacts behind after an error.",
+            "root_cause": "The script creates the output structure before confirming that the requested variables and complete cases are valid.",
+            "fix": "Move `create_output_structure()` later in the execution path so it runs only after file loading and variable resolution succeed, or clean up empty directories on failure."
+        },
+        {
+            "priority": "P2",
+            "title": "Document Spearman confidence interval behavior explicitly",
+            "observed_in": [
+                2,
+                5
+            ],
+            "problem": "Successful Spearman outputs report `conf_low` and `conf_high` as `NA`, but the top-level skill document does not clearly call out that this is expected behavior.",
+            "root_cause": "The documentation lists output fields generically without noting that the selected R path does not emit confidence intervals for Spearman in these runs.",
+            "fix": "Add a short note in SKILL.md and the algorithm reference explaining that Spearman runs may return `NA` confidence interval fields with the current implementation."
+        },
+        {
+            "priority": "P2",
+            "title": "Align dependency guidance across docs",
+            "observed_in": [],
+            "problem": "The prerequisites mention `optparse` and `data.table`, but troubleshooting recommends installing `data.table` and `tools`, which is inconsistent and omits `optparse`.",
+            "root_cause": "The references were updated independently and the dependency list drifted.",
+            "fix": "Standardize all installation guidance on the actual runtime dependencies and remove the unnecessary `tools` install instruction."
+        },
+        {
+            "priority": "P2",
+            "title": "Clean up log message spacing",
+            "observed_in": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "problem": "Several console messages concatenate tokens without spaces, which reduces readability when users inspect logs during troubleshooting.",
+            "root_cause": "The logging helper uses `paste(..., sep = '', collapse = '')`, so adjacent fragments are joined directly.",
+            "fix": "Adjust the logging helper to insert spaces between logical fields or format the messages as full strings before passing them to `log_info()`."
+        }
+    ]
+}

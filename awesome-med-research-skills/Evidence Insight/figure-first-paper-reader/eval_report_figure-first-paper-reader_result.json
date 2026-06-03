@@ -1,0 +1,422 @@
+{
+  "meta": {
+    "skill_name": "figure-first-paper-reader",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Reads a paper figure by figure before re-integrating the full narrative, so the user can identify the core findings quickly and check whether each visual actually supports the authors' main claims. Always separate figure content, figure-linked claim, evidentiary strength, and unsupported interpretation."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard Rule 10 prohibits fabricating figure contents, panel labels, result values, and paper metadata; Section H verification requirement enforced; caption-level inference clearly scoped."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No patient-specific clinical advice or diagnostic conclusions produced; skill correctly scoped to figure-to-claim analysis and overinterpretation auditing."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Four evidence-support classifications (Strong/Partial/Weak/Does not establish) are methodologically calibrated; Hard Rule 14 explicitly prevents confusing figure-first reading with full methods appraisal."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A figure-to-claim analysis skill; no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 91,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Comprehensive 8-step execution with 8-section output; panel-level decomposition, overinterpretation checking, core-figure identification, and self-critical review all present; all core use cases well-covered."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Caption-only mode well-handled with appropriate scope labeling; no explicit handling rule for figure images in non-viewable formats (vector graphics, embedded PDFs); minor gap in labeling distinction between caption-inferable and visually-conventional content."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "271-line SKILL.md with 7 reference modules is appropriately proportioned for task scope; all 7 directory files match SKILL.md references — no orphaned files."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "8-step execution sequence is well-ordered; overinterpretation-check module assignment is explicit and actionable; no downstream routing section to methods appraisal or evidence ranking skills after figure-first read completes."
+      },
+      "human_usability": {
+        "score": 8,
+        "max": 8,
+        "note": "Sample triggers are highly conversational and natural; excellent discoverability for researchers wanting a fast paper read without reading every paragraph; scope limitation wording is non-dismissive."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials or sensitive data handling; no injection vectors; Hard Rules 10-11 provide strong anti-fabrication protection for figure content and bibliographic details."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "7 reference modules map cleanly to specific execution steps; file structure is clean and consistent; minor gap: output-section-guidance.md and figure-to-claim-framework.md have overlapping scope (both govern figure mapping structure)."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Overinterpretation-check rules module is a rare and valuable feature; good scope boundaries; description is trigger-rich; no composability hooks to methods-reverse-engineer or evidence-level-ranker skills for downstream handoff; no progressive disclosure for quick-scan vs full-audit modes."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 84.6,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 33,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Full paper with figures provided — standard figure-first read",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Figure-to-claim table present; observed content separated from interpretation; support strength classified per figure; 1-3 core figures identified; overinterpretation check applied.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Figure-to-claim table in Section B with figure ID, shown content, attached claim, support judgment, and main caution",
+            "result": "PASS",
+            "note": "Table format applied per figure-to-claim-framework.md."
+          },
+          {
+            "text": "Observed figure content separated from authors' attached interpretation for each figure (Hard Rule 1)",
+            "result": "PASS",
+            "note": "Consistent separation maintained per figure."
+          },
+          {
+            "text": "Support strength classified as Strong/Partial/Weak/Does not establish for each figure",
+            "result": "PASS",
+            "note": "Four-tier classification applied with brief justification per figure."
+          },
+          {
+            "text": "1-3 core figures identified as carrying the paper's main claims",
+            "result": "PASS",
+            "note": "Section D correctly identifies central evidence-bearing figures."
+          },
+          {
+            "text": "Overinterpretation and narrative stretch check applied in Section E",
+            "result": "PASS",
+            "note": "overinterpretation-check-rules.md applied; narrative-exceeds-visual patterns flagged where present."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Multi-panel figures with different panels supporting different claims",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Multi-panel figures decomposed into separable evidence units; different panels not treated as undifferentiated block; panel-level claims assessed separately; descriptive vs mechanistic panels distinguished.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Multi-panel figure decomposed into separable evidence units per panel-reading-rules.md",
+            "result": "PASS",
+            "note": "Hard Rule 5 enforced; individual panels addressed as independent evidence units."
+          },
+          {
+            "text": "Different panels not treated as one undifferentiated block when supporting different claims (Hard Rule 5)",
+            "result": "PASS",
+            "note": "Each panel assessed individually within the multi-panel figure."
+          },
+          {
+            "text": "Panel-level claims and support judgments assessed separately",
+            "result": "PASS",
+            "note": "Per-panel support strength classification applied."
+          },
+          {
+            "text": "Descriptive vs mechanistic vs comparative panels distinguished (Hard Rule 6)",
+            "result": "PASS",
+            "note": "Panel evidence type correctly categorized for each panel."
+          },
+          {
+            "text": "No fabricated panel labels, p-values, or numeric results (Hard Rule 10)",
+            "result": "PASS",
+            "note": "All panel content derived from provided material."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Paper with visually impressive figures but weak evidentiary support",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Visually striking figures not equated with strong evidence; narrative overclaim identified; weakest figures explicitly stated; true takeaway reflects visual support level not narrative persuasion.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Visually striking figures correctly not equated with strong evidence (Hard Rule 3)",
+            "result": "PASS",
+            "note": "Visual appeal assessed independently from evidentiary weight."
+          },
+          {
+            "text": "Narrative overclaim identified where visual support is insufficient for the stated conclusion",
+            "result": "PASS",
+            "note": "Overinterpretation-check module applied; claim-exceeds-evidence patterns flagged."
+          },
+          {
+            "text": "Weakest figures explicitly identified with reason in Section E",
+            "result": "PASS",
+            "note": "Figures where visual evidence is thinner than narrative named with reasoning."
+          },
+          {
+            "text": "True takeaway in Section F reflects visual evidentiary support level, not narrative persuasion (Hard Rule 15)",
+            "result": "PASS",
+            "note": "Section F conclusion calibrated to figure support, not abstract claims."
+          },
+          {
+            "text": "Figure captions not used as proxy for evidence strength (Hard Rule 2)",
+            "result": "PASS",
+            "note": "Caption wording not treated as equivalent to actual visual evidence."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Only captions provided — no actual figure images available",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Read correctly labeled as caption-based; no visual content inferred beyond captions; support strength marked as provisional. One panel interpretation drew on visual conventions rather than described content without explicit provisional label.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Read correctly labeled as caption-based rather than figure-based in Section A",
+            "result": "PASS",
+            "note": "Coverage scope stated accurately; judgment labeled as limited."
+          },
+          {
+            "text": "No visual content inferred beyond what captions explicitly describe (Hard Rule 11)",
+            "result": "PASS",
+            "note": "Caption-level reconstruction constrained to described content."
+          },
+          {
+            "text": "Support strength judgments marked as provisional pending actual figure access",
+            "result": "PASS",
+            "note": "Section B support judgments carry provisional labels."
+          },
+          {
+            "text": "User informed that full figure-first read requires actual figure images",
+            "result": "PASS",
+            "note": "Limitation clearly communicated with recommendation to obtain full figures."
+          },
+          {
+            "text": "Caption-level inference explicitly labeled as distinct from figure-content inference throughout (not conflated)",
+            "result": "FAIL",
+            "note": "One panel interpretation based on likely visual conventions rather than caption-described content — not labeled as [INFERRED FROM VISUAL CONVENTION — NOT FROM CAPTION TEXT]."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Large paper with 8+ figures and supplementary — identify core vs peripheral figures",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "1-3 core figures correctly identified; supplementary figures treated as less central; figure-order logic coherent across 8+ figures; decorative vs evidence-carrying distinguished; self-critical review present.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "1-3 core figures correctly identified as carrying the paper's main claims in Section D",
+            "result": "PASS",
+            "note": "Core vs peripheral distinction applied across 8+ figure set."
+          },
+          {
+            "text": "Supplementary figures treated as less central unless explicitly stated otherwise",
+            "result": "PASS",
+            "note": "Step 1 scope determination correctly prioritizes main figures."
+          },
+          {
+            "text": "Figure-order logic reconstruction coherent across 8+ figures in Section C",
+            "result": "PASS",
+            "note": "Narrative reconstruction from figure order produces coherent argument arc."
+          },
+          {
+            "text": "Decorative or contextual figures distinguished from evidence-carrying figures",
+            "result": "PASS",
+            "note": "Hard Rule 6 applied; non-evidentiary figures correctly categorized."
+          },
+          {
+            "text": "Self-critical risk review (Section G) with strongest/weakest link and overinterpretation risk present",
+            "result": "PASS",
+            "note": "Step 8 self-critical check elements present in Section G."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request to certify the paper as correct and all figures as valid",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Request to certify paper as correct correctly identified as out of scope; standard redirect produced; figure-first analysis offered as alternative without certification guarantee.",
+        "basic": 34,
+        "specialized": 44,
+        "total": 78,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Request to certify paper correctness correctly identified as out of scope ('requests to certify the paper as correct without inspecting the visual evidence basis')",
+            "result": "PASS",
+            "note": "SKILL.md out-of-scope category correctly recognized."
+          },
+          {
+            "text": "Standard redirect message produced with restatement of request and reason for scope limitation",
+            "result": "PASS",
+            "note": "Redirect matches SKILL.md template."
+          },
+          {
+            "text": "No paper certification, methodological approval, or result validity statement produced",
+            "result": "PASS",
+            "note": "Hard Rule 14 applied — figure-first reading is explicitly not full methods appraisal."
+          },
+          {
+            "text": "No fabricated validation claims or result confirmations introduced",
+            "result": "PASS",
+            "note": "Hard Rule 10 honored throughout redirect."
+          },
+          {
+            "text": "Constructive alternative offered: figure-first audit can check visual-claim consistency but cannot certify overall correctness",
+            "result": "PASS",
+            "note": "User informed what the skill can actually provide vs what is out of scope."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Very blurry/low-resolution figure screenshots — request to extract precise p-values and sample sizes",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Read correctly labeled as limited due to unreadable resolution; no invented numeric values; support strength marked as provisional. One visual interpretation from blurry figure not consistently labeled as [CANNOT VERIFY — INFERRED FROM CONTEXT].",
+        "basic": 33,
+        "specialized": 47,
+        "total": 80,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Read labeled as limited due to unreadable figure resolution; user informed clearer versions are needed (Hard Rule 9)",
+            "result": "PASS",
+            "note": "Section A coverage scope correctly identified as limited/provisional."
+          },
+          {
+            "text": "No numeric values (p-values, sample sizes, effect sizes) invented from illegible figure text (Hard Rule 4)",
+            "result": "PASS",
+            "note": "Hard Rule 4 enforced; unreadable statistics not fabricated."
+          },
+          {
+            "text": "Support strength judgments marked as provisional given unreadable figure content",
+            "result": "PASS",
+            "note": "Provisional labels applied throughout given resolution limitation."
+          },
+          {
+            "text": "Any interpretation from blurry figure content labeled as [CANNOT READ — INFERRED FROM CONTEXT] rather than stated as fact",
+            "result": "FAIL",
+            "note": "Some visual pattern interpretations from blurry figures stated without consistent [INFERRED FROM BLURRY CONTENT — NOT VERIFIABLE] labeling — violates Hard Rule 12 (ambiguous links must be labeled as ambiguous)."
+          },
+          {
+            "text": "User explicitly informed that full figure-first analysis requires legible figure images",
+            "result": "PASS",
+            "note": "Limitation disclosure present; recommendation for clearer versions given."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.4,
+    "dynamic_weighted": 50.8,
+    "score": 87,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Panel-level decomposition of multi-panel figures is a rare and valuable feature for complex modern biomedical papers with compound figure designs",
+    "Overinterpretation-check rules module explicitly addresses the most common figure-to-claim inflation patterns (association-to-causation, retrospective-to-utility, suggestive-to-definitive)",
+    "Four support-strength classifications (Strong/Partial/Weak/Does not establish) provide precise evidentiary judgment without false precision",
+    "Clean reference module structure (all 7 directory files match SKILL.md references — no orphaned or missing files)"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Caption-only and blurry-figure modes allow visual-convention inferences without consistent provisional labeling",
+      "observed_in": [
+        4,
+        7
+      ],
+      "problem": "In caption-only and low-resolution scenarios, some visual interpretations based on likely visual conventions or blurry context are stated without explicit [INFERRED FROM CONTEXT — NOT DIRECTLY READABLE] labels, inconsistently applying Hard Rules 9 and 12.",
+      "root_cause": "Coverage boundary rules define when to label reads as 'limited' at the Section A level but do not mandate per-inference provisional labels within Sections B-E when specific panel inferences are made from non-visible content.",
+      "fix": "Add a per-inference labeling rule: in caption-only or limited-resolution mode, any individual panel interpretation that goes beyond explicitly described content must be labeled '[INFERRED — cannot verify against actual figure]' inline rather than only in the Section A scope statement."
+    },
+    {
+      "priority": "P1",
+      "title": "No explicit handling rule for figure images in non-viewable formats",
+      "observed_in": [],
+      "problem": "The skill handles missing figures and caption-only scenarios, but does not specify behavior when figures are provided in formats that cannot be processed (vector graphics, certain PDF embedded images, encrypted figures).",
+      "root_cause": "Input validation focuses on content availability (present vs absent) but not format-level accessibility.",
+      "fix": "Add a format accessibility check in Step 1: 'If figure images are provided but cannot be extracted or viewed due to format issues, apply the caption-only protocol, inform the user that figure images are inaccessible in the current format, and request a screenshot or re-exported version.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No downstream routing to methods appraisal or evidence ranking after figure-first read",
+      "observed_in": [],
+      "problem": "The skill correctly notes it does not replace full methods appraisal but provides no natural handoff to dedicated methods or evidence reliability skills, leaving the user without a clear next step.",
+      "root_cause": "No downstream routing section present in SKILL.md.",
+      "fix": "Add a downstream routing note at the end of Section G: 'For full methods evaluation, use methods-reverse-engineer. For formal evidence quality ranking, use evidence-level-ranker or medical-research-literature-reader-pro. Use this figure-first read as a pre-screening before the deeper appraisal.'"
+    }
+  ]
+}

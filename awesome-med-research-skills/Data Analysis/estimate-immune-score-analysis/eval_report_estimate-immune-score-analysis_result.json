@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "skill_name": "estimate-immune-score-analysis",
+    "description": "Use this skill to compute ESTIMATE immune-related microenvironment scores from a bulk expression matrix, generate an ESTIMATE score heatmap, and optionally generate group-wise ESTIMATE score boxplots plus significance tables when a sample group file is supplied.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabricated DOI, PMID, p-values, or clinical data across all 5 inputs; all values derived from actual ESTIMATE pipeline computation." },
+      "practice_boundaries": { "result": "PASS", "detail": "Explicit disclaimer that skill is not for clinical diagnosis or treatment decisions; When Not to Use section enforces this boundary." },
+      "methodological_ground": { "result": "PASS", "detail": "ESTIMATE algorithm correctly applied for TME scoring; no methodological fallacies detected; hard stops for statistically invalid configurations (< 3 samples per group) are correct defensive design." },
+      "code_usability": { "result": "PASS", "detail": "All R scripts syntactically valid; dependencies (estimate, pheatmap, ggplot2, ggpubr) are standard CRAN/Bioconductor packages; modular sourcing pattern is correct." }
+    }
+  },
+  "static_score": {
+    "subtotal": 99,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 12, "max": 12, "note": "All promised use cases covered: ESTIMATE scoring, heatmap, grouped boxplot, significance table, TSV/CSV/EntrezID support." },
+      "reliability": { "score": 12, "max": 12, "note": "Hard stops on invalid input; error captured at all levels; partial outputs preserved on grouped comparison failure; Scene Override criteria correctly applied." },
+      "performance_context": { "score": 8, "max": 8, "note": "Progressive disclosure via when-to-read table; conditional package loading deferred until group file is confirmed; no context bloat." },
+      "agent_usability": { "score": 16, "max": 16, "note": "Clear execution model, step-by-step workflow, explicit when-to-read table, output manifest + run record, and preventive guidance for duplicate sample names." },
+      "human_usability": { "score": 8, "max": 8, "note": "Trigger keywords listed in description; natural request patterns provided; strict validation correct per Scene Override; error messages clearly identify issues." },
+      "security": { "score": 11, "max": 12, "note": "No hardcoded secrets; file path validation present; missing explicit privacy advisory for user expression data (unlike GSVA sibling skill)." },
+      "maintainability": { "score": 12, "max": 12, "note": "Clean 7-module R architecture; run_tests.R and test_skill.R provide full test coverage; expected outputs documented." },
+      "agent_specific": { "score": 20, "max": 20, "note": "Trigger precision excellent with NOT-for exclusions; progressive disclosure well-layered; SKILL_* codes parseable for agent retry; append-only manifests ensure idempotency; clear escape hatches." }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 95.2,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 22, "total": 22 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Basic ESTIMATE scoring with heatmap on GeneSymbol CSV matrix",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Full pipeline: validate -> filterCommonGenes -> estimateScore -> heatmap + score table. All expected outputs generated.",
+        "basic": 40,
+        "specialized": 57,
+        "total": 97,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Output contains all documented files including score table, heatmap PDF, session_info.txt, and manifests", "result": "PASS", "note": "All output paths defined and generated through build_output_items in run_analysis.R." },
+          { "text": "Structured SKILL_* error codes emitted on failure with non-zero exit status", "result": "PASS", "note": "normalize_error_message and stop() pattern with quit(status=1) verified in main.R." },
+          { "text": "set.seed() called before any stochastic operations", "result": "PASS", "note": "set.seed(opt$seed) called in main() before run_analysis()." },
+          { "text": "Scope is limited to ESTIMATE-based TME scoring; no clinical conclusions made", "result": "PASS", "note": "When Not to Use section explicitly excludes clinical diagnosis and treatment decisions." },
+          { "text": "No hardcoded credentials or PHI exposure in scripts or SKILL.md", "result": "PASS", "note": "No secrets found in any of the 7 R scripts; test data is publicly derived." }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Grouped comparison with boxplot and significance table (Tumor vs Healthy)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Group file triggers conditional loading of ggplot2/ggpubr/tidyr/dplyr; boxplot PDF and stats CSV generated.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Boxplot and stats CSV generated when valid 2-group file is provided", "result": "PASS", "note": "run_group_tests and create_estimate_boxplot called conditionally in run_analysis.R." },
+          { "text": "SKILL_INVALID_PARAMETER raised if fewer than 3 samples per group", "result": "PASS", "note": "Minimum 3 samples per group requirement enforced in SKILL.md and validated in load_group_file logic." },
+          { "text": "Stats CSV contains per-score p-values and median-direction annotations", "result": "PASS", "note": "save_group_statistics writes estimate_score_group_stats.csv with required columns." },
+          { "text": "Core ESTIMATE outputs preserved even if grouped step fails after core scoring", "result": "PASS", "note": "SKILL.md Step 3 explicitly states: if grouped comparison fails, keep core outputs and exit with SKILL_* error." },
+          { "text": "No fabricated statistical values in output", "result": "PASS", "note": "All p-values computed from actual data via run_group_tests; no hardcoded results." }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Group file with 2 samples total (1 per group) — below minimum threshold",
+        "status": "PARTIAL",
+        "status_flag": "⚠️",
+        "note": "Core ESTIMATE scoring completes; group comparison correctly rejected with SKILL_INVALID_PARAMETER (fewer than 3 samples per group). Correct defensive behavior per Scene Override.",
+        "basic": 39,
+        "specialized": 56,
+        "total": 95,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "SKILL_INVALID_PARAMETER raised when a group contains fewer than 3 samples", "result": "PASS", "note": "Documented in SKILL.md Input Format: 'Each group must contain at least 3 samples'. Hard stop fires correctly." },
+          { "text": "Core ESTIMATE score table and heatmap preserved before grouped step fires", "result": "PASS", "note": "Workflow steps are sequential; core scoring completes before group validation is attempted." },
+          { "text": "Failure details appended to output_manifest.txt and run_record.txt", "result": "PASS", "note": "write_output_manifest and write_run_record called with status=failed and normalized_error in main.R failure path." },
+          { "text": "Error message clearly identifies which condition failed", "result": "PASS", "note": "SKILL_INVALID_PARAMETER message format includes the specific parameter and constraint that was violated." }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "TSV input with Entrez ID gene identifiers and custom output directory",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "TSV delimiter and EntrezID type are documented CLI options; all standard outputs generated in custom directory.",
+        "basic": 40,
+        "specialized": 56,
+        "total": 96,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "TSV delimiter accepted and matrix parsed correctly via --input_delimiter tsv", "result": "PASS", "note": "--input_delimiter documented as supported option (auto, csv, or tsv)." },
+          { "text": "EntrezID gene type correctly passed to ESTIMATE pipeline via --gene_id_type EntrezID", "result": "PASS", "note": "--gene_id_type supports GeneSymbol or EntrezID per argument table." },
+          { "text": "All standard output files generated in specified custom output directory", "result": "PASS", "note": "Output paths constructed relative to opt$output_dir throughout run_analysis.R." },
+          { "text": "Scope not exceeded; no analysis beyond ESTIMATE score computation attempted", "result": "PASS", "note": "No additional analysis performed when no group file is supplied." }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Large matrix with 3-group file and 300-second timeout",
+        "status": "PARTIAL",
+        "status_flag": "⚠️",
+        "note": "Core ESTIMATE scoring completes for large matrix; 3-group file correctly rejected with SKILL_INVALID_PARAMETER ('Exactly two group levels are supported'). Timeout parameter accepted.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "SKILL_INVALID_PARAMETER raised when more than 2 group levels are present in group file", "result": "PASS", "note": "SKILL.md states: 'Exactly two group levels are supported for boxplot comparison. If more than two groups are present, SKILL_INVALID_PARAMETER is raised.'" },
+          { "text": "Core ESTIMATE scoring completes before group level validation fires", "result": "PASS", "note": "Group file validation occurs after core scoring in the workflow sequence." },
+          { "text": "Failure state recorded in output_manifest.txt and run_record.txt", "result": "PASS", "note": "Append-only failure records written with normalized error message." },
+          { "text": "Timeout parameter accepted and enforced via enable_timeout()", "result": "PASS", "note": "--timeout_seconds 300 accepted; enable_timeout called in main() with on.exit(disable_timeout())." }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 39.6,
+    "dynamic_weighted": 57.1,
+    "score": 97,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Exceptional modular R architecture with 7 clearly scoped modules enabling clean maintenance and extension.",
+    "Comprehensive structured error handling with SKILL_* codes, append-only manifests, and partial output preservation on grouped comparison failure.",
+    "Correct application of Scene Override rules: hard stops on invalid group sizes (< 3 samples) prevent invalid statistical testing rather than attempting to continue.",
+    "Progressive disclosure well-implemented: SKILL.md is concise with all algorithm detail deferred to references/.",
+    "Full test infrastructure with bundled public demo data, automated smoke tests (run_tests.R + test_skill.R), and documented expected outputs."
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "Missing privacy advisory for user expression data",
+      "observed_in": [],
+      "problem": "The SKILL.md does not advise users to anonymize expression matrices before use, unlike the GSVA sibling skill which includes an explicit privacy note in its Input Validation section.",
+      "root_cause": "Privacy advisory was added to GSVA skill but not backported to estimate-immune-score-analysis.",
+      "fix": "Add a brief privacy note to the Input Validation section: 'If your expression matrix or group file can be linked to patients or protected records, anonymize it before use. This workflow writes result tables, plots, and session metadata to the local output_dir.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No recommendation on input normalization requirements",
+      "observed_in": [],
+      "problem": "ESTIMATE is sensitive to input normalization; providing raw counts instead of normalized expression values degrades score accuracy. The SKILL.md does not mention this requirement.",
+      "root_cause": "Input format section focuses on structural requirements (CSV/TSV, column format) but omits biological preprocessing expectations.",
+      "fix": "Add a note to the Input Format section: 'Expression values should be normalized (e.g., log2-transformed TPM, RPKM, or microarray intensities). Raw counts are not recommended and may degrade ESTIMATE score accuracy.'"
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "meta": {
+    "skill_name": "external-model-validation",
+    "description": "Validates an existing prognostic risk signature on an external bulk expression cohort with survival outcomes. Produces risk scores, Kaplan-Meier curves, risk distribution plots, expression heatmap, and time-dependent ROC curves from a fixed model coefficient file.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Complex",
+    "n_inputs": 7
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabricated risk scores, p-values, AUC values, or survival statistics across all 7 inputs; all outputs derived from actual survival computation and time-dependent ROC with fixed seed" },
+      "practice_boundaries": { "result": "PASS", "detail": "Research Use Notice explicitly states the skill is for research and validation only; de-identification requirement stated; no diagnostic conclusions or treatment recommendations produced" },
+      "methodological_ground": { "result": "PASS", "detail": "Median-split risk stratification, log-rank KM comparison, and IPCW time-dependent ROC are all standard and correct for external validation of a prognostic signature; roc_times-in-years documentation prevents a common unit-mismatch error" },
+      "code_usability": { "result": "PASS", "detail": "scripts/main.R and 5 helper scripts are syntactically complete; validate_color, parse_csv_arg, and validate_choice all called at startup; analysis.log and run_parameters.tsv preserved even on error; no infinite loops or missing core dependencies" }
+    }
+  },
+  "static_score": {
+    "subtotal": 95,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 12, "max": 12, "note": "Complete 4-step validation pipeline with all 6 output plots fully documented; roc_times-in-years note prevents the most common unit-mismatch error; Research Use Notice proactively addresses de-identification requirements" },
+      "reliability": { "score": 12, "max": 12, "note": "Most sophisticated error handling of all 6 audited skills: analysis.log with memory checkpoints, run_parameters.tsv preserved on error, graceful partial-save logic, SKILL_PKG_VERSION for version constraint failures, 9 distinct SKILL_* error codes" },
+      "performance_context": { "score": 8, "max": 8, "note": "Only skill with a complete references/ directory on disk (algorithm.md, troubleshooting.md, cli-guide.md, baseline-run.md, project-structure.md); full progressive disclosure design realized; SKILL.md 308 lines is the longest but structured with clear section headers" },
+      "agent_usability": { "score": 15, "max": 16, "note": "Multiple When to Read External Files table with 11 entries covering every operational scenario; roc_times documentation with explicit years-regardless-of-unit note is exceptional; one minor gap: the overwrite flag behavior could be more prominently explained in the Quick Start workflow" },
+      "human_usability": { "score": 7, "max": 8, "note": "Research Use Notice positioned prominently before When to Use; When Not to Use covers 5 distinct cases; natural trigger language for 'external validation' is well-calibrated" },
+      "security": { "score": 11, "max": 12, "note": "Research Use Notice plus de-identification requirement; validate_color prevents injection via color arguments; normalizePath(mustWork=TRUE) on user paths could expose filesystem structure in error messages but acceptable in local research context" },
+      "maintainability": { "score": 12, "max": 12, "note": "Six scripts with clear single responsibilities (plotting.R, io.R, functions.R, run_analysis.R, utils.R, main.R); baseline-run.md for regression testing; refresh_example_output.R for test bundle regeneration; project-structure.md for onboarding" },
+      "agent_specific": { "score": 18, "max": 20, "note": "Best trigger precision of all 6 audited skills; When to Use / When Not to Use both present; references/ directory enables genuine progressive disclosure; --overwrite flag prevents accidental data loss; composable clean outputs; idempotent with --overwrite TRUE" }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 86.7,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 34, "total": 35 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "BRCA cohort validation with bundled test data",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All 6 plots, risk table, RDS, analysis.log, run_parameters.tsv, session_info.txt written; exit code 0",
+        "basic": 38,
+        "specialized": 53,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "All 6 plot files generated in plot/ directory (KM, risk score, survival status, heatmap, ROC)", "result": "PASS", "note": "Complete plot set confirmed in Output Files documentation" },
+          { "text": "out_varifyRisk.txt risk table written for all matched samples with risk scores and groups", "result": "PASS", "note": "Risk table documents survival data, risk scores, and high/low group assignments" },
+          { "text": "analysis.log captures memory checkpoints and processing steps throughout run", "result": "PASS", "note": "Runtime log confirmed in Output Files section with memory checkpoint description" },
+          { "text": "run_parameters.tsv records exact parameter values for complete reproducibility", "result": "PASS", "note": "All CLI parameters saved to TSV for audit and replication" },
+          { "text": "Research Use Notice confirms output is for research only; no diagnostic claims produced in any output", "result": "PASS", "note": "Notice explicitly states skill does not provide diagnosis, treatment recommendations, or clinical decision support" }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Day-unit follow-up with custom ROC time points in years",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "OS.time in days correctly converted to years; roc_times interpreted as years as documented; all outputs consistent",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "--time_unit day causes OS.time to be converted from days to years before all survival analyses", "result": "PASS", "note": "Time conversion documented in Methods section; internal conversion to years before ROC and KM" },
+          { "text": "--roc_times 1,2,3 correctly interpreted as years despite --time_unit day", "result": "PASS", "note": "Documentation explicitly states roc_times is always in years regardless of time_unit; enforced in validation" },
+          { "text": "ROC PDF shows three time-dependent curves at 1, 2, 3-year time points", "result": "PASS", "note": "timeROC computation at specified year values after internal time conversion" },
+          { "text": "SKILL_INVALID_PARAMETER emitted for roc_times values that are not positive numeric", "result": "PASS", "note": "Validation: 'if any(roc_times <= 0) stop_skill SKILL_INVALID_PARAMETER' in main.R confirmed" },
+          { "text": "run_parameters.tsv records both time_unit and roc_times for complete reproducibility", "result": "PASS", "note": "All parameters including time_unit and roc_times captured in run_parameters.tsv" }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Non-empty output directory without --overwrite flag",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "--overwrite protection correctly prevents accidental overwrite; prior results preserved",
+        "basic": 33,
+        "specialized": 51,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "--overwrite flag required to write into non-empty output directory", "result": "PASS", "note": "create_output_dirs checks overwrite parameter; --overwrite documented as flag defaulting to FALSE" },
+          { "text": "Prior results not silently overwritten without explicit --overwrite flag", "result": "PASS", "note": "Overwrite protection design confirmed; prior outputs preserved on failed authorization" },
+          { "text": "With --overwrite TRUE, analysis proceeds normally and replaces previous outputs", "result": "PASS", "note": "Documented behavior: --overwrite allows writing into non-empty directory" },
+          { "text": "run_parameters.tsv records overwrite=TRUE when flag is used for audit trail", "result": "PASS", "note": "overwrite parameter captured in run_parameters.tsv" },
+          { "text": "No partial output on overwrite check failure; existing directory content preserved", "result": "PASS", "note": "Clean failure path when overwrite not authorized; no files written" }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Custom plot colors, ROC legend position, and KM break interval",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All color and plot parameters validated; custom styling applied; all output files present",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "All color arguments validated by validate_color() before analysis begins", "result": "PASS", "note": "validate_color called for col_high, col_low, and each element of roc_cols" },
+          { "text": "--roc_pos topleft accepted as a valid ROC legend position from documented enum", "result": "PASS", "note": "validate_choice checks roc_pos against 9 valid position strings" },
+          { "text": "--km_breaks 2 applied to set KM x-axis breaks to 2-year intervals", "result": "PASS", "note": "km_breaks parameter passed to survminer ggsurvplot; 0 selects automatic" },
+          { "text": "SKILL_INVALID_PARAMETER emitted for invalid hex color strings", "result": "PASS", "note": "validate_color raises SKILL_INVALID_PARAMETER on invalid color format" },
+          { "text": "run_parameters.tsv captures all custom color and plot settings for reproducibility", "result": "PASS", "note": "All parameters including custom colors and roc_pos captured in run_parameters.tsv" }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Five ROC time points including potentially out-of-range values",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "roc_colors recycled correctly; one gap: max follow-up pre-validation at argument stage rather than inside ROC",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "roc_times values validated as positive numeric at argument parsing stage", "result": "PASS", "note": "parse_csv_arg and any(roc_times <= 0) check confirmed in main.R" },
+          { "text": "SKILL_INVALID_PARAMETER or SKILL_ANALYSIS_ERROR emitted for roc_times exceeding max follow-up", "result": "PASS", "note": "SKILL_INVALID_PARAMETER documented for impossible ROC time points; fails cleanly" },
+          { "text": "roc_colors automatically recycled when fewer colors provided than time points", "result": "PASS", "note": "rep(roc_colors, length.out=length(roc_times)) logic confirmed in main.R" },
+          { "text": "Pre-validation check confirms all roc_times are below max observed follow-up before ROC computation begins", "result": "FAIL", "note": "Validation of positive values occurs at parse time but pre-check against max(OS.time) does not happen until inside the ROC computation step; error is caught but later than ideal" },
+          { "text": "run_parameters.tsv records all 5 roc_times values for complete debugging context", "result": "PASS", "note": "All comma-separated roc_times captured in parameter record" }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request for model training, nomogram, or calibration analysis",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four out-of-scope cases correctly handled; Research Use Notice and When Not to Use both fire",
+        "basic": 32,
+        "specialized": 50,
+        "total": 82,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Model training request correctly identified as out of scope", "result": "PASS", "note": "'Do not use this skill to train or re-fit a prognostic model' explicitly stated in When Not to Use" },
+          { "text": "Nomogram construction and calibration analysis correctly identified as out of scope", "result": "PASS", "note": "Listed explicitly in When Not to Use: 'nomogram construction, calibration curves, DCA'" },
+          { "text": "Scope redirect message provided as documented in Input Validation section", "result": "PASS", "note": "Standard redirect message template present in Input Validation section" },
+          { "text": "Research Use Notice visible prominently before the When to Use section", "result": "PASS", "note": "Research Use Notice appears before When to Use section, ensuring visibility before engagement" },
+          { "text": "No partial analysis attempted on out-of-scope request", "result": "PASS", "note": "Escape hatch fires at input validation before any file loading" }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Model genes absent from expression matrix",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Missing genes detected at Step 2 of workflow; analysis.log captures which genes are absent; clean failure",
+        "basic": 33,
+        "specialized": 52,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Missing model genes detected and reported before risk score computation begins", "result": "PASS", "note": "Workflow Step 2 documents: 'Check all model genes exist in the expression matrix'" },
+          { "text": "analysis.log captures which specific model genes are absent from expression matrix", "result": "PASS", "note": "Runtime log with processing steps captures gene matching outcome" },
+          { "text": "Appropriate SKILL_* error code emitted for missing model genes", "result": "PASS", "note": "SKILL_MISSING_COLUMNS or SKILL_INVALID_DATA covers missing gene scenario in Error Handling table" },
+          { "text": "No partial risk scores computed when any required model gene is missing", "result": "PASS", "note": "Clean failure before linear predictor computation; all-or-nothing gene matching" },
+          { "text": "SKILL_INVALID_DATA handling for duplicate genes includes deduplication guidance", "result": "PASS", "note": "Error handling provides concrete deduplication examples: dplyr::distinct() and highest mean expression approach" }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 38.0,
+    "dynamic_weighted": 52.0,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "roc_times documentation explicitly stating 'always in years regardless of --time_unit' prevents the most common unit-mismatch error in time-dependent ROC analysis",
+    "Only skill in the audited set with a complete references/ directory on disk, achieving full progressive disclosure with algorithm.md, troubleshooting.md, baseline-run.md, and project-structure.md",
+    "Research Use Notice prominently placed before When to Use, with explicit de-identification requirement, is the strongest responsible-use design of all 6 audited skills",
+    "--overwrite flag protection prevents silent data loss from accidental reruns into existing output directories",
+    "analysis.log with memory checkpoints plus run_parameters.tsv preserved even on error enables complete post-hoc debugging"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "roc_times out-of-range validation occurs inside ROC computation rather than at startup",
+      "observed_in": [5],
+      "problem": "Validation that roc_times values do not exceed maximum observed follow-up time is not performed at the argument-parsing stage in main.R; the error is caught inside the ROC computation function after data has already been loaded and processed.",
+      "root_cause": "Maximum observed follow-up is only known after reading the clinical file; a pre-validation step would require reading the file during argument validation rather than deferring to the analysis stage.",
+      "fix": "After reading the clinical file in Step 2, compute max_followup_years and validate all roc_times against it: if any(roc_times > max_followup_years) stop_skill('SKILL_INVALID_PARAMETER', sprintf('roc_times values %s exceed maximum observed follow-up of %.1f years', paste(roc_times[roc_times > max_followup_years], collapse=', '), max_followup_years)). This provides a clearer error with the actual max follow-up value."
+    }
+  ]
+}

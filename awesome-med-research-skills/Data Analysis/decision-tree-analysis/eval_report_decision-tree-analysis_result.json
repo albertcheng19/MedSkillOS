@@ -1,0 +1,314 @@
+{
+    "meta": {
+        "skill_name": "decision-tree-analysis",
+        "description": "Build and visualize classification or regression decision trees (rpart/sklearn DecisionTreeClassifier). Inputs: feature matrix, labels. Outputs: tree diagram, node split rules, feature importance scores, cross-validation accuracy.",
+        "evaluated_on": "2026-04-20",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "Outputs were computed from local data and no fabricated analytical claims were observed."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill stays within data-analysis scope and does not produce diagnostic or prescriptive medical advice."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "The workflow applies documented classification and regression paths consistently, with no principled methodological failure observed in the audit runs."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "The R entrypoint executed successfully across all valid test cases and failed cleanly on the intentional validation case."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 90,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 11,
+                "max": 12,
+                "note": "Coverage is strong across classification, regression, and auto detection, but the validation section does not include a regression example."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "Validation and error codes are strong, though recovery guidance could say more about privacy-sensitive datasets and poor-model-fit follow-up."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "No issues flagged."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "The command, arguments, outputs, and examples are clear, but explicit out-of-scope guidance is limited."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Trigger language is natural, but the workflow remains fairly strict about CLI-shaped inputs and documented file formats."
+            },
+            "security": {
+                "score": 9,
+                "max": 12,
+                "note": "Input validation is solid and there is no raw-code execution path, but the documentation does not warn that row identifiers may be copied into output files."
+            },
+            "maintainability": {
+                "score": 12,
+                "max": 12,
+                "note": "No issues flagged."
+            },
+            "agent_specific": {
+                "score": 17,
+                "max": 20,
+                "note": "Triggering is precise and the workflow is idempotent, but escape hatches for unsupported or sensitive-data cases can be more explicit."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 85.8,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Sample1 classification run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed exactly as documented and produced all primary artifacts plus session info.",
+                "basic": 38,
+                "specialized": 53,
+                "total": 91,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output directory contains feature importance, metrics, and figure artifacts.",
+                        "result": "PASS",
+                        "note": "All documented primary files were created."
+                    },
+                    {
+                        "text": "The run resolves to classification mode.",
+                        "result": "PASS",
+                        "note": "The execution log explicitly reports classification mode."
+                    },
+                    {
+                        "text": "Predictions preserve row identifiers when the first column is promoted to row names.",
+                        "result": "PASS",
+                        "note": "The predictions file includes a row_name column."
+                    },
+                    {
+                        "text": "The skill completes without surfacing a raw stack trace.",
+                        "result": "PASS",
+                        "note": "Only structured INFO logs were emitted."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Auto-detected regression run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Auto mode correctly switched to regression and exported the documented regression metrics.",
+                "basic": 37,
+                "specialized": 50,
+                "total": 87,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Auto mode resolves a numeric target with many unique values to regression.",
+                        "result": "PASS",
+                        "note": "The log reports regression mode for CAMK2N2."
+                    },
+                    {
+                        "text": "Regression metrics are emitted with the documented fields.",
+                        "result": "PASS",
+                        "note": "rmse, mae, and r_squared are present."
+                    },
+                    {
+                        "text": "The feature-importance table still includes zero-importance predictors.",
+                        "result": "PASS",
+                        "note": "The exported table keeps fustat with zero importance."
+                    },
+                    {
+                        "text": "The run remains reproducible under the documented seed behavior.",
+                        "result": "PASS",
+                        "note": "The script uses a fixed default seed and the run was deterministic in audit execution."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "High-dimensional TXT classification",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The TXT path handled 200 columns, warned about constant predictors, and still finished cleanly.",
+                "basic": 39,
+                "specialized": 54,
+                "total": 93,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "TXT input is parsed successfully.",
+                        "result": "PASS",
+                        "note": "The loader recognized the file and completed without format errors."
+                    },
+                    {
+                        "text": "Constant predictors are handled gracefully.",
+                        "result": "PASS",
+                        "note": "The skill warned and dropped them instead of crashing."
+                    },
+                    {
+                        "text": "High-dimensional input still produces the documented output set.",
+                        "result": "PASS",
+                        "note": "Metrics, predictions, model, table, figure, and session info were written."
+                    },
+                    {
+                        "text": "The run stays within the declared scope of feature-importance analysis.",
+                        "result": "PASS",
+                        "note": "No unsupported extra behavior or unsafe side effects appeared."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Excluded-column TXT export",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Column exclusion and TXT table export both behaved as documented.",
+                "basic": 38,
+                "specialized": 52,
+                "total": 90,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Requested excluded columns are removed without breaking the run.",
+                        "result": "PASS",
+                        "note": "The predictor count dropped and execution completed."
+                    },
+                    {
+                        "text": "TXT table output is honored.",
+                        "result": "PASS",
+                        "note": "The result was written to the documented TXT path."
+                    },
+                    {
+                        "text": "Metrics and predictions are still exported when TXT table mode is used.",
+                        "result": "PASS",
+                        "note": "Both CSV files were written alongside the TXT ranking table."
+                    },
+                    {
+                        "text": "The run avoids redundant or surprising outputs.",
+                        "result": "PASS",
+                        "note": "The artifact set matches the documented workflow."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Missing-column validation failure",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "The command terminated early on a deliberate bad target column, but the validation message was precise and no partial outputs were created.",
+                "basic": 30,
+                "specialized": 38,
+                "total": 68,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "A missing target column is rejected with the documented error family.",
+                        "result": "PASS",
+                        "note": "The command returned SKILL_MISSING_COLUMNS exactly as documented."
+                    },
+                    {
+                        "text": "The failure path is clear and free of raw stack traces.",
+                        "result": "PASS",
+                        "note": "The user gets one direct error message instead of low-level R output."
+                    },
+                    {
+                        "text": "The skill stops before creating misleading result artifacts.",
+                        "result": "PASS",
+                        "note": "No output directory was created for the failed run."
+                    },
+                    {
+                        "text": "The run is recoverable by correcting the column name and retrying.",
+                        "result": "PASS",
+                        "note": "The failure is validation-only and leaves no partial state behind."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 36,
+        "dynamic_weighted": 51.5,
+        "score": 88,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The skill has a clear, script-backed contract with consistent arguments, outputs, and error codes.",
+        "Validation is strong: missing inputs, bad parameters, missing columns, and insufficient data are handled explicitly.",
+        "The implementation is reproducible and largely deterministic because train/test splitting is seed-controlled.",
+        "The workflow remains usable across CSV and TXT inputs, including a high-dimensional feature set."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Add explicit privacy guidance for row identifiers",
+            "observed_in": [],
+            "problem": "The skill automatically promotes identifier-like first columns to row names and later writes those identifiers back into prediction outputs without warning the user about privacy implications.",
+            "root_cause": "The documentation focuses on modeling behavior and output files, but it does not include a data-sensitivity guardrail around identifiers or PHI-like columns.",
+            "fix": "Add a short privacy note in Input Requirements and Minimal Workflow. State that patient identifiers or other sensitive IDs should be removed or pseudonymized before running because row identifiers may be copied into outputs."
+        },
+        {
+            "priority": "P2",
+            "title": "Document regression validation explicitly",
+            "observed_in": [],
+            "problem": "The skill promises regression support, but the Validation section only shows classification checks. This leaves one advertised mode under-documented for verification.",
+            "root_cause": "The examples and validation commands were written around the bundled classification datasets and did not add a regression counterpart.",
+            "fix": "Add one validation command that targets a numeric column in the sample CSV and list the regression metrics file as a verification artifact."
+        },
+        {
+            "priority": "P2",
+            "title": "Add stronger out-of-scope and fallback guidance",
+            "observed_in": [],
+            "problem": "The skill documents supported inputs and common errors well, but it does not clearly say when a user should choose a different modeling approach or stop before using sensitive data.",
+            "root_cause": "The current SKILL.md emphasizes the happy path and troubleshooting, but does not include a dedicated when-not-to-use section.",
+            "fix": "Add a brief 'Do Not Use This Skill When' section covering unsupported formats, privacy-sensitive identifiers, and cases where a single decision tree is not the right model for the objective."
+        }
+    ]
+}

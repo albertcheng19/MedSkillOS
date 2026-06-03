@@ -1,0 +1,317 @@
+{
+    "meta": {
+        "skill_name": "time-dependent-roc",
+        "description": "Compute time-dependent AUC and ROC curves at multiple clinical time points for survival model evaluation. Inputs: survival time, event status, continuous biomarker or risk score. Outputs: time-AUC line plot, AUC table at 1/3/5 years, iAUC summary.",
+        "evaluated_on": "2026-04-16",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "Outputs are computed from supplied data and no fabricated study claims, identifiers, or effect estimates were introduced by the skill."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill computes ROC and AUC artifacts only and does not cross into diagnosis, treatment advice, or prescriptive clinical recommendations."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "The workflow correctly targets time-dependent ROC analysis for survival data and rejects unusable time specifications before running analysis."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "The R entry point executed successfully on valid inputs in this environment and produced the documented tables, figure, and session metadata."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 88,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 11,
+                "max": 12,
+                "note": "Core workflow, supported formats, default marker behavior, and outputs are covered well; advanced plotting and export flags are only partially documented in SKILL.md."
+            },
+            "reliability": {
+                "score": 10,
+                "max": 12,
+                "note": "Validation paths and error prefixes are strong, but recovery guidance for dependency setup and rerun behavior could be more explicit."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "Progressive disclosure is handled well through a concise SKILL.md plus references and modular scripts."
+            },
+            "agent_usability": {
+                "score": 14,
+                "max": 16,
+                "note": "The execution path is easy to follow, though agents still need `--help` to discover several advanced flags that appear in examples."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Trigger language is natural enough for statistical-analysis requests, but the skill assumes some survival-analysis vocabulary."
+            },
+            "security": {
+                "score": 10,
+                "max": 12,
+                "note": "Input validation is strong and no secrets are involved, but the documentation does not explicitly discuss PHI handling or de-identification expectations for patient-level data."
+            },
+            "maintainability": {
+                "score": 11,
+                "max": 12,
+                "note": "Code is cleanly split across utility, validation, analysis, and plotting files, with bundled sample data for verification."
+            },
+            "agent_specific": {
+                "score": 17,
+                "max": 20,
+                "note": "Trigger precision and layering are strong; explicit stop conditions for unsupported interpretation requests and overwrite caveats would make the skill more robust."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 86,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Default risk_score on sample1",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed cleanly and produced every documented artifact in the expected directory structure.",
+                "basic": 38,
+                "specialized": 56,
+                "total": 94,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output creates the documented AUC table in table/time_roc_auc.csv",
+                        "result": "PASS",
+                        "note": "File exists and contains the requested time points."
+                    },
+                    {
+                        "text": "Output creates the documented ROC point export in data/time_roc_points.csv",
+                        "result": "PASS",
+                        "note": "ROC point file was generated with the expected columns."
+                    },
+                    {
+                        "text": "Output creates both figure/time_roc.pdf and session_info.txt",
+                        "result": "PASS",
+                        "note": "Both reproducibility artifacts were written successfully."
+                    },
+                    {
+                        "text": "Default marker handling uses risk_score when --marker_col is omitted",
+                        "result": "PASS",
+                        "note": "Execution log and AUC table both report risk_score."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Alternate marker GPR161 on sample2",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The non-default marker path worked without adjustment and preserved the requested time points.",
+                "basic": 37,
+                "specialized": 55,
+                "total": 92,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "The alternate marker column is accepted and surfaced in outputs",
+                        "result": "PASS",
+                        "note": "marker_col is reported as GPR161 in the logs and exported table."
+                    },
+                    {
+                        "text": "The requested time points are preserved in the output table",
+                        "result": "PASS",
+                        "note": "The AUC table contains rows for 1, 2, and 4 only."
+                    },
+                    {
+                        "text": "The documented output structure is created successfully",
+                        "result": "PASS",
+                        "note": "data, table, figure, and session_info.txt are all present."
+                    },
+                    {
+                        "text": "The workflow succeeds without manual intervention on a non-default marker",
+                        "result": "PASS",
+                        "note": "The run completed cleanly from the CLI alone."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Missing required data_file",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "This is an expected validation failure path; the skill rejected the request cleanly and printed help text.",
+                "basic": 31,
+                "specialized": 47,
+                "total": 78,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Missing input is rejected with SKILL_MISSING_INPUT",
+                        "result": "PASS",
+                        "note": "The command exits immediately with the documented error prefix."
+                    },
+                    {
+                        "text": "The failure path prints actionable recovery guidance",
+                        "result": "PASS",
+                        "note": "Full CLI help appears after the error message."
+                    },
+                    {
+                        "text": "The process fails cleanly instead of hanging or emitting a stack trace",
+                        "result": "PASS",
+                        "note": "Output is controlled and human-readable."
+                    },
+                    {
+                        "text": "No output directory or partial analysis artifacts are created on this path",
+                        "result": "PASS",
+                        "note": "No TimeROC_Results directory was created during the failed run."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Invalid non-positive times",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "This is an expected validation failure path; parameter checks ran before any data loading or analysis work.",
+                "basic": 30,
+                "specialized": 46,
+                "total": 76,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Non-positive time points are rejected with SKILL_INVALID_PARAMETER",
+                        "result": "PASS",
+                        "note": "The command fails with the expected validation message."
+                    },
+                    {
+                        "text": "Help text is emitted after the validation failure",
+                        "result": "PASS",
+                        "note": "Recovery guidance is printed inline."
+                    },
+                    {
+                        "text": "Validation happens before analysis execution begins",
+                        "result": "PASS",
+                        "note": "No data-loading or ROC analysis logs appear before the failure."
+                    },
+                    {
+                        "text": "No output directory is created for the rejected run",
+                        "result": "PASS",
+                        "note": "tests/audit_eval/invalid_times was not created."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Five-timepoint TXT export on sample3",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "A higher-parameter run completed successfully, including TXT exports, figure generation, and session metadata.",
+                "basic": 36,
+                "specialized": 54,
+                "total": 90,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "TXT exports are produced in the documented data and table subdirectories",
+                        "result": "PASS",
+                        "note": "Both time_roc_points.txt and time_roc_auc.txt were written correctly."
+                    },
+                    {
+                        "text": "The selected marker and weighting are preserved in the output table",
+                        "result": "PASS",
+                        "note": "The exported AUC table records RIBC2 and marginal."
+                    },
+                    {
+                        "text": "All requested time points are carried through to the results",
+                        "result": "PASS",
+                        "note": "The table contains five rows for 1, 2, 3, 5, and 8."
+                    },
+                    {
+                        "text": "The figure and session metadata are emitted for reproducibility",
+                        "result": "PASS",
+                        "note": "time_roc.pdf and session_info.txt both exist."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 35.2,
+        "dynamic_weighted": 51.6,
+        "score": 87,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The skill cleanly separates concise user-facing instructions from implementation details in scripts and references.",
+        "CLI validation is strong: missing inputs and invalid parameters fail early with stable SKILL_* messages and help output.",
+        "The implementation is executable as shipped and produces reproducible table, figure, and session metadata artifacts on valid runs.",
+        "Marker-column flexibility, multiple file formats, and standardized output directories make the skill practical for repeated analysis tasks."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Document advanced CLI options in SKILL.md",
+            "observed_in": [],
+            "problem": "Several useful options exposed by the CLI, including export format, figure styling, and legend placement values, are only discoverable through --help or by reading scripts.",
+            "root_cause": "SKILL.md focuses on the core path and examples but does not summarize the broader parameter surface area.",
+            "fix": "Add a compact advanced-options table covering output format, figure customization, and accepted legend-position values. Keep the main workflow short and defer long detail to references."
+        },
+        {
+            "priority": "P2",
+            "title": "Add data-handling and interpretation boundaries",
+            "observed_in": [],
+            "problem": "The documentation does not explicitly remind users to de-identify patient-level data or clarify that ROC/AUC outputs are analytical artifacts rather than clinical recommendations.",
+            "root_cause": "Operational and safety notes are currently centered on dependencies and file validation, not on real-world data governance or interpretation limits.",
+            "fix": "Add a short operational-notes section stating that inputs should be de-identified where required and that the skill reports discrimination metrics without making treatment or diagnostic decisions."
+        },
+        {
+            "priority": "P2",
+            "title": "Clarify rerun and auto-conversion behavior",
+            "observed_in": [
+                1,
+                5
+            ],
+            "problem": "The scripts will reuse the requested output directory and can overwrite prior artifacts, while automatic day-to-year or day-to-month conversion is only briefly described.",
+            "root_cause": "These behaviors exist in code and logs but are not called out prominently in the operator-facing workflow.",
+            "fix": "Document that rerunning with the same output directory overwrites matching filenames and explain when auto-conversion is triggered, including how to disable it with --auto_convert_days FALSE."
+        }
+    ]
+}

@@ -1,0 +1,413 @@
+{
+  "meta": {
+    "skill_name": "single-cell-research-planner",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Designs complete single-cell research plans from a user-provided biomedical direction. Always use this skill whenever a user wants to design, scope, or structure a single-cell study — including disease-focused, mechanism-focused, biomarker-focused, translational, perturbation-ins"
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies detected; ethical compliance requirements noted where applicable."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A skill"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 93,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Dataset Disclaimer present; reference dataset caveat mechanism well implemented"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Strong score (15/16); minor gaps noted."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Strong score (11/12); minor gaps noted."
+      },
+      "agent_specific": {
+        "score": 19,
+        "max": 20,
+        "note": "Study pattern selection before analysis module specification is a strong design discipline"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.7,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Canonical input for single-cell",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 55,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Variant A input for single-cell",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 55,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Variant B input for single-cell",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Edge input for single-cell",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Stress input for single-cell",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Scope Boundary input for single-cell",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for scope boundary input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Adversarial input for single-cell",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for adversarial input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for adversarial input",
+            "result": "FAIL",
+            "note": "Minor deviation observed"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.2,
+    "dynamic_weighted": 52.6,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Study pattern selection (disease-characterization/mechanism-focused/biomarker-discovery/validation-aware) before analysis module specification prevents generic pipeline outputs",
+    "Reference dataset recommendations as candidates only with explicit uncertainty labeling prevents false resource claims",
+    "Mandatory Dataset Disclaimer before any workflow section mentioning datasets",
+    "Four workload configurations (Lite/Standard/Advanced/Publication+) provide broad practical scalability"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "One assertion failure: cell doublet handling not addressed in basic protocol",
+      "observed_in": [
+        5
+      ],
+      "problem": "In the Stress test with a complex multi-sample single-cell design, doublet detection and removal was not mentioned as a required preprocessing step.",
+      "root_cause": "Preprocessing module covers common QC steps but doublet removal may not be explicitly mandated for all study patterns.",
+      "fix": "Add doublet detection as a mandatory preprocessing step for all multi-sample single-cell designs, with a note that tools like DoubletFinder or Scrublet should be applied before any downstream analysis."
+    },
+    {
+      "priority": "P2",
+      "title": "Batch correction method selection guidance under-specified",
+      "observed_in": [],
+      "problem": "The skill mentions batch correction as a required step but does not provide clear method selection guidance (Harmony vs scVI vs BBKNN vs Seurat Integration).",
+      "root_cause": "Method library reference may cover this but SKILL.md does not surface the key decision criteria.",
+      "fix": "Add a batch correction selection heuristic: recommend Harmony for most standard use cases (fast, works with PCA embedding); recommend scVI for complex multi-modal or large-scale datasets; recommend Seurat Integration for CCA-based label transfer workflows."
+    }
+  ]
+}

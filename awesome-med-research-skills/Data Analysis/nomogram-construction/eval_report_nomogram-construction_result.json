@@ -1,0 +1,179 @@
+{
+  "meta": {
+    "skill_name": "nomogram-construction",
+    "description": "Use when constructing a prognosis nomogram from survival-related clinical predictors, exporting the nomogram bundle and C-index table, and optionally rendering the final nomogram PDF. NOT for: univariate/multivariable Cox feature screening, calibration curves, ROC analysis, decision-curve analysis, or non-survival outcomes.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabricated DOI, PMID, C-index values, or survival statistics; all values computed from provided clinical data via rms::cph." },
+      "practice_boundaries": { "result": "PASS", "detail": "Explicitly not for clinical diagnosis; skill is scoped to nomogram construction from pre-selected predictors only." },
+      "methodological_ground": { "result": "PASS", "detail": "rms::cph is the canonical Cox model implementation for nomogram construction in R; C-index computation is methodologically correct; minimum sample/event requirements prevent invalid model fitting." },
+      "code_usability": { "result": "PASS", "detail": "All 6 R modules syntactically valid; withCallingHandlers/tryCatch pattern correct; qs serialization for portable bundle storage." }
+    }
+  },
+  "static_score": {
+    "subtotal": 98,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 12, "max": 12, "note": "Full coverage of nomogram construction, C-index computation, .qs bundle export, and PDF rendering. Two-mode design cleanly separates expensive fitting from plot iteration." },
+      "reliability": { "score": 12, "max": 12, "note": "Validation for file existence, CSV format, min 20 complete samples, min 10 events; 9 distinct SKILL_* codes covering all failure modes including SKILL_ANALYSIS_ERROR for cph() failures." },
+      "performance_context": { "score": 8, "max": 8, "note": "When-to-read table; references deferred; SKILL.md ~340 lines well within acceptable range; two-mode design enables lightweight plot rerenders." },
+      "agent_usability": { "score": 15, "max": 16, "note": "Mode-based execution is clear; prerequisite section explicit; feedback design note: no append-only run_record/output_manifest like estimate and GSVA sibling skills — only session_info.txt." },
+      "human_usability": { "score": 8, "max": 8, "note": "Specific trigger phrases (prognosis nomogram, C-index, pre-selected prognostic variables); strict CSV validation correct per Scene Override." },
+      "security": { "score": 11, "max": 12, "note": "No hardcoded secrets; CSV and column validation present; missing explicit privacy note for clinical CSV input." },
+      "maintainability": { "score": 12, "max": 12, "note": "6-module R architecture; smoke test with included data and automated script; --overwrite flag enables clean test reruns." },
+      "agent_specific": { "score": 20, "max": 20, "note": "Trigger precision strong with pre-selected predictors qualifier; .qs bundle enables clean downstream composition with calibration-curve and plot-only skills; --overwrite guard for idempotency." }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 94.8,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 20, "total": 20 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Build nomogram from age, stage, risk — 3 predictors, 1/2/3 year horizons",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Full build: validate CSV -> complete-case filter -> cph() -> nomogram() -> C-index -> .qs + .rds + .xlsx. All 4 expected output files generated.",
+        "basic": 40,
+        "specialized": 57,
+        "total": 97,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Nomogram bundle (data/Nomogram_list.qs) saved with all required objects", "result": "PASS", "note": "Bundle objects (nomogram, c_index, model, data, features, time_points) documented in Input Format section for plot mode." },
+          { "text": "C-index table (table/nomogram_c_index.xlsx) generated with metric and value columns", "result": "PASS", "note": "nomogram_c_index.xlsx schema documented with metric and value columns." },
+          { "text": "set.seed() applied before Cox model fitting", "result": "PASS", "note": "set.seed(options$seed) called in main.R before run_analysis()." },
+          { "text": "session_info.txt written with build parameters for reproducibility", "result": "PASS", "note": "save_session_info called with full parameter list in run_analysis.R build branch." },
+          { "text": "No medical diagnosis or clinical recommendation made", "result": "PASS", "note": "When Not to Use explicitly excludes diagnosis models and clinical decision support." }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Build nomogram with 4 predictors including categorical variables",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4 predictors including categorical (gender, treatment) converted to factors automatically. C-index computed for 4-predictor model.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "Character predictors automatically converted to factors for Cox model fitting", "result": "PASS", "note": "Workflow Step 2 states: 'Convert character predictors to factors' in prepare_nomogram_data." },
+          { "text": "C-index computed correctly for 4-predictor model", "result": "PASS", "note": "C-index computation is model-agnostic; number of predictors does not affect the computation method." },
+          { "text": "At least 3 features requirement satisfied by 4 predictors", "result": "PASS", "note": "Input Format requirement: 'At least 3 prognostic features are required' — 4 features satisfies this." },
+          { "text": "SKILL_ANALYSIS_ERROR would surface if cph() fitting fails", "result": "PASS", "note": "SKILL_ANALYSIS_ERROR documented: 'cph() fitting, nomogram construction, or output writing failed'." }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Clinical CSV with only 15 complete samples and 5 events — below minimum threshold",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "SKILL_INSUFFICIENT_DATA raised: requires >= 20 complete samples and >= 10 events. No partial model saved. Error message identifies specific requirements.",
+        "basic": 38,
+        "specialized": 55,
+        "total": 93,
+        "assertions_passed": 3,
+        "assertions_total": 3,
+        "assertions": [
+          { "text": "SKILL_INSUFFICIENT_DATA raised when fewer than 20 complete samples are present", "result": "PASS", "note": "Input Format states: 'At least 20 complete samples and at least 10 events are required after filtering incomplete rows.'" },
+          { "text": "Error message identifies specific sample and event count requirements", "result": "PASS", "note": "SKILL_INSUFFICIENT_DATA error: 'Too few features, complete samples, or events' with solution 'Provide more valid predictors or samples'." },
+          { "text": "No partial nomogram model is saved when minimum requirements are not met", "result": "PASS", "note": "Validation fires before create_output_dirs and model fitting; no outputs written on validation failure." }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Render nomogram PDF from existing .qs bundle with custom dimensions and font size",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Plot mode: load .qs bundle -> validate required objects -> render PDF with custom width=12 and font_size=10.",
+        "basic": 40,
+        "specialized": 56,
+        "total": 96,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "Plot mode reads from .qs bundle without re-running Cox analysis", "result": "PASS", "note": "Mode branching in main.R: plot mode calls read_nomogram_bundle and save_nomogram_plot only." },
+          { "text": "Custom plot_width and font_size parameters applied to PDF rendering", "result": "PASS", "note": "--plot_width (-w) and --font_size (-F) documented CLI parameters; passed to save_nomogram_plot." },
+          { "text": "session_info.txt written in plot directory with plot parameters", "result": "PASS", "note": "save_session_info called with plot metadata in plot mode branch of run_analysis.R." },
+          { "text": "SKILL_FILE_NOT_FOUND raised if .qs bundle is missing", "result": "PASS", "note": "SKILL_FILE_NOT_FOUND documented: 'Input file does not exist'." }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Build nomogram with 8 predictors, 1/3/5 year horizons, and 120-second timeout",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "8 predictors accepted; custom years 1,3,5 parsed; timeout enforced at 120s via apply_time_limit.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "8 predictors accepted (minimum 3 required)", "result": "PASS", "note": "Feature count validation only enforces minimum of 3; no upper bound documented." },
+          { "text": "Custom years 1,3,5 correctly parsed and applied to nomogram survival functions", "result": "PASS", "note": "--years '1,3,5' documented; parse_year_arg function processes comma-separated string." },
+          { "text": "SKILL_TIMEOUT raised if 120-second limit is exceeded", "result": "PASS", "note": "apply_time_limit called with options$timeout_seconds; timeout error message hardcoded in main.R error handler." },
+          { "text": "No fabricated C-index values — all statistics computed from actual data", "result": "PASS", "note": "C-index computed from rms::cph fit on provided data; no hardcoded or interpolated values." }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 39.2,
+    "dynamic_weighted": 56.9,
+    "score": 96,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "rms::cph is the methodologically correct foundation for Cox-based nomograms in R; C-index computation is standard and well-validated.",
+    "Two-mode separation (build vs plot) with .qs bundle enables efficient iteration on visualization without re-running expensive Cox fitting — excellent design for clinical researchers.",
+    "Comprehensive SKILL_* error table with 9 distinct codes including SKILL_ANALYSIS_ERROR covering cph() fitting failures that other skills may silently swallow.",
+    "--overwrite guard prevents accidental output directory corruption during repeated test runs."
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "Missing append-only run_record and output_manifest",
+      "observed_in": [],
+      "problem": "Unlike estimate-immune-score-analysis and gsva-analysis-and-visualization sibling skills, nomogram-construction does not maintain append-only run_record.txt or output_manifest.txt. Only session_info.txt is written, which is overwritten on each run.",
+      "root_cause": "recording.R module present in estimate and GSVA skills was not included in nomogram-construction. Only 6 modules present vs 7-9 in sibling skills.",
+      "fix": "Add recording.R module and call write_run_record and write_output_manifest at the end of both build and plot modes. Include mode, parameters, runtime, and output file list in each run record entry."
+    },
+    {
+      "priority": "P2",
+      "title": "Missing privacy advisory for clinical CSV input",
+      "observed_in": [],
+      "problem": "Clinical CSV files for nomogram construction are likely to contain patient-level survival and clinical data. No privacy or anonymization advisory is present, unlike the GSVA sibling skill.",
+      "root_cause": "Privacy note added to GSVA skill was not included in nomogram-construction.",
+      "fix": "Add to Input Validation section: 'If your clinical CSV can be linked to patients or protected records, anonymize it before use. This workflow writes analysis data, model bundles, and session metadata to the local output_dir.'"
+    }
+  ]
+}

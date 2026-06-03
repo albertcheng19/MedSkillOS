@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "skill_name": "roc-diagnostic-performance",
+    "description": "Use when evaluating diagnostic biomarker performance from case-control expression data with logistic regression and ROC curves, exporting coefficient and AUC tables together with a ROC PDF. NOT for: survival analysis, time-to-event outcomes, multiclass classification, calibration curves, decision-curve analysis, or nomogram construction.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabricated statistics; logistic regression and pROC-based AUC are standard methods; three canonical references cited; output is computed values only" },
+      "practice_boundaries": { "result": "PASS", "detail": "No diagnostic conclusions produced; skill is scoped to AUC values and coefficient tables; When Not to Use explicitly excludes clinical decision making" },
+      "methodological_ground": { "result": "PASS", "detail": "Multivariable logistic regression for binary case-control classification is methodologically appropriate; individual marker ROC comparison is a standard diagnostic evaluation pattern" },
+      "code_usability": { "result": "PASS", "detail": "Script syntax valid; set.seed() present; modular 7-file structure; dependency check at startup; no logic errors in code review" }
+    }
+  },
+  "static_score": {
+    "subtotal": 91,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 12, "max": 12, "note": "All documented use cases covered; full model vs individual marker comparison well-designed; output schema thorough" },
+      "reliability": { "score": 10, "max": 12, "note": "SKILL_* codes comprehensive including SKILL_SAMPLE_MISMATCH; set.seed() present; minor gap: partial marker drop may occur silently" },
+      "performance_context": { "score": 7, "max": 8, "note": "SKILL.md is 308 lines; references well-utilized; slightly heavier than minimal but within acceptable range" },
+      "agent_usability": { "score": 15, "max": 16, "note": "Typical user requests listed in When to Use; argument table complete; minor gap: no note on how to interpret AUC < 0.5" },
+      "human_usability": { "score": 7, "max": 8, "note": "Trigger description uses natural user language; When Not to Use clearly states exclusions; high discoverability" },
+      "security": { "score": 11, "max": 12, "note": "No credentials or secrets; set.seed prevents variance; pROC dependency check at startup prevents partial execution" },
+      "maintainability": { "score": 12, "max": 12, "note": "Seven-file modular structure; automated smoke test (run_smoke_test.R) included; test data bundled; references documented" },
+      "agent_specific": { "score": 17, "max": 20, "note": "Trigger description precise with NOT-for exclusions; escape hatches documented; composability limited by dual required input file design" }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 81.6,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 23, "total": 25 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Basic ROC run with FOXP3, CD45, CD3E markers on Disease vs Control",
+        "status": "PARTIAL",
+        "status_flag": "✅",
+        "note": "pROC dependency prevents execution; SKILL_PACKAGE_NOT_FOUND fires correctly; code review confirms set.seed and modular structure",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_PACKAGE_NOT_FOUND fires at startup with named missing package", "result": "PASS", "note": "SKILL_PACKAGE_NOT_FOUND: Required packages are not installed: pROC confirmed" },
+          { "text": "set.seed(options$seed) present in main.R", "result": "PASS", "note": "Confirmed at line 40" },
+          { "text": "Four required arguments validated before analysis begins", "result": "PASS", "note": "expression_file, group_file, marker_genes, case_group validated via validate_required_value()" },
+          { "text": "7-file modular script structure confirmed", "result": "PASS", "note": "utils.R, validation.R, cli.R, io.R, functions.R, plotting.R, run_analysis.R all present" },
+          { "text": "No security issues detected in script code", "result": "PASS", "note": "Code review found no dangerous patterns" }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Custom group column and plot customization options",
+        "status": "PARTIAL",
+        "status_flag": "⚠️",
+        "note": "Group column auto-detection and plot arguments confirmed; legend_position validation confirmed; pROC blocks execution",
+        "basic": 33,
+        "specialized": 50,
+        "total": 83,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "--group_col argument documented with auto-detect fallback", "result": "PASS", "note": "Confirmed: 'auto-detected if omitted' in Arguments table" },
+          { "text": "Plot customization arguments (plot_width, plot_height, plot_title) documented", "result": "PASS", "note": "Confirmed in Arguments table" },
+          { "text": "legend_position validated against allowed values", "result": "PASS", "note": "validate_choice() call confirmed in main.R code review" },
+          { "text": "line_colors documented as comma-separated hex values", "result": "PASS", "note": "Confirmed in Arguments table with default palette" },
+          { "text": "Output files include both model bundle and tables", "result": "PASS", "note": "data/roc_model.rds, table/model_coefficients.csv, table/roc_auc_summary.csv all documented" }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Sample ID mismatch and insufficient case count",
+        "status": "PARTIAL",
+        "status_flag": "⚠️",
+        "note": "SKILL_SAMPLE_MISMATCH documented; minimum sample thresholds documented; runtime verification blocked by pROC absence",
+        "basic": 31,
+        "specialized": 48,
+        "total": 79,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_SAMPLE_MISMATCH documented for non-overlapping sample IDs", "result": "PASS", "note": "Confirmed in Error Handling table" },
+          { "text": "Minimum 10 matched samples, 2 cases, 2 controls requirement documented", "result": "PASS", "note": "Confirmed in Group File Requirements" },
+          { "text": "SKILL_EMPTY_DATA documented for no usable rows after filtering", "result": "PASS", "note": "Confirmed in Error Handling table" },
+          { "text": "Runtime validation of sample mismatch error verified in live execution", "result": "FAIL", "note": "Cannot verify without pROC installed" },
+          { "text": "Expression matrix gene identifier uniqueness requirement documented", "result": "PASS", "note": "First column must contain non-missing unique gene identifiers — confirmed" }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Timeout parameter and saved model bundle verification",
+        "status": "PARTIAL",
+        "status_flag": "⚠️",
+        "note": "Timeout and model bundle documented; coefficient table schema confirmed; pROC blocks execution",
+        "basic": 33,
+        "specialized": 50,
+        "total": 83,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "--timeout_seconds present and apply_time_limit() called in main.R", "result": "PASS", "note": "Confirmed in code review" },
+          { "text": "data/roc_model.rds documented as saved model bundle with data and genes", "result": "PASS", "note": "Confirmed in Output Files section" },
+          { "text": "model_coefficients.csv column schema documented", "result": "PASS", "note": "term, estimate, std_error, z_value, p_value, odds_ratio, odds_ratio_95_ci all documented" },
+          { "text": "roc_auc_summary.csv documents full model and individual marker AUCs", "result": "PASS", "note": "Confirmed in Output Files section" },
+          { "text": "session_info.txt included in output file list", "result": "PASS", "note": "Confirmed in Output Files table" }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Partial marker list with some absent genes and logistic failure",
+        "status": "PARTIAL",
+        "status_flag": "⚠️",
+        "note": "SKILL_EMPTY_DATA and SKILL_INVALID_PARAMETER documented; partial marker drop warning gap identified; pROC blocks execution",
+        "basic": 30,
+        "specialized": 47,
+        "total": 77,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_EMPTY_DATA documented for no markers remaining after filtering", "result": "PASS", "note": "Confirmed: 'no requested markers remain after filtering'" },
+          { "text": "SKILL_INVALID_PARAMETER documented for logistic fitting failure", "result": "PASS", "note": "Confirmed: 'logistic fitting failure' listed as a cause" },
+          { "text": "Warning emitted when some but not all marker genes are found and used", "result": "FAIL", "note": "No warning documented for partial marker availability; silent drop risk identified" },
+          { "text": "Logistic regression stability addressed in error handling", "result": "PASS", "note": "SKILL_INVALID_PARAMETER covers class imbalance and model instability" },
+          { "text": "Skill does not produce clinical diagnostic conclusions", "result": "PASS", "note": "Output scoped to AUC values and coefficients only" }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.4,
+    "dynamic_weighted": 49.0,
+    "score": 85,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Comprehensive output schema with coefficient table, AUC summary, model bundle, and ROC PDF covers all downstream needs",
+    "set.seed() with configurable --seed argument ensures full reproducibility",
+    "SKILL_SAMPLE_MISMATCH is a unique and valuable error code for the dual-file input pattern",
+    "7-file modular script structure with automated smoke test runner demonstrates mature engineering"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Silent drop when only some marker genes exist in expression matrix",
+      "observed_in": [5],
+      "problem": "When --marker_genes contains both valid and invalid gene names, the skill silently drops the invalid ones and proceeds. No warning is documented or confirmed for this partial-match case.",
+      "root_cause": "Error handling only covers the case where no markers remain (SKILL_EMPTY_DATA), not the case where a subset is silently dropped.",
+      "fix": "Add a warning log when one or more requested marker genes are absent from the expression matrix, listing which genes were dropped, before proceeding with the available subset."
+    },
+    {
+      "priority": "P2",
+      "title": "pROC dependency check prevents --help from rendering",
+      "observed_in": [1, 2, 3, 4, 5],
+      "problem": "The pROC package check fires before optparse argument parsing, which means --help cannot render when pROC is missing. This breaks the standard help-first debugging workflow.",
+      "root_cause": "Package check is placed at the top of main.R before OptionParser initialization.",
+      "fix": "Move the pROC package check to after OptionParser initialization and parse_args(), so --help always works regardless of package availability. Check packages only after argument parsing."
+    }
+  ]
+}

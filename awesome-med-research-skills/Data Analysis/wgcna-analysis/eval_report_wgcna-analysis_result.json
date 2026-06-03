@@ -1,0 +1,331 @@
+{
+    "meta": {
+        "skill_name": "wgcna-analysis",
+        "description": "Identify co-expression gene modules and correlate them with clinical traits using Weighted Gene Co-expression Network Analysis. Inputs: expression matrix, trait/phenotype table. Outputs: module color assignments, trait correlation heatmap, hub gene list per module.",
+        "evaluated_on": "2026-04-17",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated statistics, identifiers, or claims were introduced during any audited execution."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill remained inside computational analysis boundaries and did not emit diagnostic or prescriptive advice."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "All audited runs used coherent WGCNA methods with documented parameter branches and no methodological redline violation."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "The R pipeline executed successfully for all five audited inputs, including the repaired documentation-conformant smoke test."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 91,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 11,
+                "max": 12,
+                "note": "The core WGCNA use cases are covered well and the smoke test now matches the shipped fixture set."
+            },
+            "reliability": {
+                "score": 10,
+                "max": 12,
+                "note": "Error handling is strong and actionable, though failed runs can still leave partially populated output directories behind."
+            },
+            "performance_context": {
+                "score": 7,
+                "max": 8,
+                "note": "Progressive disclosure is strong; minor context bloat remains in the auxiliary CLI examples."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "The documentation is clearer after the out-of-scope and verification updates; only minor wording redundancy remains."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Trigger language is natural for bioinformatics users and stop conditions are now easier to apply."
+            },
+            "security": {
+                "score": 11,
+                "max": 12,
+                "note": "Input validation is solid and no dangerous execution primitives were found; data-retention boundaries could still be stated more explicitly."
+            },
+            "maintainability": {
+                "score": 11,
+                "max": 12,
+                "note": "The scripts remain modular, but the bundled validator still does not assert every documented option-dependent artifact."
+            },
+            "agent_specific": {
+                "score": 19,
+                "max": 20,
+                "note": "Trigger precision, layering, and escape hatches are strong after the revision."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 89.8,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 25,
+            "total": 25
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Updated smoke test",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed successfully and passed the bundled baseline validator.",
+                "basic": 37,
+                "specialized": 53,
+                "total": 90,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "The documented smoke-test command completes successfully.",
+                        "result": "PASS",
+                        "note": "The command ran to completion with exit code 0."
+                    },
+                    {
+                        "text": "The baseline validator passes on the smoke-test output directory.",
+                        "result": "PASS",
+                        "note": "tests/validate_outputs.R completed successfully for tests/audit2-smoke."
+                    },
+                    {
+                        "text": "The run exports a ranked module summary and a per-module gene table.",
+                        "result": "PASS",
+                        "note": "selected_modules.csv and module_genes_green.csv were both generated."
+                    },
+                    {
+                        "text": "The workflow stays within its stated scope and does not fabricate scientific claims.",
+                        "result": "PASS",
+                        "note": "Only computed artifacts from local inputs were produced."
+                    },
+                    {
+                        "text": "The analysis completes without manual intervention.",
+                        "result": "PASS",
+                        "note": "The success footer and session metadata were both recorded."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Signed bicor run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Alternative network settings executed successfully and passed validation.",
+                "basic": 36,
+                "specialized": 52,
+                "total": 88,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "The alternative signed-network parameter set executes successfully.",
+                        "result": "PASS",
+                        "note": "The command completed with exit code 0."
+                    },
+                    {
+                        "text": "The baseline output bundle remains intact under a parameter variation.",
+                        "result": "PASS",
+                        "note": "The validator passed on tests/audit2-signed."
+                    },
+                    {
+                        "text": "The skill accepts documented correlation and network-type switches.",
+                        "result": "PASS",
+                        "note": "signed and bicor were both accepted and applied."
+                    },
+                    {
+                        "text": "The run produces a selected module export in the stated format.",
+                        "result": "PASS",
+                        "note": "module_genes_brown.csv was written successfully."
+                    },
+                    {
+                        "text": "No fabricated scientific claims or unsafe instructions appear in the output.",
+                        "result": "PASS",
+                        "note": "The result is strictly derived from the scripted analysis."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Documentation conformance",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The repaired smoke-test documentation is now fully aligned with the bundled assets.",
+                "basic": 38,
+                "specialized": 53,
+                "total": 91,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "The repository no longer references the removed tests/data/expression_subset.csv fixture.",
+                        "result": "PASS",
+                        "note": "A direct search of SKILL.md found no such path."
+                    },
+                    {
+                        "text": "The documented smoke-test command completes successfully.",
+                        "result": "PASS",
+                        "note": "The exact documented command ran cleanly."
+                    },
+                    {
+                        "text": "The validation command succeeds against the documented output directory.",
+                        "result": "PASS",
+                        "note": "The validator passed without manual correction."
+                    },
+                    {
+                        "text": "The repaired documentation is recoverable and self-consistent.",
+                        "result": "PASS",
+                        "note": "The execution path and bundled fixtures now match."
+                    },
+                    {
+                        "text": "The script does not perform unsafe operations during documentation-conformant execution.",
+                        "result": "PASS",
+                        "note": "The run completed with normal file generation only."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Explicit module export",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Explicit trait and multi-module export completed successfully.",
+                "basic": 37,
+                "specialized": 54,
+                "total": 91,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "The skill accepts an explicit trait selection within the encoded trait matrix.",
+                        "result": "PASS",
+                        "note": "Case was resolved directly without fallback."
+                    },
+                    {
+                        "text": "Two requested modules are exported when they are valid.",
+                        "result": "PASS",
+                        "note": "module_genes_green.csv and module_genes_blue.csv were both written."
+                    },
+                    {
+                        "text": "Module-specific scatter plots are produced for the requested exports.",
+                        "result": "PASS",
+                        "note": "Both expected plot PDFs exist in tests/audit2-modules/plots."
+                    },
+                    {
+                        "text": "The module-selection behavior matches the stated CLI contract.",
+                        "result": "PASS",
+                        "note": "analysis_summary.csv reports green,blue and n_selected_modules=2."
+                    },
+                    {
+                        "text": "The output remains within the intended WGCNA analysis scope.",
+                        "result": "PASS",
+                        "note": "No unsupported workflow was attempted."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Chunked loading path",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Chunked loading completed successfully and repeated smoke-test outputs remained deterministic.",
+                "basic": 36,
+                "specialized": 53,
+                "total": 89,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "The chunked-loading execution path completes successfully.",
+                        "result": "PASS",
+                        "note": "The command reached the success footer."
+                    },
+                    {
+                        "text": "The chunked workflow emits useful progress feedback.",
+                        "result": "PASS",
+                        "note": "The logs include progress counters for both MAD passes."
+                    },
+                    {
+                        "text": "The chunked run still produces the baseline required outputs.",
+                        "result": "PASS",
+                        "note": "The validator passed on tests/audit2-chunked."
+                    },
+                    {
+                        "text": "Repeated runs with the same seed remain deterministic on key summary files.",
+                        "result": "PASS",
+                        "note": "The SHA-256 hashes match for analysis_summary.csv and selected_modules.csv."
+                    },
+                    {
+                        "text": "The stress run remains within the intended WGCNA workflow.",
+                        "result": "PASS",
+                        "note": "No unsupported side effects or scope drift were observed."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 36.4,
+        "dynamic_weighted": 53.9,
+        "score": 90,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The documented smoke test now matches the shipped fixtures and executes successfully end to end.",
+        "The workflow is reproducible: repeated smoke-test runs produced identical hashes for key summary outputs.",
+        "Input validation and troubleshooting guidance are strong, with consistent SKILL_* error codes and actionable recovery advice.",
+        "The implementation is modular and supports both standard and chunked loading paths without changing the canonical summary on bundled data."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Expand validation coverage",
+            "observed_in": [],
+            "problem": "tests/validate_outputs.R checks only the baseline artifact set and does not verify every documented option-dependent output, including module-specific plots and gene tables.",
+            "root_cause": "The bundled validator was designed for the minimal success case rather than the full documented output surface.",
+            "fix": "Extend the validator with scenario-aware checks so that explicit module exports also assert module_genes_<module>.csv and module_membership_vs_trait_<module>_<trait>.pdf when those artifacts should exist."
+        },
+        {
+            "priority": "P2",
+            "title": "Clarify partial-output retry behavior",
+            "observed_in": [],
+            "problem": "Failed runs can still leave an output directory and session metadata behind, which is safe but easy for users to misread as a completed run.",
+            "root_cause": "Session metadata is saved via on-exit handling even when execution stops early.",
+            "fix": "Keep the current behavior, but add a short note near the testing or troubleshooting sections explaining that partial directories from failed runs may be overwritten on retry and should not be treated as successful analyses."
+        }
+    ]
+}

@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "skill_name": "umap-tsne-analysis",
+    "description": "Performs sample-level dimensionality reduction and visualization on abundance or OTU-style matrices with a companion group file, generating UMAP and/or t-SNE coordinates and scatter plots for group separation assessment.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabrication of statistical values; dimensionality reduction outputs computed by Rtsne and umap packages on user data" },
+      "practice_boundaries": { "result": "PASS", "detail": "No medical diagnoses; skill produces visualization coordinates and plots, not clinical conclusions" },
+      "methodological_ground": { "result": "PASS", "detail": "t-SNE with perplexity and UMAP with n_neighbors are standard approaches; Hellinger normalization appropriate for abundance data; single-group hard stop is methodologically correct" },
+      "code_usability": { "result": "PASS", "detail": "Syntactically correct; both methods use well-maintained R packages; timeout wrapper with with_timeout() is correct; no infinite loops; clean exit codes" }
+    }
+  },
+  "static_score": {
+    "subtotal": 85,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 11, "max": 12, "note": "Covers both methods independently and together, custom column resolution, normalization control, and timeout; minor gap: no explicit handling documented for datasets where n_samples < perplexity" },
+      "reliability": { "score": 10, "max": 12, "note": "Seven SKILL_* codes including SKILL_TIMEOUT; conditional R.utils dependency is correct; validate_groups() enforces design requirements; one gap: SKILL_SAMPLE_MISMATCH does not list specific mismatched IDs" },
+      "performance_context": { "score": 7, "max": 8, "note": "SKILL.md is 314 lines within budget; references directory for algorithm details; version-pinned dependency baseline in dependencies.lock.tsv; one minor gap: no per-dataset-size timeout guidance" },
+      "agent_usability": { "score": 13, "max": 16, "note": "Agent Response Contract specifies 5 outputs; When to Read External Files table present; three Examples cover common scenarios; one gap: error messages lack specific ID lists; feedback for single-group case does not identify the group" },
+      "human_usability": { "score": 7, "max": 8, "note": "Natural trigger language; When Not to Use clear; prerequisites section clearly warns packages must be installed; Forgiveness: strict validation correct; one gap: package-before-file error ordering documented in troubleshooting note" },
+      "security": { "score": 11, "max": 12, "note": "No hardcoded credentials; no eval/exec; norm_method passed to vegan::decostand() but limited to documented string choices; one minor gap: norm_method not validated against allowed vegan choices" },
+      "maintainability": { "score": 10, "max": 12, "note": "Modular 7-script structure; dependency lock file adds reproducibility; testthat coverage mentioned in Implementation Checklist; one gap: install_dependencies.R not validated as part of polished package; no version lock integration in main flow" },
+      "agent_specific": { "score": 16, "max": 20, "note": "Precise trigger language for UMAP and t-SNE; SKILL.md under 500 lines; idempotent via fixed seed; escape hatches present; conditional R.utils dependency is elegant; minor gap: no documentation of recommended perplexity ranges for different sample counts" }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 85.4,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 22, "total": 25 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Both UMAP and tSNE on OTU matrix with 3 groups",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Full workflow documented; both methods independently executable; set.seed applied",
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Output routes to CLI with required parameters", "result": "PASS", "note": "Usage section provides exact command" },
+          { "text": "Both method workflows documented and independently executable", "result": "PASS", "note": "Workflow Steps and Methods section both present" },
+          { "text": "set.seed applied for reproducibility", "result": "PASS", "note": "Implementation Checklist confirms; --seed parameter exposed" },
+          { "text": "SKILL_* codes cover all failure modes including SKILL_TIMEOUT", "result": "PASS", "note": "Seven codes in Error Handling table" },
+          { "text": "Scope rejection defined for DEG, scRNA-seq, and clustering without group file", "result": "PASS", "note": "Input Validation section present" }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "UMAP-only with custom column names and no normalization",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Column resolution flexible; normalize=FALSE bypasses vegan; UMAP-only produces only UMAP outputs",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "sample_id_col and group_col resolution implemented", "result": "PASS", "note": "resolve_sample_id_col() and resolve_group_col() in functions.R" },
+          { "text": "n_neighbors validated greater than 1", "result": "PASS", "note": "main.R parameter check enforces n_neighbors > 1" },
+          { "text": "normalize FALSE skips vegan decostand", "result": "PASS", "note": "run_umap() accepts normalize=FALSE and skips normalization" },
+          { "text": "UMAP-only mode produces only UMAP outputs", "result": "PASS", "note": "run_analysis.R conditionally runs each method based on method argument" },
+          { "text": "Normalization method documented in Methods section", "result": "PASS", "note": "norm_method parameter and Normalization subsection both present" }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Single-group input",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "SKILL_INVALID_PARAMETER correctly triggered; rationale documented; group name not shown in error",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_INVALID_PARAMETER triggered for single-group input", "result": "PASS", "note": "validate_groups() enforces 2+ groups" },
+          { "text": "Rationale for hard stop documented in SKILL.md", "result": "PASS", "note": "Input Format section explains uninterpretable plots rationale" },
+          { "text": "At least 2 samples per group requirement enforced", "result": "PASS", "note": "Requirements section specifies minimum 2 samples per group" },
+          { "text": "Error message identifies which group is the only one found", "result": "FAIL", "note": "Error does not list the single group name; agent must re-examine input" },
+          { "text": "Scope rejection for analyses without group file defined", "result": "PASS", "note": "Input Validation section covers this" }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Both methods with 120-second timeout",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "SKILL_TIMEOUT documented; R.utils conditionally required; timeout wraps both methods; no size-based guidance",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_TIMEOUT error code documented in Error Handling table", "result": "PASS", "note": "Present with cause and solution" },
+          { "text": "R.utils only required when timeout greater than 0", "result": "PASS", "note": "check_required_packages() conditionally includes R.utils" },
+          { "text": "Timeout wraps both UMAP and tSNE workflows", "result": "PASS", "note": "with_timeout() applied around both method calls in run_analysis.R" },
+          { "text": "Recommended timeout values for different dataset sizes documented", "result": "FAIL", "note": "SKILL.md does not provide guidance on appropriate timeout values by dataset size" },
+          { "text": "Timeout 0 disables the limit and is documented", "result": "PASS", "note": "Arguments table documents 0 as disable value" }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Partial sample ID overlap between group file and matrix",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "SKILL_SAMPLE_MISMATCH triggered; IDs not listed; zero-abundance removal documented",
+        "basic": 33,
+        "specialized": 48,
+        "total": 81,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_SAMPLE_MISMATCH triggered for ID mismatch", "result": "PASS", "note": "align_and_prepare_matrix() validates ID overlap" },
+          { "text": "No fuzzy-matching attempted", "result": "PASS", "note": "Strict matching preserves analysis integrity" },
+          { "text": "Mismatched sample IDs listed in error message", "result": "FAIL", "note": "Specific IDs not listed; agent must re-examine both files" },
+          { "text": "Zero-abundance sample removal post-alignment documented", "result": "PASS", "note": "Workflow Step 1 documents this step" },
+          { "text": "Package-before-file error ordering documented", "result": "PASS", "note": "Troubleshooting note explicitly describes this ordering" }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.0,
+    "dynamic_weighted": 51.2,
+    "score": 85,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Conditional R.utils dependency (only required when timeout > 0) demonstrates thoughtful dependency management",
+    "Version-pinned dependency baseline in dependencies.lock.tsv enables reproducibility audits across environments",
+    "Flexible column name resolution via resolve_sample_id_col() and resolve_group_col() reduces input format rigidity",
+    "Correct methodological hard stop for single-group inputs with documented rationale",
+    "SKILL_TIMEOUT with R.utils setTimeLimit() wrapper provides reliable execution bounds for large datasets"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "Add specific IDs to SKILL_SAMPLE_MISMATCH error message",
+      "observed_in": [5],
+      "problem": "SKILL_SAMPLE_MISMATCH does not list which specific sample IDs caused the mismatch, requiring the agent to inspect both files independently.",
+      "root_cause": "align_and_prepare_matrix() detects the mismatch but does not compute or surface the symmetric difference of IDs.",
+      "fix": "Compute setdiff in both directions and include up to 10 IDs per direction: 'In group file but not in matrix: [list]; in matrix but not in group file: [list]'"
+    },
+    {
+      "priority": "P2",
+      "title": "Add single-group name to SKILL_INVALID_PARAMETER error message",
+      "observed_in": [3],
+      "problem": "When only one group is detected, the error message does not show which group label was found, making it harder to diagnose whether the group column was misidentified.",
+      "root_cause": "validate_groups() checks the count of groups but does not include the detected group labels in the error message.",
+      "fix": "Update validate_groups() to include the detected group values: 'Only 1 group detected: [group_label]. At least 2 groups are required.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Add norm_method validation against allowed vegan choices",
+      "observed_in": [2],
+      "problem": "norm_method is passed directly to vegan::decostand() without being validated against allowed methods, meaning an invalid method name produces an obscure vegan error rather than a SKILL_INVALID_PARAMETER.",
+      "root_cause": "main.R validates method, perplexity, n_neighbors, and timeout but does not validate norm_method.",
+      "fix": "Add to main.R: validate norm_method against a documented list of vegan::decostand() methods (e.g., hellinger, clr, log, total, max) and emit SKILL_INVALID_PARAMETER with the allowed values if an unknown method is provided."
+    }
+  ]
+}

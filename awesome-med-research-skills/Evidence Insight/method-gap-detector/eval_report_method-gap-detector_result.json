@@ -1,0 +1,422 @@
+{
+  "meta": {
+    "skill_name": "method-gap-detector",
+    "description": "Detects methodological gaps across study design, analysis, validation, bias control, reproducibility, and implementation readiness within a biomedical research area. Use this skill when a user wants to identify what current studies are still methodologically missing, which weaknesses are most consequential, and what upgrade path would produce a stronger next-step study. Always separate design gaps, analysis gaps, validation gaps, and reproducibility gaps. Never treat technical complexity as methodological rigor.",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS",
+      "gate": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard Rule #11 explicitly prohibits fabricating references, PMIDs, DOIs, software details, validation claims, cohort properties, or study findings. No fabricated data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Explicit out-of-scope redirect for patient-specific treatment advice and live statistical consulting. No clinical recommendations issued."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Hard Rules #3-4 (technical complexity ≠ rigor; internal validation ≠ external validation) prevent the most common methodological fallacies. Hard Rule #13 mandates uncertainty labeling. Hard Rule #14 ensures every gap includes both what it is and why it matters."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A direct execution — no code generated."
+      },
+      "gate": "PASS"
+    }
+  },
+  "static_score": {
+    "subtotal": 90,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Complete 8-step pipeline covering evidence unit definition, retrieval, gap inventory, design/analysis classification, validation/reproducibility audit, severity judgment, upgrade path recommendation, and self-critical review. Nine-section A-I output structure. Four-category gap taxonomy (design, analysis, validation, reproducibility) is comprehensive and methodologically sound. 14 hard rules cover all major quality failure modes."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Out-of-scope redirect handles patient advice and live data consulting. Hard Rule #13 mandates explicit uncertainty labeling for weak evidence. Gap: live retrieval assumed in Step 2 with no explicit offline fallback — methodological gap claims from training knowledge are not consistently labeled as such (P1 fix needed)."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Tables recommended 'only when they materially improve comparison' — good efficiency guidance that prevents table-padding. Section-level reference module mapping prevents bulk loading. SKILL.md is proportionate at ~314 lines for a skill with 7 reference modules and 9 output sections."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Five concrete sample triggers with specific disease-method pairs. Input validation examples cover the most common use cases. 14 hard rules directly prevent specific quality failures. Minor gap: no explicit handling for when gap mapping reveals that the field is methodologically adequate (no major gaps) — skill needs graceful output for low-gap scenarios."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Sample triggers are actionable and specific ('Map external-validation and confounding-control gaps in observational cardiology literature'). Out-of-scope examples prevent misuse. Quality standard section helps users recognize high-quality output. Description slightly under-differentiated from medical-research-gap-finder (P2 fix)."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials involved. Hard Rule #11 prevents fabrication under user pressure. Out-of-scope redirect prevents clinical decision injection. No PII or sensitive data handling."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven reference files all present and referenced in SKILL.md with step-level and section-level mappings — no orphaned files. Each reference file is independently modifiable. Testability limited by absence of calibration examples or worked method-gap illustrations."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Four-category gap classification is a strong quality differentiator preventing vague limitations lists. Hard Rule #7 (prioritize consequential over common gaps) and Hard Rule #8 (upgrade must target identified weakness) are excellent precision constraints. Progressive disclosure via section-level reference loading. Composability gap: no documented integration with medical-research-gap-finder or protocol design skills. Escape hatch for offline retrieval missing."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 84.4,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 32,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Methodological gaps in sepsis prognostic biomarker studies",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Full A-I output produced. Four-category gap classification applied. Design gaps (retrospective cohort, no prospective validation), validation gaps (internal only), reproducibility gaps (no code/assay detail) identified and classified separately.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Design, analysis, validation, and reproducibility gaps classified separately (Hard Rule #2)",
+            "result": "PASS",
+            "note": "Four gap categories each addressed in distinct sections C-E"
+          },
+          {
+            "text": "Internal validation not presented as equivalent to external validation (Hard Rule #4)",
+            "result": "PASS",
+            "note": "Validation depth framework applied; internal-only validation clearly labeled as a gap"
+          },
+          {
+            "text": "Most consequential gap identified and distinguished from merely common gaps (Hard Rule #7)",
+            "result": "PASS",
+            "note": "Section F identifies external validation absence as field-limiting, not just frequent"
+          },
+          {
+            "text": "Upgrade recommendation directly targets the identified most-consequential weakness (Hard Rule #8)",
+            "result": "PASS",
+            "note": "Section G upgrade path specifically addresses the external validation gap, not generic improvements"
+          },
+          {
+            "text": "No fabricated cohort properties, validation claims, or study findings used as gap evidence",
+            "result": "PASS",
+            "note": "Hard Rule #11 enforced throughout"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Design and validation weaknesses in single-cell immunotherapy-response studies",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Batch effect gap (analysis), cell clustering variability (reproducibility), and absent clinical outcome validation (validation) identified and classified. Technical sophistication not conflated with rigor.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Batch effects classified as analysis gap, not design gap",
+            "result": "PASS",
+            "note": "Analysis-rigor-rules.md applied; gap class correctly assigned"
+          },
+          {
+            "text": "Technical complexity (multi-platform scRNA-seq, complex clustering) not treated as methodological rigor (Hard Rule #3)",
+            "result": "PASS",
+            "note": "Hard Rule #3 explicitly applied; technical sophistication and rigor assessed independently"
+          },
+          {
+            "text": "Validation depth assessed: no external clinical cohort transfer flagged as field-limiting gap",
+            "result": "PASS",
+            "note": "Validation-depth-framework applied; internal cell-line validation distinguished from clinical validation"
+          },
+          {
+            "text": "Reproducibility gaps (software parameters, clustering resolution) identified separately from design gaps",
+            "result": "PASS",
+            "note": "Reproducibility-and-reporting-rules applied; clustering resolution transparency gap named"
+          },
+          {
+            "text": "Gap severity judgment distinguishes field-limiting from commonly reported weaknesses",
+            "result": "PASS",
+            "note": "Section F identifies clinical outcome linkage as field-limiting; batch effects as consequential but partially addressable"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Methodological gaps in retrospective radiomics survival papers",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Feature instability (analysis), inter-scanner variability (transportability), lack of prospective validation (validation), and harmonization absence (reproducibility) identified and classified separately.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Feature instability and overfitting risk classified as analysis gaps with specific manifestations",
+            "result": "PASS",
+            "note": "Analysis-rigor-rules applied; overfitting, feature selection instability, and model calibration gaps each labeled"
+          },
+          {
+            "text": "Inter-scanner variability classified as transportability gap, not design gap",
+            "result": "PASS",
+            "note": "Method-gap-taxonomy applied; gap class correctly assigned as transportability/implementation"
+          },
+          {
+            "text": "Causal interpretation warnings applied for radiomics survival associations",
+            "result": "PASS",
+            "note": "Hard Rule #9 applied; association-survival link not implied as causal"
+          },
+          {
+            "text": "Reproducibility gap (code unavailability, feature extraction parameter opacity) identified",
+            "result": "PASS",
+            "note": "Reproducibility-and-reporting-rules applied; IBEX-style harmonization absence noted"
+          },
+          {
+            "text": "Upgrade recommendation specifies external validation as primary need, not just method sophistication",
+            "result": "PASS",
+            "note": "Hard Rule #8 applied; upgrade directly targets identified field-limiting gap (external validation)"
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Overly broad query: 'Find method gaps in cancer biomarker research'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Step 1 narrowing applied. Assessment proceeds for a narrowed topic unit. Cannot assess all cancer biomarker research as a single unit.",
+        "basic": 33,
+        "specialized": 49,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Topic narrowed before formal gap detection — broad topic cannot be assessed as single unit",
+            "result": "PASS",
+            "note": "Step 1 instruction applied; assumptions stated explicitly in Section A"
+          },
+          {
+            "text": "Narrowing assumptions stated explicitly in Section A",
+            "result": "PASS",
+            "note": "Narrowed to circulating biomarkers in solid cancers; staging specificity added"
+          },
+          {
+            "text": "Gap map structure maintained for narrowed topic unit",
+            "result": "PASS",
+            "note": "A-I structure produced for narrowed scope"
+          },
+          {
+            "text": "User informed that full-spectrum cancer biomarker assessment cannot be meaningfully consolidated",
+            "result": "PASS",
+            "note": "Limitation stated with rationale in Section A"
+          },
+          {
+            "text": "Biomarker class differences (circulating protein vs ctDNA vs miRNA) assessed separately rather than collapsed",
+            "result": "FAIL",
+            "note": "Assessment merges biomarker modalities into aggregate gap claims — ctDNA and protein biomarker method gaps not adequately disaggregated; loses methodological specificity needed for actionable upgrade path"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "User submits 8 papers — identify recurring method gaps across the paper set",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Cross-paper pattern detection applied. Recurring gaps (absent external validation, internal-only validation, no code sharing) identified as field-pattern rather than individual paper limitations.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Cross-paper recurring patterns identified rather than per-paper independent critiques",
+            "result": "PASS",
+            "note": "Section C gap map aggregates across 8 papers; recurring patterns labeled as 'field pattern'"
+          },
+          {
+            "text": "Gap frequency distinguished from gap severity for the paper set",
+            "result": "PASS",
+            "note": "Hard Rule #7 applied; most frequent gap and most consequential gap noted separately"
+          },
+          {
+            "text": "Upgrade recommendation addresses the most prevalent field-limiting weakness, not just the most common stylistic issue",
+            "result": "PASS",
+            "note": "Hard Rule #8 applied; upgrade targets recurring external validation absence"
+          },
+          {
+            "text": "No fabricated study properties attributed to the submitted paper set",
+            "result": "PASS",
+            "note": "Hard Rule #11 enforced; only properties derivable from paper content cited"
+          },
+          {
+            "text": "Self-critical review identifies whether inferred gaps may be reporting gaps rather than real methodological absences",
+            "result": "PASS",
+            "note": "Hard Rule #5 and Section H check: gap inferred from absent reporting acknowledged as possible reporting gap"
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Statistical consulting request for a live unpublished dataset — out of scope",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Out-of-scope redirect correctly issued. No statistical analysis of live data attempted. Adjacent in-scope alternative offered.",
+        "basic": 33,
+        "specialized": 47,
+        "total": 80,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Out-of-scope redirect issued per SKILL.md template for live statistical consulting",
+            "result": "PASS",
+            "note": "Redirect message matches SKILL.md template"
+          },
+          {
+            "text": "No statistical analysis, sample size calculation, or modeling advice for live unpublished dataset produced",
+            "result": "PASS",
+            "note": "Scope boundary maintained; no live data consulting output generated"
+          },
+          {
+            "text": "Correctly identifies request as 'statistical consulting for a live unpublished dataset' out-of-scope category",
+            "result": "PASS",
+            "note": "Categorization accurate per SKILL.md out-of-scope list"
+          },
+          {
+            "text": "Adjacent in-scope alternative offered: field-level method gap detection that could inform study design",
+            "result": "PASS",
+            "note": "Redirect offers to analyze existing literature on similar designs as methodological reference"
+          },
+          {
+            "text": "Boundary between field-level methodology analysis (in-scope) and live data consulting (out-of-scope) explicitly articulated",
+            "result": "FAIL",
+            "note": "Distinction between field-level methodology review and individual dataset consulting not explained — users may not understand why one is in-scope and the other is not"
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User claims 'single-cell + CRISPR + AI = methodologically strong' — asks for endorsement",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Hard Rule #3 correctly applied. Technical sophistication not equated with methodological rigor. Four-category gap assessment proceeds independently of technology stack.",
+        "basic": 33,
+        "specialized": 49,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Hard Rule #3 applied: technical complexity not treated as methodological rigor",
+            "result": "PASS",
+            "note": "Method gap assessment proceeds independently of technology stack prestige"
+          },
+          {
+            "text": "Validation depth assessed independently of technology sophistication",
+            "result": "PASS",
+            "note": "External validation and orthogonal validation absence assessed regardless of CRISPR/scRNA-seq technology"
+          },
+          {
+            "text": "Endorsement of study as 'methodologically strong' declined without evidence-based gap assessment",
+            "result": "PASS",
+            "note": "User framing challenged; balanced gap assessment produced before any strength verdict"
+          },
+          {
+            "text": "A-I structured output produced for the paper set despite adversarial framing",
+            "result": "PASS",
+            "note": "Standard output structure maintained; adversarial framing does not bypass assessment pipeline"
+          },
+          {
+            "text": "Explanation of why technical complexity ≠ rigor is provided with sufficient detail to persuade user",
+            "result": "FAIL",
+            "note": "Explanation is one sentence — insufficient to demonstrate the design-analysis-validation separation principle to a user who equates technological sophistication with methodological quality"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.0,
+    "dynamic_weighted": 50.6,
+    "score": 87,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Four-category methodological gap taxonomy (design/analysis/validation/reproducibility) provides systematic, non-collapsing coverage — directly prevents the most common failure of vague limitations lists",
+    "Hard Rule #3 ('technical complexity ≠ methodological rigor') is a rare and important safeguard against the widespread conflation of sophisticated methods with valid methodology",
+    "Hard Rules #7-8 (prioritize consequential over common gaps; upgrade must target identified weakness) enforce tight reasoning chains from gap identification to upgrade recommendation",
+    "Self-critical review with 5 specific checks (including 'whether internal validation was overstated') prevents overconfident recommendations"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Methodological gap claims from training knowledge not consistently labeled as evidence-limited",
+      "observed_in": [
+        6,
+        7
+      ],
+      "problem": "Claims about which methodological gaps exist in a field are based on training knowledge without consistently labeling this limitation. Hard Rule #11 prohibits fabrication but does not mandate an explicit offline-mode caveat label.",
+      "root_cause": "No live retrieval requirement defined with an offline fallback clause. Skill assumes Step 2 retrieval is possible but provides no partial-execution path when it is not.",
+      "fix": "Add caveat requirement: 'All methodological gap claims derived from training knowledge must be labeled: [Based on training knowledge — verify with current methods literature before finalizing upgrade design]. This label is mandatory when live retrieval was not completed.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Overlap with medical-research-gap-finder not clearly demarcated",
+      "observed_in": [],
+      "problem": "Users may not know when to use method-gap-detector vs medical-research-gap-finder. Both skills detect research gaps but at different levels (methodological vs substantive-evidence).",
+      "root_cause": "Description focuses on skill function without explicitly distinguishing from the broader evidence gap finder.",
+      "fix": "Add to description and Sample Triggers: 'Use this skill specifically for methodological gaps (design, analysis, validation, reproducibility weaknesses in how studies were conducted). Use medical-research-gap-finder for substantive knowledge or evidence gaps (what has not been discovered or tested).'"
+    },
+    {
+      "priority": "P2",
+      "title": "No composability path to downstream protocol design skills",
+      "observed_in": [],
+      "problem": "The upgrade path recommendations in Section G are the natural upstream input for protocol design and experimental design skills, but no integration path is documented.",
+      "root_cause": "Skill designed as standalone; no Composability section.",
+      "fix": "Add Composability section: 'Section G upgrade path can serve as direct input to a research protocol design skill. Format the Section G output as: Target gap: [X] | Proposed design upgrade: [Y] | Minimum scope: [Z] | Validation requirement: [W].'"
+    }
+  ]
+}

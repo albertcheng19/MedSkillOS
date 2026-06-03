@@ -1,0 +1,424 @@
+{
+  "meta": {
+    "skill_name": "drug-target-evidence-landscape",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Organizes the evidence and competitive landscape around a drug, target, or pathway by separating disease relevance, tractability, preclinical evidence, clinical evidence, modality fit, and crowding. Maps what is biologically supported, what is druggable, what has actually advanced, and what remains strategically open."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard Rules 9-11 explicitly prohibit fabricating references, PMIDs, trial identifiers, approval status, company activity, and asset metadata; Section I verification requirement mandates direct verification before formal citation."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No patient-specific treatment recommendations produced; Hard Rule 6 prevents conflating preclinical activity with patient benefit; out-of-scope redirect applied for investment and prescribing requests."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Eight-layer evidence separation (disease relevance, mechanistic rationale, druggability, preclinical, translational bridge, clinical, competition, maturity) is methodologically sound; no fallacies detected."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A landscape analysis skill; no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 89,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Comprehensive 8-step execution with 9-section output; all core landscape dimensions (relevance, druggability, preclinical, clinical, competition, maturity, openness) covered; negative-logic hard rules guard against reverse-logic errors."
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Asset and literature verification rules are strong; Step 2 live-verification assumption creates inconsistency in offline environments — no explicit fallback behavior defined when live database access is unavailable."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "8 active reference modules are well-organized and proportionate to the task scope; 294-line SKILL.md is manageable; note: 8 additional reference files exist in the directory but are not referenced in SKILL.md (orphaned files)."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "8-step execution sequence is well-ordered; self-critical Step 8 with 6 check-points is thorough; same live-verification ambiguity affects feedback design for offline use."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Natural trigger phrases match real drug-discovery language; description negative constraints ('Never confuse...', 'Never fabricate...') accurately convey scope boundaries but are unusual for a trigger-oriented description."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials or sensitive data handling; no injection vectors; anti-fabrication posture (pipeline data, trial status, approval status) is among the strongest in the collection."
+      },
+      "maintainability": {
+        "score": 10,
+        "max": 12,
+        "note": "8 actively referenced modules map cleanly to specific sections and steps; directory contains 16 reference files — 8 orphaned files (competition-landscape-rules, translation-readiness-rules, druggability-and-modality-framework, literature-retrieval-and-citation, scope-framing-rules, target-assessment-framework, preclinical-clinical-evidence-ladder, literature-integrity-rules) not referenced in SKILL.md create maintenance confusion."
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Development maturity + strategic openness dual framework is a rare and valuable differentiator; crowding-vs-maturity separation prevents false strategic conclusions; composability good as upstream skill; no explicit composability hooks to downstream protocol or clinical-trial design skills."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 84.6,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "TIGIT target evidence landscape in solid tumors",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All 8 evidence layers separated correctly; competition and crowding map includes same-target and substitute approaches; no fabricated trial identifiers or approval status; primary interpretation with limiting-factor identification present.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Disease relevance, druggability, preclinical evidence, and clinical evidence separated into distinct sections (Hard Rules 1-2)",
+            "result": "PASS",
+            "note": "All four layers addressed independently; no conflation between layers."
+          },
+          {
+            "text": "Competition and crowding map includes same-target and substitute-approach competitors",
+            "result": "PASS",
+            "note": "Section E covers same-target PD-1/LAG-3 competition and substitute immunotherapy approaches."
+          },
+          {
+            "text": "Development maturity and strategic openness assessed separately (Hard Rule 3)",
+            "result": "PASS",
+            "note": "Crowding level and development maturity independently judged in Sections F and G."
+          },
+          {
+            "text": "No fabricated trial identifiers, approval status, or company-linked asset claims",
+            "result": "PASS",
+            "note": "Hard Rules 9-11 enforced; verification caveats applied where asset status mentioned."
+          },
+          {
+            "text": "Primary recommended interpretation (Section H) states limiting factor explicitly",
+            "result": "PASS",
+            "note": "Limiting factor (clinical evidence uncertainty) named; interpretation labeled as most defensible rather than certain."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "IL-17 pathway competition and strategic whitespace in psoriasis",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Target relevance separated from druggability; crowded field not labeled as automatically closed; strategic openness identified; verification caveats applied to asset mentions.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Target relevance (disease biology) separated from druggability (tractability) per Hard Rule 1",
+            "result": "PASS",
+            "note": "Sections B and C address relevance and druggability independently."
+          },
+          {
+            "text": "Crowded field not automatically labeled as closed without checking differentiation logic (Hard Rule 8)",
+            "result": "PASS",
+            "note": "Section G correctly examines remaining whitespace despite IL-17 pathway crowding."
+          },
+          {
+            "text": "Strategic openness section identifies remaining whitespace and basis for any remaining opportunity",
+            "result": "PASS",
+            "note": "Section G identifies patient-subtype or combination-based differentiation opportunities."
+          },
+          {
+            "text": "Preclinical activity not presented as proof of patient benefit (Hard Rule 6)",
+            "result": "PASS",
+            "note": "Preclinical-clinical distinction maintained throughout output."
+          },
+          {
+            "text": "Verification caveat applied when approved asset details are mentioned",
+            "result": "PASS",
+            "note": "Section I notes verification status for referenced IL-17 antibody assets."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "KRAS G12D vs SHP2 target comparison in pancreatic cancer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Both targets assessed using same evidence-layer framework; tractability comparison explicit; evidence chain gaps identified per target; no fabricated relative efficacy claims.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Both targets compared using the same evidence-layer framework (disease relevance, druggability, preclinical, clinical)",
+            "result": "PASS",
+            "note": "Parallel assessment structure applied to KRAS G12D and SHP2."
+          },
+          {
+            "text": "Tractability comparison explicit for both targets with specific barriers identified",
+            "result": "PASS",
+            "note": "Covalent targeting logic (KRAS) vs allosteric inhibition challenges (SHP2) compared."
+          },
+          {
+            "text": "Evidence chain gaps explicitly identified for each target separately",
+            "result": "PASS",
+            "note": "Missing translational bridge or clinical evidence noted per target where absent."
+          },
+          {
+            "text": "No fabricated relative efficacy or superiority claims without clinical evidence backing",
+            "result": "PASS",
+            "note": "Hard Rules 9-11 enforced; no invented head-to-head comparison data."
+          },
+          {
+            "text": "Self-critical review (Step 8) identifies most assumption-dependent comparison point",
+            "result": "PASS",
+            "note": "Biggest verification gap and fallback interpretation stated."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Early-stage target with only preclinical evidence and no clinical data",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Clinical evidence section marked as absent; preclinical-to-clinical conflation avoided; development maturity assigned as early-stage; sparse competition not framed as automatic opportunity.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section D clinical evidence correctly marked as absent with explicit statement",
+            "result": "PASS",
+            "note": "'No clinical evidence available' stated clearly; section not omitted or filled with speculation."
+          },
+          {
+            "text": "Preclinical activity not implied as proof of clinical promise (Hard Rule 6)",
+            "result": "PASS",
+            "note": "Evidence layer maintained; no forward projection from preclinical to patient outcomes."
+          },
+          {
+            "text": "Development maturity correctly assigned as early-stage / pre-translational",
+            "result": "PASS",
+            "note": "Section F maturity label reflects preclinical-only evidence base."
+          },
+          {
+            "text": "Sparse competition not presented as automatic strategic attractiveness (Hard Rule 7)",
+            "result": "PASS",
+            "note": "Section G correctly examines whether sparse field reflects genuine opportunity or evidence gap."
+          },
+          {
+            "text": "Verification gap flagged as limiting factor in primary recommended interpretation",
+            "result": "PASS",
+            "note": "Section H identifies verification uncertainty as the primary constraint on interpretation."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Ferroptosis-related interventions in HCC — full landscape with multiple modalities",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Multiple modalities assessed with separate tractability and competition analysis; biology-druggability conflation avoided; mixed evidence represented accurately; limiting factor named in primary interpretation.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Multiple modalities (small molecule, lipid peroxidation modulators, iron chelators) assessed with separate tractability and competition logic",
+            "result": "PASS",
+            "note": "Per-modality analysis in Sections C and E maintained."
+          },
+          {
+            "text": "Biology relevance and therapeutic tractability not conflated for any modality (Hard Rules 1, 4-5)",
+            "result": "PASS",
+            "note": "Biological relevance of ferroptosis assessed separately from clinical tractability barriers."
+          },
+          {
+            "text": "Mixed evidence (thin on some paths, stronger on others) represented accurately without smoothing",
+            "result": "PASS",
+            "note": "Hard Rule 12 enforced; confidence downgraded where evidence is thin or indirect."
+          },
+          {
+            "text": "Primary interpretation (Section H) explicitly names limiting factor",
+            "result": "PASS",
+            "note": "Translation gap between preclinical ferroptosis models and HCC clinical context identified as limiting factor."
+          },
+          {
+            "text": "No fabricated clinical trial activity for ferroptosis-HCC assets",
+            "result": "PASS",
+            "note": "Hard Rules 9-11 enforced; all asset status claims carry verification caveats."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request for commercial investment recommendation based on target landscape (out of scope)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Commercial investment advice correctly identified as out of scope; standard redirect produced; no asset valuation or investment recommendation generated.",
+        "basic": 35,
+        "specialized": 45,
+        "total": 80,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Request for commercial investment recommendation correctly identified as out of scope",
+            "result": "PASS",
+            "note": "Out-of-scope category ('recommend a commercial asset as investment advice') correctly recognized."
+          },
+          {
+            "text": "Standard redirect message produced matching SKILL.md template",
+            "result": "PASS",
+            "note": "Redirect includes restatement of request and reason for scope limitation."
+          },
+          {
+            "text": "No asset valuation, financial projections, or investment recommendation produced",
+            "result": "PASS",
+            "note": "Redirect only; no financial content generated."
+          },
+          {
+            "text": "No fabricated asset valuations or commercial pipeline estimates",
+            "result": "PASS",
+            "note": "Hard Rules 9-11 honored even under out-of-scope request."
+          },
+          {
+            "text": "Redirect offers alternative: target landscape analysis without the investment recommendation component",
+            "result": "PASS",
+            "note": "Constructive alternative offered — what the skill can provide vs what is out of scope."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Request to incorporate unverified conference rumors as established pipeline facts",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Verified asset information handled correctly; partial integration of conference rumors into landscape without uniform [UNVERIFIED] labeling detected in stress conditions — Hard Rule 10 ('no field lore or rumor as verified evidence') may be applied inconsistently for user-provided but unverifiable claims.",
+        "basic": 33,
+        "specialized": 44,
+        "total": 77,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Directly verifiable asset information correctly presented with appropriate evidence labels",
+            "result": "PASS",
+            "note": "Verified pipeline entries labeled correctly; Section I reflects verification status."
+          },
+          {
+            "text": "Conference rumors and unverified pipeline claims labeled [UNVERIFIED] before incorporation into landscape",
+            "result": "FAIL",
+            "note": "Hard Rule 10 tension: user-provided conference rumors may be partially incorporated into Section E competition map without uniform [UNVERIFIED — based on user-provided unverifiable claim] tagging — creates mixed-confidence landscape output."
+          },
+          {
+            "text": "Section I (references/asset notes) distinguishes verified from user-provided unverified sources",
+            "result": "PASS",
+            "note": "Section I makes some source distinctions, though not consistently flagging all unverified items."
+          },
+          {
+            "text": "Hard Rule 10 enforced: field lore and rumor not presented as established verified evidence",
+            "result": "PASS",
+            "note": "No rumors elevated to formal citation status."
+          },
+          {
+            "text": "Primary interpretation correctly limited to verifiable evidence base; interpretation confidence adjusted for unverified inputs",
+            "result": "PASS",
+            "note": "Section H correctly scopes the conclusion to what is verifiable."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 35.6,
+    "dynamic_weighted": 50.8,
+    "score": 86,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Development maturity + strategic openness dual framework prevents the common error of conflating crowded space with closed opportunity",
+    "Eight-layer evidence separation (disease relevance, mechanistic rationale, druggability, preclinical, translational bridge, clinical, competition, maturity) is the most comprehensive landscape framework in the Evidence Insight category",
+    "Asset and trial verification requirement with explicit caveat obligation prevents fabricated pipeline landscape claims (Hard Rules 9-11)",
+    "Negative-logic hard rules ('do not present a tractable target as disease-relevant unless evidence is explicit') are a rare and valuable guard against reverse-logic errors common in target assessment"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No explicit fallback for offline environments when live asset verification is unavailable",
+      "observed_in": [
+        1,
+        2
+      ],
+      "problem": "Step 2 requires verifying trial status, approvals, and asset data from live sources; in offline execution this defaults to training memory which may produce outdated or incorrect competitive landscape claims without flagging.",
+      "root_cause": "No fallback behavior defined for environments without live database access.",
+      "fix": "Add explicit fallback: 'When live verification (ClinicalTrials.gov, DrugBank, company pipeline pages) is unavailable, all trial status, approval status, and competitive activity claims must be labeled [UNVERIFIED — based on training knowledge, verify with live sources before use]'."
+    },
+    {
+      "priority": "P1",
+      "title": "User-provided unverified pipeline claims not uniformly tagged before incorporation",
+      "observed_in": [
+        7
+      ],
+      "problem": "When users provide unverified conference rumors or hearsay about competitors, these may be partially incorporated into the competition map without consistent [UNVERIFIED] labeling, creating mixed-confidence landscape output.",
+      "root_cause": "Hard Rule 10 prohibits presenting field lore as verified evidence but does not define a specific handling protocol for user-provided unverifiable claims.",
+      "fix": "Add a user-input verification rule: 'Any asset information provided by the user that cannot be independently verified must be labeled [User-provided — not independently verifiable] before incorporation and must not be mixed with verified information in the primary landscape assessment.'"
+    },
+    {
+      "priority": "P2",
+      "title": "8 orphaned reference files in directory not referenced in SKILL.md",
+      "observed_in": [],
+      "problem": "The references/ directory contains 16 files but SKILL.md only references 8; the 8 unreferenced files (competition-landscape-rules, translation-readiness-rules, druggability-and-modality-framework, literature-retrieval-and-citation, scope-framing-rules, target-assessment-framework, preclinical-clinical-evidence-ladder, literature-integrity-rules) create maintenance confusion and may cause agents to mistakenly use them.",
+      "root_cause": "Directory contains legacy or supplementary files that were not removed when SKILL.md was finalized.",
+      "fix": "Either (a) remove the 8 orphaned files from the references/ directory, or (b) add them to the Reference Module Integration section with explicit step assignments if they are still intended for use."
+    }
+  ]
+}

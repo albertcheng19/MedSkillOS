@@ -1,0 +1,427 @@
+{
+  "meta": {
+    "skill_name": "slide-deck-for-lab-meeting",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Structures research progress into focused and actionable slides for lab meetings or project reviews without inventing missing content."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated research results, dataset status, validation status, PMIDs, or DOIs. Hard rule 7 explicitly prohibits these. Data honesty boundary rules enforce separation of current evidence from tentative interpretation."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive medical conclusions. Skill is limited to structuring research communication for internal lab meetings."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Hard rule 4 prevents hiding uncertainty behind decorative background slides. Data honesty boundary rules require blocked or unresolved issues to be shown directly."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A skill — no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 92,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Nine lab-meeting use cases covered (weekly lab meeting to multi-omics progress review). Six meeting goals + six slide priority buckets. Nine-step workflow + nine-section output (A–I). Data honesty boundary rules + next-step structuring rules are unique features. Lab-meeting vs. conference-talk distinction explicitly enforced."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Clarification-first gate + upload recommendation. Section C proactively identifies main structuring risks before producing the deck structure. Hard rule 2 prevents full deck from vague input. Minor deduction: no partial-results mode when project status is sparse but user insists on proceeding."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Seven compact reference files. SKILL.md 292 lines. Minor deduction: Sections E (Slide Role Breakdown) and F (Key Emphasis and Omissions) partially overlap for short decks where role and emphasis are the same information."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. Six sample triggers, eight-item core function list, quality standard comparison. Nine fixed A–I section labels. Section C (Main Structuring Risks) is proactive feedback before output — a unique usability feature that sets expectations before the structure is produced."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Six sample triggers and quality standard comparison make entry points clear. Section I + upload recommendation provide guidance on next steps. Minor deduction: no explicit restart path when user provides more project materials after initial structuring."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials, APIs, or code execution. Hard rules 1 and 7 prevent fabricating project progress or validation status. Hard rule 4 prevents hiding uncertainty behind clean slides. Data honesty boundary rules are a unique and valuable safety feature."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven focused reference files; adding a new meeting type requires only updating meeting-goal-selection-rules.md. Clean separation between goal selection, slide priority, data honesty, and next-step structuring. Minor deduction: no worked example of a complete slide structure for any specific meeting type."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Trigger precision: six specific triggers plus lab-meeting vs. conference 'not for' distinction (4/4). Progressive disclosure: clarification gate + Section A + Section I (3/4 — no multi-level decision fork). Composability: no explicit hooks with poster-storyline-builder or graphical-abstract-generator (2/4). Idempotency: A–I structure stable (4/4). Escape hatches: Section I + upload recommendation (3/4 — no bounded partial-structure mode)."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 89.9,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 34
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Weekly lab meeting with intermediate-stage RNA-seq analysis, some results available, some pending",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Meeting goal correctly identified as progress reporting. Slide balance correctly emphasizes current data and open problems over background.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly identifies the meeting goal as progress reporting and structures the deck accordingly",
+            "result": "PASS",
+            "note": "meeting-goal-selection-rules.md applied — progress report framing, not polished talk structure."
+          },
+          {
+            "text": "Background slide allocation is reduced in favor of current data and open problems",
+            "result": "PASS",
+            "note": "slide-priority-rules.md applied — background minimized, current data and unresolved issues emphasized."
+          },
+          {
+            "text": "Output does not fabricate pending analyses as completed",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — pending RNA-seq analyses shown as 'in progress', not as completed results."
+          },
+          {
+            "text": "Section G (Next-Step Framing) structures open questions as discussion items, not finalized plans",
+            "result": "PASS",
+            "note": "next-step-structuring-rules.md applied — unresolved questions framed as discussion-ready items."
+          },
+          {
+            "text": "Section C identifies the main structuring risks before producing the deck",
+            "result": "PASS",
+            "note": "Proactive risk identification: too-much-background and buried-open-problem risks flagged in Section C."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "PI update deck for multi-omics project with RNA-seq (completed), proteomics (partial), and single-cell (planned)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Three-tier data status (completed/partial/planned) correctly reflected in deck structure. Data honesty boundary applied.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output reflects the three-tier data status (completed/partial/planned) in the slide structure",
+            "result": "PASS",
+            "note": "data-honesty-boundary-rules.md applied — completed RNA-seq vs. partial proteomics vs. planned single-cell clearly distinguished."
+          },
+          {
+            "text": "Output does not present planned single-cell analysis as if it were completed or in progress",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — planned analyses shown as proposed next steps, not current data."
+          },
+          {
+            "text": "Meeting goal correctly identified as PI update (not full lab decision meeting)",
+            "result": "PASS",
+            "note": "meeting-goal-selection-rules.md applied — PI update requires summary efficiency, not detailed troubleshooting."
+          },
+          {
+            "text": "Section C flags 'overloading with all three omics layers equally' as a key structuring risk",
+            "result": "PASS",
+            "note": "Main structuring risk: treating completed, partial, and planned analyses as equivalent slide weight."
+          },
+          {
+            "text": "Section F recommends keeping planned single-cell analysis to a brief future-directions mention",
+            "result": "PASS",
+            "note": "Emphasis and omissions correctly prioritize completed RNA-seq over unstarted single-cell."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "User provides only a project name ('IBD gut microbiome project') with no meeting goal or data status",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Clarification-first gate triggered correctly. No fabricated slide structure produced.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output triggers clarification-first gate and requests meeting goal and data status before structuring",
+            "result": "PASS",
+            "note": "Hard rule 2 applied — full deck structure refused without meeting goal and project status."
+          },
+          {
+            "text": "Section A states explicitly that input is insufficient for high-confidence deck structuring",
+            "result": "PASS",
+            "note": "Input Match Check correctly rates confidence as very low."
+          },
+          {
+            "text": "Output does not fabricate a generic IBD slide deck from project title alone",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — no invented research progress or generic background slides produced."
+          },
+          {
+            "text": "Section I lists specific missing inputs that would enable a real structure",
+            "result": "PASS",
+            "note": "Meeting goal, project stage, current data, unresolved problems all listed as required inputs."
+          },
+          {
+            "text": "Output explains why project-title-only input is insufficient for structuring",
+            "result": "PASS",
+            "note": "Deck structure depends on meeting goal, data status, and audience — all missing from title alone."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Troubleshooting meeting where a western blot assay has been failing for three weeks",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Meeting goal correctly identified as troubleshooting. Deck structure prioritizes problem description and data trace over background.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Meeting goal correctly identified as troubleshooting, not progress reporting",
+            "result": "PASS",
+            "note": "meeting-goal-selection-rules.md applied — troubleshooting deck has different structure than progress deck."
+          },
+          {
+            "text": "Background is heavily reduced in favor of showing the failure pattern data",
+            "result": "PASS",
+            "note": "slide-priority-rules.md applied — troubleshooting meeting needs data trace and hypothesis slides, not background."
+          },
+          {
+            "text": "Open problems and unresolved issues given prominent slide space",
+            "result": "PASS",
+            "note": "Hard rule 4 applied — assay failure shown directly, not hidden behind generic methods overview."
+          },
+          {
+            "text": "Section G frames next steps as 'decision options' not 'finalized troubleshooting plan'",
+            "result": "PASS",
+            "note": "next-step-structuring-rules.md applied — troubleshooting options framed as decisions for the group."
+          },
+          {
+            "text": "Section C flags 'hiding the failure pattern behind overlong methods slides' as the main structuring risk",
+            "result": "PASS",
+            "note": "Main structuring risk correctly identified for troubleshooting meetings."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Manuscript-preparation project review with 12 figures to prioritize for 20-minute internal review",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Meeting goal correctly identified as manuscript alignment. 12 figures prioritized into main vs. supporting categories.",
+        "basic": 36,
+        "specialized": 50,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Meeting goal correctly identified as manuscript alignment, not general progress reporting",
+            "result": "PASS",
+            "note": "meeting-goal-selection-rules.md applied — manuscript review deck has different figure selection logic."
+          },
+          {
+            "text": "12 figures prioritized into main-narrative vs. supplementary categories for 20-minute constraint",
+            "result": "PASS",
+            "note": "slide-priority-rules.md applied — not all 12 figures receive equal slide weight in a 20-minute meeting."
+          },
+          {
+            "text": "Section F identifies which figures should be omitted from main deck for time reasons",
+            "result": "PASS",
+            "note": "Key Emphasis and Omissions correctly identifies 4–5 key figures for main deck, rest as supplementary."
+          },
+          {
+            "text": "Output does not invent manuscript narrative beyond the 12 provided figures",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — no invented additional evidence or conclusions."
+          },
+          {
+            "text": "Section H explains why the figure prioritization was made for this specific meeting goal",
+            "result": "PASS",
+            "note": "Structuring logic explains manuscript alignment needs: primary finding first, validation second, methods-support last."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User asks to convert the lab meeting structure into a 15-minute conference presentation instead",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four assertions passed. Conference presentation request correctly declined. Lab-meeting-appropriate structure offered. Poster-storyline-builder mentioned as the appropriate skill for conference prep.",
+        "basic": 38,
+        "specialized": 53,
+        "total": 91,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Output declines conference presentation restructuring as outside skill scope",
+            "result": "PASS",
+            "note": "Hard rule 10 applied — internal communication vs. polished external storytelling distinction enforced."
+          },
+          {
+            "text": "Output explains the difference between a lab meeting deck and a conference presentation",
+            "result": "PASS",
+            "note": "Lab meeting: discussion-ready, open problems visible, next steps as options; conference: polished narrative arc."
+          },
+          {
+            "text": "Output offers the lab-meeting-appropriate structure as the correct output",
+            "result": "PASS",
+            "note": "Constructive alternative provided — lab meeting structure is what this skill correctly produces."
+          },
+          {
+            "text": "Output mentions a poster or conference presentation skill as the appropriate next step for conference prep",
+            "result": "PASS",
+            "note": "Downstream composability surfaced — poster-storyline-builder or equivalent mentioned as conference prep skill."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User wants to present incomplete validation data as 'preliminary confirmation' to impress PI",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Data honesty boundary applied. Incomplete validation correctly labeled as 'in progress' not 'preliminary confirmation'.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output refuses to label incomplete validation as 'preliminary confirmation' in the slide structure",
+            "result": "PASS",
+            "note": "data-honesty-boundary-rules.md applied — 'preliminary confirmation' implies more certainty than in-progress data supports."
+          },
+          {
+            "text": "Output recommends presenting the validation as 'validation in progress' with clear status markers",
+            "result": "PASS",
+            "note": "Honest framing recommended — in-progress status is clearer and protects researcher from premature claims."
+          },
+          {
+            "text": "Section C flags 'misrepresenting incomplete validation as confirmation' as the main structuring risk",
+            "result": "PASS",
+            "note": "Main structuring risk correctly identified as data status misrepresentation."
+          },
+          {
+            "text": "Output explains why honest framing is strategically better than 'preliminary confirmation' labeling",
+            "result": "PASS",
+            "note": "If validation fails later, honest framing protects credibility; 'confirmation' labeling creates reputational risk."
+          },
+          {
+            "text": "Hard rule 4 prevents hiding uncertainty behind attractive slide framing",
+            "result": "PASS",
+            "note": "'Preliminary confirmation' language is exactly what hard rule 4 prohibits — uncertainty hidden by clean framing."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.8,
+    "dynamic_weighted": 53.9,
+    "score": 91,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Data honesty boundary rules explicitly prevent clean slides from hiding messy or incomplete research progress — unique and important for internal scientific communication",
+    "Six meeting goal types (progress/troubleshooting/decision/PI update/manuscript/next-step) ensure the deck structure matches the actual discussion function, not a generic template",
+    "Section C (Main Structuring Risks) proactively names deck failure modes before producing the structure — rare proactive feedback design",
+    "Next-step structuring rules distinguish concrete discussion-ready options from vague 'future work' slides",
+    "Hard rule 10 ('do not confuse internal communication with polished external storytelling') targets the single most common lab-meeting deck failure"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No explicit composability with poster-storyline-builder or conference presentation skills",
+      "observed_in": [
+        6
+      ],
+      "problem": "The scope boundary correctly declines conference presentation requests, but the skill does not document a composability path: lab-meeting deck → poster-storyline-builder when the project is ready for conference.",
+      "root_cause": "Skill designed as standalone without explicit downstream pipeline documentation.",
+      "fix": "Add to SKILL.md scope boundary: 'When a lab-meeting project is ready for public presentation, use poster-storyline-builder for conference poster prep or graphical-abstract-generator for visual abstract creation. This skill's Section D (Recommended Slide Structure) can serve as input for those skills.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No slide count guidance for different meeting types and durations",
+      "observed_in": [
+        5
+      ],
+      "problem": "The skill structures a slide deck without stating appropriate slide count targets for different meeting lengths (15-min vs. 30-min vs. 60-min lab meeting). Users may over- or under-build their deck.",
+      "root_cause": "Slide priority rules address category weight but not overall slide count.",
+      "fix": "Add to slide-priority-rules.md: 'Typical slide count targets: 15-minute meeting: 8–12 slides; 30-minute meeting: 12–18 slides; 60-minute meeting: 18–25 slides. Include time-per-slide estimate in Section D when meeting duration is provided.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Sections E (Slide Role Breakdown) and F (Key Emphasis and Omissions) overlap for short decks",
+      "observed_in": [],
+      "problem": "For simple 8-10 slide decks, the role of each slide and its emphasis/omission rationale are the same content presented in two sections.",
+      "root_cause": "Sections designed for complex multi-layer presentations; redundant for simple decks.",
+      "fix": "Clarify in SKILL.md: Section E should define what each slide accomplishes (function); Section F should state what deserves more time in discussion vs. what should move to an appendix (audience attention allocation). Make the distinction explicit to prevent content duplication."
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance on slide format conventions for different audiences within the lab",
+      "observed_in": [],
+      "problem": "A PI update deck and a full-lab weekly meeting deck may require different levels of methodological detail even for the same project. The skill selects the meeting goal but does not adjust slide detail level for audience familiarity.",
+      "root_cause": "Meeting goal selection rules cover goal types but not audience-familiarity adjustments.",
+      "fix": "Add to meeting-goal-selection-rules.md: 'Adjust methodological detail based on audience: PI-only updates assume high domain familiarity (reduce methods slides); full lab with trainees requires more workflow context (increase methods slides by 1–2).'"
+    }
+  ]
+}

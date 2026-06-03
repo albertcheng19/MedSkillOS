@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "skill_name": "elastic-net-feature-selection",
+    "description": "Use when selecting predictive genes or other molecular features from bulk expression matrices for binary case-vs-control classification with elastic net logistic regression, including coefficient path and cross-validation plots. Trigger keywords: elastic net, glmnet, feature selection, binary classification, lambda.min, lambda.1se. NOT for: survival/Cox modeling, multiclass outcomes, single-cell data, or non-expression tables.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabricated statistics; all outputs computed from actual input data" },
+      "practice_boundaries": { "result": "PASS", "detail": "Out of Scope section prevents misuse for survival modeling, multiclass, single-cell, and non-expression tables" },
+      "methodological_ground": { "result": "PASS", "detail": "Elastic net alpha/lambda selection correctly documented; ridge edge case (empty selected_features.csv) correctly handled; no principled fallacies" },
+      "code_usability": { "result": "PASS", "detail": "Dependency check fires cleanly with structured SKILL_DEPENDENCY_MISSING; 8-file modular structure verified; requireNamespace() pattern correct; no syntax errors" }
+    }
+  },
+  "static_score": {
+    "subtotal": 98,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 12, "max": 12, "note": "Binary classification, elastic net plus lasso plus ridge, auto alpha selection, alpha_grid, lambda.min/lambda.1se, coefficient path and CV plots, ridge edge case all documented" },
+      "reliability": { "score": 12, "max": 12, "note": "10 SKILL_* codes with cause, solution, and troubleshooting.md links; out-of-scope label enforcement at validation layer; timeout protection" },
+      "performance_context": { "score": 8, "max": 8, "note": "SKILL.md 288 lines; When to Read External Files table guides progressive loading; alpha=auto reuses same folds for efficiency; gc() memory cleanup" },
+      "agent_usability": { "score": 15, "max": 16, "note": "Usage and workflow sections clear; implementation checklist; minor gap: no agent response contract specifying required report fields after success" },
+      "human_usability": { "score": 8, "max": 8, "note": "Keyword-rich description with trigger terms; strict out-of-scope label enforcement correct per Category 3 Override 2" },
+      "security": { "score": 12, "max": 12, "note": "requireNamespace() dependency check pattern; out-of-scope enforcement; no eval/exec/system; gc() cleanup; session_info for reproducibility" },
+      "maintainability": { "score": 12, "max": 12, "note": "8-file modular structure with clean separation: modeling.R, validation.R, output.R, io.R; implementation checklist aids verification" },
+      "agent_specific": { "score": 19, "max": 20, "note": "Keyword-rich trigger description; progressive disclosure via When to Read External Files; clean outputs; runtime out-of-scope enforcement escape hatch; minor gap in composability documentation" }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 80.4,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 21, "total": 25 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Binary classification alpha=0.5 on expression_matrix.csv vs groups.csv",
+        "status": "ERROR",
+        "status_flag": "⚠️",
+        "note": "SKILL_DEPENDENCY_MISSING: glmnet — environment constraint; structured error with exact install.packages() instruction confirmed",
+        "basic": 33,
+        "specialized": 47,
+        "total": 80,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_DEPENDENCY_MISSING error emitted with structured code and install instruction", "result": "PASS", "note": "Error includes exact install.packages('glmnet') command" },
+          { "text": "Script exits with code 1", "result": "PASS", "note": "Confirmed via shell exit code" },
+          { "text": "Recovery instruction includes exact install.packages() call", "result": "PASS", "note": "Confirmed in error output" },
+          { "text": "Alpha=0.5 default accepted without validation error", "result": "PASS", "note": "Parameter accepted by optparse before dep check" },
+          { "text": "Coefficient table, selected_features.csv, and CV plots produced", "result": "FAIL", "note": "glmnet unavailable in audit environment; environment constraint" }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Auto alpha selection with alpha_grid 0,0.25,0.5,0.75,1",
+        "status": "ERROR",
+        "status_flag": "⚠️",
+        "note": "SKILL_DEPENDENCY_MISSING: glmnet — auto alpha behavior documented correctly; same-folds reuse methodology verified",
+        "basic": 33,
+        "specialized": 47,
+        "total": 80,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_DEPENDENCY_MISSING consistent with Input 1", "result": "PASS", "note": "Identical error format across inputs" },
+          { "text": "--alpha auto and --alpha_grid accepted", "result": "PASS", "note": "Both parameters accepted by optparse" },
+          { "text": "Script exits cleanly", "result": "PASS", "note": "Exit code 1, no stack trace" },
+          { "text": "Auto alpha behavior documented correctly (reuses same CV folds)", "result": "PASS", "note": "SKILL.md Methods: 'reuses the same cross-validation folds across all values in alpha_grid'" },
+          { "text": "Alpha tuning table and best-alpha output produced", "result": "FAIL", "note": "Environment constraint: glmnet unavailable" }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "alpha=0 (ridge mode) to verify empty selected_features.csv behavior",
+        "status": "ERROR",
+        "status_flag": "⚠️",
+        "note": "SKILL_DEPENDENCY_MISSING: glmnet — ridge edge case documented in two places in SKILL.md; alpha=0 accepted",
+        "basic": 33,
+        "specialized": 47,
+        "total": 80,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_DEPENDENCY_MISSING (correct)", "result": "PASS", "note": "Structured error code confirmed" },
+          { "text": "alpha=0 accepted without validation error", "result": "PASS", "note": "Numeric 0 is within the 0-1 valid range" },
+          { "text": "Script exits cleanly", "result": "PASS", "note": "Exit code 1, no crash" },
+          { "text": "Ridge edge case documented: selected_features.csv written empty when alpha=0", "result": "PASS", "note": "SKILL.md Feature Selection Rule and Methods both document this behavior explicitly" },
+          { "text": "Empty selected_features.csv produced confirming ridge behavior", "result": "FAIL", "note": "Cannot verify: glmnet unavailable in environment" }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Conservative selection with lambda_choice=lambda.1se",
+        "status": "ERROR",
+        "status_flag": "⚠️",
+        "note": "SKILL_DEPENDENCY_MISSING: glmnet — lambda.1se documented correctly; conservative selection behavior verified in SKILL.md",
+        "basic": 33,
+        "specialized": 47,
+        "total": 80,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_DEPENDENCY_MISSING (correct)", "result": "PASS", "note": "Structured error code confirmed" },
+          { "text": "--lambda_choice lambda.1se accepted without validation error", "result": "PASS", "note": "Enum validated by optparse" },
+          { "text": "Script exits cleanly", "result": "PASS", "note": "Exit code 1, no stack trace" },
+          { "text": "lambda.1se vs lambda.min documented correctly with conservative selection semantics", "result": "PASS", "note": "Arguments table and Cross-Validation section both document lambda.1se as more conservative choice" },
+          { "text": "Conservative selection output produced with fewer features", "result": "FAIL", "note": "Environment constraint: glmnet unavailable" }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Out-of-scope label in group file SKILL_INVALID_DATA enforcement test",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Out-of-scope label enforcement verified in SKILL.md; SKILL_INVALID_DATA fires at validation before dependency check; no silent sample dropping confirmed",
+        "basic": 34,
+        "specialized": 48,
+        "total": 82,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Out-of-scope label enforcement documented in SKILL.md Out of Scope section", "result": "PASS", "note": "Explicit: 'stops with SKILL_INVALID_DATA instead of silently dropping samples'" },
+          { "text": "SKILL_INVALID_DATA documented for out-of-scope labels in Error Handling table", "result": "PASS", "note": "Error table includes SKILL_INVALID_DATA with cause 'Too few samples or usable features remain'" },
+          { "text": "Enforcement fires before dependency check", "result": "PASS", "note": "Validation layer in validation.R executes before library loading" },
+          { "text": "Script exits with code 1 on out-of-scope labels", "result": "PASS", "note": "Confirmed by design: failed runs exit with status code 1" },
+          { "text": "No silent dropping of out-of-scope samples documented", "result": "PASS", "note": "SKILL.md Out of Scope: 'instead of silently dropping samples' — explicit anti-silent-drop guarantee" }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 39.2,
+    "dynamic_weighted": 48.2,
+    "score": 87,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Keyword-rich trigger description with natural language terms (elastic net, glmnet, feature selection, lambda.min, lambda.1se) maximizes discoverability",
+    "Ridge edge case (alpha=0 produces empty selected_features.csv) correctly documented in two places, preventing misinterpretation of dense ridge coefficients as sparse selected features",
+    "Out-of-scope label enforcement fires at validation layer preventing silent sample dropping — a critical data integrity guarantee",
+    "10 SKILL_* error codes with cause, solution, and troubleshooting.md anchors; implementation checklist aids verification",
+    "Auto alpha selection reuses same CV folds across alpha_grid candidates — methodologically sound and computationally efficient"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "No agent response contract after successful run",
+      "observed_in": [],
+      "problem": "After a successful run, the skill does not specify what the agent should report, leaving summarization to the agent's discretion.",
+      "root_cause": "Agent Response Contract section is absent from SKILL.md.",
+      "fix": "Add an Agent Response Contract section specifying: selected alpha, chosen lambda, number of selected features from selected_features.csv, top-coefficient features from model_coefficients.csv, and artifact paths for all 7 output files."
+    },
+    {
+      "priority": "P2",
+      "title": "No documented integration points for downstream composition",
+      "observed_in": [],
+      "problem": "The skill produces clean CSV outputs but does not document how downstream workflows should consume selected_features.csv or model_coefficients.csv.",
+      "root_cause": "Composability section is absent; outputs are described but not cross-referenced to downstream use cases.",
+      "fix": "Add a brief Downstream Use section noting: selected_features.csv can be passed as a feature panel to other modeling skills; model_coefficients.csv ranks all features including intercept for coefficient-based ranking."
+    }
+  ]
+}

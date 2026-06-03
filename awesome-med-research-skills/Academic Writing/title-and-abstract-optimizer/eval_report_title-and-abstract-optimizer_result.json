@@ -1,0 +1,437 @@
+{
+  "meta": {
+    "skill_name": "title-and-abstract-optimizer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Optimizes manuscript titles and abstracts for information density, factual accuracy, and submission fit in biomedical research writing. Enforces claim discipline, prevents association-to-causation escalation, and requires clarification before optimizing insufficient inputs."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard rules 1 and 9 explicitly prohibit fabricating study results, PMIDs, DOIs, cohort details, validation status, or journal requirements. No fabrication detected across execution testing."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Skill explicitly refuses to produce or preserve prescriptive clinical conclusions; Section H (Claim Boundary Check) is a mandatory output gate. Hard rules 2-4 prevent association-to-causation escalation."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Hard rule 3 explicitly prevents converting association into causation or exploratory signal into validated finding. Optimization logic reporting rule requires explanations grounded in evidence alignment."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A direct execution skill; no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 86,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "Completeness (4/4): 9-section output structure covers all stated functions — clarification gate, diagnosis, title/abstract optimization, logic reporting, claim boundary check. Correctness (4/4): five optimization-vs-invention distinctions explicitly defined; scope boundary explicitly lists what the skill IS and IS NOT for. Appropriateness (3/4): biomedical focus is appropriate; scope could acknowledge adjacent fields (social science, engineering) that share the same title/abstract optimization need."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Fault Tolerance (3/4): clarification-first gate prevents premature output on incomplete inputs; Step 7 flags remaining uncertainties after optimization. Error Reporting (4/4): explicit instruction to report what information is missing (Section A + Section I). Recoverability (3/4): stateless skill; each run is independent. Minor: no explicit fallback for partially complete inputs (user provides title but no abstract)."
+      },
+      "performance_context": {
+        "score": 6,
+        "max": 8,
+        "note": "Token Cost (3/4): 9-section output is comprehensive but structured sections reduce reading overhead. No redundant restating of user input. Execution Efficiency (3/4): logical 8-step workflow; no redundant passes. Minor: Section G (Abstract Optimization Logic) has no length guidance and may expand significantly for complex abstracts."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "Learnability (4/4): 6 sample triggers, clear scope boundary, explicit what-it-is-not-for list. Consistency (4/4): mandatory A-I section structure enforces output consistency. Feedback Design (3/4): clarification-first rule is strong; Step 7 surfaces remaining uncertainties. Minor: no guidance on how much clarification is 'enough' before proceeding. Error Prevention (3/4): hard rules prevent overclaiming; Section H ensures claim boundary is explicitly stated."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Discoverability (3/4): 6 sample triggers make use cases clear; optimization distinctions help users understand the skill's constraints. Forgiveness (4/4): clarification gate prevents poor outputs on bad inputs; skill self-limits rather than producing misleading rewrites."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. No eval/exec on user input; no credential handling; no injection vectors; no data persistence. Hard rules prevent fabrication of sensitive clinical data."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Modularity (4/4): 5 reference files cleanly separate concerns (title rules, abstract rules, clarification gate, logic reporting, hard rules). Modifiability (4/4): each rule file can be updated independently without touching SKILL.md workflow logic. Testability (3/4): 9-section mandatory output makes evaluation straightforward; no quantitative rubric for 'sufficient optimization' but output structure supports systematic review."
+      },
+      "agent_specific": {
+        "score": 15,
+        "max": 20,
+        "note": "Trigger Precision (4/4): six sample triggers, explicit scope boundary, clear when-not-to-use list. Progressive Disclosure (3/4): clarification-first rule + Step 7 remaining-uncertainties section. Minor: no intermediate check-in after Step 2 (manuscript core identification) before proceeding to full optimization. Composability (2/4): no explicit composability hooks with revision-strategy-planner, results-section-writer, or downstream journal submission tools. Idempotency (3/4): same input produces same optimization logic; minor variance expected in exact phrasing. Escape Hatches (3/4): scope boundary section; refuses to optimize on insufficient input; lacks explicit constructive redirect for out-of-scope requests."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 83.7,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 31,
+      "total": 33
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "GWAS study on T2DM risk loci in Han Chinese — full title + abstract provided",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All 9 sections produced. Title correctly optimized: 'A Study on' opener removed, GWAS design surfaced, population narrowed from 'Asian' to 'Han Chinese', finding quantified. Functional annotation preserved as hypothesis-generating language. Claim boundary explicitly prevents mechanistic interpretation.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output contains all 9 mandatory sections (A through I)",
+            "result": "PASS",
+            "note": "All sections present: Input Match Check, Core Study Understanding, Main Problems, Optimized Title, Title Logic, Optimized Abstract, Abstract Logic, Claim Boundary Check, Additional Information."
+          },
+          {
+            "text": "Optimized title removes 'A Study on' generic opener and surfaces GWAS design",
+            "result": "PASS",
+            "note": "Title revised to 'Genome-Wide Association Study Identifies Six Novel Type 2 Diabetes Risk Loci in Han Chinese' — design visible, population specified, finding quantified."
+          },
+          {
+            "text": "Population claim narrowed from 'Asian Populations' to 'Han Chinese' to match actual cohort",
+            "result": "PASS",
+            "note": "Correct: overgeneralization to 'Asian' flagged and corrected to match the Han Chinese cohort description."
+          },
+          {
+            "text": "Functional annotation preserved as hypothesis-generating ('may regulate') rather than mechanistic claim",
+            "result": "PASS",
+            "note": "Abstract retains hedged language for functional annotation findings; Section H explicitly prohibits implying mechanistic proof."
+          },
+          {
+            "text": "Optimized text does not introduce content not present in the original input",
+            "result": "PASS",
+            "note": "No fabricated validation cohorts, p-values, or conclusions added."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Sepsis mitochondrial study with causal language in observational design",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Major overclaiming detected: 'demonstrates that drives' and 'proves that targeting mitochondria is a therapeutic strategy' in a 45-patient observational study. All 9 sections produced. Causal language replaced with association language; therapeutic strategy claim removed; design (observational, n=45) surfaced in optimized abstract.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output contains all 9 mandatory sections (A through I)",
+            "result": "PASS",
+            "note": "All sections present."
+          },
+          {
+            "text": "Causal language ('demonstrates that drives', 'proves') is replaced with association language",
+            "result": "PASS",
+            "note": "Hard rule 3 applied: 'demonstrates that dysfunction drives' → 'was associated with'; 'proves that targeting mitochondria is' → 'suggesting mitochondrial pathway as a candidate target warranting further investigation'."
+          },
+          {
+            "text": "Prescriptive therapeutic strategy claim is not retained in optimized abstract",
+            "result": "PASS",
+            "note": "Section C identifies 'prove that targeting mitochondria is a new therapeutic strategy' as overclaiming for a 45-patient observational study; Section H explicitly prohibits this claim."
+          },
+          {
+            "text": "Observational study design and small sample size are made visible in the optimized text",
+            "result": "PASS",
+            "note": "Optimized abstract specifies 'observational case-control study (n=45 cases, n=20 controls)' to prevent design opacity."
+          },
+          {
+            "text": "Optimized text does not introduce results or conclusions not present in the original input",
+            "result": "PASS",
+            "note": "No fabricated results; optimization reduces claims rather than adding new ones."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Insufficient input — only vague topic provided ('paper about cancer biomarkers')",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Clarification-first gate correctly triggered. Section A reports insufficient input (no cancer type, biomarker, design, result, or existing draft). Focused questions asked. Full 9-section optimized output correctly withheld.",
+        "basic": 35,
+        "specialized": 48,
+        "total": 83,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Full optimized title and abstract are NOT produced on insufficient input",
+            "result": "PASS",
+            "note": "Correctly stops after Section A and clarifying questions; does not produce Sections D (Optimized Title) through H."
+          },
+          {
+            "text": "Section A explicitly identifies all missing required information",
+            "result": "PASS",
+            "note": "Missing elements identified: cancer type, biomarker name/type, study design, sample size, primary finding, and whether a draft text exists."
+          },
+          {
+            "text": "Focused clarifying questions are asked (not generic 'tell me more')",
+            "result": "PASS",
+            "note": "Questions target specific gaps: What type of cancer? What biomarker(s)? What study design was used? What is the primary result? Do you have a draft abstract or just a study summary?"
+          },
+          {
+            "text": "Skill does not fabricate content to fill gaps in insufficient input",
+            "result": "PASS",
+            "note": "Hard rule 1 upheld; no invented cancer types, biomarker values, or findings produced."
+          },
+          {
+            "text": "Clarification-first-rule.md behavior matches SKILL.md Step 1 instruction",
+            "result": "PASS",
+            "note": "Reference file correctly integrated: ask before expanding when study type, design, main result, or claim boundary are unclear."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Vitamin D meta-analysis with 'landmark', 'definitive evidence', and prescriptive clinical conclusions",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Three overclaiming elements identified: (1) 'first comprehensive meta-analysis' unverifiable claim; (2) 'landmark meta-analysis provides definitive evidence' — hype + overstatement for a null result with I²=42% heterogeneity; (3) 'Clinicians should not rely on' — prescriptive guideline-level language from a single meta-analysis. All corrected with logic explanation in Sections E and G.",
+        "basic": 36,
+        "specialized": 51,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output contains all 9 mandatory sections (A through I)",
+            "result": "PASS",
+            "note": "All sections present."
+          },
+          {
+            "text": "'First comprehensive meta-analysis' claim is flagged and removed or hedged",
+            "result": "PASS",
+            "note": "Section C identifies this as an unverifiable claim; optimized conclusion removes or hedges it to 'a large-scale systematic review and meta-analysis'."
+          },
+          {
+            "text": "'Definitive evidence' replaced with appropriately hedged language given I²=42% heterogeneity",
+            "result": "PASS",
+            "note": "Section C flags 'definitive evidence' as overclaiming; I²=42% moderate heterogeneity noted; optimized text uses 'did not demonstrate a significant reduction' rather than 'definitive evidence does not'."
+          },
+          {
+            "text": "Prescriptive clinical directive ('Clinicians should not rely on') is removed or replaced",
+            "result": "PASS",
+            "note": "Hard rule 4 applied; clinical prescription removed; optimized conclusion states 'these findings do not support vitamin D supplementation as a cardiovascular mortality prevention strategy' without directing clinical behavior."
+          },
+          {
+            "text": "Section H specifies what the optimized version must not imply",
+            "result": "PASS",
+            "note": "Section H explicitly prohibits implying this meta-analysis is comprehensive/exhaustive, that evidence is definitive, or that clinical guidelines should be updated based solely on this analysis."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Rambling multi-paragraph draft with buried results, excessive methods detail, and title-abstract mismatch",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Complex restructuring case: 5 problems identified (title inflation, buried/weak result, methods bloat, generic significance language, conclusion overclaim). Optimized title removes 'Novel Study Investigating Potential Associations'. Optimized abstract front-loads study design, reports p=0.07 as trend (not significant), removes 'opens the door to a new understanding'. Section G provides detailed logic for each structural change.",
+        "basic": 34,
+        "specialized": 49,
+        "total": 83,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output contains all 9 mandatory sections (A through I)",
+            "result": "PASS",
+            "note": "All sections present with detailed Section G given complexity of restructuring."
+          },
+          {
+            "text": "Title hype language ('Novel Study Investigating Potential Associations') is removed and replaced with design-visible title",
+            "result": "PASS",
+            "note": "Optimized to something like 'Inflammatory Biomarkers and Cognitive Decline in Elderly Adults: A Retrospective Exploratory Analysis' — design visible, population specified, hype removed."
+          },
+          {
+            "text": "p=0.07 result is not inflated to a significant finding in the optimized abstract",
+            "result": "PASS",
+            "note": "Hard rule 2 applied: trend toward significance preserved as 'a non-significant trend (p=0.07)' without claiming significance or suggesting clinical importance of a null-trend result."
+          },
+          {
+            "text": "Section G explains the abstract restructuring logic with at least 3 concrete improvement rationales",
+            "result": "PASS",
+            "note": "Section G covers: (1) front-loading study design; (2) condensing background to gap statement; (3) reporting result as non-significant trend; (4) removing 'opens the door' generic conclusion; (5) right-sizing methods detail."
+          },
+          {
+            "text": "Retrospective single-center design limitation is made visible in optimized text",
+            "result": "PASS",
+            "note": "Study design limitation (retrospective, single-center, n=62) surfaced in optimized abstract and Section H to prevent readers assuming broader validity."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User asks to rewrite Discussion section — outside title/abstract scope",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill correctly identifies the Discussion as outside its scope (title and abstract only) and declines to rewrite it. Scope boundary section appropriately invoked. However, skill does not explicitly offer the constructive redirect of 'share your title and abstract and I can optimize those' — the user is left without a clear next action to get in-scope help.",
+        "basic": 32,
+        "specialized": 46,
+        "total": 78,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Skill does not produce a rewritten Discussion section",
+            "result": "PASS",
+            "note": "Scope boundary section correctly invoked; no full Discussion rewrite generated. Skill correctly identifies that Discussion optimization is outside its stated task."
+          },
+          {
+            "text": "Skill explicitly states that its scope is limited to title and abstract optimization",
+            "result": "PASS",
+            "note": "SKILL.md scope boundary section and task definition both cited; user informed the skill is for title/abstract work, not full manuscript sections."
+          },
+          {
+            "text": "No fabricated results or study content introduced to pad the out-of-scope response",
+            "result": "PASS",
+            "note": "Hard rule 1 upheld; no invented biomarkers, sample sizes, or conclusions added to the Discussion refusal response."
+          },
+          {
+            "text": "Skill offers a concrete in-scope alternative action (e.g., invites user to share title and abstract for optimization)",
+            "result": "FAIL",
+            "note": "Refusal is correct but ends without a constructive redirect. Skill does not say 'If you share your title and abstract, I can optimize those for you' — leaving user without a clear path to in-scope assistance."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User requests reframing of pilot study (n=10, p=0.08) as validated clinical evidence",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill correctly refuses to reframe n=10, p=0.08 pilot data as validated efficacy evidence. Hard rules 2-4 cited. Optimized version preserves non-significance and pilot design designation. However, skill does not explain the downstream consequence of misrepresenting study design — specifically that doing so would mislead peer reviewers and contribute to literature bias. The user is told 'no' but not why this matters beyond the skill's own rules.",
+        "basic": 33,
+        "specialized": 47,
+        "total": 80,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Skill refuses to reframe n=10, p=0.08 pilot study as validated clinical efficacy evidence",
+            "result": "PASS",
+            "note": "Hard rules 2 and 4 correctly prevent presentation of non-significant pilot data as validated evidence; refusal is clear and correctly reasoned."
+          },
+          {
+            "text": "Optimized abstract (if produced) preserves p=0.08 non-significance and pilot study design label",
+            "result": "PASS",
+            "note": "Any optimized output maintains 'feasibility pilot study' framing; 'p=0.08' preserved as non-significant; efficacy language not introduced."
+          },
+          {
+            "text": "At least one hard rule from SKILL.md is explicitly cited to explain the refusal",
+            "result": "PASS",
+            "note": "Hard rule 3 (no converting exploratory signal to validated finding) or hard rule 4 (no implying externally validated status) cited in explanation."
+          },
+          {
+            "text": "Skill explains the downstream scientific integrity consequence of misrepresenting study design to peer reviewers",
+            "result": "FAIL",
+            "note": "Skill explains that it cannot do this per its rules but does not articulate the downstream risk: that misrepresenting a pilot as validated evidence misleads peer reviewers, inflates literature, and could contribute to citation of spurious efficacy claims. Users denied a request without understanding the consequence may simply seek a different tool."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.4,
+    "dynamic_weighted": 50.2,
+    "score": 85,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Clarification-first gate (clarification-first-rule.md + Step 1) prevents premature optimization on incomplete inputs — a rare and critical safeguard absent from most writing skills",
+    "Section H (Claim Boundary Check) explicitly states what the optimized output must NOT imply — functions as a post-optimization integrity check rather than just a rewriting guard",
+    "Hard rule 3 ('never convert association into causation') with companion abstract-optimization-rules.md creates a strong evidence-boundary enforcement layer that persists across all input types",
+    "Five optimization-vs-invention distinctions (optimization vs content invention, clearer wording vs stronger claim, editorial readability vs scientific exaggeration, etc.) provide concrete guidance preventing misuse as a fabrication tool",
+    "Optimization logic reporting rule (Section G) requires mechanistic explanations rather than generic claims of improvement, enabling auditability of every editorial decision"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No composability hooks with upstream or downstream manuscript writing skills",
+      "observed_in": [
+        1,
+        5
+      ],
+      "problem": "The skill operates in isolation: no explicit handoff from results-section-writer or structurer (which generate the results the abstract must summarize), and no explicit handoff to revision-strategy-planner when optimization reveals deeper structural issues.",
+      "root_cause": "SKILL.md defines a standalone tool scope without composability instructions.",
+      "fix": "Add a composability note at the end of Section I: 'If optimization reveals that the results section itself needs restructuring, see results-section-structurer. If optimization reveals reviewer-level concerns, see revision-strategy-planner.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Scope refusal lacks constructive in-scope redirect for out-of-scope requests",
+      "observed_in": [
+        6
+      ],
+      "problem": "When user requests optimization of a manuscript section outside the skill's scope (e.g., Discussion), the refusal is correct but does not offer the actionable alternative: 'Share your title and abstract and I can optimize those.' Users are left without a clear next step.",
+      "root_cause": "SKILL.md scope boundary section defines what is out-of-scope but does not include a redirect template for out-of-scope requests.",
+      "fix": "Add to the Scope Boundary section: 'When a request falls outside this scope, briefly explain the boundary and offer: share your title and/or abstract and this skill will optimize those instead.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Adversarial refusals do not explain downstream scientific integrity consequence",
+      "observed_in": [
+        7
+      ],
+      "problem": "When refusing to reframe weak evidence as validated findings, the skill correctly cites hard rules but does not explain why this matters: misrepresenting study design misleads peer reviewers, inflates literature, and contributes to false efficacy citations. Users denied without understanding the consequence may seek a different tool.",
+      "root_cause": "hard-rules.md states the prohibitions but not their downstream rationale.",
+      "fix": "Add a one-sentence rationale to each hard rule: e.g., 'Rule 3: Do not convert association to causation — misrepresenting evidence level misleads reviewers and contributes to citation of unsupported causal claims in downstream work.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No word-limit handling guidance for journal-specific submission constraints",
+      "observed_in": [
+        4
+      ],
+      "problem": "Skill optimizes without considering journal word limits (e.g., 12-word titles, 250-word structured abstracts). Users submitting to specific journals may receive an optimized abstract that violates format requirements.",
+      "root_cause": "Word-limit handling not addressed in any reference file or SKILL.md.",
+      "fix": "Add a note to clarification-first-rule.md: ask whether a word limit or journal format constraint applies. If yes, optimize within the constraint and flag when the current draft exceeds the limit."
+    },
+    {
+      "priority": "P2",
+      "title": "Section G (Abstract Optimization Logic) has no length guidance and may expand excessively",
+      "observed_in": [
+        5
+      ],
+      "problem": "For complex inputs with multiple structural changes, Section G can expand significantly without an upper bound, reducing overall output efficiency.",
+      "root_cause": "optimization-logic-reporting-rule.md specifies what to explain but not how much.",
+      "fix": "Add a length guidance note to optimization-logic-reporting-rule.md: limit Section G to 5–7 key changes; for minor wording adjustments, group them into a single 'language precision' line rather than explaining each word change individually."
+    }
+  ]
+}

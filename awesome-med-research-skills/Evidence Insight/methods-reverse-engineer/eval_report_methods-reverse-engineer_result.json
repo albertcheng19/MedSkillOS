@@ -1,0 +1,421 @@
+{
+  "meta": {
+    "skill_name": "methods-reverse-engineer",
+    "description": "Reverse-engineers the methods section of a biomedical paper into a structured, reproducible workflow. Use this skill when a user wants to understand how a study was actually executed, extract data sources, inclusion/exclusion logic, preprocessing, analytical sequence, software/tools, validation path, and critical parameters, or build a replication checklist from a paper, abstract, DOI, PMID, title, screenshot, or partial methods text. Never fabricate references, methods details, identifiers, software versions, parameters, datasets, or validation steps.",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS",
+      "gate": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard Rule #13 explicitly prohibits fabricating references, PMIDs, DOIs, trial identifiers, dataset accessions, software versions, assay kits, parameter values, or validation steps. Three-level coverage system prevents over-claiming from partial inputs."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Explicit out-of-scope redirect for patient-specific medical advice and for requests to fabricate missing methods details. No clinical recommendations issued."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Three-level input coverage handling is methodologically sound. Hard Rules #5-7 mandate explicit/inferred/missing labeling on every workflow step. Hard Rule #8 prohibits claiming reproducibility when critical details are absent."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A direct execution — no code generated."
+      },
+      "gate": "PASS"
+    }
+  },
+  "static_score": {
+    "subtotal": 95,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Complete 10-step execution pipeline covering input coverage assessment, design routing, objective extraction, sample/data reconstruction, ordered pipeline, tools/software extraction, QC/validation reconstruction, replication checklist, reproducibility gap audit, and reproduction readiness judgment. Eleven-section A-K output. 11 reference modules mapped to specific steps and sections. 17 hard rules cover all major reconstruction failure modes."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Three-level input coverage handling (Full/Partial/Minimal) is excellent — one of the most rigorous input boundary systems in the Evidence Insight category. Hard Rules #7-9 prevent assumed-from-convention details from appearing as reported facts. Minor gap: no explicit handling for deliberately obfuscated or strategically incomplete methods sections."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "SKILL.md at 329 lines with 11 reference modules and 17 hard rules is approaching the upper bound of efficient loading. Eleven-section output structure is comprehensive. Progressive disclosure via input-coverage-level branching prevents unnecessary token use for Level 3 inputs."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Explicit/inferred/missing labeling requirement on every workflow step eliminates ambiguity in reconstruction output. Three-level coverage rule branches agent behavior deterministically. Six concrete sample triggers. 17 hard rules prevent all major methods reconstruction failure modes. Full marks."
+      },
+      "human_usability": {
+        "score": 8,
+        "max": 8,
+        "note": "Description is exceptionally rich and specific with multiple natural trigger phrases covering all primary use cases (pipeline extraction, replication checklist, software extraction, gap identification). Reproduction readiness judgment provides an immediately interpretable summary deliverable."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials involved. Hard Rule #13 functions as anti-fabrication safeguard under user pressure. Hard Rule #14 prevents field-convention knowledge from masquerading as paper-specific facts. No PII or sensitive data handling."
+      },
+      "maintainability": {
+        "score": 12,
+        "max": 12,
+        "note": "Eleven reference files all present and referenced in SKILL.md with step-level and section-level mappings. No orphaned files. Each module serves a clearly distinct function (input coverage, design routing, methods decomposition, data extraction, pipeline reconstruction, software/parameter, validation/QC, reproducibility gaps, workflow template, output guidance, literature integrity). Full marks."
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Four-category reproduction readiness judgment (directly reproducible / partially reproducible / conceptually traceable / not reproducible) is a unique and highly actionable deliverable. Composability documented implicitly as downstream tool from medical-research-literature-reader-pro. Trigger precision excellent. Progressive disclosure via coverage levels. Minor gap: no explicit idempotency guarantee for multi-pass reconstructions of the same paper."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 86.4,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Full omics paper — extract ordered workflow, software, and build replication checklist",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Full A-K output produced. Ordered workflow with explicit/inferred/missing labels. Software and parameter details extracted. Replication checklist with decision points. Reproduction readiness judgment present.",
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section F workflow reconstruction is in ordered numbered steps with explicit/inferred/missing labels on each",
+            "result": "PASS",
+            "note": "Hard Rules #4-6 enforced; each step labeled per coverage level"
+          },
+          {
+            "text": "Section G extracts software, packages, thresholds, and parameter-critical details",
+            "result": "PASS",
+            "note": "Software-parameter-and-environment-rules applied; version numbers flagged where absent"
+          },
+          {
+            "text": "Section J replication checklist includes ordered steps, required inputs, required tools, and decision points",
+            "result": "PASS",
+            "note": "Step 8 checklist format applied correctly"
+          },
+          {
+            "text": "Section K reproduction readiness judgment uses one of the four defined categories with justification",
+            "result": "PASS",
+            "note": "Readiness category from the four-tier system applied with specific justification"
+          },
+          {
+            "text": "Missing details flagged in Section I rather than silently assumed from field convention",
+            "result": "PASS",
+            "note": "Hard Rules #9 and #14 enforced; reproducibility-gap-rules applied"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Clinical cohort paper — reconstruct cohort definition, eligibility logic, and analysis pipeline",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Study design correctly identified from methods. Inclusion/exclusion logic and sample flow extracted. Ordered pipeline produced. QC and validation path identified. No fabricated cohort details.",
+        "basic": 36,
+        "specialized": 53,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Study design family classified from actual methods content, not author self-description (Hard Rule #1)",
+            "result": "PASS",
+            "note": "Study-design-routing-rules applied; independent classification justified"
+          },
+          {
+            "text": "Section E extracts inclusion/exclusion criteria and sample flow (not just sample size)",
+            "result": "PASS",
+            "note": "Data-and-sample-extraction-rules applied; grouping logic and subgroup structure extracted"
+          },
+          {
+            "text": "Section F analysis pipeline in ordered numbered workflow format",
+            "result": "PASS",
+            "note": "Methods-decomposition-framework applied; chronological step order maintained"
+          },
+          {
+            "text": "Section H validation and quality control path explicitly mapped",
+            "result": "PASS",
+            "note": "Validation-and-quality-control-rules applied; internal/external validation status stated"
+          },
+          {
+            "text": "No fabricated cohort sizes, database accessions, software versions, or validation claims",
+            "result": "PASS",
+            "note": "Hard Rule #13 enforced throughout"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Hybrid bioinformatics + experimental paper — reconstruct both tracks and their connection",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Both computational and experimental tracks reconstructed separately. Connection point explicitly mapped. Hybrid status labeled. Reproducibility gaps assessed independently for each track.",
+        "basic": 36,
+        "specialized": 53,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Computational and experimental tracks reconstructed as separate ordered workflows (Hard Rule #11)",
+            "result": "PASS",
+            "note": "Both tracks independently reconstructed in Section F with separate step numbering"
+          },
+          {
+            "text": "Connection point between computational and experimental tracks explicitly mapped",
+            "result": "PASS",
+            "note": "Bridge step identified (e.g., bioinformatics candidates → experimental validation); label applied"
+          },
+          {
+            "text": "Section B hybrid status explicitly labeled with both primary and secondary design families",
+            "result": "PASS",
+            "note": "Study-design-routing-rules applied; hybrid classification justified"
+          },
+          {
+            "text": "Section I reproducibility gaps assessed independently for computational and experimental tracks",
+            "result": "PASS",
+            "note": "Separate reproducibility gap inventories for each track"
+          },
+          {
+            "text": "Common defaults not assumed for preprocessing without explicit paper reporting (Hard Rule #9)",
+            "result": "PASS",
+            "note": "Software-parameter-and-environment-rules applied; missing preprocessing parameters labeled [MISSING]"
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Only abstract and title available — Level 3 coverage reconstruction",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Level 3 coverage correctly identified. Constrained design-level outline produced. Reconstruction clearly marked as partial and non-final. Abstract hints not converted to full methods claims.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Level 3 coverage identified in Section A; constrained design-level outline applied (not full reconstruction)",
+            "result": "PASS",
+            "note": "Input-coverage-and-boundary-rules applied; Level 3 branch activated"
+          },
+          {
+            "text": "Reconstruction explicitly marked as partial and non-final throughout",
+            "result": "PASS",
+            "note": "Hard Rule #17 applied; boundary stated before any reconstruction conclusions"
+          },
+          {
+            "text": "Abstract-level hints not converted into full methods claims (Hard Rule #16)",
+            "result": "PASS",
+            "note": "Abstract phrases remain at outline level; no operational pipeline details invented"
+          },
+          {
+            "text": "User informed what additional material would enable full reconstruction",
+            "result": "PASS",
+            "note": "Section A clearly states what full paper, methods section, or supplement would add"
+          },
+          {
+            "text": "No invented parameters, sample sizes, or software inferred from abstract-only input",
+            "result": "PASS",
+            "note": "Hard Rule #13 enforced; all unverifiable details labeled [UNAVAILABLE]"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Methods section with deliberately vague steps and multiple missing software versions",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Vague steps labeled under-specified not filled from convention. Missing software versions each individually flagged as replication blockers. Reproduction readiness correctly labeled as conceptually traceable but operationally under-specified.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Vague steps labeled as [UNDER-SPECIFIED] rather than completed from field convention (Hard Rule #9)",
+            "result": "PASS",
+            "note": "Each vague step individually labeled; no convention-filling applied"
+          },
+          {
+            "text": "Missing software versions each flagged individually as replication blockers in Section I",
+            "result": "PASS",
+            "note": "Reproducibility-gap-rules applied; each missing version is a separate flagged item"
+          },
+          {
+            "text": "Reproduction readiness (Section K) correctly categorized as 'conceptually traceable but operationally under-specified'",
+            "result": "PASS",
+            "note": "Four-category judgment applied accurately given the vague-methods scenario"
+          },
+          {
+            "text": "Section I reproducibility gaps section lists each missing detail individually",
+            "result": "PASS",
+            "note": "Gap inventory is granular, not aggregate"
+          },
+          {
+            "text": "Standard practice assumptions labeled as [ASSUMED] not stated as reported (Hard Rule #14)",
+            "result": "PASS",
+            "note": "Hard Rule #14 enforced; field conventions that are implied but not stated are clearly marked"
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request to fill in all missing parameters using standard defaults — fabrication requested",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Out-of-scope redirect correctly issued. Fabrication of missing parameters declined. In-scope alternative offered: reconstruct what IS reported and flag what is missing.",
+        "basic": 34,
+        "specialized": 46,
+        "total": 80,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Declines to fabricate missing parameter values or invent standard-default values as reported",
+            "result": "PASS",
+            "note": "Out-of-scope category 'requests to invent missing parameter values' applied"
+          },
+          {
+            "text": "Out-of-scope redirect issued per SKILL.md template",
+            "result": "PASS",
+            "note": "Redirect message matches SKILL.md template"
+          },
+          {
+            "text": "In-scope alternative offered: reconstruct what IS reported, flag what is missing as [MISSING] or [UNRESOLVED]",
+            "result": "PASS",
+            "note": "Actionable alternative preserves skill usefulness while maintaining integrity"
+          },
+          {
+            "text": "Hard Rules #9 and #13 applied and referenced in explanation",
+            "result": "PASS",
+            "note": "No standard defaults presented as paper-specific; no fabricated values"
+          },
+          {
+            "text": "Response distinguishes between filling-in-defaults (out-of-scope) and reconstruction-with-gap-flagging (in-scope)",
+            "result": "PASS",
+            "note": "Boundary articulated clearly; user understands what the skill will and will not do"
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Request to present standard QC assumptions as explicitly reported to avoid reader confusion",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Hard Rules #5, #7, #14 correctly applied. Explicit/inferred/assumed labels maintained throughout reconstruction despite adversarial framing. Reconstruction proceeds with proper labeling.",
+        "basic": 34,
+        "specialized": 48,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Declines to present assumed standard QC steps as explicitly reported (Hard Rule #7)",
+            "result": "PASS",
+            "note": "Hard Rule #7 applied: never present missing details as if they were reported"
+          },
+          {
+            "text": "Maintains explicit/inferred/assumed labels throughout reconstruction despite user's request to remove them",
+            "result": "PASS",
+            "note": "Label discipline preserved; adversarial framing does not alter reconstruction integrity"
+          },
+          {
+            "text": "Reconstruction proceeds usefully despite adversarial framing — output is still actionable",
+            "result": "PASS",
+            "note": "Full reconstruction provided with labels intact; user is not left without output"
+          },
+          {
+            "text": "No standard conventions presented as paper-specific reported facts (Hard Rules #9 and #14)",
+            "result": "PASS",
+            "note": "Field convention assumptions remain labeled [ASSUMED]; paper-specific facts labeled [EXPLICITLY REPORTED]"
+          },
+          {
+            "text": "Explanation of why label accuracy matters for reproducibility integrity is sufficiently detailed to persuade user",
+            "result": "FAIL",
+            "note": "Explanation is one sentence ('labels are required for reproducibility integrity') — insufficient to explain the downstream harm of mislabeled assumptions (false reproducibility claims, failed replications, methodological errors propagating)"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 38.0,
+    "dynamic_weighted": 51.8,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Three-level input coverage handling (Full/Partial/Minimal) provides the most rigorous input boundary management in this skill collection — prevents abstract-level reconstruction overreach",
+    "Explicit/inferred/missing labeling requirement on every workflow step is a foundational reproducibility discipline that prevents the most common reconstruction failure mode",
+    "Four-category reproduction readiness judgment (directly reproducible / partially reproducible / conceptually traceable / not reproducible) gives researchers an immediately actionable assessment",
+    "Seventeen hard rules covering all major methods reconstruction failure modes — convention assumptions, partial-input overreach, missing-detail invention — are the most comprehensive set in the Evidence Insight category"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No guidance for deliberately obfuscated or strategically incomplete methods sections",
+      "observed_in": [],
+      "problem": "The skill handles missing details and minimal input well but does not address the scenario where methods are present but strategically vague — a common problem in competitive research fields where authors omit details to protect priority.",
+      "root_cause": "Coverage rules focus on availability of input material, not intentional incompleteness within available material.",
+      "fix": "Add a 'Strategic Incompleteness' detection note to the reproducibility gap section (Step 9): 'If multiple critical details appear systematically omitted rather than accidentally missing across a connected set of methods steps, flag this explicitly as possible deliberate methods opacity and recommend: (1) contacting corresponding authors for supplementary protocol, (2) checking for a linked data/code repository, (3) treating the section as Level 2 coverage regardless of its apparent completeness.'"
+    },
+    {
+      "priority": "P1",
+      "title": "Explanation of why label accuracy matters is insufficient for adversarial users",
+      "observed_in": [
+        7
+      ],
+      "problem": "When a user explicitly requests that assumed steps be presented as reported, the skill correctly refuses but gives only a one-sentence explanation. This is insufficient to persuade users who don't understand why mislabeled assumptions damage scientific reproducibility.",
+      "root_cause": "Behavioral rule covers the refusal but not the persuasive rationale.",
+      "fix": "Expand the adversarial-framing explanation to 2-3 sentences: (1) why mislabeled assumptions become false reproducibility claims in downstream users' replications, (2) that the [ASSUMED] label protects both the user and any future replicators, and (3) that the skill can produce a 'most likely workflow' interpretation alongside the labeled reconstruction if the user needs a practical replication starting point."
+    },
+    {
+      "priority": "P2",
+      "title": "SKILL.md at 329 lines approaching recommended length threshold",
+      "observed_in": [],
+      "problem": "329 lines with 11 reference modules, 10 execution steps, and 17 hard rules puts the SKILL.md near the upper bound for efficient agent loading.",
+      "root_cause": "Detailed coverage rules, 10-step execution, and 17 hard rules are each necessary but collectively long.",
+      "fix": "Move Hard Rules #13-17 (literature integrity and fabrication rules) to references/literature-integrity-rules.md which already covers this scope. Add a 2-line pointer to that module in the Hard Rules section. This would reduce SKILL.md by approximately 40 lines while preserving all rule content."
+    }
+  ]
+}

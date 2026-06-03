@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "required": [
+    "evidence_map",
+    "limitations",
+    "human_review_required"
+  ],
+  "properties": {
+    "human_review_required": {
+      "type": "boolean"
+    },
+    "evidence_map": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

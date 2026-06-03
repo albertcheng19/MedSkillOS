@@ -1,0 +1,388 @@
+{
+    "meta": {
+        "skill_name": "ppi-network-analysis",
+        "description": "Construct and analyze protein-protein interaction networks by querying the STRING database for input gene lists. Inputs: DEG or candidate gene list. Outputs: PPI network graph, hub genes by degree/betweenness centrality, network topology statistics.",
+        "evaluated_on": "2026-04-21",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Complex",
+        "n_inputs": 7
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated biological or statistical claims were introduced across the audited outputs."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "Outputs remained technical and procedural; no diagnostic, prescriptive, or treatment advice was generated."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "STRING-cache mapping, score filtering, graph construction, and plot-only reuse matched the documented workflow without methodological fallacies."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "The CLI, bundled tests, and new regression checks all ran successfully after the fixes."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 94,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 12,
+                "max": 12,
+                "note": "Full score achieved."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "Failure modes are clear and recoverable; species validation still occurs after gene-list parsing, but no incorrect side effects remain."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "Full score achieved."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "The execution path is clear and example-driven, with only minor front-loaded logging before one validation failure path."
+            },
+            "human_usability": {
+                "score": 8,
+                "max": 8,
+                "note": "Full score achieved."
+            },
+            "security": {
+                "score": 12,
+                "max": 12,
+                "note": "Full score achieved."
+            },
+            "maintainability": {
+                "score": 12,
+                "max": 12,
+                "note": "Full score achieved."
+            },
+            "agent_specific": {
+                "score": 16,
+                "max": 20,
+                "note": "Trigger precision, layering, and escape hatches are strong; the skill remains slightly conservative in one validation order but behaves consistently."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 87.4,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 32,
+            "total": 32
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Human bundled gene list",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed cleanly and produced the full documented artifact set.",
+                "basic": 37,
+                "specialized": 55,
+                "total": 92,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Output creates all documented artifacts",
+                        "result": "PASS",
+                        "note": "RDS, XLSX, CSV, PDF, and session info files were produced."
+                    },
+                    {
+                        "text": "Summary metrics are internally consistent",
+                        "result": "PASS",
+                        "note": "Summary shows 8 input genes, 8 mapped genes, 7 nodes, 24 edges, and threshold 700."
+                    },
+                    {
+                        "text": "Execution stays within the offline STRING workflow",
+                        "result": "PASS",
+                        "note": "The run used the bundled local cache and did not depend on remote services."
+                    },
+                    {
+                        "text": "Output remains inside the requested skill-local directory",
+                        "result": "PASS",
+                        "note": "All artifacts were written under tests/output/audit-canonical."
+                    },
+                    {
+                        "text": "Reproducibility controls are available for layout generation",
+                        "result": "PASS",
+                        "note": "The command accepted a fixed seed and completed deterministically for the data outputs."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Numeric species with styled plot",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Numeric species normalization and supported styling options worked as documented.",
+                "basic": 36,
+                "specialized": 54,
+                "total": 90,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Numeric species 9606 resolves successfully",
+                        "result": "PASS",
+                        "note": "The run completed without species normalization errors."
+                    },
+                    {
+                        "text": "Supported style options do not break the run",
+                        "result": "PASS",
+                        "note": "Circle layout, curved edges, square nodes, and title rendering all succeeded."
+                    },
+                    {
+                        "text": "The skill still produces the documented output set",
+                        "result": "PASS",
+                        "note": "The variant run wrote the same artifact contract as the canonical run."
+                    },
+                    {
+                        "text": "Core network results stay consistent for the same input and threshold",
+                        "result": "PASS",
+                        "note": "The summary remained 8 mapped genes, 7 nodes, and 24 edges at threshold 700."
+                    },
+                    {
+                        "text": "Execution stays in scope for a local STRING workflow",
+                        "result": "PASS",
+                        "note": "No unsupported data source or online API path was introduced."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Lower-bound threshold 400",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The documented lower boundary was accepted and produced a denser network with a useful warning.",
+                "basic": 35,
+                "specialized": 53,
+                "total": 88,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Threshold lower bound 400 is accepted",
+                        "result": "PASS",
+                        "note": "The CLI accepted the documented boundary value."
+                    },
+                    {
+                        "text": "The tool emits a useful low-threshold warning",
+                        "result": "PASS",
+                        "note": "A warning explained that values below 700 are lower-confidence."
+                    },
+                    {
+                        "text": "Output files are still produced successfully",
+                        "result": "PASS",
+                        "note": "The analysis completed and wrote the expected artifacts."
+                    },
+                    {
+                        "text": "Summary metrics reflect the changed threshold",
+                        "result": "PASS",
+                        "note": "The summary records threshold 400 and 28 retained edges."
+                    },
+                    {
+                        "text": "The workflow remains methodologically coherent at the boundary",
+                        "result": "PASS",
+                        "note": "Lowering the threshold changed network density without breaking graph construction."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Plot-only regeneration",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Plot-only reuse behaved as documented and avoided unnecessary rebuild work.",
+                "basic": 34,
+                "specialized": 50,
+                "total": 84,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Plot-only mode succeeds from a prior full run",
+                        "result": "PASS",
+                        "note": "The command regenerated the plot without a new gene-list analysis."
+                    },
+                    {
+                        "text": "The CLI does not force unnecessary rebuild work",
+                        "result": "PASS",
+                        "note": "The log skipped gene-list reading and bundle reconstruction."
+                    },
+                    {
+                        "text": "Output stays in the existing target directory",
+                        "result": "PASS",
+                        "note": "The regenerated PDF remained under tests/output/audit-canonical/plot."
+                    },
+                    {
+                        "text": "The reuse path matches the documented contract",
+                        "result": "PASS",
+                        "note": "The run depended on an existing data/ppi_result.rds bundle as documented."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "High-option styled run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "A broad supported option set executed successfully without destabilizing the analysis outputs.",
+                "basic": 37,
+                "specialized": 55,
+                "total": 92,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "A broad supported option set executes successfully",
+                        "result": "PASS",
+                        "note": "The extended styling, mapping, and figure options were accepted without errors."
+                    },
+                    {
+                        "text": "Data outputs remain stable for the same input and threshold",
+                        "result": "PASS",
+                        "note": "The summary still reports 8 mapped genes, 7 nodes, and 24 edges."
+                    },
+                    {
+                        "text": "Plot customization stays within the documented feature set",
+                        "result": "PASS",
+                        "note": "FR layout, dotted edges, mapped aesthetics, and custom colors all completed successfully."
+                    },
+                    {
+                        "text": "Reproducibility and containment remain intact",
+                        "result": "PASS",
+                        "note": "The run accepted a fixed seed and wrote only inside the requested output directory."
+                    },
+                    {
+                        "text": "The full output contract is preserved under higher option complexity",
+                        "result": "PASS",
+                        "note": "The standard RDS, XLSX, CSV, PDF, and session info files were produced."
+                    }
+                ]
+            },
+            {
+                "index": 6,
+                "type": "Scope Boundary",
+                "label": "Unsupported species rejection",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "The command failed on the expected validation path and produced no fresh output directory.",
+                "basic": 33,
+                "specialized": 49,
+                "total": 82,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Unsupported species is rejected with SKILL_INVALID_PARAMETER",
+                        "result": "PASS",
+                        "note": "The command exited on the documented validation path."
+                    },
+                    {
+                        "text": "The error message tells the user how to recover",
+                        "result": "PASS",
+                        "note": "The message listed the allowed species values directly."
+                    },
+                    {
+                        "text": "A fresh failing run does not create a new output directory",
+                        "result": "PASS",
+                        "note": "tests/output/audit-invalid-species-fresh did not exist after execution."
+                    },
+                    {
+                        "text": "The command fails before any cache or file-output side effects",
+                        "result": "PASS",
+                        "note": "No output tree or analysis artifacts were created."
+                    }
+                ]
+            },
+            {
+                "index": 7,
+                "type": "Adversarial",
+                "label": "Invalid line_type rejection",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "The unsupported line_type value now fails validation immediately with no side effects.",
+                "basic": 34,
+                "specialized": 50,
+                "total": 84,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Unsupported line_type values are rejected with SKILL_INVALID_PARAMETER",
+                        "result": "PASS",
+                        "note": "The command now fails validation instead of silently coercing the value."
+                    },
+                    {
+                        "text": "Runtime behavior now matches the documented contract for unsupported plot options",
+                        "result": "PASS",
+                        "note": "The CLI error is consistent with SKILL.md and troubleshooting.md."
+                    },
+                    {
+                        "text": "A fresh failing run does not create a new output directory",
+                        "result": "PASS",
+                        "note": "tests/output/audit-invalid-line-type-fresh did not exist after execution."
+                    },
+                    {
+                        "text": "Validation fails before any analysis side effects",
+                        "result": "PASS",
+                        "note": "No cache processing or output artifacts were produced."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 37.6,
+        "dynamic_weighted": 52.4,
+        "score": 90,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The skill is genuinely runnable offline with a bundled STRING cache and reproducible seed controls.",
+        "The R implementation is modular, and the packaged smoke tests plus new regression checks passed without modification.",
+        "Input validation, path containment, and documented failure modes now align with runtime behavior.",
+        "Successful runs consistently wrote the documented bundle, tables, PDF plot, and session information."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Maintain regression coverage",
+            "observed_in": [],
+            "problem": "No blocking issue was identified, but continued regression coverage is needed before public distribution.",
+            "root_cause": "Data Analysis skills depend on local package and data assumptions that can drift.",
+            "fix": "Keep smoke tests and example inputs synchronized with each release."
+        }
+    ]
+}

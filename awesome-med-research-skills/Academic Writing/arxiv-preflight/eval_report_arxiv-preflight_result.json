@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "skill_name": "arxiv-preflight",
+    "description": "Run a submission-readiness preflight on a manuscript before arXiv upload. Detects LLM artifacts, hallucinated references, placeholder content, AI-use disclosure gaps, and arXiv moderation risks.",
+    "evaluated_on": "2026-05-21",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "D",
+    "complexity": "Complex",
+    "n_inputs": 7
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": false,
+      "gate": "N/A",
+      "scientific_integrity": { "result": "N/A", "detail": "N/A" },
+      "practice_boundaries": { "result": "N/A", "detail": "N/A" },
+      "methodological_ground": { "result": "N/A", "detail": "N/A" },
+      "code_usability": { "result": "N/A", "detail": "N/A" }
+    }
+  },
+  "static_score": {
+    "subtotal": 92,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 12, "max": 12, "note": "All promised use cases covered; MVP scope section explicitly delineates what is and is not supported" },
+      "reliability": { "score": 10, "max": 12, "note": "Graceful network degradation, PDF fallback, unresolved-include warnings; error messages could be slightly more actionable" },
+      "performance_context": { "score": 7, "max": 8, "note": "SKILL.md concise at ~70 lines; references loaded on-demand; minor inefficiency in sequential 4-script pipeline" },
+      "agent_usability": { "score": 15, "max": 16, "note": "Clear numbered workflow, consistent severity taxonomy, explicit 'When to read which reference' section; agent-assisted steps slightly less specified" },
+      "human_usability": { "score": 7, "max": 8, "note": "Comprehensive trigger phrases in description; PDF-only input degrades without clear user guidance on next steps" },
+      "security": { "score": 10, "max": 12, "note": "No hardcoded secrets, env var for email, pathlib for paths; file path input not explicitly sanitized against traversal" },
+      "maintainability": { "score": 12, "max": 12, "note": "Excellent modularity: data-driven pattern library, 4 independent scripts, clean JSON interfaces, eval fixtures with assertions" },
+      "agent_specific": { "score": 19, "max": 20, "note": "Precise trigger, perfect progressive disclosure, idempotent scripts, clear escape hatches; composability slightly limited by full-orchestration assumption" }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 88.6,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 29, "total": 32 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Clean LaTeX project preflight",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Zero artifact findings; PASS_WITH_FIXES due to network-incomplete reference verification",
+        "basic": 38,
+        "specialized": 55,
+        "total": 93,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "Decision is PASS or PASS_WITH_FIXES", "result": "PASS", "note": "PASS_WITH_FIXES due to network-incomplete refs" },
+          { "text": "No BLOCKER findings reported", "result": "PASS", "note": "0 findings from artifact scan" },
+          { "text": "AI-use disclosure recommendation is no action", "result": "PASS", "note": "No AI signals detected in manuscript" },
+          { "text": "Every cite key resolves to a BibTeX entry", "result": "PASS", "note": "vaswani2017attention present in refs.bib" }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "LLM meta-comments and placeholders detection",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "10 BLOCKER findings correctly identified with file:line locations",
+        "basic": 38,
+        "specialized": 56,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Decision is HOLD", "result": "PASS", "note": "10 BLOCKER findings trigger HOLD" },
+          { "text": "At least one BLOCKER cites META-01", "result": "PASS", "note": "As an AI language model at line 16" },
+          { "text": "At least one BLOCKER cites PLACE-01", "result": "PASS", "note": "TODO at line 12" },
+          { "text": "At least one finding cites PLACE-06", "result": "PASS", "note": "XX% at lines 11 and 25" },
+          { "text": "Every finding includes a file:line location", "result": "PASS", "note": "All 10 findings have file path and line number" }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Hallucinated reference detection via external APIs",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Fabricated refs correctly flagged BLOCKER; real refs matched via OpenAlex",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "liang2023quantum is flagged BLOCKER or HIGH", "result": "PASS", "note": "Flagged BLOCKER — no real match plus formatting tells" },
+          { "text": "nguyen2024recursive is flagged BLOCKER or HIGH", "result": "PASS", "note": "Flagged BLOCKER — future year plus made-up journal" },
+          { "text": "Real references not flagged as BLOCKER", "result": "PASS", "note": "shazeer, fedus, lepikhin all matched via OpenAlex, verdict LOW" },
+          { "text": "Report explains why flagged refs could not be matched", "result": "PASS", "note": "Summary includes reasoning about unverifiable entries" },
+          { "text": "Network-incomplete status clearly surfaced", "result": "FAIL", "note": "Crossref unavailable but not prominently flagged in per-entry output" }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Multi-file LaTeX with input includes",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Child files correctly processed; findings attributed to correct source files",
+        "basic": 38,
+        "specialized": 55,
+        "total": 93,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "method.tex included in manuscript.json raw_text", "result": "PASS", "note": "Confirmed via %%FILE marker in extraction output" },
+          { "text": "results.tex included in manuscript.json raw_text", "result": "PASS", "note": "Confirmed via %%FILE marker in extraction output" },
+          { "text": "At least one BLOCKER cites META-01 from method.tex", "result": "PASS", "note": "method.tex:2 flagged" },
+          { "text": "At least one BLOCKER cites PLACE-01 or PLACE-06 from results.tex", "result": "PASS", "note": "Both PLACE-06 and PLACE-01 found in results.tex" },
+          { "text": "Decision is HOLD", "result": "PASS", "note": "4 BLOCKER findings from child files" }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "PDF input without LaTeX source (pdftotext unavailable)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Graceful degradation with clear warnings; reference checks cannot run without text extraction",
+        "basic": 34,
+        "specialized": 48,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "PDF input detected and handled without crash", "result": "PASS", "note": "source_type set to pdf, no exception raised" },
+          { "text": "Warning includes install instructions for pdftotext", "result": "PASS", "note": "brew install poppler / apt install poppler-utils in warning" },
+          { "text": "Report clearly states limitations of PDF-only input", "result": "PASS", "note": "Warning array populated with degradation notice" },
+          { "text": "Skill does not silently skip checks", "result": "PASS", "note": "Warnings array explicitly populated" },
+          { "text": "Full reference verification still attempted on extracted text", "result": "FAIL", "note": "Cannot extract cite keys from PDF without pdftotext; no fallback" }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User requests full peer review (out of scope)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill correctly identifies out-of-scope request and explains boundaries",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "Skill does not attempt full peer review", "result": "PASS", "note": "Correctly refuses per MVP scope section" },
+          { "text": "Skill explains what is out of scope", "result": "PASS", "note": "References MVP scope: full semantic peer review listed as out of scope" },
+          { "text": "Skill offers what it CAN do instead", "result": "PASS", "note": "Suggests running preflight checks for submission readiness" },
+          { "text": "No hallucinated methodology assessment produced", "result": "PASS", "note": "Clean scope boundary enforcement" }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "AI patterns inside verbatim blocks and inline quotes",
+        "status": "COMPLETED",
+        "status_flag": "⚠️",
+        "note": "Verbatim/lstlisting/comment suppression works; one false positive on inline backtick-quoted mention",
+        "basic": 34,
+        "specialized": 48,
+        "total": 82,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "Patterns inside verbatim blocks are suppressed", "result": "PASS", "note": "Confirmed: no findings from verbatim content" },
+          { "text": "Patterns inside lstlisting blocks are suppressed", "result": "PASS", "note": "Confirmed: no findings from lstlisting content" },
+          { "text": "LaTeX comments are suppressed", "result": "PASS", "note": "Confirmed: comment-line pattern not flagged" },
+          { "text": "Inline backtick-quoted mentions not falsely flagged", "result": "FAIL", "note": "META-01 triggered on backtick-quoted as an AI language model in body text" }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.8,
+    "dynamic_weighted": 53.2,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Data-driven pattern library parsed at runtime from markdown tables — adding new patterns requires no code change",
+    "Excellent modularity: 4 independent scripts with clean JSON interfaces, 4 reference docs, eval fixtures with assertions",
+    "Conservative design philosophy: minimizes false positives, never calls papers AI-generated from style alone",
+    "Graceful network degradation: marks sections INCOMPLETE rather than silently skipping, prevents false PASS",
+    "Comprehensive trigger description covers natural user phrasings without over-triggering"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "Inline-quoted AI phrases produce false positives",
+      "observed_in": [7],
+      "problem": "Papers discussing LLM detection that quote AI phrases in backticks (e.g. ``as an AI language model'') trigger BLOCKER findings.",
+      "root_cause": "strip_comments_and_verbatim() handles block-level suppression but not inline LaTeX quotes (backtick pairs).",
+      "fix": "Add a post-scan filter that suppresses findings where the match falls within LaTeX inline-quote delimiters (`` ... '') or within a sentence that is clearly meta-discussion about the pattern itself."
+    },
+    {
+      "priority": "P2",
+      "title": "PDF fallback has no cite-key extraction path",
+      "observed_in": [5],
+      "problem": "When pdftotext is unavailable, the skill cannot extract any text and therefore cannot run reference or artifact checks at all.",
+      "root_cause": "extract_manuscript_text.py returns empty raw_text when pdftotext is missing, with no alternative extraction method.",
+      "fix": "Consider adding a pure-Python PDF text extraction fallback (e.g. PyPDF2 or pdfminer.six) as an optional dependency, or document more prominently that LaTeX source is strongly preferred."
+    },
+    {
+      "priority": "P2",
+      "title": "DISC-01 severity could be calibrated per field",
+      "observed_in": [3],
+      "problem": "The disclosure check fires at MEDIUM for all fields equally, but arXiv policy notes indicate ML/NLP venues expect more explicit disclosure than pure-math.",
+      "root_cause": "scan_ai_artifacts.py uses a single MEDIUM severity for DISC-01 regardless of detected field or venue.",
+      "fix": "Add optional field/venue detection (from arXiv category in metadata or keywords) to calibrate DISC-01 severity: HIGH for ML/NLP/bio, LOW for math/physics where polish-only use is non-reportable."
+    }
+  ]
+}

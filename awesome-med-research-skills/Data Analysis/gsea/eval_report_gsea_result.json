@@ -1,0 +1,334 @@
+{
+    "meta": {
+        "skill_name": "gsea",
+        "description": "Perform Gene Set Enrichment Analysis using fgsea or clusterProfiler GSEA on a pre-ranked or expression-derived gene list. Inputs: ranked gene list or expression matrix with phenotype labels. Outputs: NES table, enrichment score plots, leading-edge genes.",
+        "evaluated_on": "2026-04-15",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated identifiers, statistics, or biomedical claims were produced in any output."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "Outputs remained computational and did not provide diagnosis, treatment advice, or unsafe medical guidance."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "The tested workflows matched the stated GSEA and plotting scope without methodological fallacies."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "Core analysis and plotting commands executed successfully, and validation failures were handled cleanly."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 91,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 12,
+                "max": 12,
+                "note": "Full score achieved."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "Error handling is strong, but the top-6 running-score export limit is not surfaced early enough for downstream plotting expectations."
+            },
+            "performance_context": {
+                "score": 7,
+                "max": 8,
+                "note": "Reference loading is layered well, though the SKILL.md parameter section is dense and slightly heavier than necessary."
+            },
+            "agent_usability": {
+                "score": 14,
+                "max": 16,
+                "note": "Instructions are clear overall, but the workflow logic is implicit rather than summarized in a short execution checklist."
+            },
+            "human_usability": {
+                "score": 6,
+                "max": 8,
+                "note": "The description is concise but under-advertises the plotting use case and downstream limitations."
+            },
+            "security": {
+                "score": 12,
+                "max": 12,
+                "note": "Full score achieved."
+            },
+            "maintainability": {
+                "score": 11,
+                "max": 12,
+                "note": "Scripts are modular and testable, with only minor documentation coupling around output-file assumptions."
+            },
+            "agent_specific": {
+                "score": 18,
+                "max": 20,
+                "note": "Triggering is precise, but the frontmatter description does not mention plotting mode and therefore slightly under-triggers."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 89.2,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 24,
+            "total": 24
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Human KEGG analysis",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed perfectly with all expected artifacts and reproducible outputs.",
+                "basic": 38,
+                "specialized": 56,
+                "total": 94,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Output creates all documented core analysis artifacts",
+                        "result": "PASS",
+                        "note": "All four expected files were generated."
+                    },
+                    {
+                        "text": "Output includes machine-verifiable run summary markers",
+                        "result": "PASS",
+                        "note": "SUMMARY_BEGIN and SUMMARY_END were emitted."
+                    },
+                    {
+                        "text": "Enrichment table contains expected GSEA columns",
+                        "result": "PASS",
+                        "note": "ID, Description, NES, pvalue, and p.adjust are present."
+                    },
+                    {
+                        "text": "Running score table is non-empty for significant pathways",
+                        "result": "PASS",
+                        "note": "The CSV contains 301 data rows."
+                    },
+                    {
+                        "text": "Re-running with the same seed is reproducible",
+                        "result": "PASS",
+                        "note": "Repeated output files matched byte-for-byte."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Hallmarks via RDS",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Alias mapping and alternate gene-set family both worked as documented.",
+                "basic": 37,
+                "specialized": 55,
+                "total": 92,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Skill accepts HALLMARKS as documented",
+                        "result": "PASS",
+                        "note": "The command completed successfully."
+                    },
+                    {
+                        "text": "RDS alias mapping resolves the Hallmarks key correctly",
+                        "result": "PASS",
+                        "note": "Runtime log reported key Hallmarks."
+                    },
+                    {
+                        "text": "Output includes significant Hallmark pathways",
+                        "result": "PASS",
+                        "note": "Two enriched Hallmark pathways were returned."
+                    },
+                    {
+                        "text": "Output stays within the stated analysis scope",
+                        "result": "PASS",
+                        "note": "Only GSEA analysis artifacts were produced."
+                    },
+                    {
+                        "text": "Result structure matches the documented schema",
+                        "result": "PASS",
+                        "note": "The same core artifact set was generated."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Invalid gene column",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "Expected validation failure surfaced clearly and left no partial result files.",
+                "basic": 32,
+                "specialized": 44,
+                "total": 76,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Invalid column input is rejected with a named error code",
+                        "result": "PASS",
+                        "note": "SKILL_MISSING_COLUMNS was returned."
+                    },
+                    {
+                        "text": "Error reporting is actionable",
+                        "result": "PASS",
+                        "note": "The message listed the available columns."
+                    },
+                    {
+                        "text": "Failure does not leave partial result files behind",
+                        "result": "PASS",
+                        "note": "The output directory stayed empty."
+                    },
+                    {
+                        "text": "The skill remains within scope on failure",
+                        "result": "PASS",
+                        "note": "Execution stopped before heavy analysis proceeded."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Plot top three pathways",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Visualization mode executed cleanly and produced the requested PDF output.",
+                "basic": 38,
+                "specialized": 55,
+                "total": 93,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Plotting mode works from the documented table inputs",
+                        "result": "PASS",
+                        "note": "The PDF file was generated successfully."
+                    },
+                    {
+                        "text": "Output confirms how many pathways were plotted",
+                        "result": "PASS",
+                        "note": "The summary states three pathways were plotted."
+                    },
+                    {
+                        "text": "Output lists the plotted pathway IDs",
+                        "result": "PASS",
+                        "note": "All three IDs were printed in the console summary."
+                    },
+                    {
+                        "text": "Plotting parameters are respected",
+                        "result": "PASS",
+                        "note": "Format and dimensions matched the requested values."
+                    },
+                    {
+                        "text": "Visualization stays within scope and does not rerun analysis",
+                        "result": "PASS",
+                        "note": "Only the plot file was produced for this case."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Conflicting mode inputs",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Conflict handling matched the documented precedence rule and still produced the PNG plot.",
+                "basic": 37,
+                "specialized": 54,
+                "total": 91,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Conflicting mode selection follows the documented precedence rule",
+                        "result": "PASS",
+                        "note": "Plotting mode took precedence as documented."
+                    },
+                    {
+                        "text": "The warning is explicit rather than silent",
+                        "result": "PASS",
+                        "note": "SKILL_CONFLICTING_PARAMETERS was emitted."
+                    },
+                    {
+                        "text": "Plot output is still generated successfully after the warning",
+                        "result": "PASS",
+                        "note": "The PNG file exists."
+                    },
+                    {
+                        "text": "No unintended analysis outputs are created during conflict handling",
+                        "result": "PASS",
+                        "note": "The output directory contains only plot artifacts."
+                    },
+                    {
+                        "text": "Control flow remains deterministic under mixed inputs",
+                        "result": "PASS",
+                        "note": "Observed behavior matched the documented branch logic."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 36.4,
+        "dynamic_weighted": 53.5,
+        "score": 90,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "Analysis mode, plotting mode, and conflict-handling all executed successfully under real commands.",
+        "Validation errors are specific, named, and actionable rather than cryptic R stack traces.",
+        "Outputs are reproducible with a fixed seed and are easy to verify from generated artifact files.",
+        "The skill uses clean separation between CLI documentation, troubleshooting guidance, and R implementation."
+    ],
+    "recommendations": [
+        {
+            "priority": "P1",
+            "title": "Document running-score export limit",
+            "observed_in": [],
+            "problem": "SKILL.md implies that the generated gsea_running_scores.csv is a general plotting input, but analysis mode only exports running-score rows for the top 6 pathways. Plotting a lower-ranked pathway such as KEGG_GLIOMA therefore fails even though it is present in enrichGSEA.csv.",
+            "root_cause": "The implementation optimizes file size in run_analysis.R, but the documentation does not disclose the resulting downstream constraint.",
+            "fix": "Update SKILL.md and cli-guide.md to state that analysis mode exports running-score rows for only the top 6 pathways by adjusted p-value. Either add a parameter to export all pathways or document how users should regenerate a compatible running-score table for a specific geneSetID."
+        },
+        {
+            "priority": "P2",
+            "title": "Expand frontmatter description",
+            "observed_in": [],
+            "problem": "The frontmatter description is accurate but too terse to advertise the plotting mode and validation-oriented use cases.",
+            "root_cause": "Only the core analysis action is named in the top-level trigger text.",
+            "fix": "Broaden the description to mention both ranked-gene GSEA analysis and plotting from existing enrichGSEA.csv plus gsea_running_scores.csv files."
+        },
+        {
+            "priority": "P2",
+            "title": "Add regression test for plot coverage",
+            "observed_in": [],
+            "problem": "A subtle mismatch exists between enrichment-table coverage and running-score-table coverage, and it is easy to miss without an explicit regression test.",
+            "root_cause": "Current test guidance validates only the happy path and does not exercise pathway selection outside the exported running-score subset.",
+            "fix": "Add a scripted test that requests plotting for one pathway inside the exported subset and one pathway outside it, then assert the exact success and failure behavior."
+        }
+    ]
+}

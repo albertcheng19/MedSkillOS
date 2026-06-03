@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "required": [
+    "case_id",
+    "patient",
+    "chief_complaint",
+    "history"
+  ],
+  "properties": {
+    "case_id": {
+      "type": "string"
+    },
+    "patient": {
+      "type": "object"
+    },
+    "chief_complaint": {
+      "type": "string"
+    },
+    "history": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}

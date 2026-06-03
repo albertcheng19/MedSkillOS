@@ -1,0 +1,1 @@
+Keep the report sectioned, evidence-forward, and explicit about uncertainty. Every major conclusion must indicate which layer carries it: disease relevance, tractability, preclinical, translational, clinical, or competition. Avoid generic promotional language.

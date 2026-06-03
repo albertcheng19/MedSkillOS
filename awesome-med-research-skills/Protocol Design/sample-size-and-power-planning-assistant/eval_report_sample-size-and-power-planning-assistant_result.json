@@ -1,0 +1,331 @@
+{
+  "meta": {
+    "skill_name": "sample-size-and-power-planning-assistant",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5,
+    "description": "Plans sample size estimation logic, power assumptions, feasibility checks, and fallback enrollment strategies for clinical and translational study protocols."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies detected; ethical compliance requirements noted where applicable."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A skill"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 92,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Assumption-explicit labeling is excellent; fallback strategies for underpowered scenarios are valuable"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Strong score (15/16); minor gaps noted."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Strong score (11/12); minor gaps noted."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Realistic enrollment constraint integration is a rare and practical feature in sample size planning"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 88.4,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 25,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Canonical input for sample-size-and-power-planning-assistant",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 55,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for canonical input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Variant A input for sample-size-and-power-planning-assistant",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 55,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for variant a input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Variant B input for sample-size-and-power-planning-assistant",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for variant b input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Edge input for sample-size-and-power-planning-assistant",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for edge input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Stress input for sample-size-and-power-planning-assistant",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Core assertion 1 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 2 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 3 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 4 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Core assertion 5 for stress input",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.8,
+    "dynamic_weighted": 53.0,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Assumption-explicit labeling with transparent uncertainty ranges prevents false precision claims",
+    "Fallback enrollment strategies provide practical guidance when target sample size is unachievable",
+    "Study-type-specific calculation logic (survival vs binary vs continuous) is appropriate and rigorous",
+    "Prohibition on fabricating event rates, dropout rates, or published precedents maintains integrity"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No explicit guidance on how to choose between power calculation software options",
+      "observed_in": [],
+      "problem": "The skill provides sample size logic but does not specify which software (G*Power, PASS, R pwr package) is appropriate for which study type.",
+      "root_cause": "Software selection not within the scope of SKILL.md as defined.",
+      "fix": "Add a brief software note: recommend G*Power for simple designs (t-test, ANOVA, logistic), nQuery or PASS for complex adaptive/survival designs, and R pwr package for customizable power curves. Note that software choice does not change the calculation logic."
+    },
+    {
+      "priority": "P2",
+      "title": "No handling of adaptive trial designs or sequential stopping rules",
+      "observed_in": [],
+      "problem": "The skill covers fixed sample size designs but does not address adaptive designs where interim analyses are planned.",
+      "root_cause": "Fixed sample size focus is appropriate for most users but excludes an important design family.",
+      "fix": "Add a brief adaptive design note: if the user requests interim analysis or adaptive design, indicate that this requires specialized sample size inflation calculations (group sequential methods) and recommend consultation with a statistician or dedicated adaptive trial design software."
+    }
+  ]
+}

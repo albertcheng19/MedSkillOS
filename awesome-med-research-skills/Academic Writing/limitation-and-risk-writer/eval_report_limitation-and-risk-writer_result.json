@@ -1,0 +1,341 @@
+{
+  "meta": {
+    "skill_name": "limitation-and-risk-writer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5,
+    "description": "Acknowledges limitations in sample, design, measurement, and validation in a professional way that improves credibility without undermining the whole paper."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, PMIDs, DOIs, or statistical data. Hard rules explicitly prohibit fabricating limitations and making validity judgments without user-provided grounds."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive clinical conclusions. Input validation section explicitly excludes clinical advice about whether study weaknesses invalidate conclusions for patient care."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies. The acknowledge+impact+mitigation formula correctly separates limitation acknowledgment from invalidation claims."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No executable code generated; Mode A direct-execution skill."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 92,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. 5-step workflow covers all three context types (manuscript, grant, rebuttal). 6-category limitation taxonomy is comprehensive. Phrase bank with worked examples prevents common writing errors. Calibration checklist prevents premature delivery."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Input validation section provides clear scope refusal template. Step 1 asks follow-up questions when input is vague (e.g., 'small sample' triggers specificity questions). Minor deduction: no guidance for handling disagreement when user disputes a limitation classification."
+      },
+      "performance_context": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. Formula-driven output is concise and predictable. Phrase bank prevents redundant content generation. Step 1 input collection upfront minimizes rework."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. Trigger phrases cover all three workflow types. Category taxonomy is clearly labeled. Avoidance phrases prevent the two most common errors (dismissive and catastrophizing). Calibration checklist enforces consistent tone."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Five explicit 'When to Use' scenarios make entry points clear. Input validation refusal template is graceful. Minor deduction: no re-framing option described if the user disagrees with how a limitation was categorized or worded."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Hard rules explicitly prohibit fabricating limitations, suggesting invalidity without grounds, and inflating study strengths within limitation statements."
+      },
+      "maintainability": {
+        "score": 8,
+        "max": 12,
+        "note": "All substantive content is inline in SKILL.md with no modular reference file separation. The only reference file (audit-reference.md) is stale — it references 'python scripts/main.py' which does not exist, misidentifies the skill as 'study-limitations-drafter', and contains no substantive limitation-writing content. This creates a false Mode B indicator risk and should be corrected."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Trigger precision is excellent with three distinct context types. Formula ensures idempotent output. Escape hatches (input validation + scope refusal template) are well-designed. Minor deduction on composability: no explicit integration with discussion-composer or revision-strategy-planner despite being a natural workflow neighbor."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 88.6,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 23,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Manuscript limitations paragraph for retrospective cohort study on statin use and CRC risk: (1) retrospective design with unmeasured confounders, (2) single-center tertiary data, (3) ICD-code-based statin exposure",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Step 2 correctly classifies all three limitations (Design, Sample, Measurement). Formula applied to each with acknowledge+impact+mitigation structure. Ordered by impact severity. Forward-looking future direction statement closes the paragraph.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Each limitation classified into correct category (Design / Sample / Measurement)",
+            "result": "PASS",
+            "note": "Step 2 taxonomy correctly applied to all three limitations."
+          },
+          {
+            "text": "Each limitation statement follows acknowledge+impact+mitigation formula",
+            "result": "PASS",
+            "note": "All three statements have clear three-part structure."
+          },
+          {
+            "text": "No fabricated limitations added beyond the three user-specified ones",
+            "result": "PASS",
+            "note": "Hard rule against fabricating limitations correctly enforced."
+          },
+          {
+            "text": "Limitations ordered from highest to lowest impact per Step 4 guidance (design first, then sample, then measurement)",
+            "result": "PASS",
+            "note": "Sequencing reflects impact priority for retrospective cohort studies."
+          },
+          {
+            "text": "Paragraph closes with a forward-looking statement about future study design needs",
+            "result": "PASS",
+            "note": "Step 5 calibration check passed; no dead-end limitation statement."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "NIH R01 grant risk section: (1) enrollment risk (rare disease, 2 sites), (2) biomarker assay not yet CLIA-certified, (3) mouse model fidelity to human phenotype",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Grant tone correctly applied: limitations framed as 'challenges' with mitigation plans. Each risk paired with a contingency measure (additional site recruitment, CLIA timeline, complementary in vitro validation). No catastrophizing language.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Grant tone applied — limitations framed as 'challenges' with mitigation plans, not as deficiencies",
+            "result": "PASS",
+            "note": "Step 4 grant-context tone calibration correctly applied."
+          },
+          {
+            "text": "Each challenge paired with a concrete mitigation measure",
+            "result": "PASS",
+            "note": "Acknowledge-impact-mitigation formula adapted for grant framing (enrollment: recruitment contingency; assay: CLIA timeline; model: orthogonal validation)."
+          },
+          {
+            "text": "No language suggests the grant is non-competitive due to these risks",
+            "result": "PASS",
+            "note": "Calibration check for catastrophizing correctly passed."
+          },
+          {
+            "text": "Mouse model limitation correctly framed as a known boundary with a validation strategy rather than a fatal flaw",
+            "result": "PASS",
+            "note": "Study-positioning-appropriate framing applied."
+          },
+          {
+            "text": "No limitations fabricated beyond the three user-specified risks",
+            "result": "PASS",
+            "note": "Hard rule against fabricating limitations enforced."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Vague input: 'Help me write my limitations section. My sample is too small.'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Step 1 correctly triggers follow-up questions: What was the sample size? What minimum would have been adequate? What study type? No limitation statement produced from vague input alone. Input validation scope refusal template not needed (input is in-scope but vague, not off-scope).",
+        "basic": 35,
+        "specialized": 49,
+        "total": 84,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill correctly declines to produce limitation statement from vague 'small sample' input",
+            "result": "PASS",
+            "note": "Step 1 follow-up question trigger correctly applied."
+          },
+          {
+            "text": "Follow-up questions ask for sample size, minimum adequate size, and study type",
+            "result": "PASS",
+            "note": "All three specificity questions from Step 1 guidance included."
+          },
+          {
+            "text": "No fabricated limitation statement generated from the vague input",
+            "result": "PASS",
+            "note": "Hard rule enforced."
+          },
+          {
+            "text": "Response explains why specifics are needed before writing the limitation",
+            "result": "PASS",
+            "note": "Context for why questions are being asked is provided."
+          },
+          {
+            "text": "Response offers a provisional limitation formula template the user could fill in if they prefer a faster path",
+            "result": "FAIL",
+            "note": "No provisional template offered. User must answer all questions before getting any output, which may feel like unnecessary friction for an experienced researcher."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Reviewer rebuttal: Reviewer 2 states 'The sample size of n=47 is too small to draw meaningful conclusions'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Rebuttal tone correctly applied. Three-part structure: acknowledgment of sample constraint + contextualization of why core finding remains valid + specific analytical or textual revision offered. No catastrophizing. No dismissal of the reviewer's concern.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Rebuttal structure applied: acknowledgment + contextualization + revision offered",
+            "result": "PASS",
+            "note": "Step 4 reviewer-rebuttal format correctly applied."
+          },
+          {
+            "text": "n=47 constraint is acknowledged without dismissal ('this limitation is common to all studies')",
+            "result": "PASS",
+            "note": "Avoidance phrase list correctly applied; dismissive language absent."
+          },
+          {
+            "text": "Reviewer's concern contextualized without invalidating the core finding",
+            "result": "PASS",
+            "note": "Hard rule against suggesting invalidity without grounds correctly applied."
+          },
+          {
+            "text": "Concrete revision offered (e.g., text addition acknowledging power limitation, or additional sensitivity analysis)",
+            "result": "PASS",
+            "note": "Actionable response path provided."
+          },
+          {
+            "text": "Rebuttal does not use limitation response as opportunity to overclaim study strengths",
+            "result": "PASS",
+            "note": "Hard rule against inflating study strength within limitation statements enforced."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Rewrite a self-defeating limitations section that catastrophizes all findings and ends with 'these limitations make it hard to trust our conclusions'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All catastrophizing language identified and replaced using the formula. Each limitation rewritten with impact+mitigation structure. The 'hard to trust our conclusions' closing statement removed and replaced with a forward-looking direction. Minor issue: checklist step 5 (tone consistency) may not fully address residual hedging language in rewritten output.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All catastrophizing phrases identified and flagged before rewriting",
+            "result": "PASS",
+            "note": "Avoidance phrase list correctly applied to identify problematic language."
+          },
+          {
+            "text": "Rewritten limitations follow the acknowledge+impact+mitigation formula",
+            "result": "PASS",
+            "note": "Formula applied consistently across all rewritten limitation statements."
+          },
+          {
+            "text": "The 'hard to trust our conclusions' closing removed and replaced with a forward-looking statement",
+            "result": "PASS",
+            "note": "Step 5 calibration check passed; dead-end statement eliminated."
+          },
+          {
+            "text": "Rewritten output does not introduce new limitations that were not in the original text",
+            "result": "PASS",
+            "note": "Hard rule against fabricating limitations maintained during rewrite."
+          },
+          {
+            "text": "Tone consistency across all rewritten limitation statements verified by calibration checklist",
+            "result": "FAIL",
+            "note": "Residual hedging phrases ('somewhat limited', 'may potentially undermine') may persist in edge cases where formula is applied to difficult-to-rephrase constraints. Calibration check criterion could be more specific about hedge removal."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.8,
+    "dynamic_weighted": 53.2,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Acknowledge+impact+mitigation formula prevents dead-end limitation statements and ensures every acknowledged weakness has a professional framing",
+    "Three-context routing (manuscript / grant / reviewer rebuttal) with distinct tone calibration rules is a practical differentiator covering the full academic workflow",
+    "Avoidance phrase list for both dismissive and catastrophizing language is a precise quality-control mechanism",
+    "Input validation scope refusal template correctly excludes clinical validity judgments while remaining helpful for writing tasks"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "audit-reference.md is stale and contains misleading Mode B indicators",
+      "observed_in": [],
+      "problem": "The only reference file (references/audit-reference.md) references 'python scripts/main.py' which does not exist, misidentifies the skill name as 'study-limitations-drafter', and contains no substantive limitation-writing content. This could confuse skill auditors or deployment pipelines into treating this as a Mode B (CLI/script) skill.",
+      "root_cause": "The file appears to be a copy from an admin template that was never updated for this skill.",
+      "fix": "Either delete audit-reference.md or replace it with a substantive limitation-type taxonomy reference that supports the Step 2 classification step. Remove all references to scripts/main.py which do not exist."
+    },
+    {
+      "priority": "P1",
+      "title": "No explicit composability with discussion-composer or revision-strategy-planner",
+      "observed_in": [],
+      "problem": "Limitation writing is a natural sub-task within the Discussion section workflow, but there is no mention of where this skill fits relative to discussion-composer (upstream) or revision-strategy-planner (downstream in a resubmission workflow). Users may not know when to use this skill vs. the broader discussion-composer.",
+      "root_cause": "Skill designed as a standalone tool without workflow positioning guidance.",
+      "fix": "Add a 'Position in Manuscript Pipeline' note: 'This skill writes the limitations subsection only. Use discussion-composer for the full Discussion section. For revision workflows, use revision-strategy-planner first, then this skill for specific limitation rewrites.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No limitation-ordering guidance within the assembled paragraph",
+      "observed_in": [
+        1
+      ],
+      "problem": "Multiple limitations are written individually but the ordering guidance in Step 4 is implicit (manuscript context says 'start with the most important limitation'). No explicit rule for how to sequence limitations of similar impact level.",
+      "root_cause": "Formula covers individual statement construction but collective paragraph ordering is only partially specified.",
+      "fix": "Add a sequencing rule to Step 4: 'Order limitations from highest to lowest impact on the primary conclusion. Group related limitations (e.g., all sample limitations together). End with a forward-direction statement, not a weakness.'"
+    }
+  ]
+}

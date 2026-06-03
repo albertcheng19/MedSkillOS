@@ -1,0 +1,429 @@
+{
+  "meta": {
+    "skill_name": "reference-integrity-checker",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Checks whether manuscript references are accurately matched to claims, appropriately scoped, and not overextended, misquoted, or second-hand cited."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated DOIs, PMIDs, clinical data, or source conclusions detected across all outputs. Hard rule 7 is explicit and consistently enforced."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No direct diagnostic or prescriptive medical conclusions. Medical overextension flags include appropriate uncertainty language."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Evidentiary hierarchy correctly applied: primary source > review > guideline. Second-hand citation risk correctly classified as moderate-to-major."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A skill — no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 93,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "All eight citation integrity problem types are covered (mismatch, overextension, quote drift, second-hand, unsupported, scope, severity, logic). Seven reference files are actively mapped to specific steps. Nine-step workflow and eight-section mandatory output are complete and well-matched."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Clarification-first gate prevents false reassurance on insufficient input. Section A input check is mandatory. Minor deduction: no partial-results pathway when source texts are unavailable — skill only offers full review or asks questions, no graceful partial-with-flags mode."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "All seven reference files are lightweight (5–16 lines each). SKILL.md is well-scoped at 270 lines. Minor deduction: Steps 3–5 and Sections C–E have partial overlap in detection logic, creating slight redundancy in token usage."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. SKILL.md explains what to do and why. Sample triggers list six specific use cases. Mandatory output sections A–H use fixed labels ensuring consistent structure. Severity levels are fixed four-tier. Error prevention via three independent mechanisms: clarification-first rule, hard rules list, and explicit 'not for' scope section."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Sample triggers, core function list, and quality standard comparison all present. Section H explicitly tells users what to provide next. Minor deduction: no explicit restart path when user provides more source material mid-review."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials, no APIs, no code execution vectors. Hard rule 7 explicitly prohibits fabricating PMIDs, DOIs, and consensus positions. Hard rule 4 prohibits certifying alignment without source access."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven reference files each address a single citation problem type; adding a new problem type requires only a new reference file plus a mapping entry in SKILL.md. Minor deduction: no worked example in reference files to guide consistent severity classification."
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Trigger precision: six sample triggers plus a 'not for' list. Progressive disclosure: Step 1 clarification gate + Section A input check + Section H follow-up. Idempotency: same A–H structure on identical input. Escape hatches: Section H + clarification-first rule. Deduction: no composability hooks with evidence-search or writing skills (2/4)."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 90.1,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 34
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Introduction paragraph with 3 citations including a causal overextension and a population-scope mismatch",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Correctly identified [2] causal language as major overextension and SONIC-trial population mismatch for [3].",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output contains all mandatory sections A through H",
+            "result": "PASS",
+            "note": "All eight sections present with correct labels."
+          },
+          {
+            "text": "Output classifies [2] causal language as major integrity risk, not minor hygiene",
+            "result": "PASS",
+            "note": "Manichanh 2006 showed reduced diversity, not causal link — correctly flagged as major."
+          },
+          {
+            "text": "Output does not fabricate source conclusions for citations provided only by title",
+            "result": "PASS",
+            "note": "No invented source findings — analysis limited to stated claim-reference pairs."
+          },
+          {
+            "text": "Section H lists specific additional inputs that would improve review accuracy",
+            "result": "PASS",
+            "note": "Source abstracts and full texts listed as improving confidence."
+          },
+          {
+            "text": "Output distinguishes loose topical relevance from true claim support",
+            "result": "PASS",
+            "note": "Explicitly distinguishes 'related topic' from 'actual causal evidence' for [2]."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Discussion paragraph with animal-to-human overextension using mouse-model citations for clinical claims",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Animal→human generalization correctly identified as major overextension in both citations.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output identifies 'in humans' claim backed only by mouse-model citations as major overextension",
+            "result": "PASS",
+            "note": "Both [4] and [5] are mouse models; clinical language correctly flagged."
+          },
+          {
+            "text": "Output recommends narrowing manuscript language rather than fabricating a human study citation",
+            "result": "PASS",
+            "note": "Correction plan recommends 'may' or 'in mouse models' language — no invented citations."
+          },
+          {
+            "text": "Output applies severity classification from severity-classification-rules.md",
+            "result": "PASS",
+            "note": "Both issues classified as major integrity risk with explicit reviewer-criticism explanation."
+          },
+          {
+            "text": "Section G explains why the animal-to-human generalization creates reviewer credibility risk",
+            "result": "PASS",
+            "note": "Evidence-boundary overreach and source-type mismatch both explained."
+          },
+          {
+            "text": "Output does not certify that any human evidence exists absent source verification",
+            "result": "PASS",
+            "note": "No fabricated human-study support added to compensate for gap."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "User provides only a bare reference list with no manuscript text or claim-reference pairs",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Clarification-first rule triggered correctly — no fabricated analysis produced.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output requests manuscript text before proceeding with any integrity review",
+            "result": "PASS",
+            "note": "Clarification-first rule applied immediately; no premature analysis."
+          },
+          {
+            "text": "Section A states explicitly that input is insufficient for integrity review",
+            "result": "PASS",
+            "note": "Input Match Check correctly rates confidence as very low."
+          },
+          {
+            "text": "Output does not fabricate citation analysis from reference titles alone",
+            "result": "PASS",
+            "note": "Hard rule 2 holds — topical relevance not assumed from title."
+          },
+          {
+            "text": "Output lists specific missing inputs that would enable a real review",
+            "result": "PASS",
+            "note": "Manuscript paragraphs, claim-reference pairs, and source abstracts all listed in Section H."
+          },
+          {
+            "text": "Output explains why reference-list-only input is insufficient, not just refuses",
+            "result": "PASS",
+            "note": "Explanation covers the five claim-source matching axes that require manuscript text."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Rebuttal draft with review-article and WHO technical report citations defending against reviewer criticism",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Second-hand citation risk in rebuttal context correctly identified as higher-stakes than in background sections.",
+        "basic": 36,
+        "specialized": 51,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output identifies review article [6] as second-hand citation risk",
+            "result": "PASS",
+            "note": "Martinez et al. 2015 Sleep Med Rev correctly flagged as secondary literature, not primary data."
+          },
+          {
+            "text": "Output flags that rebuttal context amplifies the severity of weak citations",
+            "result": "PASS",
+            "note": "Explicitly notes reviewers scrutinize rebuttal citations more closely than background literature."
+          },
+          {
+            "text": "Output recommends replacement with primary-source RCT or cohort data, not generic 'find better citations'",
+            "result": "PASS",
+            "note": "Specific correction direction provided — prospective cohort or sleep intervention RCT."
+          },
+          {
+            "text": "Output does not certify that the WHO report contains a formal meta-analysis",
+            "result": "PASS",
+            "note": "Notes uncertainty about whether the WHO technical report actually contains meta-analytic methodology."
+          },
+          {
+            "text": "Severity classification distinguishes the two citations (moderate vs. uncertain)",
+            "result": "PASS",
+            "note": "Review article = moderate; WHO report = uncertain due to missing source access."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Methods section with 8 heterogeneous claim-reference pairs of varying integrity quality",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Differential severity correctly applied across 8 pairs ranging from major (missing citation) to minor (textbook vs. original paper).",
+        "basic": 36,
+        "specialized": 50,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output covers all 8 claim-reference pairs with individual assessments",
+            "result": "PASS",
+            "note": "Each of the 8 pairs receives a distinct severity classification and rationale."
+          },
+          {
+            "text": "Missing citation for sample size calculation identified as major integrity risk",
+            "result": "PASS",
+            "note": "Pair 6 (no citation for a priori power calculation) correctly flagged as major."
+          },
+          {
+            "text": "Section A notes that without source texts, some assessments remain uncertain",
+            "result": "PASS",
+            "note": "Appropriately downgrades confidence on pairs 1, 3, 5 where source content unavailable."
+          },
+          {
+            "text": "Output does not fabricate assessment of unverified sources (e.g., kit manufacturer manual)",
+            "result": "PASS",
+            "note": "Pair 1 (manufacturer manual) classified as uncertain/non-retrievable, not analysed from title."
+          },
+          {
+            "text": "Differential severity across 8 pairs reflects actual risk gradient, not uniform low/high",
+            "result": "PASS",
+            "note": "Four distinct severity levels distributed across 8 pairs — not all major or all minor."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request to format bibliography in APA style and identify missing literature in the field",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four assertions passed. Skill correctly declined out-of-scope requests (bibliography formatting and missing literature identification) while offering a valid alternative.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Output declines bibliography formatting request as outside skill scope",
+            "result": "PASS",
+            "note": "Scope boundary section correctly invoked — bibliography style is not integrity checking."
+          },
+          {
+            "text": "Output declines missing-literature identification as outside skill scope",
+            "result": "PASS",
+            "note": "Finding uncited literature is different from checking whether cited literature supports claims."
+          },
+          {
+            "text": "Output offers a valid alternative path — claim-reference integrity check if paragraphs provided",
+            "result": "PASS",
+            "note": "Constructive redirect provided; user directed to what this skill actually does."
+          },
+          {
+            "text": "Scope refusal is non-dismissive and explains the distinction between style and integrity",
+            "result": "PASS",
+            "note": "Explanation clearly distinguishes citation formatting from citation integrity."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User asks for citation verification based on titles only, with medically inaccurate claim ('first-line therapy for all cancer types')",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Hard rules 2 and 4 applied correctly. Medically inaccurate claim flagged with appropriate caveats.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output refuses to certify claim-reference alignment from citation titles alone",
+            "result": "PASS",
+            "note": "Hard rule 4 invoked explicitly — no assessment without source text."
+          },
+          {
+            "text": "Output flags 'all solid tumors' as likely overextension of a glioblastoma-specific meta-analysis",
+            "result": "PASS",
+            "note": "Title clearly states glioblastoma; cross-tumor generalization flagged as major overextension risk."
+          },
+          {
+            "text": "Output flags 'first-line therapy for all cancer types' as medically inaccurate regardless of citation",
+            "result": "PASS",
+            "note": "Claim identified as factually incorrect independent of source quality — appropriate medical caveat included."
+          },
+          {
+            "text": "Output requests source texts before any integrity assessment, not after",
+            "result": "PASS",
+            "note": "Clarification-first rule applied before any scoring attempt."
+          },
+          {
+            "text": "Output does not fabricate analysis of what the cited papers actually concluded",
+            "result": "PASS",
+            "note": "No invented source findings based on title matching — hard rule 2 holds."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.2,
+    "dynamic_weighted": 54.1,
+    "score": 91,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Seven focused reference files each address a single citation problem type (mismatch, overextension, drift, second-hand, severity, logic, clarification) — one of the most modular reference architectures in the Academic Writing category",
+    "Clarification-first gate (Step 1 + Section A) prevents the most dangerous failure mode: confident integrity review when source material is actually insufficient",
+    "Five-axis claim-source matching (population, intervention, evidence level, direction, inference strength) makes overextension detection rigorous and auditable",
+    "Hard rules list explicitly blocks fabrication, false reassurance, and topical-relevance substitution — all three common failure modes for citation-checking tools",
+    "Out-of-scope boundary is precisely defined with both positive (what it checks) and negative (what it does not do) scoping, preventing misuse as a bibliography formatter"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No composability hooks with upstream or downstream skills",
+      "observed_in": [],
+      "problem": "The skill does not reference or suggest composition with evidence-search skills (when citations need replacing) or with writing skills (when wording needs narrowing after integrity issues are found).",
+      "root_cause": "Skill was designed as a standalone checker without an explicit pipeline position.",
+      "fix": "Add a composability note in SKILL.md: 'After identifying missing primary sources, use a literature-search skill to locate replacements. After identifying overextended wording, use a methods-section-writer or discussion-drafter skill to revise language.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No partial-results pathway when source texts are unavailable but user proceeds",
+      "observed_in": [
+        1,
+        4,
+        5
+      ],
+      "problem": "When source abstracts are unavailable, the skill produces a full review with uncertainty flags, but there is no formal partial-results mode that explicitly marks each finding as verified vs. inferred. Users may treat inferred findings with the same confidence as verified ones.",
+      "root_cause": "The clarification-first rule covers the case where the user has not yet provided anything, but not the case where user says 'proceed anyway with what I have given'.",
+      "fix": "Add a Step 1b to SKILL.md: if the user explicitly requests proceeding without source texts, produce findings with a two-tier labeling system — [SOURCE VERIFIED] for assessments backed by provided source content, and [INFERRED FROM CLAIM-PAIR] for assessments based only on the stated claim and title."
+    },
+    {
+      "priority": "P2",
+      "title": "No worked example in reference files for severity classification",
+      "observed_in": [],
+      "problem": "severity-classification-rules.md lists the four tiers but does not include a worked example showing a claim-reference pair at each severity level. This creates potential inconsistency in borderline cases.",
+      "root_cause": "Reference files were written as rule lists, not as annotated examples.",
+      "fix": "Add one concrete example per severity tier to severity-classification-rules.md (e.g., major: association cited as causation for a primary claim; moderate: review article cited for a specific statistic; minor: related but under-specific background citation)."
+    },
+    {
+      "priority": "P2",
+      "title": "Section E lacks ordering guidance for moderate and minor issues",
+      "observed_in": [
+        5
+      ],
+      "problem": "When multiple moderate/minor issues are present, there is no stated ordering principle — by paragraph order, by severity within tier, or by correction effort. This affects usability when Section E is long.",
+      "root_cause": "Output structure defines content but not ordering within sections.",
+      "fix": "Add to the Section E definition in SKILL.md: 'List moderate issues before minor. Within each tier, list by paragraph order in the manuscript.'"
+    }
+  ]
+}

@@ -1,0 +1,423 @@
+{
+  "meta": {
+    "skill_name": "disease-mechanism-evidence-map",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Systematically maps mechanism evidence for a disease from molecules to pathways, cell types, tissues, biological consequences, and clinical phenotypes. Use when a user needs a layered mechanism evidence chain rather than a flat summary or immediate gap analysis. Formal literature citations must be real and verifiable."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard Rules 11-14 explicitly prohibit fabricating citations, DOIs, PMIDs, author names, and stable links; citation verification step (Step 8) mandates real verifiable references with DOI when available."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or treatment recommendations produced; Hard Rule 10 prevents overclaiming causality; out-of-scope redirect applied for protocol design requests."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Five-layer chain structure (molecule → pathway → cell → tissue → phenotype) is methodologically sound; direct vs indirect vs inference labeling prevents false causal closure."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A mechanism-mapping skill; no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 87,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "Comprehensive 9-step execution with 11-section output and 7 supported mapping styles; description includes a negative constraint ('Formal literature citations must be real') rather than purely use-case trigger language, slightly reducing trigger precision."
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Citation verification requirement is strong; Section K is conditionally framed ('when citations are included') rather than mandatory, allowing agents to omit it when evidence is sparse rather than producing an explicit 'no verified citations' statement."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "11 reference modules and 11-section output create appropriate but heavy context overhead for complex mechanism mapping; 268-line SKILL.md is proportionate to task scope."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "9-step execution sequence is well-ordered; output requirement section mixes structural guidance with hard rules, creating risk that agents skip Section K when citations are uncertain; no intermediate check-in for scope confirmation before full map generation."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Sample triggers are practical; description is accurate but omits colloquial trigger phrases users would naturally say ('how does this disease work', 'mechanism overview before study design')."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials or sensitive data handling; no injection vectors; anti-fabrication posture is one of the strongest in the category."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "11 reference modules map cleanly to specific steps; well-modularized for independent updates; minor gap: workflow-step-template.md and output-section-guidance.md overlap in scope, creating potential consistency maintenance burden."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Nine-step execution with downstream routing is a strong composability design; no composability hooks to gap-finder or protocol-design skills despite downstream routing section; no progressive disclosure for partial mapping modes."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 83.6,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 33,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Disease mechanism map for sepsis immune paralysis",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All 5 mechanism layers organized correctly; direct/indirect/inference labels applied; human vs animal vs cell-line evidence distinguished; weak links identified without premature gap declaration.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Mechanism evidence organized into layered chains (molecule → pathway → cell type → tissue → clinical phenotype)",
+            "result": "PASS",
+            "note": "Five-layer structure applied across all major mechanism axes."
+          },
+          {
+            "text": "Direct vs indirect vs inference labels applied to each key mechanistic link",
+            "result": "PASS",
+            "note": "Hard Rule 4 enforced; each link labeled by evidence type."
+          },
+          {
+            "text": "Human evidence distinguished from animal model and cell-line evidence throughout",
+            "result": "PASS",
+            "note": "Hard Rule 5 enforced; evidence source clearly differentiated."
+          },
+          {
+            "text": "Weak links identified in Section H without premature conversion to formal research gaps",
+            "result": "PASS",
+            "note": "Hard Rule 8 enforced; weak links noted but not declared as formal gaps."
+          },
+          {
+            "text": "Section K: verified citations with DOI where available; unverifiable citations not presented as formal support",
+            "result": "PASS",
+            "note": "Citation verification per Hard Rules 11-14; DOI status stated transparently."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Ferroptosis in diabetic nephropathy — pathway-centered mechanism map",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Dominant axes prioritized over generic pathway list; cell types and tissue compartments linked to phenotype; chain completeness labeled per segment; hypothesis entry points suggested without overclaiming causality.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Dominant mechanism axes prioritized over exhaustive pathway list (Hard Rule 7)",
+            "result": "PASS",
+            "note": "Key ferroptosis axes (GPX4, lipid peroxidation, iron homeostasis) prioritized; not all candidate pathways listed equally."
+          },
+          {
+            "text": "Cell types and tissue compartments linked to clinical phenotype in Sections D and E",
+            "result": "PASS",
+            "note": "Proximal tubule cell, podocyte, and glomerular compartments connected to nephropathy phenotype."
+          },
+          {
+            "text": "Evidence strength and chain completeness labeled per chain segment in Section G",
+            "result": "PASS",
+            "note": "Strong/moderate/weak/emerging labels applied appropriately."
+          },
+          {
+            "text": "Mechanism hypothesis entry points suggested in Section I without overclaiming causality",
+            "result": "PASS",
+            "note": "Hard Rule 10 enforced; hypothesis entry framed as exploratory rather than causal."
+          },
+          {
+            "text": "Downstream routing recommendation in Section J present",
+            "result": "PASS",
+            "note": "Next-step skill or workflow recommended based on evidence map output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "HCC immunosuppressive microenvironment — cell-type-centered mechanism map",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Cell-state evidence distinguished from bulk-population; indirect associations not presented as complete chains; key evidence chain table present; no generic pathway dump.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Cell-state evidence (single-cell derived) distinguished from bulk-population evidence",
+            "result": "PASS",
+            "note": "Hard Rule 5 applied to scRNA-seq data; inference vs direct labels applied."
+          },
+          {
+            "text": "Indirect associations not presented as completed mechanism chains (Hard Rule 3)",
+            "result": "PASS",
+            "note": "Incomplete chains labeled as such; no false closure on indirect TME links."
+          },
+          {
+            "text": "Key evidence chain table (Section F) present with mechanism axes and evidence strength summarized",
+            "result": "PASS",
+            "note": "Structured table format covers all major TME axes."
+          },
+          {
+            "text": "Output is not a generic pathway dump (Hard Rule 1)",
+            "result": "PASS",
+            "note": "Layered chain structure used throughout; axes prioritized by evidence support."
+          },
+          {
+            "text": "Section K: citation DOIs verified where included or absence explicitly noted",
+            "result": "PASS",
+            "note": "Citation transparency maintained per Hard Rules 11-14."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Very early-stage mechanism with only cell-line evidence and no human data",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Cell-line evidence correctly not equated with human validation; chain completeness labeled as incomplete; speculative segments labeled; Section K omitted entirely rather than producing explicit 'no verified citations available' statement.",
+        "basic": 33,
+        "specialized": 49,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Cell-line-only evidence not equated with human disease validation (Hard Rule 5)",
+            "result": "PASS",
+            "note": "Evidence source correctly labeled as cell-line; no human disease claims made."
+          },
+          {
+            "text": "Chain completeness labeled as 'incomplete' or 'broken' for all cross-layer connections lacking human data",
+            "result": "PASS",
+            "note": "Hard Rule 9 enforced; incomplete chains between layers explicitly stated."
+          },
+          {
+            "text": "Speculative segments clearly labeled as speculative throughout the map",
+            "result": "PASS",
+            "note": "Hard Rule 4 and evidence-strength labeling applied."
+          },
+          {
+            "text": "Hypothesis entry points suggested conservatively given early-stage evidence",
+            "result": "PASS",
+            "note": "Section I appropriately conservative; no overclaiming of causal mechanisms."
+          },
+          {
+            "text": "Section K present with explicit 'no verified formal citations available' statement when no verifiable citations exist",
+            "result": "FAIL",
+            "note": "Section K omitted entirely rather than stating 'No verified formal citations available for this emerging topic' — violates citation transparency requirement."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Lupus nephritis tubulointerstitial injury — multi-compartment mechanism map",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Multiple tissue compartments mapped with separate chains; contradictory reports represented; evidence strength labeled per compartment; model evidence not confused with human disease closure.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Multiple tissue compartments (glomerular, tubulointerstitial) mapped with separate layered evidence chains",
+            "result": "PASS",
+            "note": "Compartment-specific chains maintained independently without artificial merging."
+          },
+          {
+            "text": "Contradictory mechanism reports within the literature represented directly without forced resolution",
+            "result": "PASS",
+            "note": "Conflicting evidence noted in appropriate chain sections."
+          },
+          {
+            "text": "Evidence strength and chain completeness labeled per compartment in Section G",
+            "result": "PASS",
+            "note": "Per-compartment labeling maintained."
+          },
+          {
+            "text": "Model-system evidence not confused with human disease closure (Hard Rule 6)",
+            "result": "PASS",
+            "note": "Mouse model evidence correctly labeled as translational support, not human validation."
+          },
+          {
+            "text": "Section K verified citations present with appropriate transparency caveats",
+            "result": "PASS",
+            "note": "Real citations included with DOI notes; unavailable DOIs explicitly flagged."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request for a treatment protocol based on the mechanism evidence (out of scope)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Request for a completed protocol correctly identified as out of scope; standard redirect produced; no treatment protocol elements generated.",
+        "basic": 35,
+        "specialized": 45,
+        "total": 80,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Request for a completed treatment protocol correctly identified as out of scope per SKILL.md definition",
+            "result": "PASS",
+            "note": "Out-of-scope category ('requests for a completed protocol instead of evidence mapping') correctly recognized."
+          },
+          {
+            "text": "Standard redirect message produced including restatement and reason for scope limitation",
+            "result": "PASS",
+            "note": "Redirect matches SKILL.md template."
+          },
+          {
+            "text": "No treatment protocol elements or study design prescriptions generated",
+            "result": "PASS",
+            "note": "Output stops at redirect; no protocol content produced."
+          },
+          {
+            "text": "No fabricated treatment effect claims or clinical recommendations introduced",
+            "result": "PASS",
+            "note": "Hard Rules 11-14 honored even for out-of-scope request."
+          },
+          {
+            "text": "Redirect offers constructive alternative: use mechanism map as background before routing to protocol-design skill",
+            "result": "PASS",
+            "note": "Downstream routing suggestion provided for the user's actual need."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Request: map ALL of type 2 diabetes mechanism AND immediately declare research gaps",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Scope correctly narrowed from overly broad 'all T2DM'; mechanism map executed to standard; gap declaration component creates tension with Hard Rule 8 — skill may acknowledge gaps within the map rather than explicitly declining the gap-analysis component.",
+        "basic": 34,
+        "specialized": 47,
+        "total": 81,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Scope correctly narrowed from overly broad 'all type 2 diabetes mechanism' to a manageable axis or stage before mapping begins",
+            "result": "PASS",
+            "note": "mechanism-scope-rules.md applied; scope clarified before full map generation."
+          },
+          {
+            "text": "Layered mechanism chain structure (molecule → pathway → cell → tissue → phenotype) applied to narrowed scope",
+            "result": "PASS",
+            "note": "Core mapping function executed correctly for narrowed scope."
+          },
+          {
+            "text": "Request to immediately declare research gaps explicitly acknowledged and declined before formal gap analysis step",
+            "result": "FAIL",
+            "note": "Hard Rule 8 tension: skill may partially identify gaps within mechanism-map sections (e.g., in Section H weak links) rather than explicitly declining the gap-declaration component — creates ambiguity between 'weak link' and 'research gap' framing."
+          },
+          {
+            "text": "No formal gap analysis with gap-to-study routing produced within the mechanism map output",
+            "result": "PASS",
+            "note": "Hard Rule 8 largely enforced; no formal research gap declarations with study recommendations."
+          },
+          {
+            "text": "Section J downstream routing directs user to gap-finder skill rather than performing gap analysis internally",
+            "result": "PASS",
+            "note": "Routing correctly points outward to dedicated gap-analysis skill."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.8,
+    "dynamic_weighted": 50.2,
+    "score": 85,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Citation verification requirement with mandatory DOI and explicit unverifiability statements (Hard Rules 11-14) is one of the strongest scientific integrity safeguards in the Evidence Insight category",
+    "Five-layer chain structure (molecule → pathway → cell → tissue → phenotype) with direct/indirect/inference labeling provides a systematic and reproducible mechanism mapping framework",
+    "14 hard rules covering evidence-type distinction, chain-completeness labeling, and fabrication prevention provide comprehensive quality control",
+    "Downstream routing integration makes this skill a natural upstream tool in a research workflow sequence"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Section K omitted entirely when no verifiable citations are available for sparse-evidence topics",
+      "observed_in": [
+        4
+      ],
+      "problem": "When no verified formal citations can be included, Section K is sometimes omitted entirely rather than producing an explicit statement that no verified citations are available, reducing transparency.",
+      "root_cause": "Section K is conditionally framed ('when citations are included'), making it easier for agents to skip when evidence is sparse rather than explicitly acknowledging the absence.",
+      "fix": "Make Section K mandatory for all outputs: either include verified citations with DOI, OR produce an explicit statement: 'No verified formal citations were identified for this topic at the required confidence level. Key mechanism claims are based on training knowledge and should be verified with current PubMed/Embase search.'"
+    },
+    {
+      "priority": "P1",
+      "title": "Hard Rule 8 boundary between 'weak link' and 'research gap' is ambiguous for adversarial inputs",
+      "observed_in": [
+        7
+      ],
+      "problem": "When users explicitly request gap analysis alongside mechanism mapping, the distinction between 'weak link' (allowed in Section H) and 'research gap' (requires dedicated gap-analysis step) can collapse — skill may partially frame weak links as research gaps without explicitly declining the gap-declaration request.",
+      "root_cause": "Hard Rule 8 prohibits converting weak links to formal gaps but does not define explicit language for declining a combined map+gap request.",
+      "fix": "Add a note to Hard Rule 8: 'If the user requests both mechanism mapping and gap analysis in one prompt, complete the mechanism map first, then explicitly state: Gap analysis requires a separate step using the dedicated gap-finder skill. Use the Section I hypothesis entry points and Section J routing as your starting point.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Description lacks colloquial trigger phrases for diverse mapping scenarios",
+      "observed_in": [],
+      "problem": "Description accurately describes formal structure but omits natural user phrases that would trigger this skill ('how does this disease work', 'mechanism overview', 'before I decide what to study').",
+      "root_cause": "Description written for content accuracy rather than triggering optimization.",
+      "fix": "Add trigger phrases to description or Sample Triggers: 'mechanism evidence map', 'how this disease works at the molecular level', 'disease mechanism architecture before study design', 'evidence chain for this pathway'."
+    }
+  ]
+}

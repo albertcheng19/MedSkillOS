@@ -1,0 +1,417 @@
+{
+    "meta": {
+        "skill_name": "cibersort-immune-infiltration-analysis",
+        "description": "Deconvolve bulk RNA-seq or microarray expression into 22 LM22 immune cell proportions using CIBERSORT. Inputs: expression matrix, sample groups. Outputs: immune fraction table, comparison bar plots, statistical test results.",
+        "evaluated_on": "2026-04-17",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Complex",
+        "n_inputs": 7
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "All quantitative statements in the re-audit were grounded in executed runs and recorded artifacts."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill remains strictly non-clinical and does not provide diagnosis or treatment recommendations."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "The implemented and documented workflow stays within a valid local CIBERSORT-style deconvolution scope with explicit limits."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "Canonical, qn=true, perm=0, stress, and failure-reporting paths all executed correctly in the audit environment."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 94,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 12,
+                "max": 12,
+                "note": "Functional suitability was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "Failure metadata and payload preservation are now implemented; final promotion is still copy-based rather than a true transactional rename."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "Performance and context was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "The skill communicates outputs clearly, but still relies on artifact inspection rather than a formal response template."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Malformed inputs still fail fast instead of triggering a clarification flow."
+            },
+            "security": {
+                "score": 11,
+                "max": 12,
+                "note": "No injection or secret-handling issue was found, but logs intentionally retain file paths and run metadata."
+            },
+            "maintainability": {
+                "score": 12,
+                "max": 12,
+                "note": "Recording logic is now separated into helper and report modules and covered by regression testing."
+            },
+            "agent_specific": {
+                "score": 18,
+                "max": 20,
+                "note": "Scope boundaries, failure-path guidance, and trigger precision are strong after the update."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 87,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 35,
+            "total": 35
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Packaged validation run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Generated the full documented output set, including plots, session metadata, and append-only audit files.",
+                "basic": 37,
+                "specialized": 54,
+                "total": 91,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Result artifacts and scoring evidence were sufficient for audit review.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "No-plot explicit-column run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Explicit sample/group column selection worked and the plot directory remained empty as documented.",
+                "basic": 36,
+                "specialized": 54,
+                "total": 90,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Result artifacts and scoring evidence were sufficient for audit review.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Zero-permutation boundary",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The run completed successfully and both CLI output and run_record.txt explicitly explained why empirical P-values were NA.",
+                "basic": 35,
+                "specialized": 51,
+                "total": 86,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Result artifacts and scoring evidence were sufficient for audit review.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Quantile-normalized run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The qn=true branch executed cleanly in the current container.",
+                "basic": 36,
+                "specialized": 53,
+                "total": 89,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Result artifacts and scoring evidence were sufficient for audit review.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Higher-permutation run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The heavier 50-permutation path completed with stable outputs and no format drift.",
+                "basic": 36,
+                "specialized": 52,
+                "total": 88,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Result artifacts and scoring evidence were sufficient for audit review.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 6,
+                "type": "Scope Boundary",
+                "label": "Missing case group",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "Expected validation failure with a clear SKILL_INVALID_PARAMETER message and persisted failure artifacts.",
+                "basic": 32,
+                "specialized": 50,
+                "total": 82,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Result artifacts and scoring evidence were sufficient for audit review.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 7,
+                "type": "Adversarial",
+                "label": "Corrupted signature matrix",
+                "status": "ERROR",
+                "status_flag": "❌",
+                "note": "Expected validation failure for non-finite signature values, with persisted run_record and output_manifest entries.",
+                "basic": 33,
+                "specialized": 50,
+                "total": 83,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Result artifacts and scoring evidence were sufficient for audit review.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 37.6,
+        "dynamic_weighted": 52.2,
+        "score": 90,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "Implementation, tests, documentation, and output artifacts are now tightly aligned around both success and failure paths.",
+        "Failure handling is materially stronger: invalid reruns no longer erase prior successful payloads and now leave auditable records.",
+        "The perm=0 boundary is now explicit, documented, and traceable in both CLI logs and run_record output.",
+        "Maintainability improved through modularized recording logic and regression coverage for the payload-preservation behavior."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Use atomic promotion for staged outputs",
+            "observed_in": [
+                1,
+                5
+            ],
+            "problem": "The staging design is already much safer, but final promotion still copies data into the target directory instead of using a true atomic swap.",
+            "root_cause": "promote_staged_output() performs directory deletion plus recursive copy.",
+            "fix": "If filesystem constraints allow it, replace the copy-based promotion step with an atomic move or parent-level swap so partially promoted outputs become even less likely."
+        },
+        {
+            "priority": "P2",
+            "title": "Add one failed-run example to CLI docs",
+            "observed_in": [
+                6,
+                7
+            ],
+            "problem": "Failure-path recording is implemented and documented, but the examples remain focused almost entirely on successful runs.",
+            "root_cause": "The CLI guide contains richer success examples than failure examples.",
+            "fix": "Add a short failure example in references/cli-guide.md showing the expected output_manifest and run_record entries after a validation error."
+        }
+    ]
+}

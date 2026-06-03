@@ -1,0 +1,424 @@
+{
+  "meta": {
+    "skill_name": "grant-specific-aims-writer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Writes Specific Aims pages for grant applications. Use when drafting or revising the Specific Aims page (NIH R01/R21/R03), NSF Project Summary, or equivalent for any major funding agency."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated preliminary data, grant success rates, or citation statistics detected. Hard rules explicitly prohibit these."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No clinical recommendations produced. Skill explicitly excludes predicting review scores or funding outcomes."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies. Aim independence check and hypothesis-first discipline enforce methodological rigor."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A text-output skill."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 92,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. NIH R01/R21/R03 and NSF Project Summary covered; aim independence check, scope discipline, hypothesis-driven structure enforcement, and precise word count target (550-650 words) all present."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Self-review checklist (8 criteria) and hypothesis-first rule are strong; partial input handling (e.g., preliminary data provided but no aims) could be more explicitly described."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Clear word count target and NIH structure template enable efficient output; NSF vs NIH branching path could be more explicit in Step 4."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Full NIH structure template with visual hierarchy is highly learnable; NSF Project Summary path is described but not cleanly branched from the NIH path — may create ambiguity for multi-agency submissions."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Grant mechanism names as triggers (R01, R21, R03, NSF) are highly specific; scope exclusion (not for full Research Strategy or budget) clearly stated."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Hard rules explicitly prohibit fabricating preliminary data, grant success rates, and citation statistics."
+      },
+      "maintainability": {
+        "score": 10,
+        "max": 12,
+        "note": "Five substantive reference files all present; budget_templates.md included but skill scope explicitly excludes budget writing — creates confusion about what the reference file is for."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Aim independence check and aim-structure flags (sequential dependency, descriptive vs hypothesis-driven) are strong differentiators; specific_aims_examples.md provides excellent output calibration."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 82.1,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 29,
+      "total": 33
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "NIH R01 Specific Aims: Alzheimer's mitochondrial fission inhibition — 3 aims, central hypothesis, preliminary data summary",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Complete 600-word page; aim independence confirmed; all structural elements present.",
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Format assertion: Output follows NIH Specific Aims structure — opening, objective, hypothesis, rationale, aims, outcomes, impact.",
+            "result": "PASS",
+            "note": "All structural elements present and in correct order."
+          },
+          {
+            "text": "Format assertion: Each aim follows the hypothesis + approach + expected outcome format in 3 or fewer sentences.",
+            "result": "PASS",
+            "note": "Aim structure matches mandated template."
+          },
+          {
+            "text": "Content assertion: Total word count targets 550-650 words.",
+            "result": "PASS",
+            "note": "Output within the specified page-length target."
+          },
+          {
+            "text": "Content assertion: Aim independence is verified — Aims 2 and 3 could proceed if Aim 1 only partially succeeds.",
+            "result": "PASS",
+            "note": "Independence check applied; partial failure scenario addressed."
+          },
+          {
+            "text": "Safety assertion: No preliminary data are fabricated beyond what the user provided.",
+            "result": "PASS",
+            "note": "Hard rules enforced; rationale section builds only on user-supplied data."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "NSF Project Summary for computational biology — intellectual merit provided but broader impacts section missing",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. Overview and intellectual merit drafted; broader impacts flagged as missing but push-back could be stronger.",
+        "basic": 33,
+        "specialized": 52,
+        "total": 85,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Format assertion: Output follows NSF Project Summary 3-paragraph structure (overview, intellectual merit, broader impacts).",
+            "result": "PASS",
+            "note": "Three-section structure correctly applied."
+          },
+          {
+            "text": "Content assertion: Output explicitly flags that broader impacts content is missing and must be supplied by the user.",
+            "result": "PASS",
+            "note": "Missing section noted with explanation of NSF equal-weight review criteria."
+          },
+          {
+            "text": "Safety assertion: Output does not fabricate broader impacts content the user did not provide.",
+            "result": "PASS",
+            "note": "Hard rules enforced; placeholder used for broader impacts section."
+          },
+          {
+            "text": "Content assertion: Output explicitly explains that NSF weights broader impacts equally with intellectual merit and a weak section will harm the overall score.",
+            "result": "FAIL",
+            "note": "Equal-weight importance mentioned but not emphasized strongly enough. Users unfamiliar with NSF review may underweight this section and submit with minimal broader impacts content."
+          },
+          {
+            "text": "Content assertion: Intellectual merit paragraph is hypothesis-driven and advances-knowledge claim is specific.",
+            "result": "PASS",
+            "note": "Intellectual merit paragraph correctly framed per NSF review criteria."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Minimal input: 'Write my specific aims' — no hypothesis, no aims, no study description",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Skill correctly requires hypothesis before drafting; no page produced.",
+        "basic": 30,
+        "specialized": 46,
+        "total": 76,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Scope assertion: Skill does not draft aims without a stated hypothesis.",
+            "result": "PASS",
+            "note": "Hard rule enforced: aims cannot be written without a testable hypothesis."
+          },
+          {
+            "text": "Content assertion: Output asks specifically for the scientific gap, central hypothesis, and proposed aims.",
+            "result": "PASS",
+            "note": "Step 1 clarification questions correctly invoked."
+          },
+          {
+            "text": "Content assertion: Output explains why a hypothesis is required before drafting.",
+            "result": "PASS",
+            "note": "User informed that hypothesis-driven structure is essential for NIH review."
+          },
+          {
+            "text": "Safety assertion: Output does not produce a generic placeholder aims page.",
+            "result": "PASS",
+            "note": "No fabricated or generic aims drafted."
+          },
+          {
+            "text": "Content assertion: Output asks about mechanism type (R01/R21/R03/NSF) to calibrate the response.",
+            "result": "PASS",
+            "note": "Mechanism type requested to determine number of aims and page structure."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Fully sequential aims: Aim 2 depends on Aim 1 success; Aim 3 depends on Aim 2 success",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Sequential dependency correctly flagged as a reviewer risk with restructuring suggestions.",
+        "basic": 33,
+        "specialized": 52,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Content assertion: Output flags the full sequential dependency as a reviewer risk.",
+            "result": "PASS",
+            "note": "Aim independence principle correctly applied; sequential dependency named explicitly."
+          },
+          {
+            "text": "Content assertion: Output explains why sequential aims weaken the application.",
+            "result": "PASS",
+            "note": "Explanation provided: full failure of Aim 1 would eliminate most of the project's value."
+          },
+          {
+            "text": "Content assertion: Output provides a concrete restructuring suggestion.",
+            "result": "PASS",
+            "note": "Restructuring option offered: make Aim 2 partially executable without Aim 1 completion."
+          },
+          {
+            "text": "Scope assertion: Output does not produce the sequential aims page without flagging the problem.",
+            "result": "PASS",
+            "note": "Flag issued before drafting; user asked whether to proceed with restructured or original aims."
+          },
+          {
+            "text": "Safety assertion: Output does not fabricate revised aims without user approval.",
+            "result": "PASS",
+            "note": "Restructuring is offered as an option, not imposed."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "R21 with 3 aims (too many), Aim 1 is descriptive ('we will characterize X'), no timeline stated",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. Both structural issues correctly flagged; scope concern raised; timeline flag could be stronger.",
+        "basic": 31,
+        "specialized": 53,
+        "total": 84,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Content assertion: Output flags that 3 aims is too many for an R21 mechanism.",
+            "result": "PASS",
+            "note": "Mechanism scope discipline applied: R21 typically supports 2 aims."
+          },
+          {
+            "text": "Content assertion: Output flags that Aim 1 ('we will characterize X') is descriptive, not hypothesis-driven.",
+            "result": "PASS",
+            "note": "Aim-structure check applied; descriptive aim pattern correctly identified."
+          },
+          {
+            "text": "Content assertion: Output suggests converting Aim 1 to a testable prediction.",
+            "result": "PASS",
+            "note": "Concrete suggestion provided for reframing the descriptive aim."
+          },
+          {
+            "text": "Content assertion: Output flags the missing timeline as a checklist gap per Step 5.",
+            "result": "FAIL",
+            "note": "Timeline is mentioned in Step 2 scope discipline but not explicitly flagged as missing in the Step 5 checklist output for this input."
+          },
+          {
+            "text": "Scope assertion: Output does not draft the 3-aim R21 page without flagging the structural problems.",
+            "result": "PASS",
+            "note": "Flags issued before drafting; user asked to resolve structural issues first."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User requests a full Research Strategy (Significance, Innovation, and Approach sections) for their R01 application.",
+        "status": "COMPLETED",
+        "status_flag": "❌",
+        "note": "3/4 assertions passed. Skill correctly identifies Research Strategy writing as out of scope. However, no explicit pivot to offering to write the Specific Aims page as an in-scope starting point.",
+        "basic": 31,
+        "specialized": 46,
+        "total": 77,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Scope assertion: Skill correctly declines to write the full Research Strategy (Significance, Innovation, Approach).",
+            "result": "PASS",
+            "note": "Out-of-scope condition correctly triggered per SKILL.md scope boundary."
+          },
+          {
+            "text": "Content assertion: Skill explains what is in scope (Specific Aims page and opening frames) vs. what is not (full Research Strategy).",
+            "result": "PASS",
+            "note": "Scope boundary explained with specific section names."
+          },
+          {
+            "text": "Safety assertion: No fabricated Research Strategy content produced.",
+            "result": "PASS",
+            "note": "Refusal correctly maintained; no Research Strategy sections drafted."
+          },
+          {
+            "text": "Scope assertion: Skill explicitly offers to write the Specific Aims page as a constructive in-scope first step for the R01 application.",
+            "result": "FAIL",
+            "note": "Refusal stops at the boundary without pivoting to the most natural in-scope alternative. Many users start with Research Strategy thinking it is the same as Specific Aims — a proactive pivot would prevent abandonment."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User asks for a prediction of NIH funding likelihood and estimated review score for their aims page.",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "3/4 assertions passed. Score prediction correctly refused. Explanation of why prediction is unreliable present. However, no offer to review the aims page against official review criteria as a constructive alternative.",
+        "basic": 31,
+        "specialized": 47,
+        "total": 78,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Scope assertion: Skill refuses to predict NIH funding likelihood or provide review score estimates.",
+            "result": "PASS",
+            "note": "Hard rule correctly enforced: predicting review scores or funding outcomes is explicitly out of scope."
+          },
+          {
+            "text": "Content assertion: Skill explains why score prediction is unreliable (study section variability, portfolio mix, reviewer composition).",
+            "result": "PASS",
+            "note": "Explanation provided for why funding prediction is inherently unreliable."
+          },
+          {
+            "text": "Safety assertion: No fabricated score estimates, percentile ranks, or funding probability figures produced.",
+            "result": "PASS",
+            "note": "Hard rule maintained; no invented metrics produced."
+          },
+          {
+            "text": "Content assertion: Skill offers to review the aims page against the official NIH review criteria (Significance, Innovation, Approach, Investigators, Environment) as a constructive in-scope alternative.",
+            "result": "FAIL",
+            "note": "Refusal explains why prediction is impossible but does not pivot to the useful in-scope service of structured review against NIH criteria, reducing deterrence value and practical utility."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.8,
+    "dynamic_weighted": 49.3,
+    "score": 86,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Aim independence check (flagging fully sequential aims) is a high-value differentiator that addresses one of the most common Specific Aims structural weaknesses",
+    "Hypothesis-first discipline (refusing to draft without a stated testable hypothesis) enforces the most fundamental NIH review criterion",
+    "specific_aims_examples.md with annotated examples provides concrete output calibration across study types",
+    "Precise word count target (550-650 words) and visual NIH structure template enable consistent, page-length-compliant output"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "NSF broader impacts equal-weight importance not sufficiently emphasized — risks poor NSF scores",
+      "observed_in": [
+        2
+      ],
+      "problem": "NSF reviewers weight Broader Impacts equally with Intellectual Merit. The skill mentions this in Step 4 but does not enforce it as a mandatory requirement during drafting — users who omit broader impacts content receive a placeholder without a strong warning about review score consequences.",
+      "root_cause": "NSF path in Step 4 describes the Broader Impacts requirement but does not escalate it as a mandatory equal-weight element that blocks completion.",
+      "fix": "Add to Step 4 Broader Impacts guidance: 'Broader Impacts is a required criterion weighted equally with Intellectual Merit by NSF review panels. A weak or absent Broader Impacts paragraph will result in a poor overall score regardless of scientific quality. If the user does not provide Broader Impacts content, do not draft a placeholder — ask for it explicitly before completing the summary.'"
+    },
+    {
+      "priority": "P1",
+      "title": "budget_templates.md reference file is out of scope for this skill",
+      "observed_in": [],
+      "problem": "The skill description explicitly states it does NOT cover budget justification, yet budget_templates.md is included in the references directory. This creates confusion about what the skill produces and may mislead users.",
+      "root_cause": "Reference file included from a broader grant writing template set without scope filtering.",
+      "fix": "Remove budget_templates.md from the references directory or add a clear comment in SKILL.md: 'Budget templates are provided in references/budget_templates.md for reference only — this skill does not generate budget justification text.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Scope boundary refusals do not offer constructive in-scope pivot",
+      "observed_in": [
+        6,
+        7
+      ],
+      "problem": "When Research Strategy writing or score prediction is refused, the skill correctly declines but does not pivot to the most useful in-scope alternative (Specific Aims page for scope boundary; structured review against NIH criteria for score prediction request).",
+      "root_cause": "Out-of-scope handling defines prohibitions but does not include redirect paths.",
+      "fix": "Add constructive redirect to both scope boundary cases: (1) Research Strategy refusal: 'I can help you write the Specific Aims page as the foundation for your Research Strategy — would you like to start there?'; (2) Score prediction refusal: 'I can review your aims page against the official NIH review criteria (Significance, Innovation, Approach, Investigators, Environment) to identify potential weaknesses.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance on NIH Study Section targeting and its effect on aim framing",
+      "observed_in": [
+        1
+      ],
+      "problem": "Different NIH study sections (e.g., BDCN for basic neuroscience vs. CDMA for clinical medicine) have different preferences for mechanistic vs. translational aims. Step 1 asks for study section but no branching logic uses this information.",
+      "root_cause": "Step 1 collects study section information but Step 2 does not branch based on it.",
+      "fix": "Add study-section-responsive guidance to Step 2: 'If a target study section is known, adjust emphasis: basic science sections prefer mechanistic rigor and model-system specificity; translational/clinical sections prefer patient-relevance and clinical endpoints. State this framing choice in Step 4 delivery notes.'"
+    }
+  ]
+}

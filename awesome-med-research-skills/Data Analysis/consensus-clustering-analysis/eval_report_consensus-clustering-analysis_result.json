@@ -1,0 +1,326 @@
+{
+    "meta": {
+        "skill_name": "consensus-clustering-analysis",
+        "description": "Identify robust molecular subtypes via consensus clustering (ConsensusClusterPlus). Inputs: expression matrix. Outputs: optimal k selection plot, consensus matrix heatmaps, subtype membership table, silhouette scores.",
+        "evaluated_on": "2026-04-17",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "Scientific integrity check completed without reportable redline findings."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "Practice boundaries check completed without reportable redline findings."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "Methodological ground check completed without reportable redline findings."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "The R code executed successfully in the test suite and all live audit runs."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 94,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 11,
+                "max": 12,
+                "note": "Dependency installation steps are not documented for first-run users."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "Recovery is strong, but there is no resumable checkpoint after partial method execution."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "Performance and context was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "Execution mode is implied by examples rather than explicitly labeled near the top."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Trigger language is slightly technical for non-specialist users."
+            },
+            "security": {
+                "score": 12,
+                "max": 12,
+                "note": "Security was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "maintainability": {
+                "score": 12,
+                "max": 12,
+                "note": "Maintainability was evaluated against the skill-auditor rubric; no blocking schema-level issue was recorded for this dimension."
+            },
+            "agent_specific": {
+                "score": 18,
+                "max": 20,
+                "note": "First-run environment setup and handoff guidance could be more explicit."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 93.2,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Default case-group run",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Selected pearson + hc with K=2 and PAC=0.0000.",
+                "basic": 39,
+                "specialized": 57,
+                "total": 96,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Alias-column group file",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Alias column detection succeeded and the seeded output matched the canonical run.",
+                "basic": 39,
+                "specialized": 57,
+                "total": 96,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Single-gene custom list",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Expected validation failure: SKILL_INVALID_DATA was emitted before clustering work started.",
+                "basic": 36,
+                "specialized": 50,
+                "total": 86,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Top-10 features with K=4",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Non-default parameters were respected; selected pearson + hc with K=2 and PAC=0.1895.",
+                "basic": 38,
+                "specialized": 55,
+                "total": 93,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Custom gene list with K=4",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Completed the broader method grid and selected euclidean + hc with K=4 and PAC=0.1421.",
+                "basic": 39,
+                "specialized": 56,
+                "total": 95,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Required outputs were generated for the audited workflow.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Input handling and validation behaved as documented.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "No unsupported medical or scientific claim fabrication was detected.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    },
+                    {
+                        "text": "Execution stayed within the stated Data Analysis skill scope.",
+                        "result": "PASS",
+                        "note": "The audited evidence supported this assertion."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 37.6,
+        "dynamic_weighted": 55.9,
+        "score": 94,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "Strong progressive disclosure keeps the main skill concise while deeper details live in references and modular scripts.",
+        "Input validation is robust and backed by a clear SKILL_* error taxonomy.",
+        "Reproducibility is strong through seed control, session capture, and deterministic reruns.",
+        "Engineering quality is high: modular R files, passing automated tests, and clean output contracts."
+    ],
+    "recommendations": [
+        {
+            "priority": "P1",
+            "title": "Add first-run dependency setup",
+            "observed_in": [],
+            "problem": "First-time users only learn about required packages after hitting a runtime dependency error.",
+            "root_cause": "The skill documents runtime usage well, but omits an upfront installation block.",
+            "fix": "Add a short setup section near the top of SKILL.md with install commands for optparse, data.table, and ConsensusClusterPlus. Keep it minimal and place it before the main usage example."
+        },
+        {
+            "priority": "P2",
+            "title": "Label the execution mode explicitly",
+            "observed_in": [],
+            "problem": "The skill is clearly runnable, but external routers or auditors may need to infer that it is an R CLI skill.",
+            "root_cause": "Execution mode is shown through examples rather than stated directly in a dedicated line.",
+            "fix": "Add one explicit sentence near the top that this skill is invoked with Rscript scripts/main.R. This improves routing clarity without changing behavior."
+        },
+        {
+            "priority": "P2",
+            "title": "Document dirty-data boundaries",
+            "observed_in": [
+                3
+            ],
+            "problem": "The skill validates core format issues well, but its documentation does not spell out expectations for NA values, missing sample overlap, or batch-effect preprocessing.",
+            "root_cause": "Current guidance focuses on the happy path and a small set of common errors.",
+            "fix": "Add a short preprocessing boundary section describing unsupported dirty-data conditions and when users should clean data before running the skill."
+        },
+        {
+            "priority": "P2",
+            "title": "Expand regression coverage for failure modes",
+            "observed_in": [
+                3
+            ],
+            "problem": "The current tests cover smoke runs and one invalid custom-gene case, but not several other negative-path validations.",
+            "root_cause": "Automated coverage is strongest for successful CLI flows and lighter for malformed inputs.",
+            "fix": "Add tests for NA or non-numeric expression matrices, missing sample overlap, and unsupported input extensions. This will lock in the current validation contract more completely."
+        }
+    ]
+}

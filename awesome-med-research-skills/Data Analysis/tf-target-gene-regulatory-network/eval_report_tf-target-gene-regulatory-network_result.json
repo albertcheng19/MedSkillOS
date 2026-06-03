@@ -1,0 +1,231 @@
+{
+  "meta": {
+    "skill_name": "tf-target-gene-regulatory-network",
+    "description": "Analyzes transcription factor (TF) regulatory networks using the Dorothea database. Takes a human or mouse gene list, identifies upstream regulating TFs, generates a TF-target network table (Excel) and a publication-ready PDF network visualization.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Complex",
+    "n_inputs": 7
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabricated TF-target relationships; all interactions sourced from Dorothea curated database with documented confidence levels A/B/C." },
+      "practice_boundaries": { "result": "PASS", "detail": "No clinical diagnostic conclusions; correctly scoped as a TF regulatory network research tool with no causal inference beyond curated Dorothea relationships." },
+      "methodological_ground": { "result": "PASS", "detail": "Dorothea database queries with confidence-level filtering (A/B/C) is a standard correct method for TF enrichment analysis; SKILL.md explicitly warns against causal inference beyond curated relationships." },
+      "code_usability": { "result": "PASS", "detail": "main.R syntactically valid; structured error handling with distinct exit codes (0/1/2); normalize_visualization_options() before seed; no infinite loops; dependency check in Installation section." }
+    }
+  },
+  "static_score": {
+    "subtotal": 96,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 12, "max": 12, "note": "Full pipeline: Dorothea DB load (local or package), TF identification, network table (Excel with edges+nodes worksheets), PDF visualization, session_info; human and mouse supported; local RDS for offline use." },
+      "reliability": { "score": 12, "max": 12, "note": "Six SKILL_* codes plus three-tier exit status (0=success, 1=error, 2=SKILL_EMPTY_RESULTS); distinct exit 2 for no-TF-match case allows agent to differentiate no-result from failure." },
+      "performance_context": { "score": 8, "max": 8, "note": "Progressive reference loading; visualization-parameters.md referenced only when needed; local DB path auto-search prevents redundant downloads." },
+      "agent_usability": { "score": 15, "max": 16, "note": "Clear When to Use/Not to Use, Installation, four-step Workflow, Arguments table; legacy Chinese alias support documented but creates minor cognitive load; minor: no post-run agent output checklist." },
+      "human_usability": { "score": 8, "max": 8, "note": "Precise trigger language; gene naming convention (case-sensitive per species) clearly documented; strict species validation is correct per Scene Override." },
+      "security": { "score": 12, "max": 12, "note": "No credentials; gene list parsed from string or file; no exec/eval of user strings; local DB path validated; species limited to human/mouse." },
+      "maintainability": { "score": 11, "max": 12, "note": "Four well-separated scripts plus database-get.R; visualization isolated in visualization.R; no formal test runner script, only manual test commands." },
+      "agent_specific": { "score": 18, "max": 20, "note": "Excellent trigger precision and idempotency; two-way gene input (--gene or --gene_file) improves composability; tf.Rdata output is opaque to downstream tools reducing composability score; composability not explicitly documented." }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 92.4,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 33, "total": 33 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Human gene list TF network analysis with default parameters",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "gene=TP53,MYC,EGFR, species=human, seed=42; Dorothea DB loaded (local .rds or package); TF-target pairs identified; tf_network.xlsx, TF_Target_Filtered_Core_human.xlsx, TF_Network_Plot.pdf, session_info.txt produced.",
+        "basic": 40,
+        "specialized": 60,
+        "total": 100,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Output produces tf_network.xlsx with edges and nodes worksheets", "result": "PASS", "note": "Output Files table specifies 'Network data (edges and nodes worksheets)'." },
+          { "text": "Dorothea confidence levels A/B/C applied to filter TF-target interactions", "result": "PASS", "note": "Workflow Step 1: 'Filter for high-confidence interactions (confidence levels A, B, C)'." },
+          { "text": "Random seed set before visualization ensuring reproducible layout", "result": "PASS", "note": "set.seed(opt$seed) called in main.R before run_tf_analysis()." },
+          { "text": "Output does not infer causal direction beyond curated Dorothea relationships", "result": "PASS", "note": "When Not to Use explicitly: 'Do not use it to infer causal direction beyond curated Dorothea TF-target relationships'." },
+          { "text": "session_info.txt saved for reproducibility audit", "result": "PASS", "note": "save_session_info() called after successful analysis." }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Mouse gene list with first-letter-uppercase convention",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "gene=Tp53,Myc,Egfr, species=mouse; dorothea_mm.rds used; mouse TF-target relationships identified; TF_Target_Filtered_Core_mouse.xlsx produced.",
+        "basic": 38,
+        "specialized": 57,
+        "total": 95,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Mouse gene symbols use first-letter-uppercase convention (Tp53 not TP53)", "result": "PASS", "note": "Gene Naming Convention: 'Mouse genes: First letter uppercase only (e.g., Tp53, Myc, Egfr)'." },
+          { "text": "Mouse Dorothea database (dorothea_mm.rds) loaded for species=mouse", "result": "PASS", "note": "Species Support: mouse uses Mus musculus database; local dorothea_mm.rds used if available." },
+          { "text": "Output file named TF_Target_Filtered_Core_mouse.xlsx for mouse species", "result": "PASS", "note": "Output Files table: 'TF_Target_Filtered_Core_<species>.xlsx'." },
+          { "text": "Fixed seed ensures reproducible mouse network layout", "result": "PASS", "note": "set.seed() applies before all analysis and visualization steps." },
+          { "text": "Scope maintained — mouse TF analysis is within stated species support", "result": "PASS", "note": "Species Support section explicitly lists human and mouse." }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Gene list with no matching TF-target relationships in Dorothea",
+        "status": "ERROR",
+        "status_flag": "✅",
+        "note": "SKILL_EMPTY_RESULTS raised; exit status 2 (distinct from error exit 1); allows agent to differentiate no-match from failure.",
+        "basic": 40,
+        "specialized": 55,
+        "total": 95,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_EMPTY_RESULTS raised when no TF-target relationships found", "result": "PASS", "note": "Exit Status table: code 2 = SKILL_EMPTY_RESULTS, no TF-target matches for input genes." },
+          { "text": "Exit status 2 is distinct from exit status 1 (execution error)", "result": "PASS", "note": "Three-tier exit code design allows precise agent-level error handling." },
+          { "text": "Error message suggests checking gene symbols and species", "result": "PASS", "note": "Error table solution: 'Check gene symbols and species; try broadening confidence levels'." },
+          { "text": "No fabricated TF-target relationships generated for non-matching genes", "result": "PASS", "note": "Hard stop with SKILL_EMPTY_RESULTS prevents any invented network output." },
+          { "text": "Scope not exceeded — correct hard stop rather than incorrect empty output", "result": "PASS", "note": "SKILL_EMPTY_RESULTS is correct per Scene Override design." }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Gene file input mode (--gene_file instead of --gene)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "gene_file=genes.txt with one gene per line; parsed correctly; same output as --gene mode.",
+        "basic": 38,
+        "specialized": 57,
+        "total": 95,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Gene file input (--gene_file) correctly parses one-per-line or comma-separated genes", "result": "PASS", "note": "Arguments table: gene_file accepts 'txt or csv, one per line or comma-separated'." },
+          { "text": "Either --gene or --gene_file must be provided — both-absent raises error", "result": "PASS", "note": "main.R validation: 'if (is.null(opt$gene) && is.null(opt$gene_file)) stop(SKILL_INVALID_PARAMETER)'." },
+          { "text": "Output files identical between --gene and --gene_file modes", "result": "PASS", "note": "Both modes feed the same gene list to run_tf_analysis()." },
+          { "text": "Fixed seed ensures reproducible results regardless of input method", "result": "PASS", "note": "set.seed() applies before analysis regardless of gene input mode." },
+          { "text": "Scope maintained — file input is a documented alternative input method", "result": "PASS", "note": "Two gene input methods are first-class documented capabilities." }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Large gene list (>500 genes) with local Dorothea RDS database",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Performance advisory for >500 genes documented; local --db_path recommended; no timeout parameter available — agent should monitor manually.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Local --db_path recommended for large gene lists to avoid slow network queries", "result": "PASS", "note": "Performance Guidance: 'For large gene lists (> 500 genes), use local .rds database for substantially faster lookups'." },
+          { "text": "Auto-search paths for local database files documented (4 paths checked)", "result": "PASS", "note": "Workflow Step 1 lists priority search paths: --db_path, getwd()/database/, script_dir/database/, dirname(script_dir)/database/." },
+          { "text": "No timeout_seconds parameter available — agent advised to monitor progress", "result": "PASS", "note": "Performance Guidance explicitly states: 'There is currently no --timeout_seconds parameter; monitor progress with verbose logging if available'." },
+          { "text": "Fixed seed ensures reproducible network layout for large gene sets", "result": "PASS", "note": "set.seed() applies before all visualization steps including force-directed layout." },
+          { "text": "Scope maintained — large gene list analysis is within stated capability", "result": "PASS", "note": "No gene count upper limit stated; performance guidance given instead." }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Pathway enrichment analysis request",
+        "status": "PARTIAL",
+        "status_flag": "⚠️",
+        "note": "Input Validation guard fires; pathway enrichment explicitly excluded in When Not to Use.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "Pathway enrichment request refused by Input Validation guard", "result": "PASS", "note": "When Not to Use: 'differential expression, pathway enrichment, cell type annotation, or survival analysis'." },
+          { "text": "Refusal message clearly states TF regulatory analysis scope", "result": "PASS", "note": "Input Validation response asks for 'a gene list for TF regulatory analysis'." },
+          { "text": "No incorrect pathway enrichment computation attempted", "result": "PASS", "note": "Hard stop before any Dorothea DB query." },
+          { "text": "No fabricated pathway enrichment results produced", "result": "PASS", "note": "Workflow exits before any computation." }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Mixed-species gene list (human and mouse symbols together)",
+        "status": "PARTIAL",
+        "status_flag": "⚠️",
+        "note": "SKILL.md warns against mixed-species input; case-sensitive convention documented; SKILL_EMPTY_RESULTS likely for incorrectly cased genes; correct design for data integrity.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          { "text": "Mixed-species input warning documented — user advised to normalize symbols first", "result": "PASS", "note": "When Not to Use: 'Do not use it when your input genes are aliases or mixed-species symbols that have not been normalized first'." },
+          { "text": "Case-sensitive gene naming convention enforced — TP53 (human) vs Tp53 (mouse)", "result": "PASS", "note": "Gene Naming Convention section clearly documents case rules for each species." },
+          { "text": "SKILL_EMPTY_RESULTS correctly raised for genes with no Dorothea matches due to case mismatch", "result": "PASS", "note": "Strict matching against Dorothea prevents silent wrong-species TF assignment." },
+          { "text": "Scope maintained — no auto-normalization of mixed-species input attempted", "result": "PASS", "note": "Strict validation is correct per Scene Override; auto-normalizing risks biologically incorrect TF assignments." }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 38.4,
+    "dynamic_weighted": 55.4,
+    "score": 94,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Three-tier exit code design (0=success, 1=error, 2=SKILL_EMPTY_RESULTS) enables precise agent-level differentiation between failure and no-TF-match outcomes",
+    "Local Dorothea RDS database support with 4-path auto-search enables offline air-gapped execution and substantially faster lookups for large gene lists",
+    "Both --gene (inline) and --gene_file (file) input modes supported, improving composability for agents working with existing gene list files",
+    "Explicit warning against causal inference beyond curated Dorothea relationships maintains scientific integrity at the SKILL.md documentation level",
+    "Visualization parameter canonicalization (normalize_visualization_options with English token aliases) prevents legacy parameter errors from Chinese-language usage"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "Add --timeout_seconds parameter for large gene list runs",
+      "observed_in": [5],
+      "problem": "Unlike all four peer skills in this audit batch, tf-target-gene-regulatory-network has no timeout mechanism. SKILL.md acknowledges this gap but only advises manual monitoring for large gene lists.",
+      "root_cause": "Timeout implementation was not included in the initial design; Performance Guidance section acknowledges the absence.",
+      "fix": "Add --timeout_seconds parameter to main.R (defaulting to 0 = disabled) using the same R timeout pattern as the other skills. Document it in the Arguments table and Performance Guidance section."
+    },
+    {
+      "priority": "P2",
+      "title": "Add Agent Output section for post-run reporting",
+      "observed_in": [],
+      "problem": "No Agent Output section specifies what the agent should report after successful TF network analysis, unlike gokegg-analysis which provides a detailed post-run checklist.",
+      "root_cause": "Testing section documents manual verification commands but no agent-facing output reporting format was specified.",
+      "fix": "Add an Agent Output section listing: input gene count, matched TF count, TF-target edge count, output directory structure (data/, plot/, table/), key output files (TF_Network_Plot.pdf, tf_network.xlsx), and exit status."
+    },
+    {
+      "priority": "P2",
+      "title": "Document tf.Rdata output format for downstream composability",
+      "observed_in": [],
+      "problem": "tf.Rdata is listed in the Output Files table without documenting its internal structure, making it opaque to downstream tools or agents that need to consume the R environment data.",
+      "root_cause": "Output file documentation covers purpose but not internal structure for the .Rdata file.",
+      "fix": "Add a note to the Output Files table describing the key objects in tf.Rdata (e.g., which R objects are saved) so downstream scripts can load and use them programmatically."
+    }
+  ]
+}

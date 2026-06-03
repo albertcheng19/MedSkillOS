@@ -1,0 +1,1 @@
+Judge maturity separately from hype. Useful maturity bins include: exploratory biology, tractable early-stage concept, preclinical development zone, translationally bridged clinical-entry zone, clinically active but crowded, and guideline- or practice-adjacent. Strategic openness should be judged separately as high, moderate, low, or structurally difficult.

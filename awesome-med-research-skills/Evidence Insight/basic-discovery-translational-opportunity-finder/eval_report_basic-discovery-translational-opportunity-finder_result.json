@@ -1,0 +1,452 @@
+{
+  "meta": {
+    "skill_name": "basic-discovery-translational-opportunity-finder",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Finds translational opportunities connecting basic-research discoveries to clinically meaningful use cases. Polished: Step 1.5 check-in added; Limited Evidence Mode for mechanism-only inputs; composability handoffs to sibling skills; multi-mechanism handling protocol; retrieval fallback labeling."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard rule 10 explicitly prohibits fabricating references, PMIDs, DOIs, trial identifiers, validation status, dataset access, or translational precedents. Hard rule 11 prohibits inventing assay feasibility or clinical interface evidence."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Explicit out-of-scope redirect template for patient-specific diagnosis, prognosis, or treatment decisions. Skill is framed as field-level translational mapping, not clinical guidance."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Hard rules 3-4 prevent treating mechanistic findings as clinically actionable; animal-only evidence is not presented as sufficient translational proof. Hard rules 13-14 prevent novelty-as-value conflation."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A direct execution skill; no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 83,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. 9-section output (A-I) with 4 mandatory comparison tables covers all stated functions. 7 reference files mapped to specific output sections. 10 translational use-case types and 8 discovery-unit classes provide comprehensive coverage. 15 hard rules enforce core behaviors."
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Fault Tolerance (3/4): explicit assumptions in Step 1 for underspecified inputs; Step 8 self-critical review as output reliability gate. Error Reporting (3/4): Step 1 states 'narrow it before formal mapping; state assumptions explicitly.' No mandatory clarification protocol before full output. Recoverability (3/4): stateless skill; Section I (self-critical risk review) provides post-hoc reliability signal."
+      },
+      "performance_context": {
+        "score": 5,
+        "max": 8,
+        "note": "Token Cost (2/4): 4 mandatory comparison tables + 9 sections will produce very long outputs; no output-length guidance or scope-compression instruction for simpler inputs. Execution Efficiency (3/4): 8-step workflow logical; reference modules named at specific steps; no redundant passes."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "Learnability (4/4): 5 sample triggers with disease/mechanism context; rich scope boundary. Consistency (4/4): mandatory A-I sections with table-first formatting enforced. Feedback Design (2/4): no check-in before producing complex 9-section analysis; full output delivered in one pass without intermediate validation. Error Prevention (4/4): 15 hard rules + self-critical review + explicit out-of-scope redirect."
+      },
+      "human_usability": {
+        "score": 6,
+        "max": 8,
+        "note": "Discoverability (3/4): 5 sample triggers, explicit what-it-is-not examples. Forgiveness (3/4): scope redirect for out-of-scope; assumptions stated explicitly in Step 1."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. No eval/exec on user input; no credential handling; no injection vectors. Hard rules 10-11 provide explicit fabrication prohibition."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Modularity (4/4): 7 reference files with distinct operational scopes, each mapped to named output sections. Modifiability (4/4): each reference file independently updatable; SKILL.md workflow maps modules to specific steps. Testability (3/4): 9-section + 4-table structure makes evaluation systematic; no quantitative rubric for bridge-evidence quality but output structure supports assertion-based review."
+      },
+      "agent_specific": {
+        "score": 14,
+        "max": 20,
+        "note": "Trigger Precision (4/4): 5 triggers with specific contexts; 'not a clinical recommendation tool' distinction sharp. Progressive Disclosure (2/4): no check-in after Step 1 (discovery definition) before proceeding to full 9-section analysis. Composability (2/4): no explicit composability with drug-target-evidence-landscape, biomarker-landscape-scanner, or other Evidence Insight skills. Idempotency (3/4): same finding → same translational map structure; minor variance in prose. Escape Hatches (3/4): out-of-scope redirect template; Section I self-critical review; lacks 'stop here' instruction for inputs with no defensible translational path."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 81.7,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 33,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "HIF-1α pathway in non-small cell lung cancer — broad translational scan",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All 9 sections produced. Section C table lists 5+ paths (therapeutic target, prognosis, anti-angiogenic response prediction, monitoring, trial enrichment). Bridge-evidence labeled as 'outcome-linked' for prognosis; 'partial' for treatment-response. Section I notes competitive landscape (many anti-HIF/anti-VEGF therapies) as key overclaim risk.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 9 mandatory sections (A through I) are present",
+            "result": "PASS",
+            "note": "Topic Framing through Self-Critical Risk Review all produced."
+          },
+          {
+            "text": "Section C provides a table-first opportunity map with at least 3 labeled translational paths",
+            "result": "PASS",
+            "note": "At least 5 paths (therapeutic target, prognosis, treatment-response, monitoring, trial enrichment) in table format."
+          },
+          {
+            "text": "Bridge-evidence levels are explicitly labeled for each path using bridge-evidence-framework.md levels",
+            "result": "PASS",
+            "note": "Each path labeled: 'outcome-linked', 'partial', 'mechanism-plus-disease-association', etc."
+          },
+          {
+            "text": "Hard rule 3 upheld: no path labeled as 'immediately clinically actionable' without outcome-linked bridge evidence",
+            "result": "PASS",
+            "note": "Sections D-F correctly distinguish maturity levels; therapeutic development path correctly labeled as not yet deployable."
+          },
+          {
+            "text": "Section I (Self-Critical Risk Review) identifies at least one overclaim risk and one most-important missing link",
+            "result": "PASS",
+            "note": "Section I notes competitive landscape risk and missing biomarker validation cohort as key uncertainty."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "p16/CDKN2A loss in pancreatic ductal adenocarcinoma — diagnostic and therapeutic paths",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Discovery unit classified as 'perturbational/target-like'. Section C covers diagnostic biomarker (liquid biopsy), early detection, prognosis, synthetic lethality. Bridge evidence strong for diagnostic/prognostic; partial for synthetic lethality. Specificity limitation (common across cancers) correctly flagged as main diagnostic barrier.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 9 mandatory sections present",
+            "result": "PASS",
+            "note": "All sections produced."
+          },
+          {
+            "text": "Discovery unit explicitly classified using discovery-unit-framework.md (perturbational / target-like)",
+            "result": "PASS",
+            "note": "Section A classifies: tumor suppressor loss, perturbational, target-like dependency."
+          },
+          {
+            "text": "Specificity limitation (CDKN2A deletion common across cancers, not PDAC-specific) flagged in barrier analysis",
+            "result": "PASS",
+            "note": "Section F barrier table correctly notes pan-cancer prevalence reduces diagnostic specificity for PDAC."
+          },
+          {
+            "text": "Feasibility/burden table assesses both liquid biopsy and IHC-based diagnostic paths",
+            "result": "PASS",
+            "note": "Section E differentiates assay burden for IHC (lower), cfDNA/liquid biopsy (moderate), and functional synthetic lethality screens (high)."
+          },
+          {
+            "text": "Hard rule 4 upheld: model-only evidence for synthetic lethality not presented as sufficient clinical evidence",
+            "result": "PASS",
+            "note": "Synthetic lethality path labeled 'mechanism-plus-disease-association'; preclinical validation requirement stated."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Newly discovered RNA-binding protein in mouse liver scRNA-seq — underspecified, mouse-only",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Step 1 narrows: mouse-only; gene identity unspecified; no human ortholog evidence stated. Section A lists explicit assumptions. All opportunity paths labeled with bridge level 'mechanism-only signal'. Section I identifies human validation as most important missing link. Minor weakness: opportunity map still produces 3 generic paths (biomarker, target, mechanism study) that may apply to any stellate cell gene rather than this specific protein.",
+        "basic": 32,
+        "specialized": 45,
+        "total": 77,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Step 1 explicitly narrows the underspecified discovery before formal mapping, listing assumptions made",
+            "result": "PASS",
+            "note": "Section A states: 'Assumed: stellate cell activation role; mouse model only; no human ortholog evidence provided; discovery unit = single-gene expression signal.'"
+          },
+          {
+            "text": "All opportunity paths in Section C labeled with bridge evidence level 'mechanism-only signal'",
+            "result": "PASS",
+            "note": "Bridge-evidence table correctly labels all paths as mechanism-only; human relevance = 'not established'."
+          },
+          {
+            "text": "Hard rule 4 upheld: mouse-only evidence not presented as sufficient translational proof",
+            "result": "PASS",
+            "note": "All paths rated 'premature'; Section H recommends first establishing human ortholog expression before any translational mapping."
+          },
+          {
+            "text": "Section I identifies human validation as most important missing evidence link",
+            "result": "PASS",
+            "note": "Section I correctly identifies 'human ortholog expression in hepatic fibrosis samples' as the critical missing link."
+          },
+          {
+            "text": "Section C opportunity paths are specific to the stellate cell RNA-binding protein discovery, not generic to any liver gene",
+            "result": "FAIL",
+            "note": "Paths (fibrosis biomarker, stellate cell target, RNA-binding activity assay) are plausible but lack protein-specific reasoning; output reads as generic stellate cell translational options rather than reasoning from the specific gene's RBP function."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Gut microbiome dysbiosis signature in rheumatoid arthritis — observational, weak mechanistic bridge",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Discovery type correctly classified as 'correlational/omics signature'. Causality unproven explicitly flagged. Section C paths: stratification (RA subtype), diet/intervention trial enrichment, monitoring. Therapeutic development path correctly deprioritized. Barriers: high intra-individual microbiome variability; absence of mechanism.",
+        "basic": 33,
+        "specialized": 49,
+        "total": 82,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 9 mandatory sections present",
+            "result": "PASS",
+            "note": "All sections produced."
+          },
+          {
+            "text": "Discovery type labeled 'correlational' not 'mechanistic' in Section A",
+            "result": "PASS",
+            "note": "Section A: 'omics-derived correlational signature; mechanism unknown; no intervention data.'"
+          },
+          {
+            "text": "Causal relationship between microbiome and RA is explicitly stated as unproven",
+            "result": "PASS",
+            "note": "Section F barrier table: 'Causality unproven — confounded by diet, medication, disease activity.'"
+          },
+          {
+            "text": "Therapeutic development path correctly deprioritized due to causal uncertainty",
+            "result": "PASS",
+            "note": "Section G: therapeutic development labeled 'not worth prioritizing now'; reason: causal mechanism absent."
+          },
+          {
+            "text": "Microbiome variability and reproducibility are identified as main implementation barriers",
+            "result": "PASS",
+            "note": "Section E: high assay/sample burden; Section F: low reproducibility risk flagged for 16S-based signatures."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Ferroptosis + autophagy + immune checkpoint co-regulation in HER2+ breast cancer — multi-mechanism",
+        "status": "COMPLETED",
+        "status_flag": "⚠️",
+        "note": "Multi-mechanism input creates risk of generic literature review behavior. Section C produced with separate paths per mechanism (9+ total). Barrier table present. Priority summary correctly identifies most premature paths. However, the output shows signs of genericness: some paths read as 'X mechanism → possible target' without distinguishing what is unique about the HER2+ context for each mechanism.",
+        "basic": 30,
+        "specialized": 44,
+        "total": 74,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 9 mandatory sections present",
+            "result": "PASS",
+            "note": "All sections produced."
+          },
+          {
+            "text": "Each mechanism (ferroptosis, autophagy, immune checkpoint) receives separate entry in Section C opportunity table",
+            "result": "PASS",
+            "note": "9 paths produced: 3 per mechanism axis."
+          },
+          {
+            "text": "Output avoids collapsing into a generic literature review (maintains decision-orientation per output-section-guidance.md)",
+            "result": "FAIL",
+            "note": "Section B and portions of Section C read as mechanism summaries rather than translational decision reasoning. Hard to distinguish HER2+-specific translational logic from generic breast cancer translational logic."
+          },
+          {
+            "text": "Hard rule 13 applied: novelty of co-regulation not treated as sufficient translational value",
+            "result": "PASS",
+            "note": "Section I correctly flags: 'co-regulation novelty is biologically interesting but does not constitute a translational path.'"
+          },
+          {
+            "text": "Feasibility/burden table compares multi-mechanism paths on all 7 dimensions",
+            "result": "PASS",
+            "note": "Section E table covers assay burden, sample access, method complexity, validation, timeline, dependency, and implementation friction for at least 6 of 9 paths."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Patient-specific treatment decision — out-of-scope clinical recommendation request",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Out-of-scope redirect correctly produced. No treatment recommendation made. No fabricated clinical guidance generated.",
+        "basic": 37,
+        "specialized": 50,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill produces out-of-scope redirect rather than attempting a clinical treatment recommendation",
+            "result": "PASS",
+            "note": "Redirect produced using template: 'This skill maps translational opportunities from basic-research findings at the field level. Your request requires patient-specific clinical interpretation...'"
+          },
+          {
+            "text": "No clinical treatment recommendation for the individual patient is produced",
+            "result": "PASS",
+            "note": "No pembrolizumab dosing, sequencing, or clinical decision guidance generated."
+          },
+          {
+            "text": "No fabricated clinical evidence or outcome data is generated to justify treatment",
+            "result": "PASS",
+            "note": "Hard rule 10 upheld; no fabricated trial results, response rates, or safety data."
+          },
+          {
+            "text": "Redirect is concise and does not attempt partial answering before redirecting",
+            "result": "PASS",
+            "note": "Redirect delivered directly without attempting to partially address the clinical question first."
+          },
+          {
+            "text": "Skill correctly identifies the request as patient-specific (not field-level translational research)",
+            "result": "PASS",
+            "note": "Out-of-scope classification accurate: request is for individual patient management, not translational research mapping."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Vague 'cytokine storm finding' with user claiming breakthrough requiring immediate clinical translation",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Step 1 correctly narrows the underspecified discovery ('cytokine storm' without disease context, specific cytokine, or assay). User's 'ready' framing not validated. Hard rules 13-14 applied. Section I identifies overclaiming risk as primary concern. Section H correctly recommends defining the discovery unit before any translational mapping.",
+        "basic": 33,
+        "specialized": 48,
+        "total": 81,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Hard rule 1 applied: discovery unit narrowed from 'cytokine storm finding' before formal mapping proceeds",
+            "result": "PASS",
+            "note": "Section A requests: disease context, specific cytokine(s), assay type, and model system before formal mapping can begin."
+          },
+          {
+            "text": "User's 'clearly a breakthrough, ready for translation' framing is not validated in Section A or H",
+            "result": "PASS",
+            "note": "Section A explicitly: 'Translational readiness requires bridge evidence; this cannot be assumed from study description.' Section H does not confirm 'ready'."
+          },
+          {
+            "text": "Section I identifies overclaiming risk from user's premature 'ready' framing",
+            "result": "PASS",
+            "note": "Section I: 'Most likely place to overclaim: treating the user-asserted readiness as a substitute for bridge-evidence evaluation.'"
+          },
+          {
+            "text": "Hard rule 14 applied: recommendation not driven by the finding being fashionable or user-asserted as important",
+            "result": "PASS",
+            "note": "Section H: recommendation contingent on evidence evaluation, not user claim of importance."
+          },
+          {
+            "text": "No fabricated clinical validation, trial status, or deployment evidence is generated to support the user's framing",
+            "result": "PASS",
+            "note": "Hard rules 10-11 upheld; no invented translation precedents."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 33.2,
+    "dynamic_weighted": 49.0,
+    "score": 82,
+    "max": 100,
+    "grade": "Limited Release",
+    "grade_symbol": "✅",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "7 reference files with distinct operational scopes, each mapped to named output sections and workflow steps — the most structured reference integration architecture encountered in the Evidence Insight category",
+    "15 hard rules including unusual protections: rules 13-14 explicitly guard against 'fashionable' recommendations and novelty-as-value conflation, preventing a common failure mode in translational framing",
+    "9-section output with 4 mandatory comparison tables (bridge evidence, feasibility/burden, barriers, priority) enforces multi-dimensional analysis and prevents single-dimension opportunity framing",
+    "Self-critical Section I is a mandatory uncertainty-surfacing gate after analysis completion — not a soft suggestion",
+    "Out-of-scope redirect template with explicit patient-specific clinical decision exclusion prevents misuse for direct medical advice"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No progressive disclosure or check-in before 9-section analysis — all complexity delivered at once",
+      "observed_in": [
+        1,
+        2,
+        5
+      ],
+      "problem": "The skill delivers a full 9-section analysis with 4 comparison tables in one pass, even for moderately specified inputs. No intermediate check-in after Step 1 (discovery definition) allows user to validate framing before the full map is generated.",
+      "root_cause": "SKILL.md workflow has no check-in step between Step 1 (define discovery) and Steps 2-8 (full analysis).",
+      "fix": "Add an optional Step 1.5 check-in: after defining the discovery unit and scan objective, surface the assumed scope and ask: 'I will map [N] translational paths for [discovery unit] in [disease context]. Proceed, or refine scope first?' This prevents wasted effort on wrong framing."
+    },
+    {
+      "priority": "P1",
+      "title": "Performance/context score weak — no scope-compression mechanism for simpler inputs",
+      "observed_in": [
+        3,
+        4
+      ],
+      "problem": "All inputs, regardless of evidence density or complexity, trigger the full 9-section analysis. For underspecified inputs (mouse-only, correlational signature), the full table structure with 4 comparison tables produces excessive output relative to the evidence available.",
+      "root_cause": "SKILL.md mandates the full output structure without a simplified mode for evidence-thin inputs.",
+      "fix": "Add a 'Limited Evidence Mode' trigger: if bridge evidence is 'mechanism-only' for all paths, collapse Sections D-F into a single combined table and add a flag: 'Full opportunity analysis deferred pending human-level bridge evidence.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No composability with sibling Evidence Insight skills",
+      "observed_in": [
+        1,
+        2
+      ],
+      "problem": "No explicit handoff to drug-target-evidence-landscape (for therapeutic development paths), biomarker-landscape-scanner (for diagnostic/prognostic paths), or evidence-level-ranker (for bridge evidence quality). Users with a strong translational path identified have no guidance on next-skill routing.",
+      "root_cause": "SKILL.md defines a standalone scope without downstream composability instructions.",
+      "fix": "Add a Section H composability note: 'For therapeutic development paths, see drug-target-evidence-landscape. For biomarker paths, see biomarker-landscape-scanner. For bridge evidence quality ranking, see evidence-level-ranker.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Multi-mechanism inputs risk generic literature review behavior in Sections B-C",
+      "observed_in": [
+        5
+      ],
+      "problem": "When 3+ intersecting mechanisms are provided, Section C opportunity paths risk becoming generic mechanism summaries rather than decision-oriented translational analysis. Output-section-guidance.md warns against this but no specific multi-mechanism handling protocol exists.",
+      "root_cause": "SKILL.md has no instruction for handling multi-mechanism inputs; Step 3 lists paths for single-discovery-unit scenarios.",
+      "fix": "Add a multi-discovery handling note to Step 3: 'For inputs with 3+ mechanisms, first identify whether mechanisms share a translational interface (e.g., all → immune evasion → checkpoint target) or represent independent paths. Map shared interfaces before individual paths.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Step 2 literature retrieval assumes search capability without offline fallback specification",
+      "observed_in": [
+        1,
+        2,
+        3
+      ],
+      "problem": "Step 2 instructs retrieval of peer-reviewed literature, but without live search capability the model may silently rely on training knowledge without labeling it as such.",
+      "root_cause": "No fallback behavior specified for offline execution.",
+      "fix": "Add retrieval-mode fallback: 'If live search is unavailable, label all evidence claims as based on training knowledge and prompt the user to provide key papers if high-precision evidence is needed.'"
+    }
+  ]
+}

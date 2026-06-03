@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "skill_name": "discussion-composer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Simple",
+    "n_inputs": 3,
+    "description": "Composes Discussion sections around key findings, mechanisms, clinical relevance, and limitations. Polished: citation placeholder density rule (max 4 per 400 words) added; discussion length calibration by manuscript type added; dead references removed."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated citations, studies, or findings detected. Hard rules mandate citation placeholders when prior literature is not provided."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No clinical recommendations beyond what evidence explicitly supports. Skill scope is discussion prose writing only."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies. Limitations rule (constraint → impact → mitigation) enforces honest and proportionate acknowledgment."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A text-output skill."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 86,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "6-part structure comprehensive; citation placeholder rule and limitations constraint→impact→mitigation format are practically valuable; no handling for multi-study manuscripts or meta-analysis discussion structure."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Step 3 revision checklist with 8 verifiable criteria is strong; citation placeholder explicitly prevents fabrication; ask-before-writing rule well-enforced."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Clean 4-step workflow with 3-part output (draft + placeholder note + assumptions); minor verbosity in optional inputs list."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Good sample triggers, 6-part template, and citation placeholder mechanism; feedback design via 3-part output and Step 3 checklist effective."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Rich trigger phrase list; scope boundary (not Introduction, Methods, or Results) clearly stated."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Hard rules prohibit fabricated citations, invented prior studies, and clinical recommendations beyond evidence."
+      },
+      "maintainability": {
+        "score": 6,
+        "max": 12,
+        "note": "Only audit-reference.md present (an audit config, not a modular rule file); dead references to references/guide.md and references/examples/ directory; all rules embedded inline in SKILL.md with no modular structure."
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Trigger precision and citation placeholder composability strong; dead reference assets reduce maintainability and confidence in completeness."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 81.0,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 14,
+      "total": 15
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Retrospective cohort study: HR 1.43 (95% CI 1.12-1.82), one prior study provided for comparison",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Complete 6-part discussion with correct citation, hedged language, and limitations in required format.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output follows 6-part discussion structure (opening, interpretation, literature comparison, implications, limitations, conclusion)",
+            "result": "PASS",
+            "note": "All 6 parts present and in correct order."
+          },
+          {
+            "text": "Provided prior study is cited and compared, not ignored",
+            "result": "PASS",
+            "note": "Literature comparison paragraph directly engages the user-provided prior study."
+          },
+          {
+            "text": "Limitations are formatted as constraint → impact on interpretation → mitigation/future direction",
+            "result": "PASS",
+            "note": "Limitations paragraph follows the required 3-part format."
+          },
+          {
+            "text": "Hedged language ('suggests', 'may reflect', 'is consistent with') used throughout interpretation",
+            "result": "PASS",
+            "note": "No inappropriate causal language in interpretation section."
+          },
+          {
+            "text": "No new data or results introduced in the Discussion that were not in the user's provided results",
+            "result": "PASS",
+            "note": "Hard rule enforced; discussion built only on user-provided findings."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Key findings provided but no prior literature — skill must use citation placeholders throughout",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. Citation placeholders used correctly; placeholder density slightly high for the discussion length.",
+        "basic": 33,
+        "specialized": 49,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output uses [CITE: ...] placeholders rather than invented citations",
+            "result": "PASS",
+            "note": "Hard rule enforced; no fabricated author names, journals, or findings."
+          },
+          {
+            "text": "Citation placeholders are specific enough to guide the user's literature search",
+            "result": "PASS",
+            "note": "Placeholders describe the type of study needed (e.g., '[CITE: cohort study reporting similar association in [population]]')."
+          },
+          {
+            "text": "Step 4 output explicitly notes all placeholders inserted and how many need to be filled",
+            "result": "PASS",
+            "note": "Placeholder summary note provided as required."
+          },
+          {
+            "text": "Placeholder density is proportionate to discussion length (not excessive relative to prose)",
+            "result": "FAIL",
+            "note": "7 citation placeholders in a 380-word discussion creates a placeholder-heavy output that may read as incomplete rather than a starting draft. Guideline needed for max placeholder density."
+          },
+          {
+            "text": "Discussion remains readable and interpretable despite placeholders",
+            "result": "PASS",
+            "note": "Prose structure and argument logic are intact despite placeholder presence."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Minimal input: 'Write my discussion' — no findings, no research question",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Input collection triggered correctly; no discussion drafted.",
+        "basic": 30,
+        "specialized": 46,
+        "total": 76,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill does not draft discussion without key results and research question",
+            "result": "PASS",
+            "note": "Input validation rule correctly invoked."
+          },
+          {
+            "text": "Output asks specifically for primary finding (with quantitative detail) and research question",
+            "result": "PASS",
+            "note": "Questions target the mandatory inputs named in Step 1."
+          },
+          {
+            "text": "Output also asks about tone/depth preference (brief vs full discussion)",
+            "result": "PASS",
+            "note": "Optional calibration question included."
+          },
+          {
+            "text": "Output does not invent findings or fabricate a placeholder discussion",
+            "result": "PASS",
+            "note": "Hard rules enforced; no invented content."
+          },
+          {
+            "text": "Output communicates the 6-part structure that will be applied once inputs are provided",
+            "result": "PASS",
+            "note": "User informed of expected output structure."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.4,
+    "dynamic_weighted": 48.6,
+    "score": 83,
+    "max": 100,
+    "grade": "Limited Release",
+    "grade_symbol": "✅",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Citation placeholder rule ([CITE: study showing...]) prevents fabrication while keeping the discussion structurally complete — a practical and safe design choice for a writing skill",
+    "Limitations format (constraint → impact → mitigation) provides concrete structural guidance that prevents the common failure of listing limitations without explanation",
+    "Step 3 revision checklist with 8 verifiable criteria enables systematic self-audit before delivery",
+    "Clear distinction between Discussion scope and other section types (Introduction, Methods, Results) prevents scope creep"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Dead references to guide.md, examples/ directory, and scripts/main.py in SKILL.md",
+      "observed_in": [],
+      "problem": "SKILL.md references references/guide.md, references/examples/, and (via audit-reference.md) scripts/main.py — none of these exist. The missing guide.md was presumably intended to hold detailed examples, style guidance, and templates. Without it, the skill lacks supplementary reference material.",
+      "root_cause": "Files referenced during authoring but never created; no file existence validation at deployment.",
+      "fix": "Create references/guide.md with: (1) 2 annotated example discussion paragraphs for different study types, (2) a hedging language vocabulary list, (3) a citation placeholder format standard. Remove the reference to scripts/main.py or create the script."
+    },
+    {
+      "priority": "P1",
+      "title": "No guidance on maximum citation placeholder density",
+      "observed_in": [
+        2
+      ],
+      "problem": "When users provide no prior literature, the skill generates many citation placeholders, which can make a 400-word draft feel incomplete and unreadable. No density limit is defined.",
+      "root_cause": "Literature comparison rules require placeholders for all literature comparison points but set no upper bound on placeholder count.",
+      "fix": "Add a placeholder density rule: 'Limit citation placeholders to a maximum of 4 per 400 words of discussion. For additional comparison points, note at the end of the section: [Additional literature comparison points identified — user to supply 2-3 relevant studies for the following claims: ...] rather than inserting inline placeholders for every comparison.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No discussion length calibration by manuscript type or journal tier",
+      "observed_in": [
+        1
+      ],
+      "problem": "The skill asks for brief (3-4 paragraphs) vs full (6+ paragraphs) but does not map these to specific manuscript types or journal expectations. A Nature letter discussion is 1-2 paragraphs; an original research article in a specialty journal may be 600-900 words.",
+      "root_cause": "Tone/depth input in Step 1 is open-ended without examples.",
+      "fix": "Add length calibration examples to Step 1: 'Brief (3–4 paragraphs, ~300–400 words): short communications, case reports, letters. Standard (5–6 paragraphs, ~500–700 words): original research articles in specialty journals. Extended (7+ paragraphs, ~800–1000 words): high-impact journals, multi-finding studies, studies with substantial prior literature to engage.'"
+    }
+  ]
+}

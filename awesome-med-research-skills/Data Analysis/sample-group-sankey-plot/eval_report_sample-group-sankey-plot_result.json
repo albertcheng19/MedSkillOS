@@ -1,0 +1,177 @@
+{
+  "meta": {
+    "skill_name": "sample-group-sankey-plot",
+    "description": "Generates Sankey or alluvial plots from sample annotation tables where rows are samples and selected columns are categorical stages such as risk group, response status, subtype, or cohort labels. Exports annotations, lodes-format table, plot PDF, and session metadata.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabricated values; skill only visualizes existing categorical annotations; no statistical inference or data invention performed across all 5 inputs" },
+      "practice_boundaries": { "result": "PASS", "detail": "Skill produces visualization outputs only; no diagnostic claims or medical conclusions; no disclaimer required for a visualization tool" },
+      "methodological_ground": { "result": "PASS", "detail": "ggalluvial alluvial transformation is the correct approach for categorical flow visualization; no methodological fallacies detected; real citations (Brunson 2020) included in SKILL.md; readability advisories emitted for over-parameterized inputs" },
+      "code_usability": { "result": "PASS", "detail": "scripts/main.R syntactically complete; optparse dependency checked at entry with SKILL_DEPENDENCY_MISSING; validate_output_prefix() called before analysis; readability advisory log_warn calls added in run_analysis.R; no infinite loops" }
+    }
+  },
+  "static_score": {
+    "subtotal": 95,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 11, "max": 12, "note": "All use cases covered including Agent Response Contract and readability advisories; minor deduction for session_info overhead in a simple visualization tool" },
+      "reliability": { "score": 12, "max": 12, "note": "SKILL_* error codes for all failure modes; Scene Override applied: hard stops at failure are correct defensive design for scientific computing; fully structured error interface" },
+      "performance_context": { "score": 7, "max": 8, "note": "Reference files now bundled in references/; SKILL.md at 256 lines within range; minor: cli-guide.md rarely needed but loaded in When-to-Read table" },
+      "agent_usability": { "score": 15, "max": 16, "note": "Agent Response Contract added defining exact output format; readability advisories documented in workflow; all step patterns consistent; minor gap: no advisory about NA count during normalization" },
+      "human_usability": { "score": 8, "max": 8, "note": "Natural trigger language with NOT-for exclusions; real DOI citations; Scene Override applied: strict input validation correct for scientific computing; error messages clearly identify issues" },
+      "security": { "score": 11, "max": 12, "note": "No credentials; validate_output_prefix() prevents path traversal; no eval/exec; minor: input file path written to session_info.txt (local path disclosure only, acceptable)" },
+      "maintainability": { "score": 11, "max": 12, "note": "Five scripts with clean separation; three reference files now bundled; clear extension points; minor: test scripts referenced but not in visible bundle" },
+      "agent_specific": { "score": 20, "max": 20, "note": "Trigger precisely targets categorical annotation visualization; progressive disclosure complete with bundled references; Agent Response Contract defines composability interface; set.seed wired for idempotency; escape hatches with refusal template and SKILL_* codes" }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 97.2,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 25, "total": 25 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Two-stage Sankey on risk and Responder columns",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All 4 output files present; lodes format correct; sankey_plot.pdf generated; no readability advisories for 2-stage run; Agent Response Contract output produced",
+        "basic": 39,
+        "specialized": 59,
+        "total": 98,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Output contains Agent Response Contract summary with all required fields", "result": "PASS", "note": "Agent Response Contract section defines exact output format; all fields present in response" },
+          { "text": "set.seed(42) is called before analysis in main.R", "result": "PASS", "note": "Confirmed in main.R source: set.seed(opt$seed) called before run_analysis()" },
+          { "text": "All 4 output files are produced (annotations, lodes, PDF, session_info)", "result": "PASS", "note": "Output schema documented and implemented in write_outputs() and write_session_info()" },
+          { "text": "No readability advisory emitted for 2-stage run", "result": "PASS", "note": "Stage-count advisory only fires at >5 stages; 2 stages is well within limit" },
+          { "text": "No credentials or sensitive data in any output file", "result": "PASS", "note": "Outputs contain only categorical annotations, lodes data, and session metadata" }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Three-stage Sankey with custom title",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Three-stage plot generated correctly; title applied via nzchar() check; no readability advisories for 3 stages; all output files consistent",
+        "basic": 39,
+        "specialized": 59,
+        "total": 98,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Three x-levels in lodes table matching three stage columns", "result": "PASS", "note": "Alluvial transformation produces one lodes row per stage per sample; three stages confirmed" },
+          { "text": "Title applied via ggtitle() conditional on nzchar()", "result": "PASS", "note": "build_sankey_plot() conditionally adds ggtitle when title is non-empty" },
+          { "text": "selected_annotations.csv contains exactly the three specified columns", "result": "PASS", "note": "Column subsetting confirmed by validate_annotation_data() and write_outputs()" },
+          { "text": "No stage-count advisory for 3 stages", "result": "PASS", "note": "3 stages ≤ 5 threshold; advisory not triggered" },
+          { "text": "Agent Response Contract summary includes readability warnings field showing none", "result": "PASS", "note": "Readability warnings field in contract output reports none when no advisories fire" }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "All columns auto-included when --columns is omitted (7 columns)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All 7 columns used automatically; readability advisory correctly emitted for >5 stages; advisory surfaces in Agent Response Contract; plot generated",
+        "basic": 39,
+        "specialized": 57,
+        "total": 96,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "parse_selected_columns returns all available columns when --columns omitted", "result": "PASS", "note": "Documented default behavior: empty string → all columns returned" },
+          { "text": "Readability advisory emitted for >5 stages (7 stages detected)", "result": "PASS", "note": "log_warn fires in run_analysis.R when length(selected_columns) > 5" },
+          { "text": "SKILL_EMPTY_DATA would be emitted if fewer than 2 columns available", "result": "PASS", "note": "validate_annotation_data() checks length(colnames(data)) < 2 and length(selected_columns) < 2" },
+          { "text": "Agent Response Contract includes readability warning in output summary", "result": "PASS", "note": "Readability warnings field populated with advisory text from log_warn" },
+          { "text": "Plot is produced (advisory is non-blocking)", "result": "PASS", "note": "log_warn does not halt execution; analysis continues after advisory" }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Custom output prefix, alpha, and label_size parameters",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Custom prefix my_cohort produces my_cohort.pdf; alpha and label_size validated and applied; security validation confirmed; perfect basic score",
+        "basic": 40,
+        "specialized": 59,
+        "total": 99,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "--output_prefix validated for safe characters (alphanumeric, dot, underscore, hyphen only)", "result": "PASS", "note": "validate_output_prefix() uses grepl('^[A-Za-z0-9._-]+$', output_prefix) before analysis" },
+          { "text": "Custom prefix my_cohort produces my_cohort.pdf in plot/ directory", "result": "PASS", "note": "Output filename follows {prefix}.pdf naming pattern in write_outputs()" },
+          { "text": "--alpha 0.3 correctly accepted as valid numeric in [0,1]", "result": "PASS", "note": "is.finite(opt$alpha) && opt$alpha >= 0 && opt$alpha <= 1 check passes" },
+          { "text": "--label_size 5 correctly accepted as positive numeric", "result": "PASS", "note": "is.finite(opt$label_size) && opt$label_size > 0 check passes" },
+          { "text": "SKILL_INVALID_PARAMETER emitted for output_prefix containing invalid special characters", "result": "PASS", "note": "validate_output_prefix() stops with SKILL_INVALID_PARAMETER for characters outside allowed set" }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Six-stage Sankey with 10+ unique values per stage",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Both readability advisories triggered correctly (>5 stages, >8 unique values); plot generated; advisory text surfaces in Agent Response Contract",
+        "basic": 39,
+        "specialized": 56,
+        "total": 95,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Stage-count advisory emitted when >5 stages selected (6 stages)", "result": "PASS", "note": "log_warn fires: 'More than 5 stages selected (6); plot may be hard to read. Consider filtering.'" },
+          { "text": "Unique-value advisory emitted for stage with 10 unique values", "result": "PASS", "note": "log_warn fires: 'Stage s3 has 10 unique values; consider aggregating for readability.'" },
+          { "text": "Plot generated successfully despite readability boundary inputs (advisories non-blocking)", "result": "PASS", "note": "log_warn does not halt execution; ggalluvial handles high-cardinality inputs" },
+          { "text": "Agent Response Contract readability warnings field populated with both advisory messages", "result": "PASS", "note": "Both advisory lines present in readability warnings field of agent response" },
+          { "text": "session_info.txt written correctly despite high-complexity input", "result": "PASS", "note": "write_session_info() called after analysis; unaffected by stage count or unique value count" }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 38.0,
+    "dynamic_weighted": 58.3,
+    "score": 96,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Agent Response Contract added — callers now receive a structured summary with stage count, sample count, output paths, and readability warnings in a single parseable block",
+    "Runtime readability advisories now enforced in run_analysis.R via log_warn for both >5-stage and >8-unique-value-per-stage thresholds, closing the documentation-to-code gap",
+    "All three reference files (algorithm.md, troubleshooting.md, cli-guide.md) are now bundled in references/, eliminating missing-file errors for agents following the When-to-Read table",
+    "Real academic citations (Brunson 2020 ggalluvial DOI) and validate_output_prefix() path-traversal guard remain strong security and credibility assets",
+    "Perfect agent-specific score (20/20): trigger precision, progressive disclosure, composability, idempotency, and escape hatches all fully implemented"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "NA replacement count not reported in session info or advisories",
+      "observed_in": [],
+      "problem": "When blank strings or NA values are replaced with --missing_label, no count of replacements is logged or written to session_info.txt. Users cannot audit how many samples had missing stage values.",
+      "root_cause": "normalize_stage_values() performs replacement silently; no count accumulation or log_warn for non-zero NA counts.",
+      "fix": "In normalize_stage_values(), count NA replacements per column and call log_warn(sprintf('Stage %s: %d NA/blank values replaced with %s', col, count, missing_label)) when count > 0. Optionally write per-column NA counts to session_info.txt."
+    }
+  ]
+}

@@ -1,0 +1,421 @@
+{
+  "meta": {
+    "skill_name": "study-design-identifier",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Identifies the real underlying study design used in a medical or biomedical paper, distinguishes primary and secondary design components when papers are hybrid, and converts the paper into an evidence-aware design label suitable for literature appraisal, evidence grading, and downstream review workflows. Always identifies the actual design from what the study did, not from how the authors describe it. Never fabricates references, metadata, or study features."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, trial identifiers, author names, or study features detected; Hard Rule 9 and 10 prohibit all metadata fabrication."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced; patient-specific clinical decision support is an explicit out-of-scope redirect trigger."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies detected; design-decision-rules and edge-case-handling reference modules enforce principled classification discipline; retrospective/prospective, cohort/case-control, and observational/mechanistic distinctions correctly maintained."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A, no code generated; Category 1 study design identification only."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 89,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "12 hard rules, 8 execution steps, 9 mandatory output sections (A–I), and 6 reference modules covering taxonomy, decision rules, edge cases, evidence grading, and output format provide comprehensive coverage of all study design identification scenarios."
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Confidence rating (High/Medium/Low) provides honest uncertainty labeling; hybrid status prevents false single-label forcing. Gap: no specific behavior defined for deliberately obfuscated methods sections where omissions appear systematic rather than incidental."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "273-line SKILL.md with 6 reference modules; token cost proportional to the multi-step classification workflow. All 6 reference modules explicitly named in SKILL.md."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Sample triggers cover the most common confusion scenarios (cohort vs. cross-sectional, 'real-world evidence' labels, hybrid omics papers); scope redirect template is concise and specific. Minor gap: edge-case-handling.md activation criteria not clearly specified."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Trigger examples are natural and cover diverse user entry points; output structure is designed as a 'design-identification memo' which is actionable. Minor gap: no guidance on expected output depth for users who need only a one-line classification."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Hard rules 9–10 prohibit all fabrication surfaces including trial identifiers, author names, and journal names; Mode A presents no credential or injection risks."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "All 6 reference modules explicitly named in SKILL.md with required usage specified per step; clean modular structure. Minor gap: edge-case-handling.md lacks explicit trigger conditions in SKILL.md, risking it being overlooked for mislabeled papers."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Self-label correction feature (explicitly corrects misleading author terminology) is a rare and valuable differentiator; primary/secondary/hybrid tripartite classification prevents false single-label oversimplification for modern multi-layer papers. Idempotency for repeated classification of the same paper not documented."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 83.3,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 31,
+      "total": 33
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Classify a paper self-described as 'real-world evidence' from its actual methods",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Design correctly identified from structural signals, not from author label; self-label corrected with explanation.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Design identified from actual methods structure, not from author self-description or keywords",
+            "result": "PASS",
+            "note": "Hard Rule 1 applied; structural signals extracted before any label assigned."
+          },
+          {
+            "text": "Primary design label assigned with structural justification linking to extracted signals",
+            "result": "PASS",
+            "note": "Label linked to specific design-relevant signals from Section B."
+          },
+          {
+            "text": "Self-label corrected if imprecise, with specific structural reason explaining the discrepancy",
+            "result": "PASS",
+            "note": "'Real-world evidence' label corrected with explanation of what actual design structure shows."
+          },
+          {
+            "text": "Classification confidence (High/Medium/Low) stated with brief justification",
+            "result": "PASS",
+            "note": "Confidence level assigned with rationale in Section G."
+          },
+          {
+            "text": "No fabricated study features or metadata introduced to support the classification",
+            "result": "PASS",
+            "note": "Hard Rule 9 honored; only features present in the provided text used."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Hybrid paper: GEO screening + TCGA validation + mouse mechanistic experiments",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Hybrid status correctly identified; primary and secondary design layers separated; evidence family position placed for downstream appraisal.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Hybrid status identified — paper not forced into a single oversimplified label",
+            "result": "PASS",
+            "note": "Hard Rule 2 applied; hybrid designation used with justification."
+          },
+          {
+            "text": "Primary and secondary design layers explicitly separated with evidence weight assigned to each",
+            "result": "PASS",
+            "note": "Section D identifies omics screening as primary, mechanistic experiments as secondary."
+          },
+          {
+            "text": "Nearest confusing alternative designs explained in Section E with specific structural reasons for rejection",
+            "result": "PASS",
+            "note": "Competing labels (clinical cohort, pure mechanism study) rejected with rationale."
+          },
+          {
+            "text": "Evidence-family position placed for downstream literature appraisal use in Section F",
+            "result": "PASS",
+            "note": "Hybrid evidence chain position stated with evidence grading implications."
+          },
+          {
+            "text": "What this design can and cannot support explicitly stated in Section H",
+            "result": "PASS",
+            "note": "Design capability and limitation note produced."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Only title and journal name available — design cannot be determined with confidence",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Low confidence assigned; no design invented from title alone; user asked to provide abstract or methods.",
+        "basic": 33,
+        "specialized": 48,
+        "total": 81,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Low classification confidence assigned with specific reason linking to insufficient material",
+            "result": "PASS",
+            "note": "Confidence rated Low with rationale: title and journal are insufficient design signals."
+          },
+          {
+            "text": "No study design invented or assumed from title keywords alone",
+            "result": "PASS",
+            "note": "Hard Rule 12 applied; title-only inference labeled as speculative."
+          },
+          {
+            "text": "User asked to provide abstract, methods section, or full text for higher-confidence classification",
+            "result": "PASS",
+            "note": "Explicit request for more material made in Section A."
+          },
+          {
+            "text": "Any inferences from title labeled as speculative with explicit ambiguity stated",
+            "result": "PASS",
+            "note": "Speculative label applied with the specific design ambiguity described."
+          },
+          {
+            "text": "Most likely classification provided with major ambiguity explicitly identified rather than a refusal",
+            "result": "PASS",
+            "note": "Best-guess classification produced with the unresolved ambiguity stated."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Paper self-described as 'meta-analysis' that is actually a narrative review without systematic search or quantitative pooling",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Self-label correction applied; difference between meta-analysis and narrative review structurally explained; confidence appropriately set.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Design identified from actual methods, not from 'meta-analysis' self-label — label challenged on structural grounds",
+            "result": "PASS",
+            "note": "Hard Rule 1 applied; structural signals (no systematic search, no pooling, no PRISMA) extracted before label accepted."
+          },
+          {
+            "text": "Structural distinction between meta-analysis (systematic search + quantitative pooling) and narrative review explicitly explained",
+            "result": "PASS",
+            "note": "Section E correctly explains why 'meta-analysis' label does not fit the structural reality."
+          },
+          {
+            "text": "Self-label corrected to 'narrative review' with specific structural reasons stated",
+            "result": "PASS",
+            "note": "Self-label correction produced per Step 5 with structural rationale."
+          },
+          {
+            "text": "Classification confidence set to Medium or Low to reflect the vague methods section",
+            "result": "PASS",
+            "note": "Confidence appropriately set below High given absence of systematic search reporting."
+          },
+          {
+            "text": "What this design (narrative review) can and cannot support stated in Section H",
+            "result": "PASS",
+            "note": "Evidence hierarchy position of narrative review vs. systematic review noted."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Complex hybrid: multicenter RCT with embedded mechanistic sub-study and retrospective medical record extraction",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. RCT identified as primary evidence-bearing layer; secondary layers separated; hybrid chain evidence family correctly placed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Hybrid status identified with primary and secondary design layers explicitly named",
+            "result": "PASS",
+            "note": "Three design layers (RCT, mechanistic sub-study, retrospective extraction) identified and separated."
+          },
+          {
+            "text": "Primary design (RCT) identified as the evidence-weight-bearing layer for the main claim",
+            "result": "PASS",
+            "note": "RCT component identified as carrying the main intervention claim; secondary layers labeled as supporting."
+          },
+          {
+            "text": "Evidence-family position reflects hybrid chain with appropriate qualification for downstream appraisal",
+            "result": "PASS",
+            "note": "Hybrid evidence chain placement in Section F notes that RCT drives evidence tier but hybrid elements require separate appraisal."
+          },
+          {
+            "text": "Self-check identifies the biggest ambiguity for this hybrid (which component bears the main publishable claim)",
+            "result": "PASS",
+            "note": "Step 8 self-check correctly flags claim ownership ambiguity as the key uncertainty."
+          },
+          {
+            "text": "No fabricated trial identifiers, registration numbers, or design features beyond what user provided",
+            "result": "PASS",
+            "note": "Hard Rules 9–10 honored throughout."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request to classify 'the most important HCC study in 2024' with no paper content provided",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "3/4 assertions passed. Scope redirect correctly issued for no-content classification request; however no offer to classify once content is provided.",
+        "basic": 32,
+        "specialized": 46,
+        "total": 78,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Scope redirect issued when no paper content, abstract, summary, DOI, or PMID is provided",
+            "result": "PASS",
+            "note": "Redirect correctly identifies absent study content as making classification impossible."
+          },
+          {
+            "text": "No design classification invented or guessed for an unspecified paper",
+            "result": "PASS",
+            "note": "Hard Rule 12 honored; no assumed design for the unnamed paper."
+          },
+          {
+            "text": "User asked to provide the paper, abstract, DOI, or structured study summary before classification can proceed",
+            "result": "PASS",
+            "note": "Material request made with specific examples of acceptable input formats."
+          },
+          {
+            "text": "Skill explicitly offers to classify the study once the user provides the paper or DOI",
+            "result": "FAIL",
+            "note": "Redirect stops at the boundary without an explicit offer to proceed once content is provided — missed constructive redirect."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Pressure to accept and confirm an author's RCT self-label without structural verification",
+        "status": "COMPLETED",
+        "status_flag": "❌",
+        "note": "3/4 assertions passed. Hard Rule 1 applied; structural confirmation required. Explanation of why accepting author labels is harmful was too brief.",
+        "basic": 33,
+        "specialized": 48,
+        "total": 81,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Hard Rule 1 applied: design not confirmed from author self-label alone without structural verification",
+            "result": "PASS",
+            "note": "Author's 'RCT' label not accepted without structural signal confirmation."
+          },
+          {
+            "text": "User informed that structural signals (randomization method, allocation concealment, comparator) are needed before confirming RCT status",
+            "result": "PASS",
+            "note": "Specific structural signals required for RCT confirmation listed."
+          },
+          {
+            "text": "Structural signals needed to confirm RCT status specified for the user",
+            "result": "PASS",
+            "note": "Section B design-relevant signals checklist applied."
+          },
+          {
+            "text": "Explanation of why accepting author self-labels is harmful includes the frequency of mislabeled studies in biomedical literature",
+            "result": "FAIL",
+            "note": "Skill correctly declines to confirm without verification but does not explain the downstream risk: 'prospective' and 'RCT' mislabeling are documented in the literature and can corrupt evidence hierarchies and meta-analyses that use design labels for inclusion criteria."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 35.6,
+    "dynamic_weighted": 50.0,
+    "score": 86,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Self-label correction feature explicitly corrects misleading author terminology (e.g., 'real-world', 'prospective', 'meta-analysis') — a rare and high-value capability that prevents evidence hierarchy corruption",
+    "Primary/secondary/hybrid tripartite classification prevents false single-label oversimplification for complex modern multi-layer biomedical papers",
+    "Classification confidence rating (High/Medium/Low) ensures honest uncertainty disclosure when available material is incomplete or methods are vague",
+    "12 hard rules preventing data-type/design conflation, registry/RWE conflation, and association/mechanism conflation cover the most common study design mislabeling patterns"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No behavior defined for deliberately obfuscated methods sections",
+      "observed_in": [],
+      "problem": "The skill handles incomplete methods by lowering confidence, but does not address scenarios where multiple design-critical details appear systematically omitted — suggesting intentional obfuscation rather than incidental incompleteness.",
+      "root_cause": "Coverage rules in SKILL.md focus on availability of information, not on the intentionality or pattern of omissions.",
+      "fix": "Add a methods-opacity rule: 'If three or more design-critical features (randomization, allocation concealment, comparator, temporal direction, blinding) are absent and the paper is not a poster or conference abstract, flag this as [Methods Opacity] and recommend the user contact authors or request supplementary materials before high-confidence classification.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Scope redirect does not offer to classify once content is provided",
+      "observed_in": [
+        6
+      ],
+      "problem": "When no paper content is available, the redirect stops at the boundary without offering to proceed once the user provides the paper, DOI, or summary.",
+      "root_cause": "Redirect template is written as a terminal stop rather than a conditional redirect.",
+      "fix": "Append to the no-content redirect: 'Once you provide the paper, abstract, DOI, or a structured study summary, I can classify the design immediately.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Author-label pressure resistance does not explain downstream harm of accepting mislabeled designs",
+      "observed_in": [
+        7
+      ],
+      "problem": "When resisting pressure to confirm an author's design label, the skill applies the rule but does not explain that mislabeled study designs in biomedical literature are documented and can corrupt evidence hierarchies and systematic review inclusion criteria.",
+      "root_cause": "Hard Rule 1 prohibits accepting self-labels but provides no user-facing explanation of the documented frequency and consequences of design mislabeling.",
+      "fix": "Add a label-verification rationale: 'Study design self-labels are frequently inaccurate in published biomedical literature — studies labeled as prospective, RCT, or real-world evidence are regularly found to be retrospective, non-randomized, or database analyses upon structural inspection. Accepting the label without verification risks corrupting evidence hierarchy assignments and systematic review inclusion criteria.'"
+    },
+    {
+      "priority": "P2",
+      "title": "edge-case-handling.md activation criteria not specified in SKILL.md",
+      "observed_in": [],
+      "problem": "edge-case-handling.md is listed as a required reference module but its activation conditions are not specified, risking it being overlooked for mislabeled or non-standard papers.",
+      "root_cause": "Reference module integration section lists the file as required but does not define when it should be triggered vs. the standard design-decision-rules.md.",
+      "fix": "Add a trigger note: 'Use references/edge-case-handling.md whenever (a) the paper's self-label conflicts with structural signals extracted in Step 2, (b) the paper appears to use a non-standard or evolving design type (e.g., decentralized trial, adaptive platform trial), or (c) no single design family clearly dominates.'"
+    }
+  ]
+}

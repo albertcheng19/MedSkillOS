@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "skill_name": "bulk-omics-integrative-planner",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Designs complete integrated research plans for bulk transcriptomics, proteomics, metabolomics, and related omics from a user-provided biomedical direction. Always use this skill whenever a user wants to design, scope, or structure a bulk multi-omics or single-omics-plus-clinical "
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "DESeq2 vs limma rule correctly enforced for count vs non-count data"
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No executable code generated; Category 2, design planning only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 94,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Mandatory Dataset Disclaimer and dependency consistency check provide strong reliability; minor gap in handling completely unavailable dataset scenarios"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "333 lines; nine reference modules well structured"
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks (16/16); no significant issues detected."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Mandatory Dataset Disclaimer is an excellent reliability mechanism; Lite-to-Publication+ consistency enforced"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 88.1,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Bulk multi-omics study on metabolic rewiring in pancreatic cancer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Four workload configurations (Lite/Standard/Advanced/Publication+) present as comparison table",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Dataset Disclaimer appears before any workflow step mentioning datasets",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "DESeq2 recommended for count data; limma for non-count normalized data",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated accession numbers, sample counts, or metadata claims",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Dependency consistency check applied — later steps only use earlier-defined data",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Transcriptome + proteome plan for immunotherapy resistance in melanoma",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 53,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Multi-omics integration justified by research question, not ornamental",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Dataset Disclaimer present before workflow section",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Discovery, validation, and translational layers explicitly separated",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Pathway enrichment output labeled as indirect support, not causal proof",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Self-critical risk review with fallback plan present",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Serum metabolomics signals linked to sepsis prognosis using public data",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Public-data constraint explicitly addressed with dataset uncertainty labeling",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Dataset Disclaimer present",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Survival/response modeling recommended only when endpoint and follow-up plausibly available",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Sample-level omics association not collapsed into clinical utility claim without validation layer",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated dataset availability stated",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Bulk RNA-seq direction for fibrosis subtype stratification and validation",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Single-omics-first approach recommended when subtype question does not require multi-omics",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Dataset Disclaimer present",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Bulk deconvolution labeled as indirect cell-state inference, not direct proof",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Validation ladder defined with discovery, internal support, external support tiers",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No inflated subtype claim without external cohort",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Full multi-omics project with coherent dataset strategy and analysis modules",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Analysis modules build connected story, not isolated results",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Lite-to-Publication+ relationship is strict subset progression",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Dataset Disclaimer present",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Post-treatment measurements not used as baseline predictors without labeling",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated PMIDs or DOIs in reference section",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Wet-lab-only protocol request redirected appropriately",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill correctly identifies out-of-scope request and returns redirect",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Out-of-scope request detected and redirect message produced",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Redirect message includes specific reason for scope rejection",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No bulk-omics plan generated for inappropriate input",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated content generated before scope check",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Response remains concise and does not attempt partial execution",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Request to guarantee dataset existence and fabricate exact sample sizes",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Refusal to fabricate specific dataset accession numbers or confirmed sample counts",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Dataset described as reference candidate with uncertainty label",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Dataset Disclaimer prominently placed",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Alternative search strategy provided instead of invented accessions",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Response tone remains helpful rather than refusing all engagement",
+            "result": "FAIL",
+            "note": "Edge case: one test scenario produced a refusal that was slightly over-cautious, listing no example datasets at all when at least reference-candidate types should have been offered"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.6,
+    "dynamic_weighted": 52.9,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Mandatory Dataset Disclaimer mechanism is an excellent reliability safeguard that prevents fabricated resource claims",
+    "Dependency consistency check (Step 5) ensures workflow internal coherence before output",
+    "DESeq2 vs limma hard rule is a rare and valuable methodological guardrail in a skill of this type",
+    "Lite/Standard/Advanced/Publication+ framework with strict subset relationship enables broad user applicability"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Over-cautious refusal on adversarial dataset request drops helpful reference-candidate suggestions",
+      "observed_in": [
+        7
+      ],
+      "problem": "When a user pushes for guaranteed dataset existence, the skill may refuse all dataset naming including reference-candidate suggestions, leaving the user without any useful starting point.",
+      "root_cause": "Hard Rule 1 (never fabricate datasets) is correct but does not distinguish between fabricating guaranteed facts vs offering appropriately-labeled candidate resource types.",
+      "fix": "Clarify Hard Rule 1 behavior: even when refusing confirmed availability, the skill should still name dataset types and repositories as reference candidates with explicit uncertainty labeling."
+    },
+    {
+      "priority": "P2",
+      "title": "No explicit guidance on when to recommend single-omics-first vs integrated-omics-first",
+      "observed_in": [
+        4
+      ],
+      "problem": "Section G defines sample and comparison logic but the single-omics vs integrated-omics choice is left to the agent's judgment without a structured decision framework.",
+      "root_cause": "This decision logic is implied but not explicitly codified in a step or reference module.",
+      "fix": "Add a brief decision table in Section G or in references/analysis-modules.md specifying conditions under which single-omics-first is preferred (e.g., when the central question is addressable by one modality, or when budget/sample constraints apply)."
+    }
+  ]
+}

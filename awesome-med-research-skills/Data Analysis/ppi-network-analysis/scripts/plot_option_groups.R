@@ -1,0 +1,30 @@
+build_plot_option_list <- function() {
+  list(
+    optparse::make_option("--figure_family", type = "character", default = "sans", help = "PDF font family: sans, serif, or mono [default %default]"),
+    optparse::make_option("--figure_width", type = "double", default = 12, help = "Plot width in inches [default %default]", metavar = "num"),
+    optparse::make_option("--figure_height", type = "double", default = 10, help = "Plot height in inches [default %default]", metavar = "num"),
+    optparse::make_option("--label", type = "character", default = "node", help = "Label mode: node or none [default %default]"),
+    optparse::make_option("--label_size", type = "double", default = 0.8, help = "Label size [default %default]", metavar = "num"),
+    optparse::make_option("--label_color", type = "character", default = "black", help = "Label color [default %default]"),
+    optparse::make_option("--label_dist", type = "double", default = 0, help = "Label distance from node center [default %default]", metavar = "num"),
+    optparse::make_option("--line_alpha", type = "double", default = 1, help = "Edge alpha [default %default]", metavar = "num"),
+    optparse::make_option("--line_color", type = "character", default = "#7E8B8E,#FFBBFF,#FFA54F,#98F5FF,#8968CD,#E64B35,#BEBADA,#8DD3C7,#BFEFFF,#BF3EFF", help = "Comma-separated edge colors"),
+    optparse::make_option("--line_size", type = "double", default = 0.8, help = "Base edge width [default %default]", metavar = "num"),
+    optparse::make_option("--line_type", type = "character", default = "solid", help = "Edge line type: solid, dashed, or dotted [default %default]"),
+    optparse::make_option("--mapping_link_alpha", type = "character", default = "value", help = "Map edge alpha from score: value or none [default %default]"),
+    optparse::make_option("--mapping_link_color", type = "character", default = "value", help = "Map edge color from score: value or none [default %default]"),
+    optparse::make_option("--mapping_link_size", type = "character", default = "value", help = "Map edge size from score: value or none [default %default]"),
+    optparse::make_option("--mapping_node_alpha", type = "character", default = "none", help = "Map node alpha from degree: value or none [default %default]"),
+    optparse::make_option("--mapping_node_color", type = "character", default = "none", help = "Map node color from degree: value or none [default %default]"),
+    optparse::make_option("--mapping_node_size", type = "character", default = "value", help = "Map node size from degree: value or none [default %default]"),
+    optparse::make_option("--point_alpha", type = "double", default = 1, help = "Node alpha [default %default]", metavar = "num"),
+    optparse::make_option("--point_color", type = "character", default = "#2E889D,#FFBBFF,#FFA54F,#98F5FF,#8968CD,#E64B35,#BEBADA,#8DD3C7,#BFEFFF,#BF3EFF", help = "Comma-separated node border colors"),
+    optparse::make_option("--point_fill", type = "character", default = "#2E879A,#FFBBFF,#FFA54F,#98F5FF,#8968CD,#E64B35,#BEBADA,#8DD3C7,#BFEFFF,#BF3EFF", help = "Comma-separated node fill colors"),
+    optparse::make_option("--point_shape", type = "character", default = "circle", help = "Node shape: circle or square [default %default]"),
+    optparse::make_option("--point_size", type = "double", default = 12, help = "Base node size [default %default]", metavar = "num"),
+    optparse::make_option("--style_layout", type = "character", default = "nicely", help = "Layout style: kk, fr, nicely, circle, star, grid, or randomly [default %default]"),
+    optparse::make_option("--style_line", type = "character", default = "straight", help = "Edge style: straight or curve [default %default]"),
+    optparse::make_option("--theme_size", type = "double", default = 0.8, help = "Theme size placeholder for consistency [default %default]", metavar = "num"),
+    optparse::make_option("--title", type = "character", default = "", help = "Main plot title")
+  )
+}

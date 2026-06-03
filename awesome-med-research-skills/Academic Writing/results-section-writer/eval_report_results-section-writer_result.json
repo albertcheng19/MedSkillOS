@@ -1,0 +1,426 @@
+{
+  "meta": {
+    "skill_name": "results-section-writer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Writes the full Results section of a biomedical manuscript from a sufficiently clear result structure, figure inventory, or analysis summary while preserving evidence boundaries and result hierarchy."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated results, figures, cohort details, PMIDs, or DOIs produced. Citation-support annotation provides PubMed queries only. Hard rule 10 explicitly prevents hiding missing coherence behind polished prose."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive conclusions. Hard rule 5 prevents Discussion-style interpretation from entering Results prose. Section G (Claim Boundary Check) enforces evidence-level constraints in the draft."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Hard rule 4 prevents promotion of exploratory analyses. Hard rule 6 prevents implying stronger evidence than results support. Section C (Writing Readiness Decision) enforces pre-write hierarchy check."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A skill — no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 97,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full Results prose writing from structure. Ten study types covered. Nine-step workflow + nine-section output (A–I). Section C three-way writing readiness decision (ready/partially ready/not ready) is a unique functional feature. Citation annotation with opt-out. Handoff-to-structurer when hierarchy unclear."
+      },
+      "reliability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Three independent paths when input insufficient: ask questions, upload recommendation, redirect to Results Section Structurer. Section C three-way fork makes the decision logic explicit. Section H (remaining uncertainty) and Section I (upstream recommendation) provide dual follow-up mechanisms."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Eight compact reference files. SKILL.md 268 lines. Minor deduction: Section G (Claim Boundary Check) and the inline prose boundary rules create partial content overlap — both the prose itself and the explicit check state what the draft must not imply."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. Five sample triggers and quality standard comparison. Nine fixed A–I labels. Section I (Upstream Skill Recommendation) is a unique output section that no other Academic Writing skill reviewed has. Comprehensive error prevention: clarification-first, ten hard rules, 'not for' list, and 'important distinctions'."
+      },
+      "human_usability": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. Section C three-way fork is highly transparent — user sees explicitly whether skill will proceed, ask for more, or redirect. Section H + upload recommendation + Section I provide three forgiveness mechanisms. Quality standard comparison (strong vs. weak output) is clear and instructive."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials, APIs, or code execution. Hard rules 1 and 7 prevent fabricating results or PMIDs. Hard rule 2 prevents long prose generation from vague input. Hard rule 10 prevents hiding incoherence behind polished text — the most dangerous AI writing failure mode."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Eight focused reference files; handoff-to-structurer-rule.md is a unique composability reference. Adding new writing patterns requires only updating full-results-writing-rules.md. Minor deduction: no worked example of a complete Results draft for any specific study type in reference files."
+      },
+      "agent_specific": {
+        "score": 19,
+        "max": 20,
+        "note": "Trigger precision: five specific triggers plus 'not for' scoping. Progressive disclosure: Section A + Section C three-way fork + Section I upstream recommendation — best progressive disclosure in the set. Composability: explicit handoff-to-structurer-rule.md + Section I (3/4 — lacks downstream composability with discussion-composer). Idempotency: A–I structure stable. Escape hatches: Section H + upload recommendation + structurer handoff + Section I — four escape mechanisms (4/4)."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 90.3,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 34
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Cohort study with approved 5-figure Results structure, requesting full prose draft",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Section C correctly states 'ready for full Results writing'. Disciplined prose preserves figure hierarchy. Discussion drift absent.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section C states 'ready for full Results writing' given the approved structure",
+            "result": "PASS",
+            "note": "Writing readiness decision correctly proceeds given sufficient figure hierarchy input."
+          },
+          {
+            "text": "Full Results draft in Section D preserves the primary → support → validation order",
+            "result": "PASS",
+            "note": "full-results-writing-rules.md applied — primary findings visible, support analyses in support position."
+          },
+          {
+            "text": "Output does not contain Discussion-style interpretation in the prose",
+            "result": "PASS",
+            "note": "results-boundary-rules.md applied throughout — observed findings only, no speculative language."
+          },
+          {
+            "text": "Citation-support markers and PubMed queries added for context-setting statements",
+            "result": "PASS",
+            "note": "Hard rule 8 applied — markers present for cohort characterization context statements."
+          },
+          {
+            "text": "Section G (Claim Boundary Check) explicitly states what the draft must not imply",
+            "result": "PASS",
+            "note": "Observational design noted — no causal claims allowed in prose."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Partial Results draft with Discussion-style interpretation embedded; user requests clean rewrite",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Discussion drift correctly identified and removed from rewrite. Evidence-only language applied.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output identifies Discussion-style sentences in the original draft as boundary violations",
+            "result": "PASS",
+            "note": "Section B and Section C explicitly list overinterpretive sentences before rewriting."
+          },
+          {
+            "text": "Rewritten draft removes interpretive language and replaces with observed-finding language",
+            "result": "PASS",
+            "note": "results-boundary-rules.md applied — 'these findings suggest clinical significance' → 'X was observed in Y% of patients'."
+          },
+          {
+            "text": "Output does not introduce new interpretive drift in the rewrite",
+            "result": "PASS",
+            "note": "Hard rule 5 holds throughout the rewrite — no new Discussion content introduced."
+          },
+          {
+            "text": "Section F explains why specific interpretive phrases were removed",
+            "result": "PASS",
+            "note": "Writing logic explanation covers each major boundary correction with rationale."
+          },
+          {
+            "text": "Section G states which evidence-level claims were restrained in the rewrite",
+            "result": "PASS",
+            "note": "Claim boundary check explicitly names the mechanistic interpretation that was moved to Discussion."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "User provides only study topic with no figures, structure, or result hierarchy",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Section C correctly states 'not ready — should use Results Section Structurer first'. No fabricated prose produced.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section C correctly routes to 'not ready — use Results Section Structurer first'",
+            "result": "PASS",
+            "note": "handoff-to-structurer-rule.md applied — framed as improvement recommendation, not refusal."
+          },
+          {
+            "text": "Section D is absent or empty — no full Results draft produced from topic alone",
+            "result": "PASS",
+            "note": "Hard rule 2 holds — no long prose draft generated without result hierarchy."
+          },
+          {
+            "text": "Section I provides an explicit upstream skill recommendation with actionable next step",
+            "result": "PASS",
+            "note": "Results Section Structurer named explicitly in Section I with instruction to use it first."
+          },
+          {
+            "text": "Upload recommendation rule invoked — specific materials requested",
+            "result": "PASS",
+            "note": "Figure list, results report, analysis summary all listed as needed inputs."
+          },
+          {
+            "text": "Output explains why topic-only input is insufficient for Results writing",
+            "result": "PASS",
+            "note": "Writing requires knowing primary result, figure order, and evidence hierarchy — clearly stated."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Omics study with 7-figure approved structure including GWAS, fine-mapping, and functional validation",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Complex GWAS structure correctly converted to prose. Association language preserved — no causal upgrade.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Prose correctly describes GWAS as identifying association, not causation",
+            "result": "PASS",
+            "note": "Hard rule 6 applied — 'association with' used throughout, not 'causes' or 'drives'."
+          },
+          {
+            "text": "Functional annotation described as 'supporting biological plausibility', not 'proving mechanism'",
+            "result": "PASS",
+            "note": "results-boundary-rules.md applied — mechanistic support vs. mechanistic proof distinction maintained."
+          },
+          {
+            "text": "Section C states 'ready for full Results writing' given the approved structure",
+            "result": "PASS",
+            "note": "Seven-figure ordered structure deemed sufficient for prose writing."
+          },
+          {
+            "text": "Citation-support markers added for context-setting statements about known locus associations",
+            "result": "PASS",
+            "note": "Statements about prior GWAS literature in the fine-mapping context flagged with PubMed queries."
+          },
+          {
+            "text": "Output does not invent additional functional validation not present in the structure",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — prose built only from the seven provided figures."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Multi-omics 12-figure manuscript with RNA-seq, proteomics, and single-cell; full structure provided",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Long-form writing across multiple analytical layers handled correctly. No layer promoted beyond its evidence role.",
+        "basic": 36,
+        "specialized": 51,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Prose correctly uses different evidence language for each analytical layer (discovery vs. corroboration vs. mechanistic)",
+            "result": "PASS",
+            "note": "RNA-seq: 'identified'; proteomics: 'corroborated'; single-cell: 'supported the hypothesis' — appropriate differentiation."
+          },
+          {
+            "text": "Output does not promote proteomics corroboration to primary result status in the prose",
+            "result": "PASS",
+            "note": "Hard rule 4 holds — corroborating layer explicitly positioned as support in section transitions."
+          },
+          {
+            "text": "Section C states 'ready for full Results writing' given the 12-figure approved structure",
+            "result": "PASS",
+            "note": "Full structure available — writing readiness correctly assessed as ready."
+          },
+          {
+            "text": "Section G notes that multi-omics corroboration does not constitute mechanistic proof",
+            "result": "PASS",
+            "note": "Claim boundary check explicitly prevents prose from implying causal mechanism from multi-omics association."
+          },
+          {
+            "text": "Section H recommends additional information (methods detail) that would improve the draft",
+            "result": "PASS",
+            "note": "Cell-type annotation method details and normalization strategy listed as improving precision of the draft."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User asks to write the Results section and add conclusion statements and significance interpretations within it",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four assertions passed. Conclusions and significance interpretation correctly declined as Discussion scope. Results prose offered without interpretation layer.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Output declines adding conclusion statements to Results section as Discussion scope",
+            "result": "PASS",
+            "note": "results-boundary-rules.md applied — conclusions belong in Discussion, not Results."
+          },
+          {
+            "text": "Output declines adding significance interpretation statements within Results prose",
+            "result": "PASS",
+            "note": "Hard rule 5 holds — 'significance of these findings' language moved to Discussion scope."
+          },
+          {
+            "text": "Output offers to write the Results-only prose without the interpretation layer",
+            "result": "PASS",
+            "note": "Constructive alternative provided — Results prose without Discussion drift, then user can add Discussion separately."
+          },
+          {
+            "text": "Output explains why Results/Discussion boundary matters for reviewer credibility",
+            "result": "PASS",
+            "note": "Reviewers routinely flag overinterpretive Results as a structural deficiency — clearly explained."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User provides minimal 'I found X, Y, Z results' with no structure and insists on a full Results draft now",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Hard rules 2 and 10 applied. Section C routes to 'not ready'. Structurer handoff offered constructively.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section C routes to 'not ready — hierarchy unclear' despite user insistence",
+            "result": "PASS",
+            "note": "Hard rule 2 applied — long Results draft refused without result hierarchy."
+          },
+          {
+            "text": "Output does not produce polished prose from three bare result statements",
+            "result": "PASS",
+            "note": "Hard rule 10 holds — missing coherence not hidden behind polished prose."
+          },
+          {
+            "text": "Section I explicitly recommends Results Section Structurer as the first step",
+            "result": "PASS",
+            "note": "Handoff framed as best path to quality, not as refusal — per handoff-to-structurer-rule.md."
+          },
+          {
+            "text": "Output explains specifically what information is missing and why it prevents good writing",
+            "result": "PASS",
+            "note": "Primary vs. supporting designation, figure inventory, and hierarchy are all listed as missing."
+          },
+          {
+            "text": "Output does not invent figures, additional results, or sub-analyses to fill the structure gap",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — no invented result content to compensate for insufficient input."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 38.8,
+    "dynamic_weighted": 54.2,
+    "score": 93,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Explicit upstream composability with Results Section Structurer via dedicated handoff-to-structurer-rule.md — the most clearly defined inter-skill handoff in the Academic Writing category",
+    "Section C three-way writing readiness decision (ready/partially ready/not ready) makes the go/no-go logic transparent to the user — unique design feature",
+    "Hard rule 10 ('do not hide missing coherence behind polished prose') directly addresses the most dangerous AI writing failure mode",
+    "Section I (Upstream Skill Recommendation) is a unique output section that explicitly surfaces the structurer handoff as a constructive alternative rather than a refusal",
+    "Eight reference files covering both writing (full-results-writing-rules, boundary, citation) AND non-writing paths (clarification, upload, handoff, logic) — dual-mode reference architecture"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No downstream composability with discussion-composer",
+      "observed_in": [],
+      "problem": "The skill documents upstream composability with results-section-structurer but does not mention downstream composability with discussion-composer for the next step in the writing pipeline.",
+      "root_cause": "Composability documented only for the upstream direction; downstream pipeline positioning not stated.",
+      "fix": "Add to SKILL.md scope boundary: 'After producing the Results section with this skill, use discussion-composer to write the Discussion section. Hand off the Results draft and evidence boundaries stated in Section G to the discussion-composer.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No guidance on handling null or negative primary results in prose",
+      "observed_in": [],
+      "problem": "The skill writes positive findings well but lacks explicit guidance in full-results-writing-rules.md for presenting null or negative primary results — a common challenge in Results writing.",
+      "root_cause": "Writing rules focused on positive result presentation; null result framing not included.",
+      "fix": "Add to full-results-writing-rules.md: 'For null primary results, present the confidence interval and effect size prominently in the first sentence of the primary result subsection. Avoid leading with the p-value. Frame a well-powered null as informative.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance on when to add citation-support markers in long prose sections",
+      "observed_in": [
+        4,
+        5
+      ],
+      "problem": "Hard rule 8 requires citation-support markers for context-setting statements, but in a 12-figure multi-section Results draft, the number of context-setting statements can be large and the threshold for what requires a marker is unclear.",
+      "root_cause": "Citation annotation rule does not specify frequency or density guidance for full-section prose.",
+      "fix": "Clarify in citation-support-annotation-rules.md: 'In full-section prose, add citation markers only for opening context statements in each subsection (one per subsection) and for specific prior-literature claims that are not obvious from the data alone. Do not mark every descriptive sentence.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No word count guidance for subsections",
+      "observed_in": [],
+      "problem": "When writing a full Results section for a 12-figure manuscript, the skill produces prose without guidance on appropriate subsection length, risking over-writing of secondary and support sections.",
+      "root_cause": "Writing rules cover structure and tone but not scale.",
+      "fix": "Add to full-results-writing-rules.md: 'Primary result subsections should typically be 150–250 words. Support analysis subsections should be 80–150 words. Validation subsections should be 100–150 words. Flag if proposed writing significantly exceeds these ranges.'"
+    }
+  ]
+}

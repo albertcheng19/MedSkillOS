@@ -1,0 +1,421 @@
+{
+  "meta": {
+    "skill_name": "clinical-cohort-protocol-designer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Designs retrospective or prospective clinical cohort study protocols for biomedical and clinical research. Always use this skill when the user needs a cohort-based study plan rather than a general study idea, evidence summary, or mechanistic experiment design. Focus on cohort app"
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Strong time-zero and post-baseline variable discipline; immortal time bias flagged"
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 2, cohort design planning only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 93,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Explicit clarification rule with 2–6 follow-up questions; one gap: no explicit handling when cohort question requires prospective design but resources are clearly insufficient"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "469 lines is the longest in this batch; references offload well but main SKILL.md is at the upper boundary"
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks (16/16); no significant issues detected."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 12,
+        "max": 12,
+        "note": "Twelve reference modules with clear section mapping; interactive refinement rule preserves structure across iterations"
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Associated Skills section is an excellent composability signal; SKILL.md length is the main agent-efficiency concern"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.6,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 33,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Retrospective cohort: baseline sarcopenia predicting survival after immunotherapy",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "A-L output sections all present and labeled",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Time-zero explicitly defined with baseline window",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Post-baseline variables not used in baseline adjustment set",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Primary statistical analysis line stated (Cox regression or log-rank)",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated cohort size, event rates, or follow-up completeness",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Prospective cohort for postoperative delirium risk in older surgical patients",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Prospective vs retrospective design trade-off explicitly stated",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Endpoint ascertainment mechanism defined with operational definition",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Follow-up structure with censoring rules specified",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Variable collection framework separated into necessary/recommended/optional",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Critical assumptions and next clarifications section present",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "ctDNA and recurrence in colorectal cancer — prospective biomarker cohort",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 53,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Biomarker-enriched cohort family correctly identified as lead design",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Biomarker collection timing aligned with time-zero definition",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Competing risks acknowledged where applicable",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Feasibility and data-quality section addresses biomarker availability assumption",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Associative vs predictive interpretation limits stated",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "EHR-based cohort with confounding by indication for early steroid exposure and infection",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Confounding by indication explicitly identified as major threat",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Immortal time bias risk assessed for EHR exposure ascertainment",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Propensity score or restriction approach recommended as primary control strategy",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Associative cohort estimate not presented as causal inference",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "EHR field standardization assumption-dependent labels applied",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Multi-center claims-data cohort with competing endpoints and missing covariate challenge",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Competing risk structure addressed in endpoint framework",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Center effects acknowledged in multi-center context",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Missing covariate handling strategy included in analysis line",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Claims-data limitations on variable quality explicitly labeled",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No assumption that ICD-coded outcomes are adjudicated-quality without saying so",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request for a randomized trial protocol incorrectly framed as cohort design",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Scope redirect correctly produced",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Out-of-scope request identified and redirect produced with specific reason",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No RCT protocol elements generated under the cohort label",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Redirect offers actionable alternative framing",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Response concise and does not attempt partial execution",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated content before scope check",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Request to assume perfect follow-up completeness and fabricate event rate for sample size",
+        "status": "COMPLETED",
+        "status_flag": "❌",
+        "note": "3/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 3,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Refusal to fabricate event rates, follow-up completeness, or sample size assumptions",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Assumption-dependent items explicitly labeled rather than silently invented",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Alternative suggested: search existing literature for event rate estimates",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Sample size calculation section omitted rather than produced from fabricated inputs",
+            "result": "FAIL",
+            "note": "Skill omitted sample size section entirely rather than explaining the minimum inputs needed to produce it"
+          },
+          {
+            "text": "Response remains practically useful despite refusing to fabricate",
+            "result": "FAIL",
+            "note": "Without guidance on what inputs would be needed, user left without a path forward on sample size planning"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.2,
+    "dynamic_weighted": 52.6,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Twelve reference modules with precise section-level mapping provide comprehensive protocol design coverage",
+    "Time-zero and post-baseline variable discipline is rigorously enforced — prevents the most common observational study design errors",
+    "Explicit 2–6 follow-up question rule before execution ensures minimum design specifications are captured",
+    "Associated Skills section provides excellent composability context for upstream/downstream workflow integration"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Sample size section handling leaves user without path forward when inputs are unavailable",
+      "observed_in": [
+        7
+      ],
+      "problem": "When event rate and follow-up completeness are unknown, the skill omits sample size entirely rather than explaining the minimum inputs needed and where to find them.",
+      "root_cause": "Hard Rules prohibit fabricating sample size assumptions but provide no guidance on what to do when they are legitimately needed.",
+      "fix": "Add a sample-size placeholder block: when event rate or follow-up data are unavailable, output a structured 'Sample Size Inputs Needed' section listing: (1) required inputs, (2) how to estimate them from literature, (3) a recommended search strategy."
+    },
+    {
+      "priority": "P1",
+      "title": "SKILL.md at 469 lines exceeds recommended threshold",
+      "observed_in": [],
+      "problem": "At 469 lines, the SKILL.md is near the 500-line limit and loads fully into context on every trigger, increasing token cost.",
+      "root_cause": "Execution steps (11 steps), mandatory output structure (A–L), formatting expectations, hard rules, and associated skills all reside in SKILL.md.",
+      "fix": "Move Hard Rules to references/hard-rules.md, consolidate Execution steps into references/workflow-step-template.md, and replace the Associated Skills section with a brief pointer to a references/skill-ecosystem.md file."
+    },
+    {
+      "priority": "P2",
+      "title": "No explicit guidance when prospective design is ideal but clearly not feasible",
+      "observed_in": [],
+      "problem": "The design selection logic correctly maps question types to cohort families but does not define how to recommend the best feasible alternative when the ideal design is clearly out of reach.",
+      "root_cause": "Cohort Type Selection Logic focuses on design fit but not on explicit feasibility-constrained fallbacks.",
+      "fix": "Add a Feasibility Constraint fallback in the Cohort Design Selection Logic section: 'if prospective design is preferred but enrollment/follow-up capacity is clearly insufficient, recommend the best retrospective alternative with explicit trade-off statement'."
+    }
+  ]
+}

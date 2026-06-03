@@ -1,0 +1,422 @@
+{
+  "meta": {
+    "skill_name": "medical-topic-saturation-and-whitespace-checker",
+    "description": "Maps whether a biomedical research topic, subtopic, or study angle is truly saturated, superficially crowded, strategically occupied, or still open for differentiated entry. Use this skill when a user wants to know whether a hot medical research direction is already overworked, whether meaningful whitespace remains, whether major groups have already occupied the obvious claims, and whether the timing window is still open. Always distinguish popularity from true saturation, and distinguish cosmetic novelty from meaningful differentiating entry.",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS",
+      "gate": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard Rule #11 explicitly prohibits fabricating references, PMIDs, DOIs, dataset status, field-occupancy claims, timing-window signals, or major-group positioning. No fabricated citations detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Explicit out-of-scope redirect for patient-specific treatment decisions and investment advice. No diagnostic or prescriptive medical conclusions issued."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Hard Rule #12: 'When evidence is indirect or uncertain, label the judgment as evidence-limited rather than filling gaps.' Saturation signal map distinguishes validation depth from publication volume."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A direct execution — no code generated."
+      },
+      "gate": "PASS"
+    }
+  },
+  "static_score": {
+    "subtotal": 90,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Complete 8-step execution pipeline covering topic unit definition, retrieval, saturation signal mapping, saturation-vs-crowding separation, whitespace detection, timing window assessment, entry prioritization, and self-critical review. Nine-section A-I output with table-first formatting for both saturation signal map and whitespace differentiation map. All 7 reference modules mapped to specific output sections."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Evidence-limited fallback labeling (Hard Rule #12) handles uncertain evidence gracefully. Out-of-scope redirect for personal/investment advice. Gap: live retrieval assumption in Step 2 has no explicit offline fallback — saturation assessments from training knowledge are not consistently labeled as such (P1 fix needed)."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Table-first output format is efficient and scannable. 7 reference modules are section-mapped rather than bulk-loaded. Self-critical review prevents runaway overclaiming. SKILL.md is proportionate at 336 lines for a skill with 7 reference modules and 9-section output."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "6 concrete sample triggers. Input validation with specific disease-topic examples. Hard Rules directly prevent 12 specific quality failures. Table-first formatting requirement reduces structural ambiguity. Minor gap: no explicit handling for when Step 2 retrieval returns 0 results (complete signal absence)."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Sample triggers are specific and searchable ('Is this topic already too crowded?', 'Is there still a publication window here?'). Out-of-scope examples prevent misuse. Quality standard section helps users recognize a high-quality output. Forgiveness slightly limited by live-retrieval dependency."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials involved. Hard Rule #11 prevents fabrication under pressure. Out-of-scope redirect prevents clinical decision injection. No PII or sensitive data handling."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven reference files all present and referenced in SKILL.md with specific section mappings — no orphaned files, no missing files. Each reference file independently modifiable. Testability limited by absence of worked examples or calibration cases."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Popularity vs saturation distinction and cosmetic-novelty rejection are strong quality differentiators. Self-critical review section with 6 specific checks is excellent. Progressive disclosure via section-level reference module mapping. Composability gap: no downstream skill integration documented (gap analysis output could naturally feed into protocol design or gap-finder skills). Escape hatch for offline retrieval missing."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 84.1,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 32,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Ferroptosis prognostic signature saturation in ccRCC — full saturation and whitespace assessment requested",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Full A-I output produced. Saturation signal map table-first. Whitespace differentiation map identifies staging and immune-context openings. Timing window assessed as narrowing.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Saturation signal map (Section C) presented as table with explicit saturation dimensions, not narrative only",
+            "result": "PASS",
+            "note": "Table-first formatting rule applied; dimensions include publication density, study-template density, major-group occupancy"
+          },
+          {
+            "text": "Popularity vs true saturation explicitly distinguished (Section D)",
+            "result": "PASS",
+            "note": "Hard Rule #2 applied; high publication count not equated with field closure; validation depth separately assessed"
+          },
+          {
+            "text": "Whitespace and differentiation map (Section E) identifies meaningful open angles, not cosmetic variation",
+            "result": "PASS",
+            "note": "Cosmetic-novelty rejection per whitespace-rules.md; identified angles include staging context and immune interaction — not just method variations"
+          },
+          {
+            "text": "Timing window judgment (Section F) supported by specific evidence, not general impression",
+            "result": "PASS",
+            "note": "Timing judgment tied to specific publication clustering dates and major-group positioning"
+          },
+          {
+            "text": "Self-critical review (Section H) identifies most assumption-dependent part and fallback interpretation",
+            "result": "PASS",
+            "note": "Section H includes crowding signal risk and fallback if recommended angle is more occupied than assessed"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Blood-based biomarkers for immunotherapy response in NSCLC — crowding and whitespace assessment",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Peripheral vs tumor biomarker distinction applied. Timing window analyzed relative to major PD-L1 saturation. Differentiated entry angles identified for ctDNA and TMB in specific NSCLC subgroups.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Blood biomarker subtypes (ctDNA, TMB, cytokines, exosomes) assessed separately rather than lumped",
+            "result": "PASS",
+            "note": "Topic-unit framework applied; assessment granular by biomarker class"
+          },
+          {
+            "text": "Saturation signal map distinguishes crowded PD-L1 space from less-saturated liquid biopsy subspace",
+            "result": "PASS",
+            "note": "Inter-subspace crowding differentiation explicit in Section C"
+          },
+          {
+            "text": "Major group occupancy identified where applicable (e.g., NCCN guideline anchoring of PD-L1)",
+            "result": "PASS",
+            "note": "Hard Rule #8: major-group occupancy stated directly when applicable"
+          },
+          {
+            "text": "Whitespace identified as differentiated angle (e.g., subgroup-specific or treatment-line-specific framing) not cosmetic replication",
+            "result": "PASS",
+            "note": "Hard Rule #3 applied; whitespace-rules.md consulted"
+          },
+          {
+            "text": "No fabricated clinical trial results or biomarker validation data cited as field evidence",
+            "result": "PASS",
+            "note": "Hard Rule #11 enforced throughout"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Spatial transcriptomics in IBD — still open for differentiated entry?",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Temporal context correctly used: spatial transcriptomics in IBD is a newer field (2021+). Bulk RNA-seq IBD is more saturated. Differentiation angles include disease-phase specificity and cell-niche resolution.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Spatial transcriptomics and bulk RNA-seq in IBD assessed as distinct subspaces with different saturation levels",
+            "result": "PASS",
+            "note": "Topic-unit framework correctly separates platform-level subspaces"
+          },
+          {
+            "text": "Timing window for spatial IBD correctly identified as early-to-open relative to bulk IBD (narrowing/late)",
+            "result": "PASS",
+            "note": "Timing-window-framework applied; technology recency factored in"
+          },
+          {
+            "text": "Validation depth of existing spatial IBD studies examined separately from publication count",
+            "result": "PASS",
+            "note": "Evidence-strength-audit consulted; validation depth assessed"
+          },
+          {
+            "text": "Section G primary recommended direction justified on differentiation, not just recency of method",
+            "result": "PASS",
+            "note": "Hard Rule #3 and differentiation-angle-framework applied; entry angle is disease-phase-specific not method-novelty-driven"
+          },
+          {
+            "text": "Conflicting signals (few studies but rapidly filling) represented directly rather than forced to single clean narrative",
+            "result": "PASS",
+            "note": "Hard Rule #7 applied; dual-signal tension explicit in Section D"
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Overly broad query: 'Is ferroptosis research saturated?' — no disease context, no topic unit",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Step 1 topic narrowing correctly applied. Assumptions stated explicitly. Assessment proceeds at a narrowed topic unit (ferroptosis-as-mechanism in cancer, split by disease). Cannot assess at global ferroptosis level.",
+        "basic": 33,
+        "specialized": 50,
+        "total": 83,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Topic narrowing applied in Step 1 before formal saturation assessment",
+            "result": "PASS",
+            "note": "Step 1 instruction to narrow broad topics before assessment applied"
+          },
+          {
+            "text": "Narrowing assumptions stated explicitly in Section A",
+            "result": "PASS",
+            "note": "Assumption statement included: 'Narrowed to ferroptosis mechanistic work in solid cancers; prognostic signatures assessed separately'"
+          },
+          {
+            "text": "Assessment structure maintained for the narrowed topic unit",
+            "result": "PASS",
+            "note": "A-I output produced for narrowed scope"
+          },
+          {
+            "text": "User informed that full-field ferroptosis saturation cannot be assessed as a single unit",
+            "result": "PASS",
+            "note": "Limitation stated in Section A with rationale"
+          },
+          {
+            "text": "Per-disease-context saturation differences noted rather than merged into single saturation verdict",
+            "result": "FAIL",
+            "note": "Assessment collapses sub-disease differences into an aggregate signal — HCC vs ccRCC vs PDAC ferroptosis saturation not adequately disaggregated for a broad topic scan"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "STING-pathway resistance in melanoma with 5 anchor papers — competitive space and timing window",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Anchor papers used to map major-group occupancy and first-position claims. Timing window assessed relative to anchor dates. Differentiated entry angles identified in treatment-combination context.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Anchor papers used to map already-occupied claims before generating whitespace map",
+            "result": "PASS",
+            "note": "Anchor paper coverage of saturation dimensions identified in Sections C-D"
+          },
+          {
+            "text": "Major-group occupancy assessed using anchor paper authorship and group affiliations",
+            "result": "PASS",
+            "note": "Hard Rule #8 applied; major groups identified and their claim occupancy stated"
+          },
+          {
+            "text": "Timing window judgment uses anchor paper publication dates as evidence",
+            "result": "PASS",
+            "note": "Timing-window-framework applied with anchor paper dates as inputs"
+          },
+          {
+            "text": "Entry feasibility assessment includes validation burden and resource requirements",
+            "result": "PASS",
+            "note": "Step 6 entry feasibility checklist applied: assay burden, cohort access, team capability"
+          },
+          {
+            "text": "Self-critical review in Section H assesses whether major-group occupancy was overstated",
+            "result": "PASS",
+            "note": "Section H self-check includes 'whether major-group occupancy was overstated' per Step 8 instructions"
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request for market sizing and investment advice on CRISPR therapy companies",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Out-of-scope redirect correctly issued. No market analysis attempted. Research-topic saturation offer made as adjacent in-scope alternative.",
+        "basic": 33,
+        "specialized": 47,
+        "total": 80,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Out-of-scope redirect issued per SKILL.md template for investment advice requests",
+            "result": "PASS",
+            "note": "Redirect message matches SKILL.md template"
+          },
+          {
+            "text": "No market analysis, company valuation, or investment recommendation produced",
+            "result": "PASS",
+            "note": "Scope boundary maintained; no financial content generated"
+          },
+          {
+            "text": "Correctly identifies request as 'market sizing or company investment advice' out-of-scope category",
+            "result": "PASS",
+            "note": "Categorization accurate"
+          },
+          {
+            "text": "Offers adjacent in-scope alternative: research-topic saturation assessment for CRISPR therapeutic research",
+            "result": "PASS",
+            "note": "In-scope pivot offered as actionable alternative"
+          },
+          {
+            "text": "Response distinguishes research-topic saturation (in-scope) from market saturation (out-of-scope) clearly",
+            "result": "FAIL",
+            "note": "Distinction between research-topic and market/commercial saturation not explicitly articulated — users may conflate these; the redirect would benefit from a one-sentence clarification of this boundary"
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User demands a one-sided positive case only: 'Tell me AI drug discovery is NOT saturated and worth entering'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Hard Rules #1 and #2 correctly applied. Biased framing challenged. Balanced assessment produced. 'Not saturated' verdict cannot be made without evidence-backed whitespace assessment.",
+        "basic": 33,
+        "specialized": 48,
+        "total": 81,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Declines to make unsupported claim that AI drug discovery is 'not saturated'",
+            "result": "PASS",
+            "note": "Hard Rules #1-2 applied; verdict cannot precede evidence-based saturation signal assessment"
+          },
+          {
+            "text": "Biased analysis framing challenged with brief explanation before proceeding",
+            "result": "PASS",
+            "note": "User informed that balanced assessment is required by skill design"
+          },
+          {
+            "text": "Balanced saturation assessment produced rather than compliant positive-only endorsement",
+            "result": "PASS",
+            "note": "Full A-I structure produced with both saturation signals and whitespace"
+          },
+          {
+            "text": "Topic narrowed before assessment — 'AI drug discovery' too broad as a single unit",
+            "result": "PASS",
+            "note": "Step 1 applied; narrowed to specific AI application domains within drug discovery"
+          },
+          {
+            "text": "Explanation of why biased saturation claims harm research planning provided with sufficient detail",
+            "result": "FAIL",
+            "note": "Explanation of why a positive-only saturation claim is harmful is one sentence — insufficient to persuade users who don't understand evidence-based planning risks"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.0,
+    "dynamic_weighted": 50.5,
+    "score": 86,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Popularity vs saturation distinction prevents both false crowding declarations and false novelty claims — the most critical quality safeguard in topic-entry decision-making",
+    "Cosmetic-novelty rejection rule prevents trivial reframing from being labeled 'whitespace' — directly addresses the most common failure mode in topic-entry assessments",
+    "Timing window analysis (open/narrowing/late/closed) adds strategic depth absent in basic evidence mappers",
+    "Self-critical review with 6 specific checks prevents overconfident recommendations in evidence-limited scenarios"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Saturation claims from training knowledge not consistently labeled as evidence-limited",
+      "observed_in": [
+        6,
+        7
+      ],
+      "problem": "Saturation and whitespace assessments frequently rely on training knowledge without consistently labeling this as unverified. Hard Rule #11 prohibits fabrication but does not mandate explicit offline-mode labeling for knowledge-based claims.",
+      "root_cause": "No explicit offline-mode fallback defined. Skill assumes live retrieval in Step 2 but provides no labeled partial-execution path for training-knowledge-only scenarios.",
+      "fix": "Add hard rule: 'All saturation, crowding, and timing window claims derived from training knowledge must be labeled: [Based on training knowledge — verify with current literature search before making entry decisions]. This label is mandatory when live retrieval was not completed.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance for assessing saturation in very new research fields (< 2 years old)",
+      "observed_in": [],
+      "problem": "For topics that are fewer than 2 years old (e.g., spatial transcriptomics in a new disease context, a recently described mechanism), the evidence base is too thin for reliable saturation pattern assessment. The skill lacks specific guidance for this scenario.",
+      "root_cause": "Saturation signal framework and timing window framework designed for established fields with interpretable publication patterns.",
+      "fix": "Add a new-field handling clause to Step 4 and the saturation signal framework: 'For topics < 2 years old with < 20 peer-reviewed original studies, label the saturation assessment as: [Emerging field — saturation pattern cannot yet be reliably assessed. Recommend monitoring for 12-24 months before formal entry decision.]'"
+    },
+    {
+      "priority": "P2",
+      "title": "Composability gap — no documented downstream skill integration",
+      "observed_in": [],
+      "problem": "The whitespace and entry-direction outputs naturally feed into research gap analysis and protocol design workflows, but no integration path is documented. Users must manually transfer the output.",
+      "root_cause": "Skill designed as standalone; no Composability section linking to medical-research-gap-finder or protocol design skills.",
+      "fix": "Add Composability section: 'Section G primary recommended direction can serve as direct input to medical-research-gap-finder or protocol design skills. Format the Section G output as: Research direction: [X] | Entry angle: [Y] | Minimum scope: [Z] | Main differentiation requirement: [W].'"
+    }
+  ]
+}

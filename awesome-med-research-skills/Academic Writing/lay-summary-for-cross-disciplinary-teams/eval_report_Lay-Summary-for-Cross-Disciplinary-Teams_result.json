@@ -1,0 +1,344 @@
+{
+  "meta": {
+    "skill_name": "lay-summary-for-cross-disciplinary-teams",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5,
+    "description": "Rewrites technical research content into a structured lay summary that cross-disciplinary teams can quickly understand and act on."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated statistics, PMIDs, DOIs, or clinical data. Template requires that findings be quantified from input data only, and evidence boundary section prevents overclaiming."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive recommendations. Audience-guide.md explicitly instructs against premature clinical conclusions when evidence is insufficient."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Evidence boundary section is a mandatory template element; exploratory-to-definitive inflation is structurally prevented."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A direct-execution skill."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 92,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. All five audience types covered with distinct language registers. 6-section template + annotated example + 4-step quality checklist provide comprehensive coverage. Pipeline positioning (upstream/downstream skills) is explicitly documented."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Vague input handled by redirecting to content clarification. Missing elements noted in output rather than fabricated. Minor deduction: no structured follow-up question template when input is insufficient — Step 1 asks for material but doesn't provide specific clarification prompts."
+      },
+      "performance_context": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. Template-driven output keeps scope controlled. Audience filtering prevents unnecessary section generation. Step 2 internal mapping runs before writing."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "Trigger phrases in description are extensive and precise. Template enforces consistent output. Minor deduction: Step 2 internal extraction is a silent check — missing elements are not explicitly surfaced to the user for confirmation before writing begins."
+      },
+      "human_usability": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. Pipeline positioning makes it clear when to use this skill vs. upstream/downstream alternatives. Missing element notation provides clear path for users to improve output."
+      },
+      "security": {
+        "score": 10,
+        "max": 12,
+        "note": "Input validation asks for source material and audience type. No formal out-of-scope refusal template — off-topic requests (press releases, consent forms, social media copy) could trigger this skill without explicit rejection mechanism."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Template in assets/, audience guide in references/ — clean separation of concerns. Each can be updated independently. Minor deduction: no versioning note for when audience guide language conventions may need revision."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Explicit upstream/downstream skill composability is a first-class design feature. Quality checklist at Step 4 prevents premature delivery. Minor deduction on escape hatches: no formal scope-refusal section for clearly off-scope requests."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 88.2,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 23,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Mixed-audience lay summary for scRNA-seq study on CD8+ T cell exhaustion in early NSCLC (42 cancer patients, 20 controls; Tex population significantly expanded, PD-1 upregulated)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Full 6-section template output produced. All 5 audience bullets included for mixed audience. Evidence boundary explicitly states cross-sectional blood data; tumor-infiltrating T cell pattern not confirmed. Statistics accurately reported from input.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output follows the 6-section template structure (What we tried to find out / What we did / What we found / What this means and doesn't / Team bullets / What comes next)",
+            "result": "PASS",
+            "note": "All 6 sections present in correct order."
+          },
+          {
+            "text": "All 5 team-specific bullets present for mixed audience (clinical, wet-lab, bioinformatics, product, management)",
+            "result": "PASS",
+            "note": "Audience-guide.md registers correctly applied for each bullet."
+          },
+          {
+            "text": "Evidence boundary explicitly distinguishes what the data supports from what remains unconfirmed",
+            "result": "PASS",
+            "note": "Cross-sectional limitation and tumor-infiltrating T cell gap both stated."
+          },
+          {
+            "text": "Key finding quantified using numbers from input (p<0.001, PD-1 upregulation)",
+            "result": "PASS",
+            "note": "All statistics traceable to input; no fabricated effect sizes."
+          },
+          {
+            "text": "No jargon introduced without definition in plain-language sections",
+            "result": "PASS",
+            "note": "Tex defined as 'exhausted T cells'; scRNA-seq explained in parenthetical."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Bioinformatics-only audience for GWAS study on 12 novel T2D loci from UKBB (450,000 participants, EUR ancestry; lead SNP OR 1.23, 95% CI 1.18-1.29)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Single-audience output focused on bioinformatics team. Analytical caveats (EUR-only ancestry, GWAS p-value threshold, replication needed), statistical detail (OR with CI), and validation needs correctly emphasized. Non-bioinformatics audience bullets correctly omitted.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output restricts team bullets to bioinformatics audience only; four other audiences correctly omitted",
+            "result": "PASS",
+            "note": "Audience filtering correctly applied per audience-guide.md."
+          },
+          {
+            "text": "OR and CI reported accurately from input without inflation",
+            "result": "PASS",
+            "note": "OR 1.23 (95% CI 1.18-1.29) correctly preserved."
+          },
+          {
+            "text": "EUR-ancestry restriction flagged as an evidence boundary in the 'what this means and doesn't' section",
+            "result": "PASS",
+            "note": "Generalizability limitation correctly identified."
+          },
+          {
+            "text": "Bioinformatics bullet emphasizes analytical caveats and replication needs",
+            "result": "PASS",
+            "note": "Audience-guide.md bioinformatics register (FDR, independent cohort, validation) correctly applied."
+          },
+          {
+            "text": "No clinical or commercial speculation added for a GWAS discovery study",
+            "result": "PASS",
+            "note": "Scope correctly limited to analytical implications."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Vague input: 'Can you write a lay summary of my research on cancer?' — no study design, findings, or audience provided",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill correctly withholds lay summary. Clarification requested covering study design, key finding with quantification, and audience. Pipeline positioning note (content must be clarified first) correctly invoked. No fabricated cancer research content.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill declines to produce lay summary from vague topic-only input",
+            "result": "PASS",
+            "note": "Skill principle applied: lay summary on unclear input will be factually imprecise."
+          },
+          {
+            "text": "Focused clarification questions cover study design, key finding, quantification, and audience",
+            "result": "PASS",
+            "note": "Questions map to Step 2 core element table."
+          },
+          {
+            "text": "No fabricated cancer research content generated",
+            "result": "PASS",
+            "note": "Hard evidence-integrity behavior maintained."
+          },
+          {
+            "text": "Pipeline positioning invoked: user directed to clarify objectives and findings first",
+            "result": "PASS",
+            "note": "Upstream clarification guidance correctly applied."
+          },
+          {
+            "text": "Response provides actionable path for user to proceed (e.g., paste abstract or key results paragraph)",
+            "result": "PASS",
+            "note": "Concrete unblocking direction provided."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Management/leadership audience for phase 2 RCT in locally advanced pancreatic cancer (ZZZ drug; OS improved 7.2 to 11.4 months, HR 0.68, p=0.031; SAE rate comparable)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Single-audience management output. Plain language throughout. Phase 2 limitation stated. OS improvement framed concretely. Minor issue: skill does not explicitly flag that phase 2 OS endpoint at this sample size doesn't yet meet regulatory threshold for standard-of-care change.",
+        "basic": 37,
+        "specialized": 53,
+        "total": 90,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output uses management-register plain language throughout with no unexplained jargon",
+            "result": "PASS",
+            "note": "Audience-guide.md management register correctly applied; HR explained in plain terms."
+          },
+          {
+            "text": "Phase 2 study size limitation clearly stated in evidence boundary section",
+            "result": "PASS",
+            "note": "Phase 2 framing preserved; not presented as definitive practice-changing result."
+          },
+          {
+            "text": "OS improvement quantified concretely (11.4 vs 7.2 months) rather than using vague positives",
+            "result": "PASS",
+            "note": "Template writing principle on quantification correctly applied."
+          },
+          {
+            "text": "Skill explicitly flags that phase 2 OS endpoint does not meet regulatory standard-of-care threshold",
+            "result": "FAIL",
+            "note": "Evidence boundary states phase 2 limitation but does not specifically note the regulatory standard-of-care distinction. Management readers may overinterpret the OS benefit."
+          },
+          {
+            "text": "Next step section names a concrete follow-up (e.g., phase 3 design, regulatory meeting) rather than 'further research needed'",
+            "result": "PASS",
+            "note": "Template writing principle on concrete next steps correctly applied."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Partially defined multi-cohort proteomics study on Alzheimer's biomarkers (plasma GFAP and p-tau 217 in MCI converters, N=320) — study goal not formally defined, audience unspecified",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Step 2 core element mapping correctly identifies missing study goal. Audience defaults to mixed. Missing study goal noted in output. Summary produced from available findings with evidence boundary acknowledging goal uncertainty. Minor issue: the audience default to mixed is applied silently without notifying the user.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Step 2 core element mapping explicitly identifies missing study goal and notes it in the output",
+            "result": "PASS",
+            "note": "Missing element handling correctly applied per Step 2 instructions."
+          },
+          {
+            "text": "Audience defaults to mixed when unspecified, and all 5 team bullets are included",
+            "result": "PASS",
+            "note": "Step 1 default audience behavior correctly applied."
+          },
+          {
+            "text": "Audience default to mixed explicitly notified to the user before writing",
+            "result": "FAIL",
+            "note": "Skill applies the default silently. User is not told that mixed audience was assumed — may not match their intent."
+          },
+          {
+            "text": "Plasma biomarker evidence boundary correctly stated (MCI converters cohort, no replication)",
+            "result": "PASS",
+            "note": "GFAP and p-tau 217 findings correctly bounded to single cohort."
+          },
+          {
+            "text": "No Alzheimer's progression claims fabricated beyond what the input N=320 cohort supports",
+            "result": "PASS",
+            "note": "Hard evidence-integrity behavior maintained."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.8,
+    "dynamic_weighted": 52.9,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Annotated worked example in output-template.md provides a high-quality reference for correct output format, significantly reducing output variance",
+    "Explicit upstream/downstream pipeline positioning (upstream: clarify research content; downstream: slide deck, graphical abstract) enables clean workflow integration",
+    "5-audience differentiation with distinct language registers in audience-guide.md prevents register mismatch without bloating SKILL.md",
+    "Evidence boundary is a mandatory template section, structurally preventing overclaiming across all output types",
+    "4-step quality checklist before delivery prevents jargon and accuracy failures from reaching the user"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Step 2 internal extraction not surfaced to user before writing — missing elements silently skipped",
+      "observed_in": [
+        5
+      ],
+      "problem": "Step 2 maps 5 core elements but does not instruct the skill to show this mapping or explicitly flag missing elements to the user before writing. Missing elements (e.g., undefined study goal) are noted in the output but the user cannot correct them before the full summary is generated.",
+      "root_cause": "Step 2 is designed as a silent pre-writing check. Its mapping is not shown, and there is no pause-and-confirm instruction between Step 2 and Step 3.",
+      "fix": "Add to Step 2: 'If one or more elements cannot be extracted, list the missing elements explicitly to the user and invite them to fill in the gap before proceeding to Step 3. Do not proceed to writing when the main finding or evidence boundary is undefined.'"
+    },
+    {
+      "priority": "P1",
+      "title": "Audience default to mixed applied silently — users not informed when default is used",
+      "observed_in": [
+        5
+      ],
+      "problem": "When audience is unspecified, the skill defaults to mixed and proceeds without notifying the user. Users who intended a specific audience (e.g., clinical only) may receive an incorrect output without knowing the assumption was made.",
+      "root_cause": "Step 1 specifies the default behavior but does not instruct the skill to communicate the assumption before writing.",
+      "fix": "Add to Step 1: 'If the audience is not specified, state that you are defaulting to mixed audience before proceeding, and invite the user to confirm or override.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No formal out-of-scope refusal template for clearly off-topic requests",
+      "observed_in": [],
+      "problem": "Off-scope requests (press releases, patient consent forms, social media copy, fundraising text) could trigger this skill without an explicit rejection mechanism. The skill handles vague research input well but has no defined response for non-research communication tasks.",
+      "root_cause": "Skill was designed for in-scope edge cases (insufficient research input, missing audience) but not for off-scope request types.",
+      "fix": "Add an Input Validation section: 'This skill accepts research content (abstracts, results sections, study summaries). For press releases, patient consent documents, or non-research communications, use a more appropriate tool.'"
+    }
+  ]
+}

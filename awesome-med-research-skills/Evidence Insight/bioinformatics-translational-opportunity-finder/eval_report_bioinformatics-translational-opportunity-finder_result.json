@@ -1,0 +1,450 @@
+{
+  "meta": {
+    "skill_name": "bioinformatics-translational-opportunity-finder",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Identifies translationally meaningful paths for bioinformatics findings. Polished: Step 1.5 check-in added; disease-specific context required in Section G reframings; composability handoffs; minimum clarification threshold for vague inputs; retrieval fallback labeling."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Hard rule 1 prohibits fabricating references, PMIDs, DOIs, accession numbers, trial names, and validation claims. Step 2 citation accuracy rules uniquely prohibit 'converting vague field memory into citation-like claims' and require labeling unverifiable points as evidence-limited."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Explicit out-of-scope redirect for patient-specific interpretation; hard rules 3-5 prevent implying clinical utility without bridge evidence."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Hard rules 3, 7 prevent statistical association = translational utility and internal = external validation conflation. Evidence-synthesis skill with no methodological fallacy risk."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A direct execution skill; no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 86,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. 9-section output covers all stated functions including unique Section G (Topic Reframing Recommendations). 8 discovery types, 9+ translational use cases, 12 hard rules. Reframing-rules.md module is unique — converts inflated framings to narrowest defensible versions with explicit before/after examples."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Fault Tolerance (3/4): input validation + out-of-scope redirect; Step 1 narrows underspecified inputs. Error Reporting (4/4): Step 2 citation certainty instructions uniquely prohibit 'vague field memory into citation-like claims'; requires 'unverified/evidence-limited' labeling. Recoverability (3/4): stateless; Section I self-critical review."
+      },
+      "performance_context": {
+        "score": 6,
+        "max": 8,
+        "note": "Token Cost (3/4): 9 sections but output format guidance more judicious than basic-discovery version ('use table only when parallel comparison materially improves clarity'). Execution Efficiency (3/4): 8-step workflow logical; no redundant passes."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "Learnability (4/4): 5 sample triggers with specific scenarios (12-gene signature, methylation classifier, TCGA-derived risk model). Consistency (4/4): mandatory A-I section structure. Feedback Design (2/4): no check-in before full analysis; full 9-section output delivered in one pass. Error Prevention (4/4): 12 hard rules + self-critical review + reframing-rules force claim discipline."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Discoverability (3/4): 5 sample triggers with diverse bioinformatics contexts. Forgiveness (4/4): scope redirect prevents misuse; hard rule 12 (narrowest defensible framing) prevents output inflation."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. No eval/exec on user input; no credential handling; hard rule 1 provides strong fabrication prohibition."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Modularity (4/4): 8 reference files with distinct operational scopes, each mapped to specific output sections. Modifiability (4/4): each file independently updatable. Testability (3/4): 9-section structure supports assertion-based evaluation; no quantitative rubric for reframing quality."
+      },
+      "agent_specific": {
+        "score": 14,
+        "max": 20,
+        "note": "Trigger Precision (4/4): 5 triggers with specific bioinformatics contexts; 'not for' list is precise. Progressive Disclosure (2/4): no check-in after Step 1 before full analysis. Composability (2/4): no explicit composability with biomarker-landscape-scanner or evidence-level-ranker. Idempotency (3/4): same input → same structure; minor prose variance. Escape Hatches (3/4): out-of-scope redirect template; Section I self-critical review."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 81.6,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "12-gene immune signature in ovarian cancer — strongest translational angle",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Discovery type correctly classified as 'multi-feature signature'. Hard rule 7 applied: internal TCGA validation explicitly insufficient for prognostic biomarker claim. Section G reframes from 'prognostic biomarker' to 'externally unvalidated prognostic candidate'. Section F identifies prognosis as best-fit framing over treatment-response (no treatment endpoint data).",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 9 mandatory sections (A through I) are present",
+            "result": "PASS",
+            "note": "Discovery Framing through Self-Critical Risk Review all produced."
+          },
+          {
+            "text": "Discovery type classified as 'multi-feature signature' (not 'biomarker') using discovery-type-framework.md",
+            "result": "PASS",
+            "note": "Section C correctly distinguishes multi-feature signature from single marker and assigns appropriate classification."
+          },
+          {
+            "text": "Hard rule 7 applied: TCGA internal validation not presented as sufficient for prognostic biomarker claim",
+            "result": "PASS",
+            "note": "Section D explicitly states: 'Internal TCGA training — no external cohort validation performed.'"
+          },
+          {
+            "text": "Section G provides 'framing to avoid', 'recommended framing', and 'narrowest credible version'",
+            "result": "PASS",
+            "note": "Reframing: 'prognostic biomarker' → 'externally unvalidated immune-prognostic candidate'; narrowest version provided."
+          },
+          {
+            "text": "No fabricated external cohort validation status or published precedent claims",
+            "result": "PASS",
+            "note": "Hard rule 1 upheld; all evidence labeled with source context."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "scRNA-seq resistant macrophage state in NSCLC — translational opportunity assessment",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Discovery type: cell state/cell population finding. Small n (8 patients) flagged as major limitation. Hard rule 9 applied: mechanism-first follow-up recommended as safer than direct translational framing. Section G: 'checkpoint resistance biomarker' → 'candidate resistance state hypothesis requiring prospective validation'.",
+        "basic": 33,
+        "specialized": 48,
+        "total": 81,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 9 mandatory sections present",
+            "result": "PASS",
+            "note": "All sections produced."
+          },
+          {
+            "text": "Discovery type classified as 'cell state/cell population finding', not 'signature' or 'single marker'",
+            "result": "PASS",
+            "note": "Section C correctly distinguishes cell-state from multi-feature signature; scRNA-seq platform noted separately from discovery type."
+          },
+          {
+            "text": "n=8 patients flagged as insufficient for translational framing beyond hypothesis generation",
+            "result": "PASS",
+            "note": "Section D validation burden: 'n=8 preclinical discovery — external validation in larger matched cohort required before any translational claim.'"
+          },
+          {
+            "text": "Hard rule 9 applied: mechanism-first framing recommended as safer when bridge evidence is weak",
+            "result": "PASS",
+            "note": "Section F: mechanism-first follow-up (characterize M-Resist in larger cohort) recommended over direct biomarker framing."
+          },
+          {
+            "text": "Section G reframes 'checkpoint resistance biomarker' to appropriate hypothesis-level framing",
+            "result": "PASS",
+            "note": "Reframing: 'checkpoint resistance biomarker' → 'candidate macrophage resistance state hypothesis' with explicit validation requirements stated."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "TCGA-derived risk model AUC=0.85, internal validation only — narrowest defensible translational topic",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Hard rules 6 (AUC not clinical readiness) and 7 (internal validation) both triggered. Cross-validation correctly identified as internal validation, not external. Section H: primary next step is external validation in independent cohort, not clinical deployment.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Hard rule 6 applied: AUC=0.85 on training data not treated as clinical usability evidence",
+            "result": "PASS",
+            "note": "Section E: 'AUC=0.85 represents training performance; does not demonstrate generalizability or clinical utility.'"
+          },
+          {
+            "text": "Hard rule 7 applied: 10-fold cross-validation correctly classified as internal validation (not external)",
+            "result": "PASS",
+            "note": "Section D: 'Cross-validation on TCGA is internal — same patient population, same platform. External independent cohort validation required.'"
+          },
+          {
+            "text": "Section G reframes to 'externally unvalidated prognostic candidate' (not 'prognostic biomarker')",
+            "result": "PASS",
+            "note": "Reframing explicitly applied per reframing-rules.md: 'prognostic biomarker' → 'unvalidated prognostic candidate requiring external cohort study.'"
+          },
+          {
+            "text": "Section H identifies external validation as primary next step (not clinical deployment)",
+            "result": "PASS",
+            "note": "Section H: 'Immediate objective: validation in independent colorectal cancer cohort (GEO/ICGC) with prospective endpoint data.'"
+          },
+          {
+            "text": "All 9 mandatory sections present",
+            "result": "PASS",
+            "note": "All sections produced."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Spatial transcriptomics immune exclusion zone in pancreatic cancer — novel platform, no validation",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Section E (Assayability) correctly identifies spatial transcriptomics as not workflow-compatible for current clinical use. Small n=6. Bridge evidence: mechanism-only. Section F: mechanism-first follow-up recommended. Section H: validate in fresh-frozen vs FFPE compatibility before any clinical framing.",
+        "basic": 32,
+        "specialized": 46,
+        "total": 78,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "All 9 mandatory sections present",
+            "result": "PASS",
+            "note": "All sections produced."
+          },
+          {
+            "text": "Section E identifies spatial transcriptomics (Visium) as not yet clinically workflow-compatible",
+            "result": "PASS",
+            "note": "Assay-and-implementation-rules.md applied: Visium requires fresh-frozen tissue, specialized equipment, high cost — not routine clinical assay."
+          },
+          {
+            "text": "n=6 sample limitation flagged as insufficient for any translational framing beyond hypothesis",
+            "result": "PASS",
+            "note": "Section D: 'n=6 exploratory — no statistical power for biomarker or clinical endpoint claims.'"
+          },
+          {
+            "text": "Section F recommends mechanism-first framing over direct clinical framing",
+            "result": "PASS",
+            "note": "Hard rule 9 applied; mechanism-first follow-up recommended."
+          },
+          {
+            "text": "No fabricated clinical utility precedents for spatial transcriptomics in PDAC",
+            "result": "PASS",
+            "note": "Hard rule 1 upheld; evidence density in Section B noted as sparse for spatial transcriptomics-PDAC clinical interface."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Multi-omics integrated model (transcriptomics + methylation + proteomics) in 50 GBM samples, AUC=0.91",
+        "status": "COMPLETED",
+        "status_flag": "⚠️",
+        "note": "Discovery type: integrated multi-omics model. Hard rules 6 and 7 both triggered (AUC=0.91 on n=50 training). High implementation burden flagged (3 platforms required). Section G reframing present. Minor weakness: Section G reframing lacks disease-specificity — the 'multi-omics model' reframing guidance reads as applicable to any multi-omics paper rather than this specific GBM context.",
+        "basic": 29,
+        "specialized": 42,
+        "total": 71,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Discovery type classified as 'integrated multi-omics model' with all three platform components named",
+            "result": "PASS",
+            "note": "Section C: 'integrated multi-omics model (bulk transcriptomics + DNA methylation + proteomics) — discovery-type-framework.md highest complexity class.'"
+          },
+          {
+            "text": "Hard rules 6 and 7 applied: AUC=0.91 on n=50 not treated as clinical readiness evidence",
+            "result": "PASS",
+            "note": "Section D: 'AUC=0.91 from n=50 internal training — massively overfitted risk; cross-platform reproducibility unproven.'"
+          },
+          {
+            "text": "Multi-platform implementation burden (3 assay types) explicitly noted as primary barrier",
+            "result": "PASS",
+            "note": "Section E: 'three-platform integration requires concordant specimen, parallel assays, and harmonized processing — high implementation friction.'"
+          },
+          {
+            "text": "Section G provides publication-grade reframing specific to this GBM multi-omics context",
+            "result": "FAIL",
+            "note": "Section G reframing reads as generic multi-omics guidance; lacks GBM-specific context (e.g., MGMT methylation established biomarker landscape, TCGA GBM multi-omics precedents). Reframing does not distinguish what is unique about this specific integration."
+          },
+          {
+            "text": "Section H recommends external validation as primary next step, not clinical deployment",
+            "result": "PASS",
+            "note": "Section H: 'External validation in independent GBM cohort (n ≥ 200) with prospective overall survival endpoint before any clinical framing.'"
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Patient-specific interpretation of gene expression score — out-of-scope request",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Out-of-scope redirect correctly produced. No treatment recommendation made.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Out-of-scope redirect produced rather than attempting treatment recommendation",
+            "result": "PASS",
+            "note": "Redirect: 'This skill identifies translational research opportunities for bioinformatics findings. Your request requires patient-specific interpretation...'"
+          },
+          {
+            "text": "No treatment recommendation for the individual patient produced",
+            "result": "PASS",
+            "note": "No BRCA1-based treatment guidance generated."
+          },
+          {
+            "text": "No fabricated clinical utility or outcome evidence generated",
+            "result": "PASS",
+            "note": "Hard rule 1 upheld; no invented clinical precedent."
+          },
+          {
+            "text": "Redirect is concise without partial answering before redirecting",
+            "result": "PASS",
+            "note": "Redirect delivered directly without attempting partial interpretation."
+          },
+          {
+            "text": "Request correctly classified as patient-specific (not field-level translational research)",
+            "result": "PASS",
+            "note": "Out-of-scope classification accurate: individual patient methylation value + treatment question = clinical decision, not research mapping."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "AI model with 99% accuracy framed as 'breakthrough diagnostic ready for clinical use'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Hard rules 3, 6, 12 all triggered. Step 1 narrows: 'cancer vs normal' is a poorly specified diagnostic problem. Section G reframes 'diagnostic tool ready for clinical use' to appropriate candidate framing. Section I identifies performance-metric overclaim as primary risk. User's breakthrough framing not validated.",
+        "basic": 33,
+        "specialized": 48,
+        "total": 81,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Hard rule 6 applied: 99% accuracy not treated as clinical readiness evidence",
+            "result": "PASS",
+            "note": "Section A/D: '99% accuracy likely reflects class imbalance, training data artifacts, or lack of external test set — requires prospective external validation.'"
+          },
+          {
+            "text": "'Breakthrough diagnostic ready for clinical use' framing not validated",
+            "result": "PASS",
+            "note": "User's framing not validated; Section A states: 'Current evidence supports computational discovery, not clinical diagnostic deployment.'"
+          },
+          {
+            "text": "Section G reframes 'breakthrough diagnostic' to appropriate narrow framing",
+            "result": "PASS",
+            "note": "Reframing: 'breakthrough clinical diagnostic' → 'candidate cancer-detection computational classifier requiring prospective clinical validation.'"
+          },
+          {
+            "text": "Section I identifies performance-metric overclaim as most likely source of overclaim",
+            "result": "PASS",
+            "note": "Section I: 'Most likely overclaim: treating accuracy metric as proxy for clinical utility. Without prospective external validation this is a model, not a diagnostic.'"
+          },
+          {
+            "text": "Step 1 narrows the vague 'cancer vs normal' discovery before formal mapping",
+            "result": "PASS",
+            "note": "Section A flags: 'Cancer vs normal is underspecified — which cancer type? What clinical context? What comparator?' Assumptions stated before mapping proceeds."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.4,
+    "dynamic_weighted": 49.0,
+    "score": 83,
+    "max": 100,
+    "grade": "Limited Release",
+    "grade_symbol": "✅",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Reframing-rules.md module (unique in Evidence Insight category) converts inflated claims to defensible publication-grade framings with explicit before/after patterns — directly actionable for manuscript positioning",
+    "Hard rule 7 ('never treat internal validation as external validation') is the strongest safeguard against bioinformatics' most common translation error",
+    "Step 2 citation accuracy rules uniquely prohibit 'converting vague field memory into citation-like claims' — the most explicit citation integrity standard in the Evidence Insight category",
+    "Hard rule 12 ('prefer narrowest defensible framing') combined with Section F ('single best-fit framing') produces more focused outputs than multi-framing alternatives",
+    "Discovery-type classification before translational framing (Step 3) prevents conflating single markers with multi-feature signatures with cell states — a common source of positioning errors"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No progressive disclosure — full 9-section analysis delivered without check-in",
+      "observed_in": [
+        1,
+        2,
+        5
+      ],
+      "problem": "All inputs trigger full 9-section analysis in one pass. No check-in after Step 1 (discovery definition) allows user to validate framing before the full analysis is generated.",
+      "root_cause": "SKILL.md workflow has no check-in step between Step 1 and Steps 2-8.",
+      "fix": "Add Step 1.5 validation check: surface assumed discovery type, disease context, and scan objective; ask 'Is this framing correct before I proceed with full analysis?' This prevents wasted effort on wrong initial assumptions."
+    },
+    {
+      "priority": "P1",
+      "title": "Multi-omics stress inputs produce generic reframings that lack disease-specific context",
+      "observed_in": [
+        5
+      ],
+      "problem": "For integrated multi-omics models (Input 5), Section G reframing reads as generic multi-omics guidance rather than GBM-specific reasoning. The established GBM biomarker landscape (MGMT, IDH, EGFR) is not factored into the reframing.",
+      "root_cause": "Reframing-rules.md provides pattern templates but no instruction for incorporating disease-specific established biomarker context.",
+      "fix": "Add to reframing-rules.md: 'Before reframing, check whether established biomarkers exist for the disease. If yes, position the reframing relative to the existing landscape rather than as standalone positioning.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No composability with sibling Evidence Insight skills",
+      "observed_in": [
+        1,
+        3
+      ],
+      "problem": "Skills that identify a strong prognosis path (e.g., Input 1, Input 3) have no explicit handoff to evidence-level-ranker or high-value-paper-screener for next steps.",
+      "root_cause": "SKILL.md defines a standalone scope without downstream composability instructions.",
+      "fix": "Add Section H composability note: 'For ranking evidence quality for this path, see evidence-level-ranker. For screening relevant literature, see high-value-paper-screener.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Step 2 literature retrieval creates inconsistency without live web access",
+      "observed_in": [
+        1,
+        5
+      ],
+      "problem": "Step 2 requires retrieving peer-reviewed literature before framing. Without live search, model may use training memory without labeling it.",
+      "root_cause": "No fallback behavior specified for offline execution.",
+      "fix": "Add retrieval-mode fallback: label evidence in Section B as 'based on training knowledge — verify with current literature' when live retrieval is unavailable."
+    },
+    {
+      "priority": "P2",
+      "title": "No minimum clarification protocol for vague inputs before full execution",
+      "observed_in": [
+        7
+      ],
+      "problem": "When only a disease class or algorithm type is given without specific discovery context, the skill proceeds with stated assumptions rather than asking targeted questions.",
+      "root_cause": "Input Validation section lists examples but no minimum-clarification threshold is defined.",
+      "fix": "Add clarification trigger: if data modality, disease context, or discovery type are all absent, ask 2–3 focused questions before executing Steps 3 onward."
+    }
+  ]
+}

@@ -1,0 +1,306 @@
+{
+    "meta": {
+        "skill_name": "rf-model-importance-analysis",
+        "description": "Train random forest classifiers and rank biomarker features by importance using mean decrease in accuracy and Gini impurity. Inputs: feature matrix, class labels. Outputs: trained model, importance table, OOB error curve, partial dependence plots.",
+        "evaluated_on": "2026-04-20",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated scientific claims, unverifiable statistics, or invented study results appeared in any audited execution."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill stayed inside offline statistical execution boundaries and did not issue diagnostic, treatment, or clinical decision advice."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "The workflow remained aligned with binary random-forest feature ranking, and the documentation clearly warns that preprocessing, imputation, and multiclass use are out of scope."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "The CLI help check, packaged tests, canonical runs, plot-only rerender, stress run, and repeated seeded comparison all executed successfully in the audited environment."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 97,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 12,
+                "max": 12,
+                "note": "The skill fully covers its promised binary random-forest training, importance export, plot generation, plot-only reuse, troubleshooting, and test flows."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "Validation, standardized errors, timeout control, and deterministic reruns are strong, although corrupted-bundle recovery guidance remains primarily documentation-based rather than explicitly smoke-tested."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "Full score achieved. The skill uses progressive disclosure and a direct CLI workflow without unnecessary context or execution overhead."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "The structure is clear and consistent, but first-use onboarding still benefits from scanning a long option matrix before reaching the most common execution scenarios."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "The trigger language and examples are natural for technical users, but the skill remains intentionally strict about already-cleaned binary inputs."
+            },
+            "security": {
+                "score": 12,
+                "max": 12,
+                "note": "Full score achieved. Output paths are constrained to the skill root, inputs are validated, execution is offline-only, and the workflow does not expose eval-like code execution."
+            },
+            "maintainability": {
+                "score": 12,
+                "max": 12,
+                "note": "Full score achieved. The codebase is modular, references are separated cleanly, and the packaged tests verify both full-run and plot-only behavior."
+            },
+            "agent_specific": {
+                "score": 20,
+                "max": 20,
+                "note": "Full score achieved. Trigger precision, layered references, composability, deterministic re-runs, and explicit out-of-scope boundaries are all strong."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 88.2,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Bundled dataset full analysis",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed cleanly and produced the full documented artifact set, including session metadata, model bundle, ranked tables, and both plots.",
+                "basic": 38,
+                "specialized": 52,
+                "total": 90,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output directory contains the documented artifact set.",
+                        "result": "PASS",
+                        "note": "session_info.txt, data/rf_result.rds, both CSV tables, and both PDF plots were present."
+                    },
+                    {
+                        "text": "rf_top_features.csv honors the requested reporting cap.",
+                        "result": "PASS",
+                        "note": "The run used --rf_top_n 5 and the output contained exactly 5 feature rows."
+                    },
+                    {
+                        "text": "Reproducibility metadata is recorded.",
+                        "result": "PASS",
+                        "note": "session_info.txt was written successfully for the canonical run."
+                    },
+                    {
+                        "text": "The run stays within local-file execution boundaries.",
+                        "result": "PASS",
+                        "note": "No network access or unsafe command execution was observed."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Custom importance metric and thresholds",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Handled a tuned forest and Gini-based ranking without instability, and the filtered output remained coherent and within the requested cap.",
+                "basic": 38,
+                "specialized": 51,
+                "total": 89,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Custom modeling parameters execute successfully on the bundled data.",
+                        "result": "PASS",
+                        "note": "The CLI completed with --rf_ntree 800, --rf_mtry 4, and --rf_imp_type 2."
+                    },
+                    {
+                        "text": "The importance metric switches to MeanDecreaseGini when requested.",
+                        "result": "PASS",
+                        "note": "rf_feature_importance.csv reported MeanDecreaseGini in the Metric column."
+                    },
+                    {
+                        "text": "The filtered feature table honors the requested threshold and cap.",
+                        "result": "PASS",
+                        "note": "The filtered table retained 7 rows, which is within the requested cap of 8, and all retained scores exceeded 1."
+                    },
+                    {
+                        "text": "Plot generation remains stable under custom settings.",
+                        "result": "PASS",
+                        "note": "Both PDF outputs were created successfully in the custom output directory."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Identical case and control labels",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The expected validation failure was returned immediately with a standardized message, which is correct behavior for this boundary case.",
+                "basic": 37,
+                "specialized": 49,
+                "total": 86,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "The CLI rejects identical case and control labels.",
+                        "result": "PASS",
+                        "note": "The command returned SKILL_INVALID_PARAMETER: --case_group and --control_group must be different."
+                    },
+                    {
+                        "text": "Validation happens before model training or result writing.",
+                        "result": "PASS",
+                        "note": "No training, plotting, or output-writing log lines appeared before the error."
+                    },
+                    {
+                        "text": "The failure message is standardized and actionable.",
+                        "result": "PASS",
+                        "note": "The error uses a documented skill-specific code and clearly identifies the invalid setting."
+                    },
+                    {
+                        "text": "Boundary handling remains deterministic and safe.",
+                        "result": "PASS",
+                        "note": "The same invalid request is expected to fail consistently without side effects."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Plot-only rerender from existing model",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The plot-only branch reused the saved model bundle and regenerated plots without retraining.",
+                "basic": 38,
+                "specialized": 49,
+                "total": 87,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Plot-only mode succeeds without raw input-file arguments.",
+                        "result": "PASS",
+                        "note": "The rerun completed with only plot-only, output, seed, and timeout parameters."
+                    },
+                    {
+                        "text": "Plot-only mode reuses the existing model bundle from output_dir/data/rf_result.rds.",
+                        "result": "PASS",
+                        "note": "The command succeeded against the existing canonical output directory whose saved model bundle was already present."
+                    },
+                    {
+                        "text": "Plot outputs exist after the rerender.",
+                        "result": "PASS",
+                        "note": "Both plot/rf_error_plot.pdf and plot/rf_importance_plot.pdf were present after the rerun."
+                    },
+                    {
+                        "text": "Plot-only mode avoids unnecessary retraining side effects.",
+                        "result": "PASS",
+                        "note": "The log showed startup and plotting only, with no repeated input-read or training messages."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Heavier forest on bundled data",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "A heavier forest configuration completed within the timeout and still produced an interpretable ranked table.",
+                "basic": 38,
+                "specialized": 51,
+                "total": 89,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "The heavier random-forest configuration completes successfully within the configured timeout.",
+                        "result": "PASS",
+                        "note": "The run with --rf_ntree 1200, --rf_mtry 6, and --rf_nodesize 1 completed successfully under the 300-second limit."
+                    },
+                    {
+                        "text": "The thresholded top-feature table honors the requested cap and threshold.",
+                        "result": "PASS",
+                        "note": "The stress output contained 10 rows, matching the cap, and all retained importance values exceeded 0.5."
+                    },
+                    {
+                        "text": "The ranked output remains interpretable under the heavier settings.",
+                        "result": "PASS",
+                        "note": "The ranking remained coherent, led by SMAD7 and KLF2 rather than collapsing into unusable output."
+                    },
+                    {
+                        "text": "Stress execution preserves the documented artifact contract.",
+                        "result": "PASS",
+                        "note": "Model bundle, tables, plots, and session metadata were all generated successfully."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 38.8,
+        "dynamic_weighted": 52.9,
+        "score": 92,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The skill is operationally stable across standard, tuned, plot-only, stress, and expected-failure workflows.",
+        "Input validation, path confinement, and offline-only execution give the CLI a strong safety profile.",
+        "Deterministic behavior is explicit and was confirmed by a repeated seeded run with byte-for-byte matching output.",
+        "Documentation, examples, troubleshooting, and packaged tests align closely with the actual implementation."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Add a faster quick-start entry",
+            "observed_in": [],
+            "problem": "The skill is complete, but first-time users and agents still need to scan a long option table before reaching the most common execution scenarios.",
+            "root_cause": "The documentation currently optimizes for completeness before the shortest successful path.",
+            "fix": "Add a short Quick Start section near the top of SKILL.md with three copy-ready commands: standard run, tuned run, and plot-only rerender. Keep the full option matrix below for reference depth."
+        },
+        {
+            "priority": "P2",
+            "title": "Expand negative smoke-test coverage",
+            "observed_in": [],
+            "problem": "The audited package tests cover full execution and plot-only reuse, but they do not directly exercise path-escape rejection or corrupted model-bundle handling.",
+            "root_cause": "The current test suite focuses on the main happy path plus one plot-only regression path.",
+            "fix": "Add one path-safety test for an output directory outside the skill root and one plot-only test with an intentionally broken rf_result.rds bundle to verify the documented failure contract."
+        }
+    ]
+}

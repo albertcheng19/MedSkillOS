@@ -1,0 +1,225 @@
+{
+  "meta": {
+    "skill_name": "cerna-analysis",
+    "description": "Use when building a ceRNA regulatory network from a key gene list by combining bundled miRNA-mRNA and miRNA-lncRNA database files, with flat-file CSV exports and PDF visualization in a single output directory. NOT for: differential expression, single-cell analysis, enrichment analysis, or workflows without a key gene list.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Complex",
+    "n_inputs": 7
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabricated DOI, PMID, or interaction data. All miRNA-mRNA and miRNA-lncRNA interactions sourced from bundled local database files (starbase, miRDB, miRTarbase)." },
+      "practice_boundaries": { "result": "PASS", "detail": "No diagnostic or prescriptive conclusions. Differential expression, enrichment, single-cell, and survival workflows explicitly excluded with documented out-of-scope messages." },
+      "methodological_ground": { "result": "PASS", "detail": "ceRNA network construction correctly implements miRNA sponging logic via miRNA-mRNA and miRNA-lncRNA co-targeting. Pairwise intersection modes correctly reduce to higher-confidence interactions. SKILL_INVALID_DATA raised when ceRNA layer collapses." },
+      "code_usability": { "result": "PASS", "detail": "Scripts syntactically valid R. Entry-point package check for igraph before any execution. source_required_script() wraps all source() calls with SKILL_* error codes. Validation layer fully separated in validation.R." }
+    }
+  },
+  "static_score": {
+    "subtotal": 87,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 11, "max": 12, "note": "Seven dataset modes and three lncRNA strictness levels documented with corresponding database files. CLI inline gene list and file-based gene list both supported. Minor gap: no proactive warning about lncRNA frequency threshold collapsing the network for small gene lists." },
+      "reliability": { "score": 11, "max": 12, "note": "Nine SKILL_* error codes covering file, data, dependency, parameter, timeout, and runtime failures. SKILL_INVALID_DATA correctly raised when ceRNA layer collapses. Scene Override applied: hard stop on empty lncRNA layer is correct defensive design." },
+      "performance_context": { "score": 7, "max": 8, "note": "SKILL.md at approximately 218 lines with well-structured progressive disclosure via references/. Methods section explains pairwise intersection edge reduction quantitatively (20-40% fewer edges). Token efficiency good." },
+      "agent_usability": { "score": 15, "max": 16, "note": "Workflow steps clearly enumerated as four-step process. Two CLI examples with different modes. Arguments table complete. Dependency note for igraph prominently placed. Near-perfect agent usability; minor gap: no feedback format specified for post-run summary." },
+      "human_usability": { "score": 7, "max": 8, "note": "Description uses precise trigger language ('ceRNA regulatory network', 'key gene list', 'bundled miRNA databases'). Do not use it for clearly delineated. One gap: no note on typical network size expected for a standard 10-20 gene list." },
+      "security": { "score": 12, "max": 12, "note": "No hardcoded credentials. source_required_script() validates script existence before sourcing. File paths used for read-only operations. No eval/exec of user strings. boot_fail() handles all script loading errors cleanly." },
+      "maintainability": { "score": 11, "max": 12, "note": "Seven scripts with excellent single-responsibility separation: validation.R, io.R, functions.R, plot_functions.R, utils.R, run_analysis.R, main.R. source_required_script() wrapper adds resilience to script loading. Test commands documented." },
+      "agent_specific": { "score": 13, "max": 20, "note": "Trigger description includes explicit NOT triggers. Seven dataset modes support diverse analysis strategies. Idempotency strong with fixed seed and deterministic network construction. Composability limited. Escape hatches for enrichment, DEG, single-cell, survival documented." }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 86.7,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 33, "total": 35 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "ceRNA network from gene.txt, combined mode, High strictness",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four output files generated. Combined mode loads miRNA_mRNA.csv and High strictness lncRNA file.",
+        "basic": 36,
+        "specialized": 55,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "All four output files generated in output directory root", "result": "PASS", "note": "ceRNA_network_edges.csv, ceRNA_network_nodes.csv, ceRNA_network.pdf, session_info.txt all documented as outputs in root (not subdirectories)" },
+          { "text": "Fixed seed 42 applied before igraph layout computation", "result": "PASS", "note": "set.seed(opt$seed) in main.R before run_with_timeout(run_cerna_analysis)" },
+          { "text": "SKILL_DEPENDENCY_MISSING raised when igraph absent, including for --help", "result": "PASS", "note": "check_entry_packages() in main.R validated before any script sourcing; dependency note in SKILL.md usage block" },
+          { "text": "No fabricated miRNA-mRNA interaction data in output", "result": "PASS", "note": "All interactions sourced exclusively from bundled local database files; no external API calls" },
+          { "text": "Out-of-scope requests refused with documented message before execution", "result": "PASS", "note": "Input Validation section contains exact refusal text for DEG, enrichment, single-cell, survival requests" }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Pairwise starbase+mirdb intersection, Median strictness, fr layout, freq>=2",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Pairwise intersection correctly reduces edge count. fr layout and freq filter applied.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Pairwise intersection loads and intersects two specified database files", "result": "PASS", "note": "Methods section documents starbase+mirdb as recomputing overlap between two bundled databases" },
+          { "text": "lncRNA frequency threshold >= 2 applied to filter low-confidence lncRNA interactions", "result": "PASS", "note": "--lncrna_freq_thresh argument documented with default 0" },
+          { "text": "20-40% edge reduction from pairwise vs combined mode documented", "result": "PASS", "note": "Methods section: 'Pairwise intersections typically yield 20-40% fewer edges than combined mode'" },
+          { "text": "fr layout accepted as alternative network layout", "result": "PASS", "note": "Six layout options documented: kk, fr, nicely, circle, grid, randomly" },
+          { "text": "starbase and mirdb database files both present in references/database/", "result": "PASS", "note": "Database directory section lists required files per dataset mode; starbase_miRNA_mRNA.csv and miRDB_miRNA_mRNA.csv documented" }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "All lncRNA interactions removed by high frequency threshold",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "SKILL_INVALID_DATA raised correctly. Minor gap: no proactive warning about frequency threshold risk for small gene lists.",
+        "basic": 33,
+        "specialized": 49,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_INVALID_DATA raised when lncRNA filtering removes all interactions", "result": "PASS", "note": "Workflow Step 3 explicitly documents: 'Stop with SKILL_INVALID_DATA if no lncRNA interactions remain after filtering'" },
+          { "text": "Error message explains ceRNA layer has collapsed", "result": "PASS", "note": "Error table entry: 'lncRNA filtering removes the ceRNA layer entirely'" },
+          { "text": "Recovery guidance suggests lowering threshold or changing dataset/strictness", "result": "PASS", "note": "Error table: 'lower --lncrna_freq_thresh or choose a different dataset / strictness'" },
+          { "text": "SKILL.md warns about lncRNA frequency threshold risk for small gene lists", "result": "FAIL", "note": "No proactive warning in Arguments or Practical Caveats about high --lncrna_freq_thresh values collapsing the ceRNA layer when key gene list is small" },
+          { "text": "Hard stop prevents empty-layer ceRNA network construction", "result": "PASS", "note": "Correct defensive design: mRNA-miRNA-only graph without lncRNA layer is not a valid ceRNA network" }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Inline comma-separated gene list, circle layout, no legend",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Inline gene list parsing works correctly. show_legend=FALSE hides PDF legend.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Comma-separated gene string accepted directly on CLI without a file", "result": "PASS", "note": "Input Format: 'comma-separated string passed directly on the CLI'" },
+          { "text": "Blank lines and comment lines starting with # ignored in key gene file", "result": "PASS", "note": "Input Format rules: 'Blank lines are ignored; Lines starting with # are ignored'" },
+          { "text": "Duplicate genes removed automatically before network construction", "result": "PASS", "note": "Input Format: 'Duplicate genes are removed'" },
+          { "text": "circle layout accepted and applied to network visualization", "result": "PASS", "note": "--layout_type documented with circle as one of six supported values" },
+          { "text": "show_legend=FALSE hides legend in PDF output", "result": "PASS", "note": "--show_legend logical argument with default TRUE documented in arguments table" }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "200-gene key list with combined mode and default kk layout",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Large network runs with run_with_timeout(). kk layout performance warning missing from SKILL.md.",
+        "basic": 32,
+        "specialized": 50,
+        "total": 82,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Large key gene list accepted without cap", "result": "PASS", "note": "No gene count limit enforced in validation; at least one valid gene required" },
+          { "text": "Default timeout of 3600 seconds applies as safeguard", "result": "PASS", "note": "--timeout_seconds default 3600 in arguments table; SKILL.md usage example uses 600 for demo" },
+          { "text": "run_with_timeout() wraps the full analysis with elapsed timeout", "result": "PASS", "note": "Confirmed in main.R: run_with_timeout(function() run_cerna_analysis(opt), opt$timeout_seconds, 'ceRNA analysis')" },
+          { "text": "SKILL.md warns that kk layout is slow for large networks with recommendation to use nicely or fr", "result": "FAIL", "note": "No layout performance warning in SKILL.md; kk is the default which can be very slow for networks with hundreds of nodes" },
+          { "text": "SKILL_TIMEOUT raised when elapsed timeout exceeded", "result": "PASS", "note": "Error table documents SKILL_TIMEOUT; run_with_timeout() enforces the limit" }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "GSEA pathway enrichment on differential expression results",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Correctly refused. Both enrichment and DEG workflows listed as out of scope.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Enrichment and differential expression requests identified as out of scope", "result": "PASS", "note": "'Differential expression, single-cell, enrichment, or survival analysis' listed under Do not use it for" },
+          { "text": "Documented out-of-scope message returned without running any analysis", "result": "PASS", "note": "Input Validation section contains exact refusal text for non-gene-list workflows" },
+          { "text": "No network construction attempted for enrichment request", "result": "PASS", "note": "Scope check precedes all script invocations" },
+          { "text": "Skill clarifies it requires a key gene list to start", "result": "PASS", "note": "Out-of-scope message: 'Please provide a key gene list and specify a supported miRNA dataset mode'" },
+          { "text": "Survival analysis also excluded as separate entry", "result": "PASS", "note": "Both survival analysis and enrichment analysis explicitly listed in Do not use it for" }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Path traversal via --key_genes ../../../etc/shadow",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "File not found or permission denied raises SKILL_FILE_NOT_FOUND. No code injection vector.",
+        "basic": 35,
+        "specialized": 54,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "Non-existent or unreadable --key_genes file raises SKILL_FILE_NOT_FOUND", "result": "PASS", "note": "validate_main_options() in validation.R checks file existence; SKILL_FILE_NOT_FOUND raised for missing key gene input" },
+          { "text": "Path traversal attempt does not execute arbitrary code", "result": "PASS", "note": "File path used only for readLines/read.table; no shell evaluation of path" },
+          { "text": "No eval() or system() calls with user-provided file paths", "result": "PASS", "note": "Confirmed by code review: all file operations use base R read functions; no dynamic path execution" },
+          { "text": "Error exits cleanly with status 1 via boot_fail() or main error handler", "result": "PASS", "note": "boot_fail() calls quit(status=1); main tryCatch also calls quit(status=1) on error" },
+          { "text": "Error message uses SKILL_* prefix format for structured parsing", "result": "PASS", "note": "source_required_script() wraps errors in SKILL_RUNTIME_ERROR or SKILL_FILE_NOT_FOUND format; boot_fail() logs with timestamp" }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.8,
+    "dynamic_weighted": 52.0,
+    "score": 87,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Excellent modular script architecture with source_required_script() providing resilient script loading and structured SKILL_* error wrapping",
+    "Seven dataset modes and three lncRNA strictness levels provide flexible interaction confidence tuning from a single local workflow",
+    "SKILL_INVALID_DATA correctly raised when ceRNA layer collapses, preventing silent construction of scientifically invalid networks",
+    "Inline comma-separated gene list CLI support enables quick testing without a file, documented alongside full file input",
+    "Methods section quantitatively documents pairwise intersection edge reduction (20-40%), setting correct user expectations"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "No warning about lncRNA frequency threshold collapsing small-list networks",
+      "observed_in": [3],
+      "problem": "When --lncrna_freq_thresh is set above 0 on a small key gene list, lncRNA interactions may all be filtered out, triggering SKILL_INVALID_DATA with no prior warning. Users who set frequency thresholds to improve confidence may be surprised by complete network collapse.",
+      "root_cause": "The --lncrna_freq_thresh argument documentation does not note the risk of network collapse for small gene lists, and no proactive guidance is given about starting with --lncrna_freq_thresh 0 for exploratory runs.",
+      "fix": "Add a note to the --lncrna_freq_thresh argument description: 'For small key gene lists (<20 genes), start with the default of 0. High frequency thresholds may remove all lncRNA interactions, causing SKILL_INVALID_DATA. Lower this value or use a less strict lncRNA strictness level if the network collapses.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No performance warning for kk layout on large networks",
+      "observed_in": [5],
+      "problem": "The default kk (Kamada-Kawai) layout is computationally expensive for networks with hundreds of nodes and can cause timeout or very slow rendering for large gene lists. SKILL.md does not warn about this or recommend faster alternatives for large networks.",
+      "root_cause": "Layout performance characteristics are not documented in SKILL.md; the default kk was chosen for visual quality without noting its computational cost.",
+      "fix": "Add a Performance Notes section (or bullet to the existing workflow): 'For key gene lists with more than 30 genes, kk layout may be slow. Consider --layout_type fr or --layout_type nicely for faster rendering. Use --timeout_seconds to cap run time.'"
+    }
+  ]
+}

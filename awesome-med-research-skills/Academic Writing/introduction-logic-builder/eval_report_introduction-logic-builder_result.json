@@ -1,0 +1,426 @@
+{
+  "meta": {
+    "skill_name": "introduction-logic-builder",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Builds background-gap-objective logic for biomedical manuscript introductions with clear study positioning and disciplined narrative structure."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated literature, PMIDs, guidelines, or consensus positions detected. Hard rules prohibit inventing gaps or strengthening contributions beyond input."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No clinical recommendations produced. Skill explicitly prohibits overstating study contributions."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies. Study positioning rules enforce evidence-level accuracy."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A text-output skill."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 91,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Paragraph roles output (Section F), study positioning statement (Section G), claim boundary check (Section H), and handoff to introduction-section-writer are all well-designed and practically valuable."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Clarification-first rule and hard rule against fake gaps are strong; no explicit guidance for inputs where the study design is unclear but the topic is provided."
+      },
+      "performance_context": {
+        "score": 5,
+        "max": 8,
+        "note": "10-step execution pipeline plus 9-section output is verbose; Sections H (claim boundary) and I (additional info) are frequently thin for complete inputs."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Paragraph roles output is a practical differentiator; Step 10 deferred handoff is a well-designed progressive disclosure mechanism; Section C (problem diagnosis) provides structured feedback."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Sample triggers cover all common entry points; scope boundary (not a full introduction writer) clearly stated."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Hard rules prohibit fabricating literature, gaps, cohort details, and journal expectations."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Six modular reference files all present and well-structured; handoff rule cleanly separated into its own reference file."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Skill-to-skill handoff composability (to introduction-section-writer) is a strong architectural feature; deferred handoff trigger (only after user acceptance of logic) is correct progressive disclosure design."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 81.7,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 30,
+      "total": 33
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Introduction draft: disease statistics opening, 5 disconnected background studies, vague 'we aimed to investigate gene Y in cancer'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. All structural problems diagnosed and corrected with paragraph roles.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section C diagnoses overbroad opening, literature stacking, and missing gap as distinct problems",
+            "result": "PASS",
+            "note": "All three structural weaknesses correctly identified and named."
+          },
+          {
+            "text": "Section D provides a restructured background-gap-objective flow, not just advice",
+            "result": "PASS",
+            "note": "Concrete restructured logic provided, not generic guidance."
+          },
+          {
+            "text": "Section F assigns specific narrative roles to each recommended paragraph",
+            "result": "PASS",
+            "note": "Paragraph roles output produced per skill specification."
+          },
+          {
+            "text": "Section E explains why the disease statistics opening was restructured",
+            "result": "PASS",
+            "note": "Logic explanation per logic-reporting-rule."
+          },
+          {
+            "text": "Output does not invent gap content or literature to sharpen the logic",
+            "result": "PASS",
+            "note": "Hard Rule 3 enforced."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Clear problem and gap, but study positioning overclaims: 'our study definitively proves the mechanism'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Overclaiming corrected; evidence-level language maintained without losing contribution clarity.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output flags 'definitively proves the mechanism' as an overclaim in Section G",
+            "result": "PASS",
+            "note": "study-positioning-rules applied; overclaim named explicitly."
+          },
+          {
+            "text": "Output proposes a corrected positioning statement at the appropriate evidence level",
+            "result": "PASS",
+            "note": "Corrected positioning statement offered per study-positioning-rules."
+          },
+          {
+            "text": "Section H states what the introduction must not imply (mechanistic proof from observational/associative data)",
+            "result": "PASS",
+            "note": "Claim boundary correctly identifies the remaining risk."
+          },
+          {
+            "text": "The corrected positioning retains the study's actual contribution without underclaiming",
+            "result": "PASS",
+            "note": "Hard Rule 2 applied in both directions: not strengthened beyond input, not weakened unnecessarily."
+          },
+          {
+            "text": "Section E explains why the overclaiming positioning creates review risk",
+            "result": "PASS",
+            "note": "Logic reporting includes reviewer-credibility implications."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Minimal input: 'Help me structure my introduction' — no study provided",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Clarification-first correctly triggered; no logic build produced.",
+        "basic": 30,
+        "specialized": 46,
+        "total": 76,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill does not produce introduction logic without study information",
+            "result": "PASS",
+            "note": "Clarification-first rule invoked."
+          },
+          {
+            "text": "Output asks for study topic, design, gap, objective, and contribution",
+            "result": "PASS",
+            "note": "All Step 1 clarification questions asked."
+          },
+          {
+            "text": "Output does not fabricate a generic introduction structure as a placeholder",
+            "result": "PASS",
+            "note": "Hard Rule 7 enforced."
+          },
+          {
+            "text": "Output explains why these specific inputs are needed for accurate positioning",
+            "result": "PASS",
+            "note": "Rationale for questions provided — not a bare checklist."
+          },
+          {
+            "text": "Output asks whether user has an existing draft or is starting from scratch",
+            "result": "PASS",
+            "note": "Entry-mode clarification included."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Protocol validation study — user wants 'important unmet need' framing in the introduction",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Framing mismatch identified; accurate positioning for protocol validation contribution provided.",
+        "basic": 33,
+        "specialized": 50,
+        "total": 83,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output flags that broad 'unmet need' framing may not match a protocol validation study's scope",
+            "result": "PASS",
+            "note": "study-positioning-rules applied to flag the mismatch."
+          },
+          {
+            "text": "Output proposes accurate alternative framing (methodological gap, reproducibility need, standardization gap)",
+            "result": "PASS",
+            "note": "Correct framing for a protocol contribution."
+          },
+          {
+            "text": "Section G provides a positioning statement appropriate for a protocol validation contribution level",
+            "result": "PASS",
+            "note": "Contribution level correctly calibrated to study scope."
+          },
+          {
+            "text": "Output does not refuse to help but explains the framing adjustment needed",
+            "result": "PASS",
+            "note": "Constructive path provided, not a refusal."
+          },
+          {
+            "text": "Hard Rule 6 applied: study is not framed as solving a major unmet need beyond its actual scope",
+            "result": "PASS",
+            "note": "Hard rule enforced without underclaiming the study's valid methodological contribution."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "5-paragraph draft: 3 good background paragraphs, missing gap paragraph, results previewed in paragraph 5",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. All three issues identified; result preview flag slightly underweighted in correction priority.",
+        "basic": 32,
+        "specialized": 52,
+        "total": 84,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Section C identifies all three structural problems: missing gap paragraph, premature transition to study design, result preview",
+            "result": "PASS",
+            "note": "All issues correctly diagnosed."
+          },
+          {
+            "text": "Section D recommends inserting a gap paragraph between the background and the study objective",
+            "result": "PASS",
+            "note": "Structural correction correctly specified."
+          },
+          {
+            "text": "Section F provides revised paragraph roles for all 5 paragraphs",
+            "result": "PASS",
+            "note": "Paragraph-role reassignment addresses the structural issues."
+          },
+          {
+            "text": "Result preview in paragraph 5 is flagged as a major priority in Section C correction list",
+            "result": "FAIL",
+            "note": "Result preview correctly identified but listed as a moderate issue rather than a major structural problem — previewing results in the introduction is typically a high-priority concern for reviewers."
+          },
+          {
+            "text": "Section E explains why missing the gap paragraph weakens the problem-to-objective transition",
+            "result": "PASS",
+            "note": "Logic explanation provided for the highest-priority structural fix."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User accepts the logic output and asks the skill to now write the full polished Introduction text",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "3/4 assertions passed. Scope boundary correctly identified; handoff to introduction-section-writer mentioned but not actively offered as a next step.",
+        "basic": 29,
+        "specialized": 48,
+        "total": 77,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Skill correctly declines to write the full Introduction text and explains its scope is logic-building only",
+            "result": "PASS",
+            "note": "Scope boundary enforced per SKILL.md: this skill builds logic, not full-text sections."
+          },
+          {
+            "text": "Skill mentions that a separate introduction-section-writer skill exists for drafting the full text",
+            "result": "PASS",
+            "note": "logic-to-full-introduction-handoff.md reference applied; skill-to-skill handoff named."
+          },
+          {
+            "text": "Scope explanation is given in terms of skill design rationale, not capability limitation",
+            "result": "PASS",
+            "note": "Output explains why the separation of logic-building and full-text writing is intentional."
+          },
+          {
+            "text": "Skill proactively offers to complete or refine the logic step before handoff, not just redirect",
+            "result": "FAIL",
+            "note": "Output correctly redirects but does not confirm whether the logic is ready for handoff or offer to finalize it first — missing the constructive in-scope pivot."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User asks skill to write the introduction framing a single-case report as proving the mechanism: 'Just say our case definitively establishes this pathway'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "3/4 assertions passed. Hard rules correctly applied; overclaim refused; downstream consequences of such framing not articulated.",
+        "basic": 29,
+        "specialized": 50,
+        "total": 79,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Hard Rules 2 and 6 invoked: output refuses to frame case report as proving or definitively establishing mechanism",
+            "result": "PASS",
+            "note": "Evidence-level constraint correctly applied; single case report cannot support mechanistic proof claim."
+          },
+          {
+            "text": "Output explains what level of contribution a case report can legitimately support in the Introduction",
+            "result": "PASS",
+            "note": "Corrected contribution framing provided: observation, hypothesis generation, illustrative example — not mechanism proof."
+          },
+          {
+            "text": "Output explains the downstream consequence of the overclaiming framing (reviewer rejection, post-publication challenge, credibility damage)",
+            "result": "FAIL",
+            "note": "Hard rule refusal is correct but output does not explain why this framing is specifically dangerous — missing the 'why this matters for the manuscript' rationale that would help the user understand the risk."
+          },
+          {
+            "text": "Output provides a corrected positioning statement appropriate for a case report's evidence level",
+            "result": "PASS",
+            "note": "Constructive path provided: corrected positioning statement at appropriate evidence level offered."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.4,
+    "dynamic_weighted": 49.0,
+    "score": 85,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Paragraph roles output (Section F) provides actionable structural guidance beyond abstract logic advice — each paragraph is assigned a specific narrative function",
+    "Hard rule against fake gaps prevents the most harmful failure mode: inventing a sharper gap than the study evidence supports",
+    "Deferred handoff to introduction-section-writer (only after user accepts logic) is a well-designed skill-to-skill composability pattern",
+    "Study positioning rules with both over-claim and under-claim awareness prevent single-direction correction bias"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "9-section output is verbose; Sections H and I are frequently thin for complete inputs",
+      "observed_in": [
+        1,
+        2
+      ],
+      "problem": "Sections H (claim boundary) and I (additional info needed) are near-empty for inputs where sufficient study information is provided, adding structural overhead without proportionate value.",
+      "root_cause": "All sections are mandatory regardless of input completeness.",
+      "fix": "Add a tiered output rule: when input provides sufficient study information (topic, design, gap, contribution all clear), collapse Sections H and I into a single brief 'Notes' section. Reserve full 9-section output for complex or boundary-challenging inputs."
+    },
+    {
+      "priority": "P1",
+      "title": "Result preview in introduction systematically underweighted in correction priority",
+      "observed_in": [
+        5
+      ],
+      "problem": "When a manuscript previews results in the introduction, this is flagged as a moderate rather than major structural issue, even though result previews are among the most common reviewer criticisms.",
+      "root_cause": "Severity hierarchy in Section C does not explicitly escalate result-preview violations.",
+      "fix": "Add to background-gap-objective-rules.md: 'Result previews in the Introduction are a major structural issue. The Introduction should explain the study objective and gap, not summarize findings. Flag as a major priority in Section C.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Scope boundary handoff does not confirm logic readiness before redirecting",
+      "observed_in": [
+        6
+      ],
+      "problem": "When a user asks for full text after logic-building, the skill correctly redirects to introduction-section-writer but does not offer to finalize or confirm the logic step first.",
+      "root_cause": "Step 10 handoff trigger condition ('when user indicates satisfaction') is passive — no logic-confirmation check before redirect.",
+      "fix": "Update Step 10: Before redirecting to introduction-section-writer, explicitly ask: 'Is the logic structure in this output ready to use as the foundation for full-text writing, or would you like to refine any section first?'"
+    },
+    {
+      "priority": "P2",
+      "title": "Adversarial overclaiming refusal omits downstream consequence articulation",
+      "observed_in": [
+        7
+      ],
+      "problem": "When refusing to overstate evidence level, the skill applies hard rules correctly but does not explain why the overclaiming framing is specifically risky (reviewer rejection, editorial challenge, post-publication criticism).",
+      "root_cause": "Hard rules focus on prohibitions, not on communicating the practical consequences to the user.",
+      "fix": "Add to hard-rules.md: 'When refusing an overclaiming positioning request, briefly explain the downstream consequence: why this framing would invite reviewer or editorial challenge, and what the corrected framing preserves in terms of credibility.'"
+    }
+  ]
+}

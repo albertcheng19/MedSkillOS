@@ -1,0 +1,9 @@
+package	version	role
+optparse	1.7.5	core
+data.table	1.15.4	core
+Rtsne	0.17	core
+umap	0.2.10.0	core
+ggplot2	3.4.0	core
+vegan	2.7.3	core
+R.utils	2.13.0	optional-timeout
+testthat	3.1.2	development-test

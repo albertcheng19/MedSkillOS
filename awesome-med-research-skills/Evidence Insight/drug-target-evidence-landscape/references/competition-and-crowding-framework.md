@@ -1,0 +1,1 @@
+Map competition at four levels: same target, same pathway, same modality, and substitute mechanism. Distinguish operational crowding from conceptual crowding. A field may be crowded yet still differentiable, or sparse yet unattractive.

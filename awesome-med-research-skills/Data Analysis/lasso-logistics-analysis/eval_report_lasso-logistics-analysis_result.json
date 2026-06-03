@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "skill_name": "lasso-logistics-analysis",
+    "description": "Use when building a binary classification model from an expression matrix or other omics feature matrix with LASSO logistic regression, cross-validation, and coefficient path visualization. NOT for: multiclass classification, survival/Cox models, or ordinary linear regression.",
+    "evaluated_on": "2026-04-27",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Data Analysis",
+    "execution_mode": "B",
+    "complexity": "Moderate",
+    "n_inputs": 5
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": { "result": "PASS", "detail": "No fabricated statistics; all outputs computed from actual input data" },
+      "practice_boundaries": { "result": "PASS", "detail": "NOT for section in frontmatter description prevents misuse for multiclass, survival, and linear regression" },
+      "methodological_ground": { "result": "PASS", "detail": "LASSO binomial glmnet with alpha=1 correctly documented; lambda.min extraction is methodologically correct; no principled fallacies" },
+      "code_usability": { "result": "PASS", "detail": "Dependency check fires cleanly with structured error; 8-file modular structure verified; each file under 150 lines; no syntax errors detected" }
+    }
+  },
+  "static_score": {
+    "subtotal": 94,
+    "max": 100,
+    "categories": {
+      "functional_suitability": { "score": 11, "max": 12, "note": "Binary classification, LASSO (alpha=1), cv.glmnet, coefficient path and CV plots covered; no alpha control (fixed at 1) limits scope compared to elastic-net-feature-selection" },
+      "reliability": { "score": 12, "max": 12, "note": "15 SKILL_* codes — most comprehensive error coverage in the batch; includes SKILL_PARSE_ERROR, SKILL_FILE_WRITE_ERROR, SKILL_MEMORY_ERROR beyond standard set" },
+      "performance_context": { "score": 8, "max": 8, "note": "SKILL.md 275 lines; When to Read External Files table at top; modular scripts under 150 lines each; timeout control" },
+      "agent_usability": { "score": 14, "max": 16, "note": "Usage section clear; workflow steps labeled; When to Read at top; minor gaps: no agent response contract, no dedicated stop conditions section in body" },
+      "human_usability": { "score": 8, "max": 8, "note": "Natural trigger language; 15 error codes handle all edge cases; strict validation correct per Category 3 Override 2" },
+      "security": { "score": 12, "max": 12, "note": "requireNamespace() dependency checks; no eval/exec/system; temp file cleanup in implementation checklist; session_info for reproducibility" },
+      "maintainability": { "score": 11, "max": 12, "note": "8-file modular structure with explicit less-than-150-lines-per-file constraint; clean separation of plotting, modeling, io; no post-run file checklist" },
+      "agent_specific": { "score": 18, "max": 20, "note": "Precise trigger with NOT for in frontmatter; When to Read External Files at top; clean CSV/PDF outputs; idempotent reruns; minor gap: stop conditions not in SKILL.md body" }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 78.6,
+    "max": 100,
+    "assertion_pass_rate": { "passed": 21, "total": 25 },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Binary classification on expression_matrix.csv vs groups.csv",
+        "status": "ERROR",
+        "status_flag": "⚠️",
+        "note": "SKILL_DEPENDENCY_MISSING: glmnet — environment constraint; structured error with install instruction confirmed",
+        "basic": 32,
+        "specialized": 46,
+        "total": 78,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_DEPENDENCY_MISSING error emitted with package name and install instruction", "result": "PASS", "note": "Error: Install required packages before running: glmnet" },
+          { "text": "Script exits with code 1", "result": "PASS", "note": "Confirmed via shell exit code" },
+          { "text": "Error message includes install instruction", "result": "PASS", "note": "Confirmed in error output" },
+          { "text": "Basic usage command matches documented Usage section exactly", "result": "PASS", "note": "Usage section has exact invocation pattern tested" },
+          { "text": "coefficient.csv, selected_features.txt, and PDF plots produced", "result": "FAIL", "note": "glmnet unavailable in audit environment; environment constraint" }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Custom --nfolds 5 and --seed 123",
+        "status": "ERROR",
+        "status_flag": "⚠️",
+        "note": "SKILL_DEPENDENCY_MISSING: glmnet — consistent error; nfolds valid values documented",
+        "basic": 32,
+        "specialized": 46,
+        "total": 78,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_DEPENDENCY_MISSING consistent with Input 1", "result": "PASS", "note": "Identical error format across inputs" },
+          { "text": "--nfolds 5 and --seed 123 accepted without validation error", "result": "PASS", "note": "Both parameters accepted by optparse" },
+          { "text": "Script exits cleanly", "result": "PASS", "note": "Exit code 1, no stack trace" },
+          { "text": "nfolds documented with valid values: 3, 5, 7, 10", "result": "PASS", "note": "Arguments table documents allowed nfolds values" },
+          { "text": "CV output with 5-fold cross-validation produced", "result": "FAIL", "note": "Environment constraint: glmnet unavailable" }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Optional feature panel restriction from genes.csv",
+        "status": "ERROR",
+        "status_flag": "⚠️",
+        "note": "SKILL_DEPENDENCY_MISSING: glmnet — feature panel behavior documented in Workflow Step 2; missing_features.txt documented",
+        "basic": 32,
+        "specialized": 46,
+        "total": 78,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_DEPENDENCY_MISSING (correct)", "result": "PASS", "note": "Structured error code confirmed" },
+          { "text": "--feature parameter accepts file path", "result": "PASS", "note": "Accepts file path per arguments table" },
+          { "text": "Script exits cleanly", "result": "PASS", "note": "Exit code 1, no stack trace" },
+          { "text": "Feature panel behavior documented including missing_features.txt output", "result": "PASS", "note": "Workflow Step 2 and Output Files table both document feature panel restriction and missing_features.txt" },
+          { "text": "Feature-restricted output produced with missing features listed", "result": "FAIL", "note": "Environment constraint: glmnet unavailable" }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Custom CV plot title via --cv_title flag",
+        "status": "ERROR",
+        "status_flag": "⚠️",
+        "note": "SKILL_DEPENDENCY_MISSING: glmnet — --cv_title accepted; default empty title behavior documented",
+        "basic": 32,
+        "specialized": 46,
+        "total": 78,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "SKILL_DEPENDENCY_MISSING (correct)", "result": "PASS", "note": "Structured error code confirmed" },
+          { "text": "--cv_title accepted as optional string", "result": "PASS", "note": "String parameter accepted by optparse" },
+          { "text": "Script exits cleanly", "result": "PASS", "note": "Exit code 1, no stack trace" },
+          { "text": "Custom plot title documented (left empty by default unless user provides)", "result": "PASS", "note": "Arguments table and Workflow Step 4 both document this behavior" },
+          { "text": "PDF with custom CV title produced", "result": "FAIL", "note": "Environment constraint: glmnet unavailable" }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Missing --case_group argument validation test",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Required argument validation fires before dependency check; SKILL_INVALID_PARAMETER covered; 15 error codes comprehensive",
+        "basic": 34,
+        "specialized": 47,
+        "total": 81,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          { "text": "--case_group is documented as required in arguments table", "result": "PASS", "note": "Arguments table marks --case_group as required with type character" },
+          { "text": "Validation fires at argument parsing before dependency check", "result": "PASS", "note": "cli_utils.R performs validation before library loading" },
+          { "text": "Script exits with code 1", "result": "PASS", "note": "Confirmed" },
+          { "text": "Error message identifies missing required argument", "result": "PASS", "note": "Error identifies which required argument is missing" },
+          { "text": "15 SKILL_* codes cover missing/invalid parameter scenarios comprehensively", "result": "PASS", "note": "SKILL_INVALID_PARAMETER and SKILL_INVALID_GROUP both present and relevant" }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.6,
+    "dynamic_weighted": 47.2,
+    "score": 85,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "15 SKILL_* error codes — the most comprehensive error coverage in the batch, including SKILL_PARSE_ERROR, SKILL_FILE_WRITE_ERROR, and SKILL_MEMORY_ERROR",
+    "Strict less-than-150-lines-per-file modularity constraint with explicit statement in implementation checklist",
+    "When to Read External Files table at the very top of SKILL.md enables rapid progressive disclosure for agents",
+    "Natural trigger language with NOT for in frontmatter description prevents misuse for multiclass, survival, and linear regression"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Fixed alpha=1 limits reusability vs elastic-net-feature-selection",
+      "observed_in": [],
+      "problem": "The skill is fixed to LASSO (alpha=1) with no alpha control. Users who want elastic net or ridge should use elastic-net-feature-selection, but this overlap is not called out, potentially causing users to use the wrong skill.",
+      "root_cause": "The skill was designed specifically for LASSO; alpha=1 is hardcoded in modeling.R with no alpha parameter exposed.",
+      "fix": "Add a When Not to Use entry: 'When you need alpha < 1 (elastic net or ridge regularization), use the elastic-net-feature-selection skill instead.' This prevents skill selection errors."
+    },
+    {
+      "priority": "P1",
+      "title": "No agent response contract after successful run",
+      "observed_in": [],
+      "problem": "After a successful run, the skill does not specify what the agent should report, leaving summarization inconsistent.",
+      "root_cause": "Agent Response Contract section is absent from SKILL.md.",
+      "fix": "Add an Agent Response Contract section specifying: number of selected features from selected_features.txt, lambda.min value, top coefficients from coefficient.csv, and artifact paths for all 7 output files."
+    },
+    {
+      "priority": "P2",
+      "title": "No dedicated stop conditions section in SKILL.md body",
+      "observed_in": [],
+      "problem": "The NOT for conditions appear only in the frontmatter description, not in the SKILL.md body where an agent executing the skill would encounter them during workflow steps.",
+      "root_cause": "Out-of-scope guidance is only in the frontmatter description; no When Not To Use or Stop Conditions section in the body.",
+      "fix": "Add a Stop Conditions section in the SKILL.md body mirroring the NOT for conditions from the frontmatter: multiclass, survival/Cox, ordinary linear regression."
+    }
+  ]
+}

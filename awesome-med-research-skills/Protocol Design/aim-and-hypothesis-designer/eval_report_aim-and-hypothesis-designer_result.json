@@ -1,0 +1,339 @@
+{
+  "meta": {
+    "skill_name": "aim-and-hypothesis-designer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5,
+    "description": "Designs primary aims, secondary aims, and testable hypotheses from broad biomedical research ideas. Use this skill when a user needs to convert a loose study idea into a tighter protocol-framing structure with clear aim hierarchy, hypothesis discipline, and separation between hyp"
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies detected; ethical compliance requirements noted where applicable."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 2 Protocol Design, no bioinformatics code component"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 91,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Out-of-scope redirect present but no missing-input structured fallback for partially-specified inputs"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "SKILL.md is 350 lines; references directory offloads depth but main file is near upper bound"
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks (16/16); no significant issues detected."
+      },
+      "human_usability": {
+        "score": 6,
+        "max": 8,
+        "note": "Description is accurate but does not use highly natural trigger phrasing that non-expert users would readily produce"
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven reference modules well separated; testability slightly limited by lack of example test inputs in SKILL.md"
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Progressive disclosure is good but SKILL.md length approaching 500-line threshold; composability has minor friction due to full-output mandate"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.2,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 25,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Prognostic biomarker study in heart failure with BNP/EF/mortality",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 54,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output includes a clearly labeled primary aim that is singular and answerable",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "At least one formal hypothesis is written in falsifiable, directional form",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Confirmatory and exploratory components are explicitly separated",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No references, PMIDs, or validation data are fabricated",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Output stays within protocol-framing scope and does not produce a full methods plan",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Single-cell therapy resistance project in NSCLC",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output includes a clearly labeled primary aim that is singular and answerable",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Hypothesis is appropriately marked as exploratory/hypothesis-generating where mechanistic evidence is insufficient",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Confirmatory and exploratory components are explicitly separated",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated literature or validation status presented",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Scope limited to protocol framing; no full SAP or grant narrative generated",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Gut microbiome and IBD retrospective omics study",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 36,
+        "specialized": 53,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Confirmatory aims clearly distinguished from exploratory analyses",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Evidence-type alignment is stated for each aim",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Scope and failure-mode audit section present",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No unverified citations presented as established fact",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Output includes a recommended final aim package with brief rationale",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Broad PD-L1/immune evasion idea converted to testable TNBC aims",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Broad topic successfully narrowed to a specific primary aim before hypothesis design",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Speculative ambitions labeled as exploratory rather than confirmatory",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Aim scope control applied — no aim sprawl",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No clinical recommendations made",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Self-critical review section present identifying weakest assumption",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Dual causal and predictive aims in real-world anticoagulation safety study",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Causal aim and predictive aim are treated separately with distinct hypothesis logic",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Required evidence type specified for each aim",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No conflation of association with causation in wording",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Feasibility assumptions explicitly labeled",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Output does not fabricate drug safety data or real-world effect sizes",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.4,
+    "dynamic_weighted": 52.3,
+    "score": 89,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Exceptionally strong aim-hierarchy discipline with 15 hard rules enforcing testability and scope control",
+    "Seven reference modules cover all major failure modes: scope inflation, circular hypotheses, confirmatory overclaim",
+    "Mandatory 8-section output structure (A–J) ensures completeness and reviewer-defensible framing",
+    "Strong scientific integrity: explicit prohibition on fabricating references, feasibility claims, and validation status"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Add structured clarification prompt for under-specified inputs",
+      "observed_in": [],
+      "problem": "When input is vague, the skill proceeds with labeled assumptions but does not actively ask for the 2–4 minimum clarifying inputs that would most improve accuracy.",
+      "root_cause": "The Input Validation section lists valid input types but does not define a minimum clarification protocol when critical items are missing.",
+      "fix": "Add a Clarification Rule block: if disease/condition or intended evidence type is absent, ask exactly 2–4 high-yield follow-up questions before generating the full output."
+    },
+    {
+      "priority": "P1",
+      "title": "Description trigger language lacks user-natural phrasing",
+      "observed_in": [],
+      "problem": "The description is technically accurate but uses protocol-design vocabulary that non-expert users may not naturally employ when asking for help.",
+      "root_cause": "Description written for expert researchers; casual or clinical users may not recognize 'aim hierarchy' or 'protocol-framing structure' as terms to search with.",
+      "fix": "Expand description to include natural user phrases like 'turn my research idea into specific aims', 'help me write research questions and hypotheses', or 'design study objectives'."
+    },
+    {
+      "priority": "P2",
+      "title": "SKILL.md approaching 500-line threshold",
+      "observed_in": [],
+      "problem": "At 350 lines, the SKILL.md is within bounds but some execution logic could be offloaded to references to reduce load time.",
+      "root_cause": "Core execution steps (Step 1–8) and Hard Rules occupy significant space that could be partially extracted.",
+      "fix": "Consider moving the 15 Hard Rules to references/hard-rules.md and keeping only a summary in SKILL.md to create headroom for future additions."
+    }
+  ]
+}

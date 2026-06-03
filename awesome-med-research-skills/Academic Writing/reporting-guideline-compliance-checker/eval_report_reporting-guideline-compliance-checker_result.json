@@ -1,0 +1,426 @@
+{
+  "meta": {
+    "skill_name": "reporting-guideline-compliance-checker",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Checks biomedical manuscripts against reporting guidelines such as CONSORT, STROBE, PRISMA, and TRIPOD to identify missing or weak reporting elements before submission or revision."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated participant flow counts, endpoint definitions, registration numbers, or guideline requirements invented. Hard rules 1, 3, 7 explicitly prohibit fabrication and are consistently enforced."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive clinical conclusions. Skill is limited to reporting completeness review, not clinical recommendation."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Correct guideline-to-design mapping (CONSORT=RCT, STROBE=observational, PRISMA=SR/MA, TRIPOD=prediction). Hybrid boundary rules correctly flag multi-framework situations."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A skill — no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 93,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "All four major guideline families covered. Hybrid study case addressed by dedicated reference file. Eight-step workflow maps cleanly to nine-section output (A–I). Five-tier severity (major, moderate, minor, not applicable, unclear) fully implemented. Scope boundary precisely defined."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Clarification-first gate prevents misclassification. 'Unclear due to missing manuscript material' is a formal severity tier, not an afterthought. Minor deduction: no partial-results pathway when user insists on proceeding with incomplete manuscript sections."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Seven reference files are compact (6–18 lines each). SKILL.md is 282 lines. Minor deduction: Sections D/E and Section F (submission-risk assessment) have partial content overlap — core gaps listed in D are repeated in risk assessment in F."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. Six sample triggers, seven-item core function list, quality standard comparison. Sections A–I use fixed labels. Five-tier severity is consistent across all outputs. Three independent error-prevention mechanisms: clarification-first rule, hard rules list, and 'important distinctions' section."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Sample triggers, core function, quality standard all present. Section I lists specific missing inputs. Minor deduction: no explicit restart path when user provides additional sections after partial review begins."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials, no APIs, no code execution. Hard rules 1 and 3 prevent fabricating compliance or flow details. Hard rule 7 prevents inventing journal policy claims. Hard rule 5 prevents conflating 'missing' with 'not applicable'."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven focused reference files allow adding new guidelines (e.g., STARD for diagnostic accuracy, CARE for case reports) without touching core workflow. Separation between guideline selection logic and compliance item rules is clean. Minor deduction: no worked example of hybrid study classification in reference files."
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Trigger precision: six sample triggers plus explicit 'not for' scoping. Progressive disclosure: clarification gate + Section A + Section I. Idempotency: A–I structure is stable across identical inputs. Escape hatches: formal 'unclear' severity tier + Section I + hard rule 10. Deduction: no composability hooks — skill does not reference revision-strategy-planner or methods-section-writer for post-gap correction (2/4 for composability)."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 90.1,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 34
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "RCT manuscript seeking full CONSORT compliance review before submission",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. CONSORT correctly identified. High-risk items (CONSORT flow diagram, sample size calculation, blinding protocol) correctly prioritized as major compliance gaps.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly identifies CONSORT as the primary reporting framework for an RCT",
+            "result": "PASS",
+            "note": "Section B correctly routes RCT to CONSORT with explicit justification."
+          },
+          {
+            "text": "Output covers CONSORT flow diagram as a core high-priority item",
+            "result": "PASS",
+            "note": "Participant flow (screening, eligibility, randomization, completion) flagged as major gap if absent."
+          },
+          {
+            "text": "Output classifies items using the five-tier severity model, not a flat checklist",
+            "result": "PASS",
+            "note": "Sections D and E clearly separate major gaps from moderate/minor weaknesses."
+          },
+          {
+            "text": "Output includes a submission-risk assessment in Section F",
+            "result": "PASS",
+            "note": "Missing flow diagram and sample size rationale explicitly linked to major-revision risk."
+          },
+          {
+            "text": "Output does not fabricate CONSORT compliance when sections are only partially provided",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — no invented compliance claims."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Prospective observational cohort study seeking STROBE compliance review",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. STROBE correctly identified. Missing data handling and eligibility criteria completeness correctly flagged as high-risk omissions.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly identifies STROBE as the primary framework for an observational cohort study",
+            "result": "PASS",
+            "note": "Section B routes prospective cohort to STROBE, not CONSORT."
+          },
+          {
+            "text": "Output reviews STROBE-specific items including exposure definition, bias sources, and participant flow",
+            "result": "PASS",
+            "note": "Section C covers all core STROBE items per core-reporting-item-rules.md."
+          },
+          {
+            "text": "Output classifies missing data handling as a core high-risk item, not a minor polish item",
+            "result": "PASS",
+            "note": "Missing data section correctly placed in Section D (major) if absent."
+          },
+          {
+            "text": "Output does not falsely certify STROBE compliance from abstract alone",
+            "result": "PASS",
+            "note": "Section A correctly states that methods and results sections are needed for high-confidence review."
+          },
+          {
+            "text": "Severity distinctions follow the five-tier model with explicit not-applicable labels where relevant",
+            "result": "PASS",
+            "note": "Items irrelevant to cohort design (e.g., randomization) correctly labeled as not applicable."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "User describes 'prospective cohort with prediction model component' but provides no manuscript text",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Clarification-first gate triggered correctly. Hybrid STROBE+TRIPOD need surfaced before any compliance review attempted.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output triggers clarification-first gate and requests manuscript sections before proceeding",
+            "result": "PASS",
+            "note": "Section A correctly states insufficient material for high-confidence review."
+          },
+          {
+            "text": "Output identifies potential hybrid reporting need (STROBE + TRIPOD) from study description alone",
+            "result": "PASS",
+            "note": "hybrid-study-boundary-rules.md applied — prediction model component flagged as requiring TRIPOD overlay."
+          },
+          {
+            "text": "Output does not fabricate a compliance assessment from description alone",
+            "result": "PASS",
+            "note": "No invented compliance status produced — only the hybrid framework identification."
+          },
+          {
+            "text": "Section I lists specific missing inputs that would enable a real compliance review",
+            "result": "PASS",
+            "note": "Methods section, participant flow diagram, model development details listed as critical missing inputs."
+          },
+          {
+            "text": "Output explains why hybrid STROBE+TRIPOD studies need two-framework coverage",
+            "result": "PASS",
+            "note": "Prediction model validation items not covered by STROBE alone — clearly explained."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Systematic review and meta-analysis seeking PRISMA compliance review",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. PRISMA correctly identified. PRISMA flow diagram, search strategy, and risk-of-bias assessment correctly prioritized.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly identifies PRISMA as the primary framework for a systematic review and meta-analysis",
+            "result": "PASS",
+            "note": "Section B routes SR/MA to PRISMA, not STROBE or CONSORT."
+          },
+          {
+            "text": "Output covers PRISMA flow diagram as a major compliance item",
+            "result": "PASS",
+            "note": "Records identified, screened, eligible, included — all flagged as mandatory PRISMA items."
+          },
+          {
+            "text": "Output reviews search strategy completeness and database coverage as core items",
+            "result": "PASS",
+            "note": "Core-reporting-item-rules.md applied: reproducible search strategy identified as high-risk omission if absent."
+          },
+          {
+            "text": "Output classifies risk-of-bias assessment methodology as a major compliance item",
+            "result": "PASS",
+            "note": "Absence of bias assessment tool identification correctly placed in Section D."
+          },
+          {
+            "text": "Output does not fabricate PRISMA checklist compliance from abstract alone",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — methods and results sections listed as required in Section I."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Hybrid biomarker validation + prediction model development study with unclear study type",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Hybrid boundary rule correctly triggered. TRIPOD primary + REMARK secondary recommended. Dual-framework reporting gaps clearly identified.",
+        "basic": 37,
+        "specialized": 51,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output invokes hybrid-study-boundary-rules.md and declines to force a single-guideline label",
+            "result": "PASS",
+            "note": "Correctly identifies need for TRIPOD + REMARK/STARD hybrid coverage."
+          },
+          {
+            "text": "Output explains what TRIPOD-specific items are missing or weak",
+            "result": "PASS",
+            "note": "Internal and external validation split, sample size for model development, calibration reporting all reviewed."
+          },
+          {
+            "text": "Output does not overclaim formal compliance with either TRIPOD or REMARK alone",
+            "result": "PASS",
+            "note": "Hard rule 2 holds — hybrid study not forced into single framework."
+          },
+          {
+            "text": "Output provides a priority correction plan that addresses both framework needs",
+            "result": "PASS",
+            "note": "Section G lists TRIPOD items first (higher risk) then REMARK/biomarker items."
+          },
+          {
+            "text": "Section B explains the guideline selection rationale, not just labels the framework",
+            "result": "PASS",
+            "note": "Prediction model development component is the primary design element — TRIPOD primacy explained."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request to check if manuscript meets all target journal formatting requirements and style guidelines",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four assertions passed. Correctly declined journal-specific formatting scope. Pivoted to offer valid reporting guideline compliance review.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Output declines journal-specific formatting requirements as outside skill scope",
+            "result": "PASS",
+            "note": "Scope boundary section correctly invoked — journal formatting is not reporting guideline compliance."
+          },
+          {
+            "text": "Output does not fabricate journal-specific policies or requirements",
+            "result": "PASS",
+            "note": "Hard rule 7 holds — no invented journal policies cited."
+          },
+          {
+            "text": "Output offers a valid alternative — reporting guideline compliance review if study design is provided",
+            "result": "PASS",
+            "note": "Constructive redirect to the skill's actual scope with clear framing."
+          },
+          {
+            "text": "Scope refusal explains the distinction between guideline compliance and style formatting",
+            "result": "PASS",
+            "note": "Reporting transparency vs. presentation formatting — distinction is clear and non-dismissive."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User claims full CONSORT compliance and asks to confirm, providing only the methods section",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Hard rule 1 applied correctly. Partial review produced with explicit scope limitations, compliance not certified.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output refuses to certify full CONSORT compliance from methods section alone",
+            "result": "PASS",
+            "note": "Hard rule 1 applied — no fabricated compliance certification."
+          },
+          {
+            "text": "Output provides a partial review of the methods section with explicit scope limitation notes",
+            "result": "PASS",
+            "note": "Methods-section items reviewed but reviewer/editor-visible sections (results, abstract, flow diagram) noted as unreviewed."
+          },
+          {
+            "text": "Output identifies which CONSORT items cannot be verified without results section and abstract",
+            "result": "PASS",
+            "note": "Participant flow (results), baseline tables (results), primary outcome reporting (results), trial registration (abstract) all listed as requiring additional sections."
+          },
+          {
+            "text": "Section A explicitly states that high-confidence CONSORT review requires full manuscript",
+            "result": "PASS",
+            "note": "Input Match Check correctly downgrades confidence to methods-only partial review."
+          },
+          {
+            "text": "Output does not simply confirm the user's self-reported compliance claim",
+            "result": "PASS",
+            "note": "Hard rule 9 holds — uncertainty due to missing sections noted explicitly, not deferred to user's assertion."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.2,
+    "dynamic_weighted": 54.1,
+    "score": 91,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Five-tier severity model with a formal 'unclear due to missing manuscript material' tier is more nuanced than typical compliance checklist tools — prevents false reassurance",
+    "Dedicated hybrid-study-boundary-rules.md file explicitly addresses the most common real-world misclassification problem (prediction + observational, biomarker + clinical)",
+    "Section F (Submission-Risk Assessment) adds practical submission-oriented prioritization beyond the standard major/moderate/minor split",
+    "Hard rule 5 — never confuse 'missing' with 'not applicable' and never label 'present' what is only weakly reported — targets the three most commonly conflated compliance states",
+    "Four guideline families with clear selection logic plus hybrid escalation path covers the vast majority of biomedical manuscript types"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No composability hooks with downstream correction skills",
+      "observed_in": [],
+      "problem": "After identifying reporting gaps, the skill does not reference or suggest composing with revision-strategy-planner, methods-section-writer, or results-section-structurer to generate the corrected content.",
+      "root_cause": "Skill designed as a standalone checker without explicit pipeline positioning.",
+      "fix": "Add a composability note in SKILL.md: 'After identifying reporting gaps, use revision-strategy-planner for correction sequencing, methods-section-writer for methods-level gaps, or results-section-structurer for results-level gaps.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No partial-results pathway when user proceeds with incomplete manuscript material",
+      "observed_in": [
+        1,
+        4
+      ],
+      "problem": "When key sections (results, abstract, flow diagram) are missing but user asks to proceed, the skill produces a full review without a formal two-tier labeling system distinguishing verified findings from inferred ones.",
+      "root_cause": "Clarification-first rule covers the zero-input case but not the 'proceed anyway' case.",
+      "fix": "Add a Step 1b: if user explicitly requests proceeding with partial material, produce findings labeled [SECTION REVIEWED] for items assessed from provided text and [SECTION MISSING — CANNOT VERIFY] for items requiring sections not yet provided."
+    },
+    {
+      "priority": "P2",
+      "title": "Scope gap: STARD and CARE guidelines not mentioned",
+      "observed_in": [],
+      "problem": "Diagnostic accuracy studies (STARD) and case reports (CARE) are common biomedical manuscript types not listed in guideline-selection-rules.md or the scope boundary. Users with these study types receive no guidance on which framework applies.",
+      "root_cause": "Initial guideline selection rules focused on the four highest-volume families without explicitly stating what to do for diagnostic accuracy or case report manuscripts.",
+      "fix": "Add STARD (diagnostic accuracy) and CARE (case reports) to guideline-selection-rules.md with brief selection criteria. Add a note in scope boundary that these are supported as secondary frameworks when the primary framework is STROBE or CONSORT-adjacent."
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance on reporting guideline version selection",
+      "observed_in": [],
+      "problem": "CONSORT 2010, PRISMA 2020, and TRIPOD+AI all have distinct versioned requirements. The skill does not specify which version to apply or note that the user should check the most current version.",
+      "root_cause": "Version tracking not included in guideline-selection-rules.md.",
+      "fix": "Add to guideline-selection-rules.md: 'Use the most recently published version of each guideline. Note the version used in Section B. When uncertain, verify on the guideline's official reporting-guidelines.org entry.'"
+    }
+  ]
+}

@@ -1,0 +1,389 @@
+{
+  "meta": {
+    "skill_name": "target-journal-matcher",
+    "evaluated_on": "2026-04-23",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "B",
+    "complexity": "Moderate",
+    "n_inputs": 5,
+    "description": "Matches a manuscript abstract to target journals using Tier 1/2/3 classification, NLP/clinical-trial/methodology-aware scoring, mandatory IF disclaimer, and open-access filter. Second polish: Python script rewritten — tier labels implemented, NLP field detection fixed, Cell penalized for clinical-trial papers, superconductor correctly routes to Nature/Science, IF disclaimer footer added to all output formats, --open-access CLI flag added."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "Impact factor values sourced from bundled journals.json; no fabricated IFs, DOIs, PMIDs, or clinical outcome data."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive medical conclusions produced; skill is limited to journal recommendations."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies; no ethical compliance requirements triggered by journal-matching task."
+      },
+      "code_usability": {
+        "result": "PASS",
+        "detail": "Script (main.py) runs successfully on Python 3.9. Classes AbstractAnalyzer, JournalDatabase, JournalMatchmaker are syntactically correct and produce output on all valid inputs."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 84,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "Tier 1/2/3 classification implemented in script output (all formats). NLP/CV field disambiguation fixed. Methodology penalty for clinical-trial vs basic-science journals. Multidisciplinary paradigm-shift detection added. --open-access filter added."
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Fault Tolerance (3/4): short-abstract validation works; auto-creates default database if journals.json missing. Error Reporting (3/4): clear error messages for invalid inputs; no warning when result set is sparse (e.g., only 2 journals found for environmental topics). Recoverability (3/4): stateless CLI; each run is independent."
+      },
+      "performance_context": {
+        "score": 6,
+        "max": 8,
+        "note": "Token Cost (3/4): script output is concise. Execution Efficiency (3/4): fast runtime; no redundant computation; config in separate JSON files. Minor: no caching for repeated abstract analysis."
+      },
+      "agent_usability": {
+        "score": 13,
+        "max": 16,
+        "note": "Mandatory IF disclaimer now embedded in all output formats. Tier-grouped output improves feedback design. Study design printed to console before recommendations."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Discoverability (3/4): markdown output is clean and readable. Forgiveness (3/4): no destructive operations; errors are informative."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. No eval/exec on user input; CLI arguments properly handled; no credential exposure; no injection vectors."
+      },
+      "maintainability": {
+        "score": 10,
+        "max": 12,
+        "note": "Score-to-tier mapping is a standalone function (easy to recalibrate). BASIC_SCIENCE_ONLY_JOURNALS set is externally updatable. Separate methodology penalty function."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Tier labels enable progressive disclosure (Tier 1→2→3 decision tree). --open-access escape hatch added. Multidisciplinary always-include logic prevents missed high-value targets."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 88.2,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 25,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "CRISPR gene editing in stem cells (biology/medicine)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Tier 1/2/3 labels now present in output (Tier 1: Cell, Nat Med, Nat Methods, Nat Biotechnol; Tier 1: Cell Res). IF disclaimer present. Basic science study design correctly detected — clinical journals appropriately deprioritized.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output contains at least 3 journal recommendations",
+            "result": "PASS",
+            "note": "5 journals returned."
+          },
+          {
+            "text": "Returned journals are relevant to biology/methods fields (not environmental or physics)",
+            "result": "PASS",
+            "note": "All recommendations (Cell, Nature Medicine, Nature Methods, Nature Biotechnology, Cell Research) appropriate for CRISPR biology."
+          },
+          {
+            "text": "Output includes Tier 1/2/3 classification as described in SKILL.md four-step workflow",
+            "result": "PASS",
+            "note": "Tier labels appear in table header row and tier-grouped markdown output for every recommendation."
+          },
+          {
+            "text": "Output does not guarantee acceptance at any recommended journal",
+            "result": "PASS",
+            "note": "No acceptance guarantee language detected."
+          },
+          {
+            "text": "Output includes caveat that IF values are approximate or potentially outdated per SKILL.md hard rule",
+            "result": "PASS",
+            "note": "Mandatory IF disclaimer footer present in all output formats: '⚠️ Impact factors shown are approximate...'."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Transformer NLP architecture for edge devices (AI/NLP)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "NLP field now detected first (score highest). TACL (#1) and Computational Linguistics (#2) now lead recommendations. CV journals (TPAMI, IJCV) correctly deprioritized. Tier labels present. IF disclaimer present.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output contains at least 3 journal recommendations",
+            "result": "PASS",
+            "note": "5 journals returned."
+          },
+          {
+            "text": "NLP-specific journals (TACL or Computational Linguistics) appear in recommendations for an NLP paper",
+            "result": "PASS",
+            "note": "TACL ranks #1 (Tier 2), Computational Linguistics ranks #2 (Tier 2); computer vision journals correctly deprioritized."
+          },
+          {
+            "text": "Output includes Tier 1/2/3 classification as described in SKILL.md",
+            "result": "PASS",
+            "note": "Tier labels present throughout output."
+          },
+          {
+            "text": "Output does not guarantee acceptance at any recommended journal",
+            "result": "PASS",
+            "note": "No acceptance guarantee language detected."
+          },
+          {
+            "text": "Output includes caveat that IF values are approximate or potentially outdated",
+            "result": "PASS",
+            "note": "IF disclaimer footer present."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Minimal valid abstract length boundary (environmental science)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Minimal environmental abstract returns Nature Climate Change (Tier 1) and Environmental S&T (Tier 2) — appropriate. Tier labels and IF disclaimer present.",
+        "basic": 35,
+        "specialized": 50,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Abstract shorter than 50 characters is correctly rejected with informative error message",
+            "result": "PASS",
+            "note": "47-char abstract correctly rejected."
+          },
+          {
+            "text": "Minimal valid abstract (60+ chars) returns at least 1 relevant journal",
+            "result": "PASS",
+            "note": "Nature Climate Change and Environmental S&T returned."
+          },
+          {
+            "text": "Output includes Tier 1/2/3 classification as described in SKILL.md",
+            "result": "PASS",
+            "note": "Tier labels present in all output sections."
+          },
+          {
+            "text": "Output does not guarantee acceptance at any recommended journal",
+            "result": "PASS",
+            "note": "No acceptance guarantee language."
+          },
+          {
+            "text": "Output includes caveat that IF values are approximate or potentially outdated",
+            "result": "PASS",
+            "note": "IF disclaimer footer present."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Large multi-center RCT immunotherapy in NSCLC (clinical medicine)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Clinical trial design detected. Cell now receives 0.2× penalty (basic-science-only journal) and does not appear in top 5. Lancet (#1), JAMA (#2), NEJM (#3) correctly lead — all Tier 1. Tier labels and IF disclaimer present.",
+        "basic": 37,
+        "specialized": 54,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "NEJM and The Lancet appear in recommendations for a large multi-center RCT",
+            "result": "PASS",
+            "note": "The Lancet ranks #1 (Tier 1, score 0.544), NEJM ranks #3 (Tier 1, score 0.466)."
+          },
+          {
+            "text": "Cell is not ranked equal to or above NEJM/Lancet for a large RCT (methodology mismatch)",
+            "result": "PASS",
+            "note": "Cell no longer appears in top 5 due to 0.2× clinical-trial penalty on basic-science-only journals."
+          },
+          {
+            "text": "Output includes Tier 1/2/3 classification as described in SKILL.md",
+            "result": "PASS",
+            "note": "Tier 1 labels correctly applied to NEJM/Lancet/JAMA/Nature Medicine."
+          },
+          {
+            "text": "Output does not guarantee acceptance at any recommended journal",
+            "result": "PASS",
+            "note": "No acceptance guarantee language."
+          },
+          {
+            "text": "Output includes caveat that IF values are approximate or potentially outdated",
+            "result": "PASS",
+            "note": "IF disclaimer footer present."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Room-temperature superconductor via quantum computing + materials screening (multidisciplinary)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Multidisciplinary field detected first (paradigm-shift + cross-disciplinary language). Nature (#1, Tier 1), Science (#2, Tier 1) correctly lead. Environmental S&T absent — chemistry field no longer triggered by superconductor abstract. npj Quantum Materials appears as physics/materials option. Tier labels and IF disclaimer present.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Environmental Science & Technology does not appear in recommendations for a quantum computing / superconductor paper",
+            "result": "PASS",
+            "note": "Environmental S&T absent from all 5 recommendations; chemistry field not triggered by superconductor abstract."
+          },
+          {
+            "text": "Nature or Science (multidisciplinary) appears in recommendations for a paradigm-shift discovery claim",
+            "result": "PASS",
+            "note": "Nature ranks #1 (Tier 1, score 0.512), Science ranks #2 (Tier 1, score 0.502)."
+          },
+          {
+            "text": "Output includes Tier 1/2/3 classification as described in SKILL.md",
+            "result": "PASS",
+            "note": "All top recommendations correctly labeled Tier 1."
+          },
+          {
+            "text": "Output does not guarantee acceptance at any recommended journal",
+            "result": "PASS",
+            "note": "No acceptance guarantee language."
+          },
+          {
+            "text": "Output includes caveat that IF values are approximate or potentially outdated",
+            "result": "PASS",
+            "note": "IF disclaimer footer present in all output formats."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 33.6,
+    "dynamic_weighted": 52.9,
+    "score": 86,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Structured CLI interface with multiple output formats (table, json, markdown) and configurable --min-if / --max-if filtering enables realistic tier-scoped searches",
+    "Self-creating default journal database (auto-generates journals.json if missing) ensures operational stability without external setup steps",
+    "Short-abstract validation (50-char minimum) with informative error message correctly blocks malformed inputs",
+    "Well-organized Python codebase with separated configuration files (journals.json, fields.json, scoring_weights.json) enabling database updates without code changes",
+    "Configurable scoring weights file (scoring_weights.json) allows tunable matching behavior without rewriting logic"
+  ],
+  "recommendations": [
+    {
+      "priority": "P0",
+      "title": "Tier 1/2/3 classification described in SKILL.md is absent from script output",
+      "observed_in": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "problem": "SKILL.md describes a four-step workflow whose Step 4 (Deliver) explicitly mentions Tier 1 (ambition), Tier 2 (realistic fit), and Tier 3 (safe target) recommendations. No tier labels appear in any script output across all 5 test inputs.",
+      "root_cause": "The JournalMatchmaker class returns a flat ranked list sorted by relevance score without tier segmentation logic.",
+      "fix": "Add tier classification to JournalMatchmaker.recommend(): apply SKILL.md scoring thresholds (e.g., score >= 0.65 = Tier 1, 0.45–0.65 = Tier 2, < 0.45 = Tier 3) and label each recommendation accordingly in output."
+    },
+    {
+      "priority": "P1",
+      "title": "Field detection errors cause irrelevant journal recommendations",
+      "observed_in": [
+        2,
+        5
+      ],
+      "problem": "Input 2 (NLP paper): computer vision journals (TPAMI, IJCV) ranked above NLP-specific journals (TACL, Computational Linguistics) present in journals.json. Input 5 (superconductor paper): field 'chemistry' incorrectly triggers Environmental Science & Technology; Nature/Science (multidisciplinary) omitted entirely.",
+      "root_cause": "FIELD_KEYWORDS dict in AbstractAnalyzer uses simple keyword overlap without subfield hierarchy; 'chemistry' maps to environmental_science journals; multidisciplinary journals are not boosted for paradigm-shift language.",
+      "fix": "Refine FIELD_KEYWORDS to weight NLP-specific terms toward nlp/computational_linguistics fields. Add a 'scope_text_match' component that searches abstract text against journal scope strings for fine-grained differentiation."
+    },
+    {
+      "priority": "P1",
+      "title": "IF accuracy disclaimer required by SKILL.md hard rule absent from all script outputs",
+      "observed_in": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "problem": "SKILL.md hard rule states: 'Always note that IF is approximate and should be verified.' Zero outputs contain this disclaimer despite it being a hard rule in the skill definition.",
+      "root_cause": "Script output templates (table, json, markdown) have no footer/caveat section for hard-rule disclaimers.",
+      "fix": "Add a fixed footer to all three output formats: 'Note: Impact factors are approximate and based on database snapshot as of [journals.json date]. Verify current IF at journal websites before submission. Journal acceptance is not guaranteed.'"
+    },
+    {
+      "priority": "P1",
+      "title": "Methodology-to-scope matching absent — scoring dominated by IF and field tag",
+      "observed_in": [
+        4,
+        5
+      ],
+      "problem": "Input 4: Cell (basic biology, IF 64.5) ranks equal to Nature Medicine for a large 1,240-patient RCT; NEJM/Lancet/JAMA — the canonical RCT venues — rank below. Scoring does not account for study type (RCT vs. basic science vs. computational).",
+      "root_cause": "method_match component (weight 0.20) is not implemented in the scoring logic despite being listed in scoring_weights.json; match_reasons output shows only 'Field alignment' and 'High impact factor'.",
+      "fix": "Implement method_match scoring: detect study design keywords (RCT, clinical trial, cohort, computational, simulation, in vitro) from abstract and cross-reference against journal scope descriptions. Boost clinical trial journals for RCT abstracts."
+    },
+    {
+      "priority": "P2",
+      "title": "Journal database skews toward top-tier (31 journals, IF > 4 majority) leaving most fields without mid-range options",
+      "observed_in": [
+        3,
+        5
+      ],
+      "problem": "Input 3 (minimal environmental abstract) returns only 2 journals. Input 5 returns only 4. Most researchers needing Tier 2/3 recommendations cannot find mid-range options in the current database.",
+      "root_cause": "Default journal database (_create_default_database) contains 31 manually curated high-profile journals. No procedure for expanding coverage.",
+      "fix": "Expand journals.json to include 20–30 additional mid-range journals (IF 2–10) per major field, or document a clear procedure for users to add journals to journals.json."
+    },
+    {
+      "priority": "P2",
+      "title": "No open-access-only filter despite SKILL.md mentioning OA as a practical consideration",
+      "observed_in": [
+        1,
+        2,
+        4
+      ],
+      "problem": "journals.json includes an 'open_access' boolean field, but no CLI flag exposes OA filtering to users. Researchers with OA mandates have no way to restrict results.",
+      "root_cause": "JournalMatchmaker.recommend() does not expose the open_access field as a filter parameter.",
+      "fix": "Add --open-access flag to CLI: when set, filter recommendations to journals where open_access=true. Add corresponding note in SKILL.md."
+    }
+  ]
+}

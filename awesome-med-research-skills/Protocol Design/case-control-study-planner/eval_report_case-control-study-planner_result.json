@@ -1,0 +1,341 @@
+{
+  "meta": {
+    "skill_name": "case-control-study-planner",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5,
+    "description": "Design a structured case-control study framework with explicit source population logic, control selection rules, matching decisions, exposure measurement planning, and bias-control checkpoints."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Strong source-population discipline and matching overmatching warnings enforced"
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 2, design planning only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 87,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "Description is very brief (one sentence); does not adequately communicate the full scope and trigger contexts of the skill"
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Proceeds with conditional language when inputs are unclear; no active minimum-clarification protocol defined"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Strong score (15/16); minor gaps noted."
+      },
+      "human_usability": {
+        "score": 6,
+        "max": 8,
+        "note": "Very brief description reduces discoverability; users may not recognize this skill without knowing epidemiology terminology"
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Strong score (11/12); minor gaps noted."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Trigger precision low due to brief description; no dedicated progressive disclosure of reference modules in description"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 85.0,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 24,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Case-control study for postoperative pulmonary complications after major abdominal surgery",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Case-control design fit explicitly assessed before proceeding with design",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Source population defined such that both cases and controls arise from same population",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Matching strategy decision explicitly justified or rejected with overmatching risk noted",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Exposure timing and recall bias risks explicitly addressed",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated event rates, registry details, or guideline endorsements",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Hospital-based case-control study on antibiotic exposure and Clostridioides difficile infection",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 52,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Incident vs prevalent case distinction addressed",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Exposure window defined with temporal alignment to outcome",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Bias-control matrix present with at least selection, recall, information, and confounding rows",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Odds ratio vs risk ratio distinction addressed",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No clinical utility claims made beyond study scope",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Community-based matched case-control study on occupational exposure and rare lymphoma",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Rare outcome justification for case-control stated",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Matching strategy assessed with analytic consequences stated",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Conditional logistic regression recommended when individual matching is proposed",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Recall bias for occupational exposure explicitly flagged",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No post-outcome measurement accepted as valid baseline exposure",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Biomarker measured after diagnosis — validity of using as etiologic exposure",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Post-diagnosis biomarker correctly flagged as invalid etiologic exposure without qualification",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Reverse-timing distortion risk explicitly named",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Alternative study framing recommended when biomarker timing is post-outcome",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No case-control design rejected outright without offering viable alternative",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Primary recommendation given even when design fit is weak",
+            "result": "FAIL",
+            "note": "Output correctly identified design unsuitability but did not provide a clean single recommended alternative design configuration"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Complex pharmacoepidemiology case-control with multiple exposure windows and confounders by indication",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 49,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Confounding by indication explicitly identified as major bias risk",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Multiple exposure windows handled with explicit timeline structure",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Primary statistical analysis line stated (conditional logistic or logistic regression)",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Feasibility and interpretation limits separated from design recommendations",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated drug prevalence, event rates, or guideline positions",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.8,
+    "dynamic_weighted": 51.0,
+    "score": 86,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Strong source-population and sampling-frame discipline enforced throughout — prevents fundamental case-control design errors",
+    "Matching hard rules are excellent: no default matching, overmatching risk explicitly flagged, analytic consequences always stated",
+    "Five reference modules cover question-fit, case/control definition, matching/exposure, bias/analysis, and output style comprehensively",
+    "Explicit prohibition on using post-outcome biomarkers as etiologic exposures — a common error in clinical research"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Description is too brief to provide adequate triggering signal",
+      "observed_in": [],
+      "problem": "The description is a single short sentence that names only the output type, not the user scenarios or trigger contexts. Users seeking help with retrospective study design, pharmacoepidemiology, or rare disease exposure studies may not trigger this skill.",
+      "root_cause": "Description was not optimized for natural-language triggering; no trigger scenarios, user phrases, or scope qualifiers included.",
+      "fix": "Expand description to include trigger phrases such as 'retrospective case-control', 'rare outcome design', 'pharmacoepidemiology bias control', 'matching strategy', and 'hospital-based controls' to improve triggering recall."
+    },
+    {
+      "priority": "P1",
+      "title": "Output Section L (Primary Recommendation) missing when design fit is weak",
+      "observed_in": [
+        4
+      ],
+      "problem": "When the case-control design is found to be poorly aligned with the research question, the output identified the problem but failed to produce a clean single recommended alternative, leaving the user without actionable guidance.",
+      "root_cause": "The mandatory output structure requires a primary recommendation but does not provide an explicit redirection protocol when the case-control design is rejected.",
+      "fix": "Add an explicit redirection rule to Section L: when case-control design is rated 'poorly aligned', output a specific 1–2 sentence recommended alternative design (e.g., 'a prospective cohort would better address this prognostic question') and the main reason."
+    },
+    {
+      "priority": "P2",
+      "title": "No minimum clarification protocol before full design output",
+      "observed_in": [],
+      "problem": "The Input Validation section instructs cautious inference when inputs are missing, but does not define when to ask follow-up questions vs proceed with assumptions.",
+      "root_cause": "No explicit minimum-clarification check is defined.",
+      "fix": "Add 2–4 high-yield clarifying questions to ask when outcome type or exposure timing is unclear, as these are the most common causes of design errors in case-control studies."
+    }
+  ]
+}

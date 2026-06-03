@@ -1,0 +1,423 @@
+{
+  "meta": {
+    "skill_name": "table-narrative-writer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Converts biomedical table content into clear manuscript or presentation narrative by prioritizing meaningful patterns, contrasts, and interpretation boundaries rather than restating every number."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated values, significance levels, trends, or PMIDs produced. Hard rule 6 explicitly prohibits fabricating statistical significance or dataset features. Hard rule 5 prevents selective positive-bias narration."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive clinical conclusions. Estimate boundary rules keep wording aligned with table type (descriptive vs. associative vs. causal)."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Hard rule 3 prevents converting descriptive tables into causal claims. Hard rule 4 prevents overinterpretation of subgroup tables. Estimate boundary rules enforce association vs. causation distinction."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A skill — no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 93,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Nine table types covered (baseline characteristics through supplementary tables). Five table-type-specific narration strategies (baseline, regression, subgroup, model-performance, sensitivity). Seven-step workflow + eight-section output (A–H). 'Smallest set of values needed' principle prevents row-by-row repetition. Hard rule 5 (never hide null findings) is an unusual and important integrity safeguard."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Clarification-first gate + upload recommendation. Section C (Main Narrative Message) forces explicit table-contribution identification before narration begins. Hard rule 2 prevents number-repetition. Minor deduction: no partial-output mode when table context is sparse but user asks to proceed."
+      },
+      "performance_context": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. Seven compact reference files. SKILL.md 263 lines. Section D (Prose-Worthy Points) and Section E (Table Narrative Draft) are cleanly separated — D selects, E implements. No redundancy between sections. 'Smallest set of values needed' principle also reduces output token cost."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. Six sample triggers, eight-item core function list, quality standard comparison. Eight fixed A–H section labels. Five feedback mechanisms across Sections A, C, D, F, G, H. Section C explicitly states table contribution before any narration — prevents purposeless writing."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Six sample triggers and quality standard comparison make entry points clear. Section H + upload recommendation guide next steps. Minor deduction: no explicit restart path when user provides additional table context after initial narration."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials, APIs, or code execution. Hard rules 1 and 6 prevent inventing values or significance. Hard rule 5 prevents selective positive-only narration (a form of scientific misrepresentation). Estimate boundary rules enforce evidence-level constraints in prose."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven focused reference files; adding a new table type (e.g., competing-risks table) requires only updating table-type-specific-rules.md. Clean separation between message extraction, narrative selection, estimate boundary, and type-specific rules. Minor deduction: no worked example for any specific table type."
+      },
+      "agent_specific": {
+        "score": 16,
+        "max": 20,
+        "note": "Trigger precision: six specific triggers plus clear 'not for' scoping (4/4). Progressive disclosure: clarification gate + Section A + Section H (3/4 — no multi-level decision fork). Composability: no explicit hook to results-section-writer for embedding narrative in Results section (2/4). Idempotency: A–H structure stable (4/4). Escape hatches: Section H + upload recommendation (3/4 — no partial-output mode when table context is sparse)."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 90.3,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 34
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Table 1 baseline characteristics for an RCT with 8 variables across treatment and control groups",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Table type correctly identified. Baseline comparability emphasized. Minor imbalance flagged without overinterpretation.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly identifies Table 1 as a baseline characteristics table and applies appropriate narration strategy",
+            "result": "PASS",
+            "note": "table-type-specific-rules.md applied — baseline table narration emphasizes comparability, not associations."
+          },
+          {
+            "text": "Output focuses on overall group comparability rather than narrating every row",
+            "result": "PASS",
+            "note": "narrative-selection-rules.md applied — overall balance pattern selected; row-by-row recitation avoided."
+          },
+          {
+            "text": "Output does not overinterpret minor baseline differences as clinically meaningful",
+            "result": "PASS",
+            "note": "estimate-boundary-rules.md applied — baseline difference kept at descriptive level, not causal."
+          },
+          {
+            "text": "Section G states that baseline differences must not be used to claim confounding in Results",
+            "result": "PASS",
+            "note": "Boundary check correctly limits what the baseline narrative can imply."
+          },
+          {
+            "text": "Section D lists only the 2–3 most meaningful contrasts for prose mention",
+            "result": "PASS",
+            "note": "'Smallest set of values needed' principle applied — 3 variables mentioned, 5 left in table only."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Multivariable logistic regression table with 6 predictors, primary predictor significant, 3 covariates null",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Regression narration correctly leads with primary predictor. Null covariates correctly left in table without prose emphasis.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output leads narrative with the primary predictor estimate and confidence interval",
+            "result": "PASS",
+            "note": "table-type-specific-rules.md applied — regression narration leads with primary estimate, magnitude, and uncertainty."
+          },
+          {
+            "text": "Output does not narrate every covariate row individually",
+            "result": "PASS",
+            "note": "Hard rule 2 applied — null covariates left in table; pattern summarized at aggregate level."
+          },
+          {
+            "text": "Output does not upgrade the association to causal language",
+            "result": "PASS",
+            "note": "estimate-boundary-rules.md applied — 'associated with' language maintained, not 'causes' or 'leads to'."
+          },
+          {
+            "text": "Hard rule 5 verified: null covariate findings are not hidden from the narrative",
+            "result": "PASS",
+            "note": "Null covariate pattern noted in aggregate — 'remaining covariates did not reach significance' — not omitted silently."
+          },
+          {
+            "text": "Section G states the narrative must not imply the association is independent of all possible confounders",
+            "result": "PASS",
+            "note": "Boundary check correctly limits the causal interpretation of multivariable adjustment."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "User says 'here is my table' but attaches no actual table or column definitions",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Clarification-first gate triggered. No fabricated narrative produced.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output triggers clarification-first gate and requests the table before narrating",
+            "result": "PASS",
+            "note": "Hard rule 9 applied — narrative refused without the actual table content."
+          },
+          {
+            "text": "Section A states explicitly that input is insufficient for any narrative",
+            "result": "PASS",
+            "note": "Input Match Check correctly rates confidence as zero without table data."
+          },
+          {
+            "text": "Output does not fabricate a generic table narrative from the absence of a table",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — no invented values or patterns."
+          },
+          {
+            "text": "Section H lists specific missing inputs: table content, table type, column definitions, population",
+            "result": "PASS",
+            "note": "All required inputs explicitly listed for user to provide."
+          },
+          {
+            "text": "Output recommends uploading the table, legend, and a brief study summary",
+            "result": "PASS",
+            "note": "Upload recommendation rule invoked with specific materials listed."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Subgroup analysis table with 12 pre-specified and 3 post-hoc subgroups",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Pre-specified vs. post-hoc subgroups correctly differentiated. Subgroup noise not inflated into confirmed heterogeneity.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output explicitly distinguishes pre-specified from post-hoc subgroups in the narrative",
+            "result": "PASS",
+            "note": "table-type-specific-rules.md applied — subgroup table narration requires pre-specification status to be noted."
+          },
+          {
+            "text": "Output does not narrate all 15 subgroups individually",
+            "result": "PASS",
+            "note": "narrative-selection-rules.md applied — only 2–3 clearly relevant subgroup patterns selected for prose."
+          },
+          {
+            "text": "Post-hoc subgroup patterns not presented as confirmed heterogeneity",
+            "result": "PASS",
+            "note": "Hard rule 4 applied — post-hoc subgroup findings kept at 'exploratory' level, not confirmed patterns."
+          },
+          {
+            "text": "Section G states that subgroup patterns must not be used to imply differential treatment effect without formal interaction testing",
+            "result": "PASS",
+            "note": "Boundary check correctly limits subgroup narrative to pattern description, not heterogeneity confirmation."
+          },
+          {
+            "text": "Hard rule 5 verified: null or inconsistent subgroup findings not hidden from the narrative",
+            "result": "PASS",
+            "note": "Inconsistent subgroup patterns noted in aggregate — not selectively omitted to present false consistency."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Large model comparison table: 6 prediction models × 8 performance metrics (AUC, sensitivity, specificity, PPV, NPV, F1, Brier, calibration)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Model hierarchy correctly established from AUC primacy. Not all 48 metric-model combinations narrated. Performance narrative kept at pattern level.",
+        "basic": 37,
+        "specialized": 50,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly identifies AUC as the primary metric for narrative emphasis in a discrimination model table",
+            "result": "PASS",
+            "note": "table-type-specific-rules.md applied — model-performance tables prioritize primary metric hierarchy."
+          },
+          {
+            "text": "Output does not narrate all 48 metric-model combinations individually",
+            "result": "PASS",
+            "note": "Hard rule 2 applied — narrative covers the 2 best-performing models with selected metrics; table carries the rest."
+          },
+          {
+            "text": "Output does not conflate model AUC with clinical usefulness",
+            "result": "PASS",
+            "note": "estimate-boundary-rules.md applied — model metric vs. clinical usefulness distinction maintained."
+          },
+          {
+            "text": "Section G states the narrative must not imply clinical deployment readiness from AUC alone",
+            "result": "PASS",
+            "note": "Boundary check correctly limits performance narrative to discrimination comparison, not deployment recommendation."
+          },
+          {
+            "text": "Section D identifies 3–4 prose-worthy metrics from the 8-metric table without narrating all 8",
+            "result": "PASS",
+            "note": "'Smallest set of values needed' principle applied — AUC, calibration, and key secondary metric selected."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User asks to interpret the table results in terms of clinical practice implications",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four assertions passed. Clinical practice interpretation correctly declined as Discussion scope. Evidence-bounded table narrative offered as the correct output.",
+        "basic": 38,
+        "specialized": 53,
+        "total": 91,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Output declines clinical practice interpretation as outside table narrative scope",
+            "result": "PASS",
+            "note": "Hard rule 3 applied — clinical implication interpretation belongs in Discussion, not Results narration."
+          },
+          {
+            "text": "Output offers evidence-bounded table narrative as the correct alternative",
+            "result": "PASS",
+            "note": "Constructive alternative provided — association-level prose offered, clinical implications deferred to Discussion."
+          },
+          {
+            "text": "Output explains why clinical implication interpretation belongs in Discussion, not Results",
+            "result": "PASS",
+            "note": "Results section narrates what was found; Discussion section interprets what it means for practice."
+          },
+          {
+            "text": "Section G boundary check would prohibit clinical implication language even if user requests it",
+            "result": "PASS",
+            "note": "Boundary check explicitly applied to prevent estimate upgrading to clinical guidance."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User provides a null result regression table and asks to write the narrative to 'look positive'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Hard rule 5 applied. Null findings narrated honestly. Selective positive-bias narrative refused.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output refuses to write the null result table as if it showed positive findings",
+            "result": "PASS",
+            "note": "Hard rule 5 applied — null findings cannot be hidden by selectively narrating only positive-looking rows."
+          },
+          {
+            "text": "Output narrates the null result clearly and honestly without euphemism",
+            "result": "PASS",
+            "note": "Null result framed as informative and well-powered — not as failure or as implying a positive trend."
+          },
+          {
+            "text": "Output explains why honest null-result narration is scientifically and reputationally safer",
+            "result": "PASS",
+            "note": "Reviewers and editors can read tables directly — selective positive framing creates credibility risk when detected."
+          },
+          {
+            "text": "Section G boundary check prevents the user from upgrading null results to 'trends'",
+            "result": "PASS",
+            "note": "Boundary check explicitly prevents 'trend toward significance' language for a clearly null result."
+          },
+          {
+            "text": "Hard rule 10 ('do not confuse scientific communication with decorative rewriting') cited",
+            "result": "PASS",
+            "note": "Writing a null table to look positive is exactly what hard rule 10 prohibits."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.2,
+    "dynamic_weighted": 54.2,
+    "score": 91,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Hard rule 5 (never hide null or mixed findings by selectively narrating only positive rows) directly prevents the most dangerous table narrative failure mode — selective positive-bias",
+    "Five table-type-specific narration strategies (baseline, regression, subgroup, model-performance, sensitivity) correctly adjust emphasis for different table functions",
+    "'Smallest set of values needed' principle enforces prose selectivity and prevents redundant numeric repetition",
+    "performance_context score of 8/8 — the cleanest section architecture of all Academic Writing skills reviewed, with no structural redundancy",
+    "Section C (Main Narrative Message) requires explicit table-contribution identification before any narration — prevents purposeless or reflexive row-by-row writing"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No composability with results-section-writer for embedding table narrative in Results section",
+      "observed_in": [],
+      "problem": "The skill produces standalone table narratives but does not document how these should be integrated into a full Results section written by results-section-writer.",
+      "root_cause": "Skill designed as standalone without explicit pipeline positioning.",
+      "fix": "Add to SKILL.md scope boundary: 'Table narratives produced by this skill should be integrated into the Results section using results-section-writer. Pass the Section E narrative and Section G boundary check to results-section-writer as structured input for the relevant subsection.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No guidance on when a transparency-only table warrants minimal vs. no narration",
+      "observed_in": [],
+      "problem": "table-message-extraction-rules.md notes that transparency tables 'do not always require heavy narration', but does not define the threshold for minimal vs. no main-text narration. Users may write extensive prose for supplementary tables that should just be cross-referenced.",
+      "root_cause": "Rule identifies the case but does not specify when to recommend omitting main-text narration entirely.",
+      "fix": "Add to table-message-extraction-rules.md: 'For supplementary and transparency-only tables, recommend a one-sentence cross-reference in the main text rather than a full narrative paragraph. Save full narration for tables where the main study claim depends directly on the table values.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No worked example in table-type-specific-rules.md for any table type",
+      "observed_in": [],
+      "problem": "table-type-specific-rules.md defines narration strategies for each table type in abstract terms but provides no worked example showing the difference between good and bad narration for any specific table.",
+      "root_cause": "Reference files written as rules, not as annotated examples.",
+      "fix": "Add one worked example per table type to table-type-specific-rules.md: a 2-sentence sample showing appropriate vs. inappropriate narration for a baseline table, regression table, and subgroup table."
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance on narrating tables with missing data cells or multi-level footnote qualifiers",
+      "observed_in": [],
+      "problem": "When table cells contain missing data, asterisks, or multiple qualifier footnotes, the narration strategy for noting these methodological signals is undefined.",
+      "root_cause": "Table narration rules cover value selection but not footnote/missing-data communication.",
+      "fix": "Add to narrative-selection-rules.md: 'When the table contains missing cells or critical footnote qualifiers (adjusted for covariates, excluded cases, imputed data), note these signals in the prose rather than presenting the headline estimate alone.'"
+    }
+  ]
+}

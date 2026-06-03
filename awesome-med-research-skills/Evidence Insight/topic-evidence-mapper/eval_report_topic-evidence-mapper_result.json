@@ -1,0 +1,434 @@
+{
+  "meta": {
+    "skill_name": "topic-evidence-mapper",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Rapidly maps the evidence landscape around a medical topic by organizing major research streams, target populations, endpoints, methods, evidence density, and thin areas. Polished: mandatory training-knowledge label for density claims; description updated to differentiate from gap-finder; multi-topic depth warning; constructive evidence-map offer in scope redirect; operational prohibitions replace informal 'behave like' language."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected; Hard Rule 9 requires explicit uncertainty disclosure when coverage is incomplete."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced; patient-specific medical advice is an explicit out-of-scope redirect trigger."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies detected; thin-area vs. formal-gap distinction enforced; Hard Rule 1 prohibits confusing evidence mapping with formal gap identification."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A, no code generated; Category 1 evidence mapping only."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 86,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "10 hard rules, 7 execution steps, 10 mandatory output sections (A–J), and 9 reference modules provide complete coverage of evidence mapping tasks. Minor gap: description does not clearly differentiate from medical-research-gap-finder, creating routing confusion for users."
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Hard Rule 9 requires explicit disclosure of incomplete coverage; entry-point suggestions labeled conservatively. Key gap: evidence density and stream coverage claims are based on training knowledge but are not consistently required to carry explicit uncertainty labels."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "232-line SKILL.md with 9 reference modules; all 9 reference modules explicitly referenced with per-step usage guidance. Token cost proportional to the 10-section output structure."
+      },
+      "agent_usability": {
+        "score": 14,
+        "max": 16,
+        "note": "Sample triggers and scope redirect template are well designed; Core Function section uses informal 'behave like' language that is imprecise for agent instruction. Minor gap: no disambiguation guidance for the mapper vs. gap-finder routing decision."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Natural trigger examples cover the most common use cases; sample triggers include 'Do not jump to gaps yet — show me the evidence map' which is excellent for user guidance. Minor gap: no guidance on output depth calibration for quick vs. deep mapping requests."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Hard rules prohibit formal gap claims without separate analysis; no fabrication of papers or citations; Mode A presents no credential or injection risks."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "All 9 reference modules explicitly referenced in SKILL.md with per-step usage guidance; clean modular structure. Minor gap: no version tracking for reference modules."
+      },
+      "agent_specific": {
+        "score": 15,
+        "max": 20,
+        "note": "Entry-point suggestions without overstating as formal gaps is an important and rare discipline; downstream routing to the next best skill is well implemented. Composability as an upstream skill is acknowledged but formal interface not documented; multi-topic handling not defined."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 82.4,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 29,
+      "total": 33
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Map evidence landscape for immunotherapy response in triple-negative breast cancer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Field organized by major research streams; dense/crowded areas distinguished from thin areas; downstream routing recommendation given.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Field organized by major research streams rather than individual paper recitation",
+            "result": "PASS",
+            "note": "Section C produces stream-level clusters, not paper-by-paper list."
+          },
+          {
+            "text": "Dense/crowded areas distinguished from thin/underdeveloped areas in Section G",
+            "result": "PASS",
+            "note": "Density gradient from established PD-L1 studies to thin biomarker validation areas correctly mapped."
+          },
+          {
+            "text": "Thin areas labeled as mapping observations, not formal high-value research gaps",
+            "result": "PASS",
+            "note": "Hard Rule 4 applied; no thin area elevated to formal gap without separate analysis."
+          },
+          {
+            "text": "Entry-point suggestions provided without overstating as validated recommendations or study plans",
+            "result": "PASS",
+            "note": "Section I entry-point suggestions labeled as practical options requiring further analysis."
+          },
+          {
+            "text": "Downstream routing recommendation given in Section J pointing to the next appropriate workflow step",
+            "result": "PASS",
+            "note": "User routed toward medical-research-gap-finder for formal gap analysis."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Map sepsis immunometabolism evidence landscape",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. All 9 output dimensions produced; evidence density not equated with certainty; no formal gap claims made.",
+        "basic": 34,
+        "specialized": 50,
+        "total": 84,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Population, endpoint, and method map dimensions all present in Sections D–F",
+            "result": "PASS",
+            "note": "Population (ICU patients, animal models), endpoints (mortality, organ function), and methods (metabolomics, scRNA-seq) all mapped separately."
+          },
+          {
+            "text": "Evidence density and saturation section (Section G) present with density gradient",
+            "result": "PASS",
+            "note": "Density gradient from established metabolic reprogramming literature to thin therapeutic targeting area produced."
+          },
+          {
+            "text": "Topic scope defined and stated before mapping begins in Section A",
+            "result": "PASS",
+            "note": "Scope definition provided with boundary statements."
+          },
+          {
+            "text": "Evidence density not equated with certainty — saturation ≠ validated evidence",
+            "result": "PASS",
+            "note": "Hard rule applied; dense area noted as crowded but not necessarily settled."
+          },
+          {
+            "text": "No formal gap claims made without explicit note that a separate gap analysis step is needed",
+            "result": "PASS",
+            "note": "Hard Rule 1 applied; thin areas labeled as observations only."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Overly broad topic (cancer immune evasion) requiring scope narrowing before mapping",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. Topic narrowed before mapping; assumptions explicitly stated. Evidence density claims for narrowed topic presented without training-knowledge caveat.",
+        "basic": 33,
+        "specialized": 50,
+        "total": 83,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Topic identified as too broad and scope narrowed before mapping begins",
+            "result": "PASS",
+            "note": "Hard Rule 6 applied; topic narrowed with rationale."
+          },
+          {
+            "text": "Narrowing assumptions explicitly stated and attributed to skill interpretation",
+            "result": "PASS",
+            "note": "Assumptions listed before the mapping begins."
+          },
+          {
+            "text": "Map organized around the narrowed scope, not the original broad topic",
+            "result": "PASS",
+            "note": "Output sections use the narrowed scope definition throughout."
+          },
+          {
+            "text": "Evidence density claims for the narrowed topic labeled as based on training knowledge rather than live retrieval",
+            "result": "FAIL",
+            "note": "Evidence density claims presented without a training-knowledge caveat — creates false impression that the density map reflects current literature state rather than training-data-bounded knowledge."
+          },
+          {
+            "text": "Entry-point suggestions conservative relative to narrowed scope — not extrapolated from the broader topic",
+            "result": "PASS",
+            "note": "Suggestions anchored to narrowed scope."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Map the evidence landscape for HCC immunotherapy resistance mechanisms",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Research streams clustered by mechanism type; dense clinical literature vs. thin mechanistic validation area correctly distinguished.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Evidence mapping frame defined before mapping begins with all 7 dimensions stated",
+            "result": "PASS",
+            "note": "Section B mapping frame produced."
+          },
+          {
+            "text": "Field clustered into major research streams rather than individual paper list",
+            "result": "PASS",
+            "note": "Section C correctly groups into tumor microenvironment, genetic determinants, combination resistance streams."
+          },
+          {
+            "text": "Dense clinical/epidemiological literature correctly distinguished from thin mechanistic validation areas",
+            "result": "PASS",
+            "note": "Density gradient correctly mapped."
+          },
+          {
+            "text": "Thin areas not converted into formal gap claims without separate gap-analysis step",
+            "result": "PASS",
+            "note": "Hard Rule 4 applied throughout."
+          },
+          {
+            "text": "Downstream routing provided pointing to appropriate next skill for formal gap analysis",
+            "result": "PASS",
+            "note": "Section J routes to medical-research-gap-finder with rationale."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Multi-topic mapping request — 3 related topics simultaneously (KRAS mutant lung cancer, KRAS targeting, and synthetic lethality)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. Three topics addressed with separate maps; density claims present. Missing: explicit warning that multi-topic mapping produces lower per-topic depth than dedicated single-topic mapping.",
+        "basic": 33,
+        "specialized": 50,
+        "total": 83,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Three topics addressed separately with their own evidence map structure",
+            "result": "PASS",
+            "note": "Three distinct maps produced with topic scope definitions."
+          },
+          {
+            "text": "Evidence density claims labeled as based on training knowledge with appropriate caveats",
+            "result": "PASS",
+            "note": "Training-knowledge label applied to density claims."
+          },
+          {
+            "text": "Downstream routing recommendation provided for each topic",
+            "result": "PASS",
+            "note": "Section J routing present for all three topics."
+          },
+          {
+            "text": "Skill explicitly notes that multi-topic mapping produces lower-depth maps per topic than a dedicated single-topic mapping session",
+            "result": "FAIL",
+            "note": "Skill produces three maps without warning the user that the per-topic depth is necessarily reduced compared to a dedicated single-topic mapping — users may not realize they are receiving lower-quality coverage per topic."
+          },
+          {
+            "text": "No formal gap claims made for any of the three topics without a separate gap analysis step",
+            "result": "PASS",
+            "note": "Hard Rule 1 applied across all three topics."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request to identify formal research gaps and recommend a study design for HCC immunotherapy",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "3/4 assertions passed. Scope redirect correctly issued for formal gap identification and protocol design; however no offer to first produce the evidence map as a logical precursor.",
+        "basic": 32,
+        "specialized": 46,
+        "total": 78,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Scope redirect issued for formal gap identification and study design / protocol request",
+            "result": "PASS",
+            "note": "Redirect correctly identifies both formal gap-finding and protocol design as out of scope."
+          },
+          {
+            "text": "No formal gap claims or study design recommendations made",
+            "result": "PASS",
+            "note": "Hard Rules 1 and 4 applied; skill stopped at scope boundary."
+          },
+          {
+            "text": "User correctly redirected to medical-research-gap-finder for formal gap analysis and to a protocol design skill for study planning",
+            "result": "PASS",
+            "note": "Downstream routing to appropriate skills provided."
+          },
+          {
+            "text": "Skill offers to first produce the evidence map — which is the in-scope precursor to formal gap analysis — before the user proceeds to the gap-finder",
+            "result": "FAIL",
+            "note": "Redirect stops at the boundary without offering the evidence map that this skill is designed to provide as the logical first step before gap analysis — the user needs the map before gap-finding anyway."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Pressure to produce a full narrative literature review instead of an evidence map",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "3/4 assertions passed. Narrative review request declined; evidence map produced instead. Explanation of why mapping is more appropriate for the user's stated entry-point goal was too brief.",
+        "basic": 32,
+        "specialized": 47,
+        "total": 79,
+        "assertions_passed": 3,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Narrative review production declined in favor of structured evidence map",
+            "result": "PASS",
+            "note": "Hard rule applied: 'This skill should not pretend to perform a completed systematic review.'"
+          },
+          {
+            "text": "Evidence map produced instead — maintaining the skill's structured mapping format rather than switching to prose narrative",
+            "result": "PASS",
+            "note": "10-section map structure produced."
+          },
+          {
+            "text": "Explanation of why structured evidence mapping is more useful than a narrative review for the user's entry-point or pre-gap-analysis goal",
+            "result": "FAIL",
+            "note": "Skill declines the narrative review format but gives only a brief explanation ('this skill is for mapping') without explaining the specific advantage: an evidence map makes the field legible in ~10 minutes and surfaces the landscape structure that a narrative review buries in prose."
+          },
+          {
+            "text": "Downstream routing suggests an appropriate literature-reading skill if the user truly needs a narrative review",
+            "result": "PASS",
+            "note": "Section J routes to an appropriate reading skill for narrative review needs."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 34.4,
+    "dynamic_weighted": 49.4,
+    "score": 84,
+    "max": 100,
+    "grade": "Limited Release",
+    "grade_symbol": "✅",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Entry-point suggestion discipline (never overstated as formal research gaps) is an important and rare capability that prevents premature study commitment based on incomplete landscape mapping",
+    "9-dimension mapping frame (streams, populations, endpoints, methods, density, thin areas, entry points, downstream routing) provides comprehensive evidence organization",
+    "Explicit downstream routing to the next best skill (medical-research-gap-finder, literature-reader, etc.) makes this skill an effective upstream entry in the evidence workflow",
+    "Hard Rule 1 (do not confuse mapping with gap-finding) is clearly enforced and well-supported by 10 hard rules that prevent scope creep across all 7 workflow steps"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Evidence density claims not consistently labeled as training-knowledge-based",
+      "observed_in": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "problem": "When mapping evidence density (dense/thin/moderate areas), claims are inconsistently labeled as based on training knowledge rather than live retrieval, misrepresenting the freshness and accuracy of the density assessment.",
+      "root_cause": "Hard Rule 9 requires explicit disclosure of incomplete coverage, but no mandatory training-knowledge caveat is defined for evidence density claims specifically.",
+      "fix": "Add a hard rule: 'All evidence density, stream coverage, and thin-area claims must include the label [Based on training knowledge — verify with current literature search]. This label must appear at the start of Sections G and H.'"
+    },
+    {
+      "priority": "P1",
+      "title": "Description does not clearly differentiate from medical-research-gap-finder",
+      "observed_in": [],
+      "problem": "The description overlaps significantly with medical-research-gap-finder, making routing decisions unclear — users may not know when to use the mapper vs. the gap-finder.",
+      "root_cause": "Description focuses on what the skill does (map the evidence landscape) but not on the key distinction: this skill maps BEFORE formal gap analysis while the gap finder performs the gap analysis.",
+      "fix": "Add to description: 'Use this skill BEFORE medical-research-gap-finder — it provides the structured evidence landscape that makes formal gap analysis more rigorous and targeted. Do not use for formal gap identification, study design, or protocol planning directly.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Multi-topic mapping does not warn about reduced per-topic depth",
+      "observed_in": [
+        5
+      ],
+      "problem": "When mapping 3 or more topics simultaneously, the skill produces maps without warning that per-topic coverage depth is necessarily lower than dedicated single-topic mapping.",
+      "root_cause": "No multi-topic handling guidance in SKILL.md; skill treats multi-topic requests the same as single-topic requests.",
+      "fix": "Add a multi-topic note to Step 1: 'When the user requests mapping of 3 or more topics simultaneously, note explicitly that each map will have reduced depth compared to a dedicated single-topic mapping session, and recommend that the user prioritize which topic to map first.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Scope redirect does not offer to produce the evidence map as the in-scope first step",
+      "observed_in": [
+        6
+      ],
+      "problem": "When formal gap identification and study design are requested (out of scope), the redirect stops without offering to produce the evidence map — which is the in-scope precursor to formal gap analysis.",
+      "root_cause": "Scope redirect template is written as a terminal stop rather than a constructive partial redirect.",
+      "fix": "Append to the formal-gap redirect: 'I can start by building the evidence map for this topic — which is the recommended first step before formal gap analysis. Once you have the map, you can take it to medical-research-gap-finder for formal gap identification.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Core Function section uses informal 'behave like' language",
+      "observed_in": [],
+      "problem": "The 'This skill should not: behave like a full literature review writer, behave like a formal gap-finder...' phrasing is informal and may not provide precise enough guidance for agent execution.",
+      "root_cause": "Core Function section written in conversational style rather than operational prohibitions.",
+      "fix": "Replace 'behave like' with specific operational prohibitions: 'Do not produce prose narrative summaries of papers. Do not label thin areas as formal research gaps. Do not recommend specific study designs or protocols. Do not attempt to replace a dedicated gap-analysis skill.'"
+    }
+  ]
+}

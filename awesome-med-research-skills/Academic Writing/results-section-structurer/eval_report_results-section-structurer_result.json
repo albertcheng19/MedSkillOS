@@ -1,0 +1,430 @@
+{
+  "meta": {
+    "skill_name": "results-section-structurer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Organizes biomedical figures, analyses, and result blocks into a clear Results section structure with disciplined narrative ordering and evidence-aware presentation."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated figures, results, cohort details, or PMIDs produced. Citation-support annotation provides PubMed search queries, not invented references. Hard rules 1 and 7 are explicit and consistently enforced."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or prescriptive clinical conclusions. Skill is limited to structural organization; hard rule 6 prevents Discussion-style interpretation from entering Results."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Ordering logic correctly prioritizes primary findings over exploratory analyses. Hard rule 4 prevents promotion of exploratory to primary. Section H (Claim Boundary Check) enforces evidence-level constraints."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A skill — no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 94,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Covers ten study types including single-cell, multi-omics, and MR/QTL. Nine-step workflow and nine-section output (A–I) are complete and well-matched. Citation-support annotation with opt-out mechanism is unique and well-implemented. Upload recommendation rule addresses the case where structured input is unavailable."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Clarification-first gate + upload recommendation rule provide two independent input-sufficiency checks. Section C explicitly names organizational problems found. Minor deduction: no partial-results pathway when user insists on proceeding with minimal figure inventory."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Seven compact reference files (5–18 lines each). SKILL.md 275 lines. Minor deduction: Section C (main problems) and Section D (recommended structure) have partial content overlap — both describe what is wrong and what should change."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks. Six sample triggers, eight-item core function list, quality standard comparison. Nine fixed A–I section labels ensure consistent structure. Error prevention via clarification-first rule, ten hard rules, 'not for' list, and 'important distinctions' section."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Six sample triggers and quality standard comparison make entry points very clear. Section I and upload recommendation tell users exactly what to provide next. Minor deduction: no explicit restart path when user provides additional figures after partial structuring begins."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials, APIs, or code execution. Hard rules 1 and 7 prevent fabricating results, figures, or PMIDs. Citation-support annotation is PubMed query only — no invented references. Hard rule 8 includes explicit opt-out for citation annotation."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven focused reference files; adding a new study type (e.g., spatial transcriptomics) requires only updating results-ordering-rules.md. Clean separation between ordering logic, boundary rules, and citation rules. Minor deduction: no worked example showing how multi-omics layers should be ordered."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Trigger precision: six specific triggers plus 'not for' scoping. Progressive disclosure: clarification gate + upload recommendation + Section A + Section I. Idempotency: A–I structure stable across identical inputs. Escape hatches: Section I + upload recommendation + Section H claim boundary check (unique escape hatch that explicitly states what the structure must NOT imply). Deduction: no explicit composability with results-section-writer for downstream prose generation (2/4 composability)."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 89.9,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 34
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Cohort study with 5 figures in fragmented order, primary result buried in figure 3",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Fragmented order diagnosed. Primary result correctly moved forward. Cohort flow → characteristics → primary → subgroup → validation order recommended.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output correctly identifies the buried primary result as the key organizational problem",
+            "result": "PASS",
+            "note": "Section C explicitly names 'primary finding buried in Figure 3' as the main structural weakness."
+          },
+          {
+            "text": "Output recommends opening with cohort characteristics before primary findings",
+            "result": "PASS",
+            "note": "Descriptive setup (cohort flow + characteristics) correctly placed first per results-ordering-rules.md."
+          },
+          {
+            "text": "Output does not invent additional figures to fill structural gaps",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — structure built from the five provided figures only."
+          },
+          {
+            "text": "Section H states what the Results structure must not imply",
+            "result": "PASS",
+            "note": "Claim boundary check notes observational design cannot imply causality."
+          },
+          {
+            "text": "Section G explains why primary result should precede subgroup analyses",
+            "result": "PASS",
+            "note": "Structuring logic explicitly states subgroups derive meaning from confirmed primary finding."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "GWAS study with primary locus identification, fine-mapping, functional annotation, and external replication",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. GWAS-to-validation hierarchy correctly constructed. Fine-mapping correctly placed before functional annotation.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output orders results as GWAS discovery → fine-mapping → functional annotation → replication, not chronologically",
+            "result": "PASS",
+            "note": "results-ordering-rules.md applied — evidentiary function order, not analysis timeline."
+          },
+          {
+            "text": "Output treats external replication as a validation layer, not a secondary finding",
+            "result": "PASS",
+            "note": "Replication placed after functional annotation, correctly positioned as confirmation layer."
+          },
+          {
+            "text": "Output does not promote functional annotation to primary result status",
+            "result": "PASS",
+            "note": "Hard rule 4 holds — functional annotation is mechanistic support, not primary claim."
+          },
+          {
+            "text": "Section H states that GWAS results support association, not causation",
+            "result": "PASS",
+            "note": "Claim boundary check correctly flags that functional annotation supports plausibility, not mechanistic proof."
+          },
+          {
+            "text": "Section E defines distinct paragraph roles for each of the four result layers",
+            "result": "PASS",
+            "note": "Each layer has a stated purpose distinguishing it from the others."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "User provides only study topic ('a study of gut microbiome in IBD') with no figure inventory",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Clarification-first gate + upload recommendation triggered correctly. No fabricated structure produced.",
+        "basic": 39,
+        "specialized": 55,
+        "total": 94,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output triggers clarification-first gate and requests figure inventory before structuring",
+            "result": "PASS",
+            "note": "Hard rule 2 applied — no long Results structure built without result hierarchy information."
+          },
+          {
+            "text": "Output invokes upload-recommendation-rule.md and recommends uploading figure list or results report",
+            "result": "PASS",
+            "note": "Specific upload recommendation: figure legend list, analysis outline, or results report."
+          },
+          {
+            "text": "Output does not fabricate a Results structure from topic alone",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — no invented figure order produced."
+          },
+          {
+            "text": "Section I lists specific missing inputs that would enable a real structuring",
+            "result": "PASS",
+            "note": "Figure inventory, primary finding identification, study design type all listed."
+          },
+          {
+            "text": "Output explains why topic-only input is insufficient for structuring",
+            "result": "PASS",
+            "note": "Structuring requires knowing what figures exist and which is the primary result."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "RCT manuscript with primary endpoint correctly placed but 6 secondary endpoints and subgroups disordered",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. CONSORT-informed ordering applied. Secondary endpoints grouped before subgroup analyses. Adverse events correctly placed last.",
+        "basic": 36,
+        "specialized": 52,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output preserves the correctly placed primary endpoint and only reorganizes secondary content",
+            "result": "PASS",
+            "note": "Primary endpoint position retained; secondary disorder diagnosed and corrected."
+          },
+          {
+            "text": "Output recommends grouping secondary endpoints before subgroup analyses",
+            "result": "PASS",
+            "note": "Secondary outcomes are pre-specified; subgroups are exploratory — ordering distinction correctly applied."
+          },
+          {
+            "text": "Output places adverse events reporting after all efficacy results",
+            "result": "PASS",
+            "note": "CONSORT-consistent ordering: safety results after all efficacy content."
+          },
+          {
+            "text": "Section H states that subgroup analyses are exploratory and must not be implied as confirmatory",
+            "result": "PASS",
+            "note": "Claim boundary check explicitly prevents misrepresentation of post-hoc subgroups."
+          },
+          {
+            "text": "Output does not invent additional secondary endpoints to fill gaps in the structure",
+            "result": "PASS",
+            "note": "Hard rule 1 holds — structure built from the six provided secondary endpoints only."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Multi-omics study with RNA-seq, proteomics, and single-cell data across 12 figures",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Multi-omics integration order correctly applied. Figures grouped by analytical layer, not by data modality sequence.",
+        "basic": 36,
+        "specialized": 50,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output groups figures by evidentiary function (primary, corroboration, mechanistic, validation) not by data type",
+            "result": "PASS",
+            "note": "RNA-seq primary finding leads; proteomics placed as corroboration; single-cell used for mechanistic layer."
+          },
+          {
+            "text": "Output identifies which of the 12 figures are primary vs supporting",
+            "result": "PASS",
+            "note": "Section B and Section D explicitly label each figure's role in the hierarchy."
+          },
+          {
+            "text": "Output recommends uploading study protocol when analytical hierarchy is ambiguous across modalities",
+            "result": "PASS",
+            "note": "Upload recommendation invoked for cross-modality ordering decisions requiring primary endpoint specification."
+          },
+          {
+            "text": "Section H states that multi-omics corroboration does not constitute mechanistic proof",
+            "result": "PASS",
+            "note": "Claim boundary check flags association vs. causal mechanism distinction for multi-omics."
+          },
+          {
+            "text": "Output does not treat all 12 figures as equally weighted primary results",
+            "result": "PASS",
+            "note": "Hard rule 5 holds — figure hierarchy established, figure-by-figure dump avoided."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "User asks to write the full Results prose section and add Discussion-style interpretation within Results",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All four assertions passed. Prose writing declined (redirects to results-section-writer). Discussion interpretation in Results declined per results-boundary-rules.md.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 4,
+        "assertions_total": 4,
+        "assertions": [
+          {
+            "text": "Output declines full prose writing as outside structurer scope and redirects to results-section-writer",
+            "result": "PASS",
+            "note": "Skill boundary correctly enforced — this skill structures, results-section-writer writes prose."
+          },
+          {
+            "text": "Output declines adding Discussion-style interpretation within Results section",
+            "result": "PASS",
+            "note": "results-boundary-rules.md applied — observed findings vs. speculative interpretation kept separate."
+          },
+          {
+            "text": "Output offers to produce a structure outline that can then be handed to results-section-writer",
+            "result": "PASS",
+            "note": "Constructive redirect with explicit composability pathway described."
+          },
+          {
+            "text": "Output explains why Results/Discussion boundary matters for peer-review credibility",
+            "result": "PASS",
+            "note": "Reviewers flag overinterpretation in Results as a structural deficiency — clearly explained."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User insists three exploratory post-hoc analyses should be the primary result of the paper",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All five assertions passed. Hard rule 4 applied. Exploratory analyses correctly demoted to post-hoc section. Section H flags the evidence-level mismatch.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output refuses to promote exploratory analyses to primary result status",
+            "result": "PASS",
+            "note": "Hard rule 4 explicitly applied — exploratory analyses cannot be presented as primary findings."
+          },
+          {
+            "text": "Output recommends a dedicated 'Exploratory/Post-hoc analyses' subsection for these results",
+            "result": "PASS",
+            "note": "Constructive alternative provided: separate subsection with explicit exploratory labeling."
+          },
+          {
+            "text": "Section H flags that presenting exploratory analyses as primary results misleads reviewers about pre-specification",
+            "result": "PASS",
+            "note": "Claim boundary check explains risk: reviewers will question why these were not pre-specified."
+          },
+          {
+            "text": "Output asks the user to identify what the pre-specified primary outcome is",
+            "result": "PASS",
+            "note": "Clarification-first applied: user must confirm the actual primary endpoint before structuring proceeds."
+          },
+          {
+            "text": "Output does not produce a fraudulent structure placing exploratory analyses in the primary result position",
+            "result": "PASS",
+            "note": "Hard rule 10 holds — no structure implying stronger evidence chain than results support."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.6,
+    "dynamic_weighted": 53.9,
+    "score": 92,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Citation-support annotation with PubMed search queries and explicit opt-out provides literature anchoring without fabricating references — a uniquely safe implementation",
+    "Section H (Claim Boundary Check) is a dedicated output section that makes evidence-level constraints explicit — most writing skills lack this as a mandatory output",
+    "Ten study types covered including single-cell, multi-omics, and MR/QTL — broader scope than typical Results-structuring tools",
+    "Results-ordering-rules.md frames ordering by 'narrative and evidentiary function, not chronological analysis order' — precisely correct distinction that prevents common fragmentation",
+    "Upload-recommendation-rule.md provides a specific protocol-upload pathway when figure inventory is insufficient — prevents fabricated structuring from incomplete input"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No explicit composability with results-section-writer",
+      "observed_in": [
+        6
+      ],
+      "problem": "The skill handles the out-of-scope prose request in Input 6 by declining, but does not explicitly document in SKILL.md that it is the upstream component of a results-section-structurer → results-section-writer pipeline.",
+      "root_cause": "Skill designed as standalone without explicit upstream/downstream positioning.",
+      "fix": "Add to SKILL.md scope boundary: 'This skill produces the Results section structure. Use results-section-writer for full prose generation from the approved structure. Output from this skill should be used as input for results-section-writer.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No guidance on supplementary vs main-text figure placement",
+      "observed_in": [
+        2,
+        5
+      ],
+      "problem": "The skill structures main-text figures but provides no guidance on which figures should be demoted to supplementary materials. This is a common structuring decision in omics and multi-panel studies.",
+      "root_cause": "Scope covers figure ordering in Results but not the main-text vs. supplementary allocation decision.",
+      "fix": "Add to results-ordering-rules.md: 'When figure count exceeds 8 or analytical breadth creates narrative congestion, recommend which figures are supplementary candidates. Validation sub-analyses and sensitivity analysis details are typical supplementary candidates.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Hard rule 8 (citation-support annotation) is unclear in a structuring context",
+      "observed_in": [],
+      "problem": "Hard rule 8 mandates citation-support markers for context-setting statements, but the skill is structuring an outline, not writing prose. It is unclear when citation markers should appear in an outline vs. prose draft.",
+      "root_cause": "Citation annotation rule was written for prose contexts and may not translate cleanly to an outline format.",
+      "fix": "Clarify in citation-support-annotation-rules.md: 'When producing a Results outline, add citation markers and PubMed queries to Section F only for statements that would appear as introductory context sentences in the prose draft, not for every result description.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance on figure count or subsection count targets",
+      "observed_in": [
+        5
+      ],
+      "problem": "When structuring a 12-figure multi-omics paper, the skill creates a valid structure but provides no guidance on whether the resulting number of subsections is appropriate for a typical journal Results section.",
+      "root_cause": "Results-ordering-rules.md addresses order but not scale.",
+      "fix": "Add to results-ordering-rules.md: 'A typical Results section for a high-impact journal has 4–7 subsections and 6–10 main-text figures. Flag when a proposed structure significantly exceeds these ranges and suggest condensation or supplementary reassignment.'"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "last_updated": "",
+  "based_on_notes": [],
+  "update_reason": "Initial setup — populated by /setup",
+  "tiers": {
+    "tier1": {
+      "label": "Tier 1 · Core",
+      "description": "Directly addresses the core research question",
+      "terms": []
+    },
+    "tier2": {
+      "label": "Tier 2 · Adjacent",
+      "description": "Same mechanism or method in a different disease context",
+      "terms": []
+    },
+    "tier3": {
+      "label": "Tier 3 · Wild Card",
+      "description": "Cross-domain inspiration, method-heavy",
+      "terms": []
+    }
+  }
+}

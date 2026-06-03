@@ -1,0 +1,48 @@
+{
+  "last_updated": "2026-03-29",
+  "based_on_notes": [
+    "Chen_2021_TMEM161B-AS1/Chen_2021_TMEM161B-AS1.md",
+    "Zheng_2023_SNAI3-AS1/Zheng_2023_SNAI3-AS1.md",
+    "Yang_Pan_2021_Ferroptosis_Gene_Prediction_Colorectal_Cancer.md",
+    "Miao_2022_Hsp90_Acsl4_Ferroptosis_Glioma/Miao_2022_Hsp90_Acsl4_Ferroptosis_Glioma.md",
+    "Hu_2020_TMZ_Resistance_Ferroptosis_Glioma/Hu_2020_TMZ_Resistance_Ferroptosis_Glioma.md",
+    "Tan_2023_lncRNA_ceRNA_Ferroptosis_Alzheimer/Tan_2023_lncRNA_ceRNA_Ferroptosis_Alzheimer.md",
+    "Gross_2024_DeepLearning_RNAseq_Survival/Gross_2024_DeepLearning_RNAseq_Survival.md"
+  ],
+  "update_reason": "2026-03-29 更新：明确加入机器学习+生物信息学分析+阿尔茨海默病为核心研究方向",
+  "tiers": {
+    "tier1": {
+      "label": "Tier 1 · 核心",
+      "description": "直接相关：胶质瘤/AD + ML/生信方法",
+      "terms": [
+        "glioma machine learning bioinformatics prognosis",
+        "glioma ferroptosis lncRNA ceRNA network",
+        "Alzheimer's disease glioma shared molecular mechanisms",
+        "machine learning glioma molecular subtype classification",
+        "bioinformatics ferroptosis regulatory network glioma"
+      ]
+    },
+    "tier2": {
+      "label": "Tier 2 · 邻域",
+      "description": "相同机制或方法，不同研究场域",
+      "terms": [
+        "Alzheimer's disease cancer bidirectional link neurodegeneration",
+        "ferroptosis Alzheimer's disease neuroinflammation",
+        "machine learning Alzheimer biomarker multi-omics",
+        "lncRNA non-coding RNA brain tumor immunotherapy",
+        "deep learning survival prediction cancer RNA-seq"
+      ]
+    },
+    "tier3": {
+      "label": "Tier 3 · 野卡",
+      "description": "跨领域灵感，技术与方法论",
+      "terms": [
+        "WGCNA co-expression network glioma hub genes",
+        "random forest LASSO prognostic signature cancer",
+        "single cell RNA sequencing glioma tumor microenvironment",
+        "graph neural network protein interaction cancer",
+        "multi-omics integration Alzheimer neurodegeneration"
+      ]
+    }
+  }
+}

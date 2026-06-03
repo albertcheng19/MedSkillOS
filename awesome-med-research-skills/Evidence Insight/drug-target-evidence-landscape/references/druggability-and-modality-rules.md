@@ -1,0 +1,1 @@
+Assess tractability independently from disease relevance. Consider modality fit, exposure/access constraints, binding or perturbation feasibility, pathway position, on-target liability, selectivity challenges, and whether inhibition, activation, degradation, blockade, delivery, or cell-based approaches are biologically coherent.

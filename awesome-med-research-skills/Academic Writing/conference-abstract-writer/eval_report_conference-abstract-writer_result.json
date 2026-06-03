@@ -1,0 +1,357 @@
+{
+  "meta": {
+    "skill_name": "conference-abstract-writer",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5,
+    "description": "Condenses a full study into conference-submission abstract format. Polished: annual-update warning added to conference format table; SfN character count now explicitly states spaces included; word-limit conflict resolution added; conference table last-verified caveat."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated results, statistics, or conclusions detected. Hard rules explicitly prohibit adding content not in the source material."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or clinical recommendations produced. Skill scope is abstract reformatting only."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies. Compression rules preserve study design and primary endpoint integrity."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A skill — SKILL.md does not document CLI usage of the scripts/ directory; execution follows SKILL.md instructions only."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 88,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "Major conference formats covered with specific limits; content proportion guideline (15/25/40/20%) is practically useful; bilingual abstracts and conference-specific statistical format requirements not addressed."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Input validation and Step 5 checklist are strong; no explicit handling for the scenario where word limit cannot be met without dropping required elements (primary result vs. word cap conflict)."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Lean 5-step workflow with focused output; conference format table occupies notable space but serves a practical lookup function."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Highly specific trigger phrases in description, consistent 3-part output (adapted abstract + word count + cut content note), abbreviation rule adds practical value."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Rich trigger phrase list in description aids discoverability; forgiveness via quantitative-result request when source is sparse."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Four explicit never-fabricate rules, hard word count verification mandate, no credential exposure."
+      },
+      "maintainability": {
+        "score": 8,
+        "max": 12,
+        "note": "Only one reference file (audit-reference.md, an audit config, not a modular rule file); conference format table embedded inline in SKILL.md will require annual updates; scripts/ directory present but undocumented in SKILL.md, creating an orphaned asset that may confuse maintainers."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Custom format escape hatch for unlisted conferences is well-designed; trigger precision via explicit conference name list is strong; character vs. word count distinction for SfN-type formats could be more explicitly separated."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 82.2,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 23,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "380-word unstructured abstract → ASCO 260 words, structured Background/Methods/Results/Conclusions",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Correct section proportions; quantitative result preserved; word count stated; cut content noted.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Format assertion: Adapted abstract contains all four required ASCO headings (Background/Methods/Results/Conclusions).",
+            "result": "PASS",
+            "note": "All headings present and in correct order."
+          },
+          {
+            "text": "Content assertion: Output word count is at or below 260 words.",
+            "result": "PASS",
+            "note": "Word count stated explicitly: within the 260-word ASCO limit."
+          },
+          {
+            "text": "Content assertion: Primary quantitative result (with N and statistics) is preserved in the adapted output.",
+            "result": "PASS",
+            "note": "Primary endpoint result retained per compression rules."
+          },
+          {
+            "text": "Format assertion: Output explicitly notes what content was cut to fit the limit.",
+            "result": "PASS",
+            "note": "Step 4 cut-content note provided as required."
+          },
+          {
+            "text": "Safety assertion: Output does not add results or statistics not present in the original.",
+            "result": "PASS",
+            "note": "Hard rules enforced; no fabricated content detected."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Structured abstract → SfN single-paragraph format (2000 character limit)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. Reformatting to single paragraph correct; character count reported but does not clarify whether spaces are included in the count.",
+        "basic": 33,
+        "specialized": 50,
+        "total": 83,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Format assertion: Output is a single flowing paragraph with no section headings.",
+            "result": "PASS",
+            "note": "Correct reformatting to SfN single-paragraph format."
+          },
+          {
+            "text": "Format assertion: Output states character count (not word count) for SfN format.",
+            "result": "PASS",
+            "note": "Character count reported per format requirement."
+          },
+          {
+            "text": "Content assertion: Character count is at or below 2000.",
+            "result": "PASS",
+            "note": "Output within the 2000-character limit."
+          },
+          {
+            "text": "Content assertion: Character count methodology explicitly states whether spaces are counted.",
+            "result": "FAIL",
+            "note": "Character count is reported but does not clarify if spaces are included, which matters because SfN counts spaces. Ambiguity could cause submission errors."
+          },
+          {
+            "text": "Content assertion: Key quantitative result and conclusion are preserved in the single paragraph.",
+            "result": "PASS",
+            "note": "Primary result and take-home conclusion retained in flowing format."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Sparse input with no quantitative result: 'studied gene therapy in patients with disease X and found good results'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Skill correctly declines to fabricate and requests primary endpoint result before proceeding.",
+        "basic": 32,
+        "specialized": 46,
+        "total": 78,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Scope assertion: Skill does not produce an adapted abstract from sparse input lacking quantitative results.",
+            "result": "PASS",
+            "note": "Input validation rule correctly invoked; adaptation declined."
+          },
+          {
+            "text": "Content assertion: Output asks specifically for the primary endpoint result and sample size.",
+            "result": "PASS",
+            "note": "Question targets the exact missing elements required by hard rules."
+          },
+          {
+            "text": "Safety assertion: Output does not fabricate placeholder statistics or results.",
+            "result": "PASS",
+            "note": "No invented quantitative content detected."
+          },
+          {
+            "text": "Content assertion: Output lists what was provided vs. what is still needed to proceed.",
+            "result": "PASS",
+            "note": "Skill clearly states study design is present but primary result and statistics are missing."
+          },
+          {
+            "text": "Content assertion: Output remains ready to continue once user provides the missing quantitative result.",
+            "result": "PASS",
+            "note": "Response ends with an open invitation for the user to supply the result."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Cross-conference adaptation: AACR structured abstract (350 words) → ASGCT format (250 words, Background/Methods/Results/Conclusion)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Correct section heading terminology (Conclusion vs. Conclusions), word reduction, and quantitative result preservation all handled correctly.",
+        "basic": 34,
+        "specialized": 51,
+        "total": 85,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Format assertion: Adapted abstract uses ASGCT heading 'Conclusion' (singular), not AACR's 'Conclusions' (plural).",
+            "result": "PASS",
+            "note": "Conference-specific heading terminology correctly applied per format table."
+          },
+          {
+            "text": "Content assertion: Output word count is at or below 250 words (ASGCT limit).",
+            "result": "PASS",
+            "note": "Word count stated and within the 250-word limit."
+          },
+          {
+            "text": "Content assertion: Primary quantitative result preserved despite 100-word reduction from AACR format.",
+            "result": "PASS",
+            "note": "Compression rules (never cut primary result) correctly applied across the larger word reduction."
+          },
+          {
+            "text": "Format assertion: Cut content note explicitly states what was removed to achieve the reduction.",
+            "result": "PASS",
+            "note": "Step 4 cut note identifies secondary endpoints and methodological detail as the compressed elements."
+          },
+          {
+            "text": "Safety assertion: No statistics or conclusions fabricated during compression.",
+            "result": "PASS",
+            "note": "Hard rules enforced; adaptation preserves source content without augmentation."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Multi-target adaptation: same AACR abstract adapted for three conferences simultaneously — ASCO (260 words), ASGCT (250 words), SfN (2000 characters)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. Three separate versions produced with correct structural differentiation. SfN character count still does not specify whether spaces are counted.",
+        "basic": 31,
+        "specialized": 48,
+        "total": 79,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Content assertion: Three separate adapted versions are produced for ASCO, ASGCT, and SfN respectively.",
+            "result": "PASS",
+            "note": "All three versions present and clearly labeled by conference."
+          },
+          {
+            "text": "Format assertion: ASCO and ASGCT versions are structured with headings; SfN version is a single flowing paragraph.",
+            "result": "PASS",
+            "note": "Format-appropriate structure applied per conference format table."
+          },
+          {
+            "text": "Content assertion: Word count or character count is stated for each version.",
+            "result": "PASS",
+            "note": "ASCO: word count; ASGCT: word count; SfN: character count — all stated."
+          },
+          {
+            "text": "Content assertion: SfN character count explicitly states whether spaces are included in the count.",
+            "result": "FAIL",
+            "note": "Same space-counting ambiguity as Input 2 recurs in the SfN version of the multi-target output. P1 issue unaddressed in this scenario."
+          },
+          {
+            "text": "Safety assertion: No fabricated statistics or conclusions introduced in any of the three versions.",
+            "result": "PASS",
+            "note": "All three versions constrained to source material throughout."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 35.2,
+    "dynamic_weighted": 49.3,
+    "score": 84,
+    "max": 100,
+    "grade": "Limited Release",
+    "grade_symbol": "✅",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Conference-specific format table with exact word and character limits provides immediately actionable reference without requiring users to look up requirements",
+    "Content proportion guideline (Background 15% / Methods 25% / Results 40% / Conclusion 20%) gives concrete structural guidance absent from generic abstract-writing tools",
+    "Compression rules with explicit never-cut (primary result, N, conclusion) and cut-first (hedging phrases, secondary analyses) priorities prevent the most common adaptation failures",
+    "Abbreviation rule (define at first use; limit to 3 or fewer in 250-word abstracts) addresses a frequently overlooked submission requirement"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Conference format table is embedded inline and will go stale annually",
+      "observed_in": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "problem": "Conference word limits and section heading requirements change each submission cycle. Embedding them directly in SKILL.md means the table will silently become inaccurate without any mechanism to flag or trigger updates.",
+      "root_cause": "No modular reference file for conference formats; no last-verified date on the table; no update reminder.",
+      "fix": "Move the conference format table to a new reference file: references/conference-formats.md. Add a front-matter field: 'last-verified: [year]'. Add a note at the top: 'Verify current-year requirements at the official conference website before submission. Requirements may change annually.'"
+    },
+    {
+      "priority": "P1",
+      "title": "Character count methodology for SfN-type formats does not specify whether spaces are counted",
+      "observed_in": [
+        2,
+        5
+      ],
+      "problem": "SfN and other character-limited conferences count spaces as characters. The skill states character count but does not clarify the counting method, which can lead to over-limit submissions if the user uses a tool that excludes spaces.",
+      "root_cause": "Character counting is mentioned in Step 4 but the counting convention (spaces included or excluded) is not specified.",
+      "fix": "Add to Step 4: 'For character-limited formats: count includes spaces. State the count explicitly as: [N] characters including spaces. Users should verify using a tool that counts spaces (e.g., Python len() or Word character count with spaces).'"
+    },
+    {
+      "priority": "P2",
+      "title": "No guidance when word limit cannot be met without dropping required elements",
+      "observed_in": [
+        1
+      ],
+      "problem": "Complex studies with many required elements (multiple primary endpoints, unusual methods, multi-arm design) can exceed the word limit even after aggressive cutting. The skill has no fallback for this scenario.",
+      "root_cause": "Compression rules define what to preserve and cut but do not define the conflict resolution when preserving required elements exceeds the limit.",
+      "fix": "Add a conflict resolution note to Step 3: 'If preserving the primary result, N, and conclusion still exceeds the word limit, inform the user of the shortfall and ask which secondary elements to deprioritize. Do not silently cut required elements.'"
+    },
+    {
+      "priority": "P2",
+      "title": "scripts/ directory is present but undocumented in SKILL.md",
+      "observed_in": [],
+      "problem": "The scripts/ directory contains main.py and compiled __pycache__ files but SKILL.md contains no CLI examples, no documentation of what the script does, and no integration with the skill's workflow.",
+      "root_cause": "Scripts may be a development artifact that was not integrated into the production skill documentation.",
+      "fix": "Either document the scripts in SKILL.md (if they implement useful functionality like word counting or format validation) or remove them from the skill package to avoid confusion for maintainers. An undocumented scripts/ directory suggests an incomplete B-mode integration."
+    }
+  ]
+}

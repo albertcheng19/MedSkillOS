@@ -1,0 +1,331 @@
+{
+  "meta": {
+    "skill_name": "confounder-and-bias-control-planner",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Protocol Design",
+    "execution_mode": "A",
+    "complexity": "Moderate",
+    "n_inputs": 5,
+    "description": "Plans confounder control, variable adjustment logic, and bias mitigation strategies at the protocol stage for clinical, epidemiologic, translational, observational, and biomarker studies. Always use this skill when a user needs to identify major confounders, decide which variable"
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or unapproved treatment recommendations produced."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "Collider bias, mediator misclassification, and immortal time bias all explicitly handled"
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Category 2, design planning only"
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 93,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Strong handling of uncertain variable roles; gap: no fallback when user provides no variable list at all"
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Full marks (16/16); no significant issues detected."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Strong score (7/8); minor gaps noted."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "maintainability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks (12/12); no significant issues detected."
+      },
+      "agent_specific": {
+        "score": 17,
+        "max": 20,
+        "note": "Strong critical posture enforced; description well-targeted but could be shortened and add natural trigger phrases"
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 87.0,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 25,
+      "total": 25
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Baseline CRP as predictor of sepsis mortality — what to adjust for",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 53,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Variable role map produced with explicit confounder/mediator/collider classifications",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Time order established before any adjustment recommendation",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Post-baseline variables excluded from baseline adjustment set with warning",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Minimum sufficient control set defined with reasoning, not just variable list",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Residual confounding acknowledged as non-removable in Section J",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Retrospective EHR cohort — identify bias and confounders before protocol finalization",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Immortal time bias risk assessed for EHR time-zero structure",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Selection bias and confounding by indication both identified",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Control strategy recommendation justified for the specific design context",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Critical weak points section present with specific protocol revision recommendation",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No fabricated variable availability or dataset fields assumed",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Case-control study of smoking and lupus — which variables to match on",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Variables on causal pathway explicitly excluded from matching recommendation",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Overmatching risk and analytic consequences stated for each matching candidate",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Alternative to matching (restriction or multivariable adjustment) presented as comparison",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Collider bias risk checked for proposed matching variables",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "No recommendation to 'adjust for everything available'",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Mixed variable list including post-treatment response — role classification challenge",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 52,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Post-treatment variables correctly classified as post-baseline and excluded from baseline adjustment",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Role-uncertain variables labeled rather than forced into a false classification",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Mediator vs confounder boundary explicitly addressed for ambiguous variables",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Prediction variables correctly distinguished from confounders",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Caution against statistical complexity masking bias explicitly stated",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Pressure-test a complex observational protocol with propensity score plan already drafted",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed.",
+        "basic": 35,
+        "specialized": 51,
+        "total": 86,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Propensity score plan reviewed with explicit justification check (design, data quality, covariate set)",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Critical review of proposed propensity model identifies whether covariate set is appropriate",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Residual bias after propensity score method acknowledged",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Bias mitigation actions provided per major risk identified",
+            "result": "PASS",
+            "note": "Verified in output."
+          },
+          {
+            "text": "Practical next step section provides most useful immediate action",
+            "result": "PASS",
+            "note": "Verified in output."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.2,
+    "dynamic_weighted": 52.2,
+    "score": 89,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Variable role classification before any adjustment recommendation is a methodologically sound and rare discipline in AI-assisted protocol review",
+    "Explicit collider bias detection and prohibition of mediator adjustment are strong differentiators from generic statistics advice",
+    "Hard Rules effectively prevent the most common critical errors: adjust-for-everything, post-baseline variables in baseline set, propensity score by default",
+    "Eight reference modules with precise step-level mapping provide comprehensive bias-sensing coverage"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No fallback when user provides no variable list at all",
+      "observed_in": [],
+      "problem": "When a user asks for confounder and bias planning without supplying any variable list or study design details, the skill lacks a structured minimum-clarification protocol to extract what is needed before proceeding.",
+      "root_cause": "Input Validation section shows examples with variable lists, but does not define the minimum required inputs before the full analysis can begin.",
+      "fix": "Add a clarification gate: if no variable list or study design is provided, ask for: (1) exposure variable, (2) outcome variable, (3) suspected major confounders, and (4) data source type before proceeding to full bias analysis."
+    },
+    {
+      "priority": "P2",
+      "title": "Description is long and may over-trigger on general statistics or prediction modeling questions",
+      "observed_in": [],
+      "problem": "The description includes phrases like 'prediction modeling' and 'observational studies', which may cause this skill to trigger on questions that are better served by a dedicated statistical modeling or prediction skill.",
+      "root_cause": "Description optimized for coverage over precision.",
+      "fix": "Add a negative-trigger qualifier: 'not for pure predictive feature selection or machine learning model building without bias-control purpose' in the description to reduce false-positive triggering."
+    }
+  ]
+}

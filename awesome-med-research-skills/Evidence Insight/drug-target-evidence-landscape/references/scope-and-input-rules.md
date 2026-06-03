@@ -1,0 +1,1 @@
+Use this module to classify whether the request is drug-centered, target-centered, target-class-centered, pathway-centered, or mechanism-centered. When multiple scopes appear, identify the dominant scope and list secondary scopes briefly.

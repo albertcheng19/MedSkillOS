@@ -1,59 +1,122 @@
-# MedSkillOS
+<div align="center">
 
-**Medical-grade agent skills for clinical and biomedical workflows.**
+# 🩺 MedSkillOS
 
-MedSkillOS is an open, agent-native skill operating system for medicine and biomedical science. It provides lightweight domain skills, execution harnesses, evidence objects, quality-control standards, provenance tracking, and expert-reviewed self-refinement loops for AI agents.
+### The open medical skill operating system for AI agents
 
-MedSkillOS is **not** a medical chatbot, a medical knowledge dump, or an autonomous diagnostic system. It is a medical standards layer that helps AI agents use medical knowledge, tools, databases, and workflows according to clinical and scientific standards.
+**Medical-grade agent skills for clinical, biomedical, and scientific workflows.**
 
-## Why MedSkillOS?
+<br>
 
-Medical AI tools are growing quickly. We already have biomedical MCP servers, clinical RAG systems, medical image tools, wearable-data agents, research assistants, and large skill collections.
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-2f80ed?style=for-the-badge)](./LICENSE)
+![Stage](https://img.shields.io/badge/Stage-Early%20Development-7c3aed?style=for-the-badge)
+![Agent Native](https://img.shields.io/badge/Agent--Native-Skills-10b981?style=for-the-badge)
+![Medical AI](https://img.shields.io/badge/Medical%20AI-Research%20%26%20Workflow-ef4444?style=for-the-badge)
+![Contributions](https://img.shields.io/badge/Contributions-Welcome-f59e0b?style=for-the-badge)
 
-But most existing tools focus on access:
+<br>
 
-- Access to PubMed, NCBI, FHIR, OMOP, DICOM, clinical trials, or wearable data
-- Access to guideline documents or medical databases
-- Access to single-task scripts or domain-specific utilities
+**MedSkillOS helps AI agents use medical knowledge, tools, datasets, and research workflows with structure, safety, provenance, and human review.**
 
-MedSkillOS focuses on assurance:
+<br>
 
-- Was the right skill selected?
-- Was the input valid?
-- Were medical safety gates applied?
-- Was the output evidence-aware?
-- Were uncertainty and limitations reported?
-- Was provenance recorded?
-- Was quality control performed?
-- Can clinicians, nurses, researchers, or patients review the result?
-- Can failures become reviewed improvements instead of hidden errors?
+[Overview](#-what-is-medskillos) ·
+[Why it matters](#-why-medskillos) ·
+[Architecture](#-architecture) ·
+[Skill Directory](#-skill-directory) ·
+[Install](#-quick-start) ·
+[Contribute](#-contributing) ·
+[Credits](#-acknowledgements--upstream-credit)
 
-## What MedSkillOS Provides
+</div>
+
+---
+
+## ✨ What is MedSkillOS?
+
+**MedSkillOS** is an open, agent-native framework for building and running **medical research skills**.
+
+It is designed for AI agents that need to work across clinical reasoning, biomedical research, evidence synthesis, neurodata processing, bioinformatics, scientific writing, and medical workflow support.
+
+MedSkillOS is not just a folder of prompts.
+
+It is a standards layer for medical agents:
+
+- reusable **domain skill packs**
+- structured **input/output schemas**
+- medical **safety and scope gates**
+- evidence-aware **reasoning artifacts**
+- reproducible **execution traces**
+- quality-control **checklists and evaluations**
+- expert-reviewed **improvement loops**
+
+> **Goal:** turn general AI agents into safer, more useful, more reviewable medical and biomedical research collaborators.
+
+---
+
+## 🧭 Why MedSkillOS?
+
+Medical AI is moving fast. We already have biomedical databases, clinical RAG systems, medical image tools, MCP servers, research assistants, and large collections of AI skills.
+
+But most systems still optimize for **access**:
+
+| Most tools focus on access to... | MedSkillOS focuses on assurance that... |
+| --- | --- |
+| PubMed, NCBI, FHIR, OMOP, DICOM, ClinicalTrials.gov | the right workflow was selected |
+| guideline documents and biomedical databases | the input was valid and in scope |
+| single-task scripts and utilities | safety gates were applied |
+| generic medical explanations | uncertainty and limitations were stated |
+| one-off prompt templates | provenance and evidence were recorded |
+| large skill catalogs | outputs are reviewable and improvable |
+
+MedSkillOS is built around a simple idea:
+
+> **Medical agents should not only answer. They should show how they worked, what evidence they used, what they are uncertain about, and where human review is required.**
+
+---
+
+## 🧱 Architecture
+
+```mermaid
+flowchart LR
+    U[Clinician / Researcher / Student / Developer] --> A[AI Agent]
+    A --> M[MedSkillOS]
+
+    M --> S[Domain Skill Packs]
+    M --> H[Medical Skill Harness]
+    M --> E[Evidence & Provenance Objects]
+    M --> Q[Quality Gates & Evaluations]
+    M --> R[Expert-Reviewed Refinement]
+
+    S --> D[Diagnostics]
+    S --> N[Clinical Neuroscience]
+    S --> L[Literature & Evidence]
+    S --> B[Bioinformatics & Omics]
+    S --> W[Scientific Writing]
+```
 
 MedSkillOS has four core layers.
 
 ### 1. Domain Skill Packs
 
-Each medical domain is organized as a domain pack. A domain pack contains agent-readable skills, executable wrappers, schemas, examples, evaluation cases, risk policies, and reviewer guidance.
+Each medical domain is organized as a skill pack. A pack may contain agent-readable instructions, schemas, examples, risk boundaries, tests, and reviewer guidance.
 
-Initial domain packs:
+Initial focus:
 
 - `diagnostics` — structured clinical reasoning, differential diagnosis, red-flag detection, evidence mapping, and role-specific communication
 - `clinical-neuroscience` — EEG, MEG, fMRI, source localization, spectral analysis, connectivity analysis, and neurophysiology reporting
 
-Planned domain packs:
+Planned and expandable areas:
 
-- `radiology`
-- `pathology`
-- `laboratory-medicine`
-- `pharmacology`
-- `genomics`
-- `nursing`
-- `emergency-critical-care`
-- `public-health`
-- `rehabilitation`
-- `medical-education`
-- `medical-device-compliance`
+- literature review and evidence synthesis
+- protocol and study design
+- bioinformatics and omics analysis
+- scientific writing and publication support
+- pharmacology and drug safety
+- radiology and pathology workflows
+- public health and epidemiology
+- medical education
+- medical device and regulatory workflows
 
 ### 2. Medical Skill Harness
 
@@ -71,13 +134,13 @@ It checks:
 - regression evaluations
 - human-review requirements
 
-The goal is not just to run skills, but to make medical-agent workflows reproducible, reviewable, and improvable.
+The goal is not only to run skills, but to make medical-agent workflows **reproducible, inspectable, and improvable**.
 
 ### 3. Evidence and Provenance Objects
 
-MedSkillOS standardizes how agents represent evidence, data-processing outputs, and clinical reasoning artifacts.
+MedSkillOS standardizes how agents represent evidence, reasoning, data-processing outputs, and review decisions.
 
-Core objects include:
+Core objects may include:
 
 - `ClinicalQuestion`
 - `EvidenceObject`
@@ -85,42 +148,40 @@ Core objects include:
 - `ClinicalExperienceRecord`
 - `ReviewDecision`
 
-These objects allow different domain packs to communicate without collapsing into unstructured text.
+These objects help different skill packs communicate without collapsing everything into unstructured text.
 
 ### 4. Expert-Reviewed Self-Refinement
 
-MedSkillOS supports self-refining skills, but never through uncontrolled automatic clinical rule changes.
+MedSkillOS supports learning from failures, reviewer comments, and user feedback — but not through uncontrolled automatic changes to medical logic.
 
-Failures, reviewer comments, and doctor/nurse/patient feedback are converted into structured experience records. Proposed improvements must pass validation, tests, and expert review before promotion.
+Proposed improvements should pass:
+
+- scope checks
+- safety checks
+- schema validation
+- regression tests
+- expert review
+- versioned promotion
 
 Skill maturity states:
 
-- `draft`
-- `candidate`
-- `experimental`
-- `reviewed`
-- `stable`
-- `deprecated`
+```text
+draft → candidate → experimental → reviewed → stable
+                                      ↘ deprecated
+```
 
-## What MedSkillOS Is Not
+---
 
-MedSkillOS is not:
+## 📚 Skill Directory
 
-- a replacement for clinicians
-- a diagnostic authority
-- a treatment recommendation engine
-- a scraped medical textbook
-- a guideline PDF mirror
-- a general medical chatbot
-- a marketplace of unverified tools
+MedSkillOS is designed as a growing medical skill registry. The directory should stay readable: the README highlights major domains, while the full catalog can live in `/docs`, `/skills`, or generated index files.
 
-MedSkillOS is designed for research, education, clinical workflow support, biomedical data processing, and expert-reviewed agent development.
+### 🩺 Diagnostics
 
-## Example Domain: Diagnostics
+Structured clinical reasoning skills that help agents reason clearly, surface missing information, and communicate safely.
 
-The diagnostics domain focuses on medical reasoning standards rather than disease encyclopedias.
-
-Example skills:
+<details>
+<summary><strong>Example skills</strong></summary>
 
 - `problem-representation`
 - `red-flag-detection`
@@ -135,13 +196,14 @@ Example skills:
 - `feedback-classifier`
 - `reviewer-gate`
 
-The goal is to help agents reason in a clinically structured, evidence-aware, uncertainty-aware, and human-reviewable way.
+</details>
 
-## Example Domain: Clinical Neuroscience
+### 🧠 Clinical Neuroscience
 
-The clinical-neuroscience domain focuses on reproducible neurodata workflows.
+Reproducible workflows for neurodata processing and reporting.
 
-Example skills:
+<details>
+<summary><strong>Example skills</strong></summary>
 
 - `validate-bids-dataset`
 - `load-eeg-meg-raw`
@@ -159,33 +221,137 @@ Example skills:
 - `compute-connectivity`
 - `generate-neuro-report`
 
-The goal is to make EEG, MEG, fMRI, source localization, spectral analysis, and connectivity analysis accessible to agents while preserving QC, provenance, and scientific limitations.
+</details>
 
-## Skill Structure
+### 🔍 Literature & Evidence
 
-Each skill follows a standard structure:
+Skills for finding, screening, appraising, and synthesizing biomedical literature.
+
+<details>
+<summary><strong>Example skills to add</strong></summary>
+
+- biomedical search strategy builder
+- PubMed query optimizer
+- high-value paper screener
+- evidence map generator
+- contradiction resolver
+- claim-to-paper verifier
+- research gap finder
+- reporting guideline matcher
+
+</details>
+
+### 🧪 Protocol & Study Design
+
+Skills for turning research questions into executable medical research plans.
+
+<details>
+<summary><strong>Example skills to add</strong></summary>
+
+- aim and hypothesis designer
+- cohort protocol planner
+- inclusion/exclusion criteria builder
+- endpoint definition assistant
+- sample size and power planner
+- real-world evidence study designer
+- biomarker validation strategy designer
+- feasibility-aware study planner
+
+</details>
+
+### 🧬 Bioinformatics & Omics
+
+Skills for reproducible analysis of molecular and biomedical datasets.
+
+<details>
+<summary><strong>Example skills to add</strong></summary>
+
+- differential expression analysis
+- batch effect correction
+- GO/KEGG enrichment
+- GSEA and GSVA
+- WGCNA
+- immune infiltration analysis
+- survival modeling
+- ROC and diagnostic performance
+- single-cell analysis planning
+- multi-omics integration
+
+</details>
+
+### ✍️ Scientific Writing
+
+Skills for transforming research work into clearer scientific communication.
+
+<details>
+<summary><strong>Example skills to add</strong></summary>
+
+- abstract builder
+- method section writer
+- results narrative builder
+- discussion architect
+- medical English precision editor
+- journal matcher
+- cover letter drafter
+- reviewer response planner
+- reporting guideline compliance checker
+
+</details>
+
+---
+
+## 🗂️ Recommended Repository Layout
 
 ```text
-skill-name/
-  SKILL.md
-  skill.yaml
-  runner.py
-  schemas/
-    input.schema.json
-    output.schema.json
-  tests/
-  evals/
-  examples/
-  memory/
-  risk.md
+MedSkillOS/
   README.md
+  LICENSE
+  NOTICE.md
+  CONTRIBUTING.md
+
+  skills/
+    diagnostics/
+      problem-representation/
+        SKILL.md
+        skill.yaml
+        schemas/
+        examples/
+        tests/
+        risk.md
+
+    clinical-neuroscience/
+      validate-bids-dataset/
+        SKILL.md
+        skill.yaml
+        schemas/
+        examples/
+        tests/
+        risk.md
+
+  docs/
+    catalog.md
+    architecture.md
+    safety-model.md
+    contribution-guide.md
+    third-party-notices.md
+
+  evals/
+    cases/
+    rubrics/
+    regression/
+
+  schemas/
+    ClinicalQuestion.schema.json
+    EvidenceObject.schema.json
+    SkillRunTrace.schema.json
+    ReviewDecision.schema.json
 ```
 
-A skill must define:
+A skill should define:
 
 - what it does
 - when to use it
-- when not to use it
+- when **not** to use it
 - required inputs
 - expected outputs
 - safety boundaries
@@ -194,29 +360,132 @@ A skill must define:
 - provenance requirements
 - known failure modes
 
-## Copyright and Source Policy
+---
 
-MedSkillOS is knowledge-light and standard-heavy.
+## 🚀 Quick Start
 
-We do not copy copyrighted textbooks, proprietary guideline content, paywalled clinical summaries, or restricted medical web pages into skills.
+> MedSkillOS is currently in early development. Directory names and install paths may change as the project matures.
 
-Instead, MedSkillOS stores:
+Clone the repository:
 
-- original workflow standards
-- source-routing rules
-- evidence-grading criteria
-- schemas
-- safety gates
-- quality-control checks
-- review procedures
-- de-identified experience records
-- links and citations to allowed sources
+```bash
+git clone https://github.com/albertcheng19/MedSkillOS.git
+cd MedSkillOS
+```
 
-Each source adapter must declare licensing, caching, citation, and usage constraints.
+Install selected skills into your agent framework:
 
-## Contributing
+```bash
+# Example: install all available skills into a local agent skill directory
+mkdir -p ~/.local/share/agent-skills
+cp -r skills/* ~/.local/share/agent-skills/
+```
 
-MedSkillOS welcomes contributors from multiple roles:
+For OpenClaw-style skill loading:
+
+```bash
+mkdir -p ~/.openclaw/skills
+cp -r skills/* ~/.openclaw/skills/
+```
+
+For Claude-style local skills:
+
+```bash
+mkdir -p ~/.claude/skills
+cp -r skills/* ~/.claude/skills/
+```
+
+Then ask your agent:
+
+```text
+What MedSkillOS skills are available, and when should each one be used?
+```
+
+---
+
+## 🧪 Example Usage
+
+```text
+Use the differential-diagnosis-builder skill.
+
+Patient summary:
+- 45-year-old with new headache and transient visual symptoms
+- no fever
+- history of hypertension
+
+Task:
+Create a structured differential diagnosis, identify red flags,
+list missing information, and clearly state when urgent clinical review is needed.
+```
+
+Expected MedSkillOS-style output:
+
+```text
+1. Problem representation
+2. Red flags and immediate safety concerns
+3. Differential diagnosis with evidence for/against
+4. Missing information
+5. Suggested source routing
+6. Uncertainty and limitations
+7. Human review requirement
+```
+
+---
+
+## 🛡️ Safety and Scope
+
+MedSkillOS is designed for:
+
+- medical research
+- biomedical data processing
+- clinical workflow support
+- medical education
+- expert-reviewed agent development
+- reproducible scientific workflows
+
+MedSkillOS is **not**:
+
+- a replacement for clinicians
+- a diagnostic authority
+- a treatment recommendation engine
+- a scraped medical textbook
+- a guideline mirror
+- a general medical chatbot
+- a marketplace of unverified tools
+
+Medical outputs generated with MedSkillOS require appropriate human review.
+
+---
+
+## ✅ Quality Model
+
+Every mature skill should pass two layers of review.
+
+### Skill Quality
+
+- clear trigger conditions
+- explicit non-use cases
+- structured input/output contract
+- testable behavior
+- reliable examples
+- safe tool usage
+- reproducible outputs
+
+### Medical Quality
+
+- scope boundaries
+- uncertainty reporting
+- evidence awareness
+- clinical safety warnings
+- source provenance
+- reviewer handoff
+- no unsupported medical authority claims
+
+---
+
+## 🧑‍🔬 Contributing
+
+MedSkillOS welcomes contributions from:
 
 - physicians
 - nurses
@@ -226,31 +495,88 @@ MedSkillOS welcomes contributors from multiple roles:
 - pathologists
 - genetic counselors
 - biomedical researchers
+- medical students
 - patients and caregivers
 - software engineers
 - evaluation designers
 - safety and governance reviewers
 
-You do not need to write code to contribute. Domain experts can contribute workflows, review criteria, failure cases, safety checks, evaluation cases, and feedback.
+You do not need to write code to contribute. Valuable contributions include:
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
+- workflow designs
+- skill drafts
+- examples
+- failure cases
+- evaluation rubrics
+- safety boundaries
+- source-routing rules
+- domain review comments
+- documentation improvements
 
-## Disclaimer
-
-MedSkillOS is for research, education, workflow support, and expert-reviewed agent development. It is not a validated clinical tool and must not be used as a replacement for qualified medical judgment, diagnosis, or treatment.
-
-Medical outputs generated using MedSkillOS require appropriate human review.
-
-## Quick test
-
-```bash
-python domains/diagnostics/skills/dx-red-flag-detector/scripts/self_test.py
-python scripts/build_skill_exports.py
-```
-
-Generated installable artifacts:
+Suggested contribution flow:
 
 ```text
-dist/MedSkillOS-diagnostics-openclaw.zip
-dist/MedSkillOS-diagnostics-codex.zip
+1. Propose a skill or improvement
+2. Define scope and non-scope
+3. Add examples and expected outputs
+4. Add safety and evidence requirements
+5. Add tests or evaluation cases
+6. Request review
 ```
+
+---
+
+## 🧩 Acknowledgements & Upstream Credit
+
+MedSkillOS builds on ideas, workflows, and open-source work from the medical AI skills community.
+
+We gratefully acknowledge:
+
+- [Aperivue / medsci-skills](https://github.com/Aperivue/medsci-skills)
+- [FreedomIntelligence / OpenClaw-Medical-Skills](https://github.com/FreedomIntelligence/OpenClaw-Medical-Skills)
+- [AIPOCH / medical-research-skills](https://github.com/aipoch/medical-research-skills)
+
+Some skills, categories, workflow patterns, or documentation ideas in MedSkillOS may be derived from, adapted from, or inspired by these upstream projects.
+
+When upstream content is copied or adapted:
+
+- keep original copyright notices
+- retain original license text where required
+- document the source repository
+- note meaningful modifications
+- do not import files with unclear or incompatible licensing
+- respect third-party content restrictions inside upstream repositories
+
+Recommended notice file:
+
+```text
+docs/third-party-notices.md
+```
+
+---
+
+## 📄 License
+
+MedSkillOS is licensed under the [Apache License 2.0](./LICENSE).
+
+Third-party content, adapted skills, bundled checklists, datasets, scripts, and examples may be subject to their own licenses. Their original licenses and attribution notices must be preserved.
+
+---
+
+## ⚕️ Medical Disclaimer
+
+MedSkillOS is for research, education, workflow support, and expert-reviewed agent development.
+
+It is not a validated clinical tool and must not be used as a replacement for qualified medical judgment, diagnosis, or treatment.
+
+Always involve qualified professionals for clinical decisions.
+
+---
+
+<div align="center">
+
+### Build safer medical agents. Share better research workflows. Make every skill reviewable.
+
+If MedSkillOS helps your work, consider starring the repository ⭐
+
+</div>

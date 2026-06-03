@@ -1,0 +1,26 @@
+[
+  {
+    "id": "dx-evidence-mapper",
+    "domain": "domains",
+    "archive": "dist/openclaw/dx-evidence-mapper.zip",
+    "folder": "dist/openclaw/dx-evidence-mapper"
+  },
+  {
+    "id": "dx-hpi-question-planner",
+    "domain": "domains",
+    "archive": "dist/openclaw/dx-hpi-question-planner.zip",
+    "folder": "dist/openclaw/dx-hpi-question-planner"
+  },
+  {
+    "id": "dx-problem-representation",
+    "domain": "domains",
+    "archive": "dist/openclaw/dx-problem-representation.zip",
+    "folder": "dist/openclaw/dx-problem-representation"
+  },
+  {
+    "id": "dx-red-flag-detector",
+    "domain": "domains",
+    "archive": "dist/openclaw/dx-red-flag-detector.zip",
+    "folder": "dist/openclaw/dx-red-flag-detector"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "format_version": "0.1.0",
+  "generated_from": "scripts/build_skill_exports.py",
+  "skills": [
+    {
+      "id": "dx-evidence-mapper",
+      "domain": "domains"
+    },
+    {
+      "id": "dx-hpi-question-planner",
+      "domain": "domains"
+    },
+    {
+      "id": "dx-problem-representation",
+      "domain": "domains"
+    },
+    {
+      "id": "dx-red-flag-detector",
+      "domain": "domains"
+    }
+  ]
+}

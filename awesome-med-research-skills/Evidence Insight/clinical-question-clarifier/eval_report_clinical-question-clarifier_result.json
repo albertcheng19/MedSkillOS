@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "skill_name": "clinical-question-clarifier",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7,
+    "description": "Clarifies a vague clinical or biomedical research idea into a structured, bounded, searchable, researchable, and testable question. Use when a user has an early-stage clinical or research thought, an over-broad topic, or an ill-defined evidence question that must be translated into a framing suitable for literature retrieval, evidence synthesis, gap analysis, or protocol planning."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, or clinical data detected; skill correctly avoids answering substantive questions and focuses only on framing."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "Skill explicitly prohibits answering the medical question (Hard Rule 1); out-of-scope redirect correctly applied for patient-specific advice requests."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies; researchability assessment correctly distinguishes searchable/researchable/testable; framing model selection logic is methodologically sound."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A question-framing skill; no code generated."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 95,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Comprehensive coverage: 10 question types, 8 framing models, 11 mandatory sections, guided focusing mode, iterative refinement, researchability assessment, downstream routing — all core functions present and well-specified."
+      },
+      "reliability": {
+        "score": 11,
+        "max": 12,
+        "note": "Guided focusing mode (2-5 questions) is an excellent fault-tolerance mechanism; minor gap: no explicit cap on total clarification rounds before forcing one-shot output if user keeps providing vague answers."
+      },
+      "performance_context": {
+        "score": 6,
+        "max": 8,
+        "note": "10 reference modules and 11 mandatory output sections create significant context overhead for a question-clarification task; 331-line SKILL.md is heavy for Mode A execution."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Exemplary: natural trigger phrases, guided focusing mode prevents premature output, mandatory section structure ensures completeness, interactive refinement rule explicitly defines when to stop asking questions."
+      },
+      "human_usability": {
+        "score": 8,
+        "max": 8,
+        "note": "Sample triggers are highly conversational and match real user language; excellent discoverability for non-expert researchers; scope limitation redirect message is non-dismissive."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials, no data handling, no injection vectors; out-of-scope redirect prevents patient-specific advice generation; no security concerns."
+      },
+      "maintainability": {
+        "score": 12,
+        "max": 12,
+        "note": "Each of the 10 reference modules maps to a specific section and decision point; modular design allows independent updates to taxonomy, framing library, or routing rules without affecting other sections."
+      },
+      "agent_specific": {
+        "score": 18,
+        "max": 20,
+        "note": "Downstream routing standard makes this an ideal entry-point skill in a research workflow chain; trigger precision is excellent; minor gap: Hard Rule 1 'unless explicitly asked' escape clause creates undefined behavior when users request both framing and answering simultaneously."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 86.4,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 34,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Treatment question: 'I want to study whether checkpoint inhibitors improve survival in NSCLC patients'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Treatment question clearly scoped; PICO correctly selected; ambiguities (subtype, agent, PD-L1 status, comparator, survival endpoint) explicitly identified; all 11 sections present.",
+        "basic": 38,
+        "specialized": 52,
+        "total": 90,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Treatment/intervention identified as dominant question type; PICO framework selected with explicit justification",
+            "result": "PASS",
+            "note": "PICO correctly chosen for comparative effectiveness question; justification provided."
+          },
+          {
+            "text": "At least 3 key ambiguities identified (NSCLC subtype, specific agent, PD-L1 expression status, survival endpoint, comparator)",
+            "result": "PASS",
+            "note": "All major underspecified elements surfaced in Section C."
+          },
+          {
+            "text": "Three clarified question versions (plain-language, research-ready, searchable) produced in Section G",
+            "result": "PASS",
+            "note": "All three formulations present with appropriate specificity gradations."
+          },
+          {
+            "text": "Section F structured breakdown table with element/interpretation/narrowing-needed/proposed-definition columns present",
+            "result": "PASS",
+            "note": "Table format includes all required columns."
+          },
+          {
+            "text": "Medical question not answered — output focused exclusively on question framing",
+            "result": "PASS",
+            "note": "Hard Rule 1 enforced; no evidence synthesis or answer to effectiveness question."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Mechanistic question: 'I want to understand how gut microbiome affects stroke'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Mechanistic framing correctly selected over PICO; secondary epidemiologic question type identified; scope/boundary statement distinguishes mechanism from causal inference; risk of misframing section correctly warns against treating as intervention question.",
+        "basic": 37,
+        "specialized": 51,
+        "total": 88,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Mechanistic framing selected over PICO with explicit justification citing the mechanism/biology question type",
+            "result": "PASS",
+            "note": "Hard Rule 2 (don't force PICO) enforced; mechanistic framework applied with biological-system/mechanism-candidate/readout structure."
+          },
+          {
+            "text": "Secondary question type (exposure/epidemiologic association) identified alongside dominant mechanistic type",
+            "result": "PASS",
+            "note": "Both dominant and secondary question types named in Section B."
+          },
+          {
+            "text": "Section H scope/boundary statement explicitly covers what the clarified question does NOT include (clinical intervention, treatment effects)",
+            "result": "PASS",
+            "note": "Boundary statement correctly excludes treatment effectiveness dimension."
+          },
+          {
+            "text": "Section K (risk of misframing) identifies danger of treating mechanistic question as treatment/intervention question",
+            "result": "PASS",
+            "note": "Misframing risk explicitly noted for PICO-based treatment framing of mechanistic problem."
+          },
+          {
+            "text": "No fabricated mechanism details or specific pathway claims introduced in question framing",
+            "result": "PASS",
+            "note": "Framing uses open-ended mechanistic language without asserting specific pathways."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Variant B",
+        "label": "Biomarker prediction: 'Can procalcitonin predict sepsis mortality in ICU patients?'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Already reasonably specific; guided focusing mode correctly not triggered; prediction/biomarker stratification identified as dominant type; prognostic framing applied with explicit element breakdown.",
+        "basic": 38,
+        "specialized": 53,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Prediction/biomarker stratification identified as dominant question type; prognostic framing applied",
+            "result": "PASS",
+            "note": "Correct classification; prognostic framing elements (baseline marker, population, outcome, time horizon, treatment context) applied."
+          },
+          {
+            "text": "Guided focusing mode correctly NOT triggered — input already specific enough to proceed directly",
+            "result": "PASS",
+            "note": "Skill recognizes sufficient specificity (disease, population, marker, endpoint) and skips unnecessary clarification loop."
+          },
+          {
+            "text": "Section F structured breakdown shows prognostic framing elements with narrowing needs identified",
+            "result": "PASS",
+            "note": "Baseline factor, outcome, time horizon, and treatment context all addressed in table."
+          },
+          {
+            "text": "Section I researchability assessment explicitly states whether question is searchable, researchable, and testable",
+            "result": "PASS",
+            "note": "Three-way assessment present; question rated as searchable and researchable; testability conditions stated."
+          },
+          {
+            "text": "Downstream routing to biomarker evidence review or prognostic study design specified",
+            "result": "PASS",
+            "note": "Section J routing recommendation names appropriate next workflow."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Edge",
+        "label": "Extremely vague: 'I want to study lupus single-cell RNA-seq somehow'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Guided focusing mode triggered; 2-5 high-yield questions produced; one-shot alternative offered; exploratory research-planning type correctly identified; PICO not forced on early-stage mechanistic input.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Guided focusing mode triggered with exactly 2-5 concise high-yield questions (not a long questionnaire)",
+            "result": "PASS",
+            "note": "Questions target highest-ambiguity dimensions: mechanism vs population vs clinical endpoint vs cell type."
+          },
+          {
+            "text": "One-shot mode offered as explicit alternative to iterative refinement",
+            "result": "PASS",
+            "note": "User given choice to proceed without back-and-forth; assumptions would be stated transparently if one-shot chosen."
+          },
+          {
+            "text": "Final formulation withheld until question is sufficiently bounded; preliminary framing labeled as provisional",
+            "result": "PASS",
+            "note": "Skill correctly defers full 11-section output until minimum specificity achieved."
+          },
+          {
+            "text": "Exploratory research-planning question type identified; PICO not forced on mechanistic/exploratory input",
+            "result": "PASS",
+            "note": "Hard Rule 2 enforced; correct classification of early-stage inquiry."
+          },
+          {
+            "text": "Questions prioritized by ambiguity-reduction value (question type determination before element-level narrowing)",
+            "result": "PASS",
+            "note": "Logical ordering of follow-up questions: broad type first, then element-level specifics."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Multi-round iterative narrowing across 3 user reply rounds — complex multi-type input",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Interactive refinement rule correctly applied; working question updated with restatement after each round; questioning stopped once question became usable; final output includes all 11 sections.",
+        "basic": 37,
+        "specialized": 52,
+        "total": 89,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Working question updated with brief restatement of updated understanding after each user reply",
+            "result": "PASS",
+            "note": "Progressive narrowing documented; user's evolving intent captured between rounds."
+          },
+          {
+            "text": "Additional questions stop once question becomes usable — no unnecessary extension of clarification loop",
+            "result": "PASS",
+            "note": "Clarification loop terminates as soon as searchable/researchable formulation achievable."
+          },
+          {
+            "text": "Final output includes all 11 mandatory sections (A through K)",
+            "result": "PASS",
+            "note": "Complete output structure present after clarification rounds conclude."
+          },
+          {
+            "text": "Final clarified question demonstrably narrower and more specific than initial multi-type input",
+            "result": "PASS",
+            "note": "Scope reduction measurable across iterative rounds."
+          },
+          {
+            "text": "No premature formalization before question is sufficiently bounded",
+            "result": "PASS",
+            "note": "Hard Rule 5 enforced throughout interactive sequence."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Out-of-scope: 'Should I start my patient on metformin for type 2 diabetes?' (patient-specific advice)",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Patient-specific medical advice correctly identified as out of scope; standard redirect message produced; no research framing or PICO constructed for individual clinical decision.",
+        "basic": 35,
+        "specialized": 45,
+        "total": 80,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Patient-specific medical advice correctly identified as out of scope per SKILL.md out-of-scope definition",
+            "result": "PASS",
+            "note": "Correct scope classification applied without ambiguity."
+          },
+          {
+            "text": "Standard redirect message produced matching SKILL.md template (restatement + reason for scope limitation)",
+            "result": "PASS",
+            "note": "Redirect message includes restatement of request and explanation of why it falls outside scope."
+          },
+          {
+            "text": "No PICO formulation or research question generated for the individual clinical treatment decision",
+            "result": "PASS",
+            "note": "Skill correctly stops after redirect rather than reframing as a population-level research question."
+          },
+          {
+            "text": "No fabricated clinical evidence claims or treatment recommendations produced",
+            "result": "PASS",
+            "note": "Redirect only; no evidence synthesis, no guideline citations, no treatment statements."
+          },
+          {
+            "text": "Redirect is clear, non-dismissive, and includes reason for scope limitation",
+            "result": "PASS",
+            "note": "Tone is professional; explains this is a patient-specific decision, not a research question framing task."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "Conflicting request: 'Clarify the question AND tell me whether statins reduce cardiovascular risk in elderly'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Question clarification portion executed correctly; Hard Rule 1 ambiguity ('unless explicitly asked') creates undefined behavior when user explicitly asks for both framing AND evidence answer simultaneously — skill may partially drift into answering the substantive question.",
+        "basic": 33,
+        "specialized": 45,
+        "total": 78,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Question type classified and appropriate framing structure (PICO/PICOTS for treatment question) selected",
+            "result": "PASS",
+            "note": "Treatment question correctly identified; PICO applied for comparative effectiveness framing."
+          },
+          {
+            "text": "Three clarified question versions (plain/research-ready/searchable) produced in Section G",
+            "result": "PASS",
+            "note": "All three formulations present in output."
+          },
+          {
+            "text": "Skill explicitly notes that answering the substantive evidence question is beyond its scope as a question-clarifier, even when explicitly asked",
+            "result": "FAIL",
+            "note": "Hard Rule 1 'unless explicitly asked' escape clause creates design ambiguity: the skill may partially answer the statin question since user explicitly requested it, conflicting with the skill's stated purpose as clarifier-only."
+          },
+          {
+            "text": "No fabricated clinical trial data, statin effect sizes, or NNT values introduced",
+            "result": "PASS",
+            "note": "Even if partial evidence discussed, no fabricated statistics or specific trial results introduced."
+          },
+          {
+            "text": "Downstream routing to appropriate evidence review skill provided",
+            "result": "PASS",
+            "note": "Section J correctly directs user to evidence synthesis workflow for the answering component."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 38.0,
+    "dynamic_weighted": 51.8,
+    "score": 90,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Guided focusing mode with 2-5 high-yield questions is one of the best-designed clarification mechanisms in the skill collection — prevents premature formalization while avoiding questionnaire fatigue",
+    "Downstream routing standard makes this an ideal entry-point for the entire research workflow chain; Section J composability is explicit and actionable",
+    "Eight framing model options (vs PICO-only) cover the full spectrum of biomedical question types without forcing mechanistic or exploratory problems into intervention templates",
+    "Mandatory 11-section output (A-K) with researchability assessment and risk-of-misframing section ensures comprehensive, researcher-ready question definitions"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "Hard Rule 1 escape clause creates undefined behavior for adversarial inputs",
+      "observed_in": [
+        7
+      ],
+      "problem": "Hard Rule 1 states 'do not answer the clinical or research question itself unless explicitly asked' — the 'unless explicitly asked' clause means users who simultaneously request framing AND answering may receive partial evidence responses, conflicting with the skill's stated clarifier-only purpose.",
+      "root_cause": "The 'unless explicitly asked' clause was likely intended for users who just want a quick answer, but it creates a loophole where adversarial or combined requests bypass the framing-only constraint.",
+      "fix": "Remove the 'unless explicitly asked' escape clause from Hard Rule 1, or replace it with: 'If the user also requests an evidence answer, complete the clarification output first, then note: evidence synthesis is handled by [downstream-skill-name] — use the searchable formulation from Section G as your starting query.'"
+    },
+    {
+      "priority": "P1",
+      "title": "No explicit cap on total clarification rounds before forcing one-shot output",
+      "observed_in": [
+        4,
+        5
+      ],
+      "problem": "The guided focusing mode correctly limits each round to 2-5 questions, but no rule defines the maximum number of total rounds; if the user keeps providing vague answers, the skill could theoretically loop indefinitely without producing a usable output.",
+      "root_cause": "Interactive refinement rule says 'stop once the question becomes usable' but does not define a round limit or a forced-exit condition.",
+      "fix": "Add a maximum-rounds rule: 'After 3 clarification rounds, if the question remains insufficiently bounded, produce the best available one-shot formulation with explicit assumption labels marked as [assumed: ...] and stop asking further questions.'"
+    },
+    {
+      "priority": "P2",
+      "title": "Downstream routing refers to workflow categories rather than specific skill names",
+      "observed_in": [
+        1,
+        2,
+        3
+      ],
+      "problem": "Section J routing recommendations refer to generic categories ('literature retrieval', 'gap finder', 'protocol planner') rather than specific skill names in the ecosystem, reducing actionability for users who need to choose their next tool.",
+      "root_cause": "Downstream routing standard was written generically before a full skill ecosystem was defined.",
+      "fix": "Update downstream routing standard to reference specific skill names from the ecosystem (e.g., 'medical-research-gap-finder', 'biomedical-search-strategy-builder', 'study-design-identifier') when routing to specific workflows."
+    }
+  ]
+}

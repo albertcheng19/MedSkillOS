@@ -1,0 +1,255 @@
+{
+  "meta": {
+    "skill_name": "cover-letter-drafter",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Academic Writing",
+    "execution_mode": "A",
+    "complexity": "Simple",
+    "n_inputs": 3,
+    "description": "Drafts journal-ready cover letters for manuscript submission. Use when preparing a submission package, communicating the manuscript's contributions and journal fit to editors, or tailoring the novelty framing for a specific journal's scope."
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "gate": "PASS",
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "gate": "PASS",
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated journal acceptance rates, reviewer affiliations, or editorial preferences detected. Hard rules explicitly prohibit these."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic or clinical conclusions produced. Skill scope is cover letter drafting only."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies. Skill explicitly prohibits inventing contributions or results."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "No code generated; Mode A text-output skill."
+      }
+    }
+  },
+  "static_score": {
+    "subtotal": 91,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 11,
+        "max": 12,
+        "note": "Complete 5-paragraph structure with tone guidance and COI handling; resubmission-specific framing (flagging prior rejection) not explicitly addressed."
+      },
+      "reliability": {
+        "score": 10,
+        "max": 12,
+        "note": "Mandatory vs. optional inputs clearly separated; COI placeholder prevents fabrication; Step 4 final checklist adds verification."
+      },
+      "performance_context": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. Lean 4-step workflow producing a single focused artifact; no verbose pipeline overhead."
+      },
+      "agent_usability": {
+        "score": 15,
+        "max": 16,
+        "note": "Fixed 5-paragraph structure makes output predictable; anti-cliché rules ('we are pleased', superlatives) address common failure modes; feedback design lacks tiered output for partial-input scenarios."
+      },
+      "human_usability": {
+        "score": 8,
+        "max": 8,
+        "note": "Full marks. Rich trigger phrase list, clear mandatory/optional input distinction, immediate recognizability from description."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "Full marks. Hard rules against fabricating acceptance rates, reviewer affiliations, editorial preferences, and contributions."
+      },
+      "maintainability": {
+        "score": 8,
+        "max": 12,
+        "note": "Only one active reference file (guide.md, sparse, largely duplicates SKILL.md guidance); 5-paragraph structure and tone rules embedded inline rather than in modular reference files; assets/cover_letter_template.md exists but is not integrated into core workflow steps, reducing its value as a maintainable reference."
+      },
+      "agent_specific": {
+        "score": 19,
+        "max": 20,
+        "note": "Trigger precision, progressive disclosure (collect inputs first), and idempotent output structure are strong; assets/cover_letter_template.md present but not actively used in workflow steps."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 83.0,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 14,
+      "total": 15
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "Full inputs: title, authors, Nature Communications, 4 key contributions, quantitative main finding",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Complete 5-paragraph letter within word range; no clichés; declarations block present.",
+        "basic": 36,
+        "specialized": 51,
+        "total": 87,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Output is a complete 5-paragraph cover letter following the mandated structure",
+            "result": "PASS",
+            "note": "All 5 paragraphs present: submission request, novelty, methods/results, impact, declarations."
+          },
+          {
+            "text": "Letter does not start with 'We are pleased to submit'",
+            "result": "PASS",
+            "note": "Anti-cliché rule applied; letter opens with direct submission statement."
+          },
+          {
+            "text": "Core novelty is stated in 3 or fewer sentences in P2",
+            "result": "PASS",
+            "note": "Novelty paragraph within the specified sentence limit."
+          },
+          {
+            "text": "At least one quantitative result is included in P3",
+            "result": "PASS",
+            "note": "Primary finding with statistical anchor included as instructed."
+          },
+          {
+            "text": "Declarations block includes originality statement and COI placeholder or statement",
+            "result": "PASS",
+            "note": "P5 contains all required declarations."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "Resubmission to Annals of Oncology after JCO rejection; one author has advisory board COI",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "4/5 assertions passed. Journal framing correctly adjusted; COI statement included; prior rejection not flagged in letter body.",
+        "basic": 33,
+        "specialized": 51,
+        "total": 84,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Letter frames novelty for Annals of Oncology scope rather than JCO scope",
+            "result": "PASS",
+            "note": "Journal-specific framing adjusted for oncology translational readership."
+          },
+          {
+            "text": "COI statement explicitly names the advisory board relationship",
+            "result": "PASS",
+            "note": "COI included per hard rules; no default 'none' inserted."
+          },
+          {
+            "text": "Letter does not mention the JCO rejection unless the user requested this",
+            "result": "PASS",
+            "note": "Rejection history not inappropriately disclosed in letter."
+          },
+          {
+            "text": "Letter body or a note to the user flags that some journals require disclosure of prior submission history",
+            "result": "FAIL",
+            "note": "Some journals (including some Annals titles) require disclosure of prior submission and rejection. Skill drafts the letter without flagging this requirement or asking the user whether to include it."
+          },
+          {
+            "text": "Declarations block is complete and accurate",
+            "result": "PASS",
+            "note": "All declarations present with correct COI disclosure."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Minimal input: 'Can you write a cover letter for my paper?' — no title, no journal",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "5/5 assertions passed. Mandatory input collection correctly triggered; no letter drafted.",
+        "basic": 31,
+        "specialized": 47,
+        "total": 78,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Skill does not produce a letter draft without the mandatory inputs (title and journal)",
+            "result": "PASS",
+            "note": "Input validation correctly invoked before drafting."
+          },
+          {
+            "text": "Output asks specifically for manuscript title and target journal",
+            "result": "PASS",
+            "note": "Mandatory inputs named explicitly."
+          },
+          {
+            "text": "Output also lists optional inputs that would improve quality",
+            "result": "PASS",
+            "note": "Optional inputs (contributions, COI, suggested reviewers) listed to guide user."
+          },
+          {
+            "text": "Output does not fabricate a placeholder letter from insufficient information",
+            "result": "PASS",
+            "note": "Hard rules enforced; no invented content."
+          },
+          {
+            "text": "Output communicates what will be produced once inputs are supplied",
+            "result": "PASS",
+            "note": "User informed of expected output structure and format."
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 36.4,
+    "dynamic_weighted": 49.8,
+    "score": 86,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Fixed 5-paragraph template with explicit content targets per paragraph eliminates the most common cover letter failure mode (no clear structure)",
+    "Anti-cliché rules ('we are pleased to submit', superlatives, 'our study will be of great interest') directly address the patterns editors find least persuasive",
+    "COI placeholder ('Author to confirm: no conflicts / state conflicts') prevents fabricated 'none' declarations — a meaningful integrity safeguard",
+    "Lean 4-step workflow with a Step 4 verification checklist provides efficient draft-to-submission quality control"
+  ],
+  "recommendations": [
+    {
+      "priority": "P1",
+      "title": "No guidance on prior submission history disclosure for resubmissions",
+      "observed_in": [
+        2
+      ],
+      "problem": "Many journals require authors to disclose that a manuscript was previously submitted and rejected elsewhere. The skill handles resubmission scenarios but does not flag this requirement or ask the user whether to include disclosure.",
+      "root_cause": "Resubmission is listed as a supported use case but the workflow does not branch for resubmission-specific requirements.",
+      "fix": "Add a resubmission check to Step 1: 'If the user indicates this is a resubmission after rejection from another journal, ask whether the target journal requires prior submission disclosure. If required, add a brief disclosure sentence to P5: This manuscript was previously considered at [Journal] and declined. We have revised it in response to the feedback received.'"
+    },
+    {
+      "priority": "P2",
+      "title": "No word count guidance for ultra-short journals (Cell, Nature, Science) vs. standard specialty journals",
+      "observed_in": [
+        1
+      ],
+      "problem": "High-impact general journals (Cell, Nature) typically expect very brief cover letters (150-250 words) while specialty journals allow 350-450 words. The current guidance (300-450 words) is too long for top-tier general journals.",
+      "root_cause": "Word count guidance in Step 3 does not account for journal-tier differences.",
+      "fix": "Add a journal-tier note to Step 3: 'For Nature family, Science, Cell, and equivalent general-audience journals: target 200-250 words. For specialty journals: 300-400 words. For brief communications: 150-200 words. Adjust when the user specifies a journal in these tiers.'"
+    }
+  ]
+}

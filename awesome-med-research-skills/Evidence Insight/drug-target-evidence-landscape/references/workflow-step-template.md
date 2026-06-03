@@ -1,0 +1,1 @@
+Run the workflow in order: scope definition -> evidence retrieval/verification -> disease relevance mapping -> tractability/modality assessment -> evidence chain separation -> competition map -> maturity/openness judgment -> self-critical review.

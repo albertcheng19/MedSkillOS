@@ -1,0 +1,317 @@
+{
+    "meta": {
+        "skill_name": "lightgbm-analysis",
+        "description": "Train and evaluate LightGBM gradient boosting models for classification or regression with hyperparameter tuning. Inputs: feature matrix, labels. Outputs: trained model, feature importance ranking, SHAP summary plot, ROC or RMSE performance curves.",
+        "evaluated_on": "2026-04-22",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated metrics, references, or claims were observed; all reported values came from generated artifacts."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill stays inside model-training and artifact-export scope and does not make direct medical or prescriptive claims."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "Weak-model cases were flagged as caution-only with rerun guidance rather than being presented as valid interpretation-ready findings."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "The R entrypoint ran successfully across binary, regression, TXT-input, and overwrite-guardrail scenarios."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 90,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 10,
+                "max": 12,
+                "note": "The core workflow is complete, but the bundled binary presets can finish in diagnostic-only mode more often than the current example framing suggests."
+            },
+            "reliability": {
+                "score": 12,
+                "max": 12,
+                "note": "Clear typed validation, specific SKILL_* errors, and strong rerun guidance were observed across success and failure paths."
+            },
+            "performance_context": {
+                "score": 7,
+                "max": 8,
+                "note": "Progressive disclosure is good, although the SKILL keeps many large examples inline that could be pushed further into references."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "The response contract is strong, but a concrete final answer template would reduce agent variance further."
+            },
+            "human_usability": {
+                "score": 6,
+                "max": 8,
+                "note": "Trigger language is understandable, but the skill remains fairly CLI-centric and rigid about input shape."
+            },
+            "security": {
+                "score": 11,
+                "max": 12,
+                "note": "Input validation and identifier warnings are strong, though exported artifacts and session metadata can still expose raw feature names unless the user reviews inputs carefully."
+            },
+            "maintainability": {
+                "score": 12,
+                "max": 12,
+                "note": "The implementation is cleanly split across entrypoint, utilities, model functions, references, and test data."
+            },
+            "agent_specific": {
+                "score": 17,
+                "max": 20,
+                "note": "Trigger precision and escape hatches are strong; default overwrite behavior slightly weakens idempotency, and example positioning could better separate smoke tests from report-ready runs."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 83,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 20,
+            "total": 20
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Binary preset on dt_sample1.csv",
+                "status": "COMPLETED",
+                "status_flag": "⚠️",
+                "note": "Run completed and exported all artifacts, but the model collapsed to one class and correctly downgraded itself to caution-only.",
+                "basic": 28,
+                "specialized": 39,
+                "total": 67,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output creates the documented metrics, importance, remediation, figure, and summary artifacts.",
+                        "result": "PASS",
+                        "note": "All expected files were written under tests/audit_binary_fast."
+                    },
+                    {
+                        "text": "Output flags weak-model conditions instead of silently presenting a report-ready ranking.",
+                        "result": "PASS",
+                        "note": "model_quality_flag was caution and interpretation_status was caution_only."
+                    },
+                    {
+                        "text": "Output includes actionable rerun guidance tied to the detected issue codes.",
+                        "result": "PASS",
+                        "note": "rerun_hint and remediation rows both contained concrete next steps."
+                    },
+                    {
+                        "text": "Output stays within the skill's stated LightGBM training and export scope.",
+                        "result": "PASS",
+                        "note": "No unsupported extra analysis or fabricated interpretation was added."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Regression preset on dt_sample1.csv",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Regression workflow executed cleanly and exported an interpretation-eligible result set.",
+                "basic": 37,
+                "specialized": 55,
+                "total": 92,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output resolves the requested regression task correctly.",
+                        "result": "PASS",
+                        "note": "task_type resolved to regression and regression metrics were exported."
+                    },
+                    {
+                        "text": "Output produces the documented artifact set.",
+                        "result": "PASS",
+                        "note": "Metrics, importance, remediation, figure, summary, and session files were written."
+                    },
+                    {
+                        "text": "Output reports an interpretation-ready status when no quality issues are detected.",
+                        "result": "PASS",
+                        "note": "model_quality_flag was ok and interpretation_status was eligible."
+                    },
+                    {
+                        "text": "Output remains reproducible and traceable through saved metadata.",
+                        "result": "PASS",
+                        "note": "Best iteration, metrics, and artifact paths were preserved in the run summary."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "TXT smoke test with Group target",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The tab-delimited TXT path worked correctly, and a repeated run produced identical metrics and importance tables.",
+                "basic": 36,
+                "specialized": 54,
+                "total": 90,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output handles tab-delimited TXT input without parser failure.",
+                        "result": "PASS",
+                        "note": "The loader parsed a 50-row by 201-column table and finished the workflow."
+                    },
+                    {
+                        "text": "Output generates the requested lightweight binary ranking artifacts.",
+                        "result": "PASS",
+                        "note": "The run produced the tables, PDF figure, and summary file under tests/audit_smoke_txt."
+                    },
+                    {
+                        "text": "Output reports an interpretation-ready result when no caution flags are present.",
+                        "result": "PASS",
+                        "note": "The metrics table reported ok and eligible status fields."
+                    },
+                    {
+                        "text": "Output is deterministic under the documented fixed seed.",
+                        "result": "PASS",
+                        "note": "Repeated metrics and importance tables matched with no diff output."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Split-importance binary preset",
+                "status": "COMPLETED",
+                "status_flag": "⚠️",
+                "note": "The split-importance workflow completed, but the bundled example again degraded to a caution-only binary result.",
+                "basic": 31,
+                "specialized": 41,
+                "total": 72,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output generates the requested split-based ranking artifacts.",
+                        "result": "PASS",
+                        "note": "The split PDF and output tables were written successfully."
+                    },
+                    {
+                        "text": "Output explicitly downgrades interpretation status when the classifier collapses.",
+                        "result": "PASS",
+                        "note": "interpretation_status was caution_only and model_quality_flag was caution."
+                    },
+                    {
+                        "text": "Output supplies concrete rerun guidance for the detected classification failure mode.",
+                        "result": "PASS",
+                        "note": "The summary and remediation table suggest revisiting class balance and predictors."
+                    },
+                    {
+                        "text": "Output stays within the promised model-training and export scope.",
+                        "result": "PASS",
+                        "note": "No extra unsupported interpretation or unsafe behavior occurred."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Overwrite protection guardrail",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The first run succeeded, and the second run correctly stopped with SKILL_OUTPUT_EXISTS instead of overwriting a populated directory.",
+                "basic": 38,
+                "specialized": 56,
+                "total": 94,
+                "assertions_passed": 4,
+                "assertions_total": 4,
+                "assertions": [
+                    {
+                        "text": "Output stops before overwriting a populated output directory when fail_if_output_exists is enabled.",
+                        "result": "PASS",
+                        "note": "The second invocation terminated with SKILL_OUTPUT_EXISTS before replacing files."
+                    },
+                    {
+                        "text": "Output provides a specific and actionable overwrite-protection error.",
+                        "result": "PASS",
+                        "note": "The message named the target directory and suggested recovery options."
+                    },
+                    {
+                        "text": "Output still creates the documented artifacts for the initial successful run.",
+                        "result": "PASS",
+                        "note": "The first invocation wrote metrics, importance, remediation, figure, summary, and session files."
+                    },
+                    {
+                        "text": "Output behavior matches the documented overwrite contract.",
+                        "result": "PASS",
+                        "note": "The skill warned or stopped exactly as described in the overwrite section."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 36,
+        "dynamic_weighted": 49.8,
+        "score": 86,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The CLI contract is explicit, with strong parameter validation and clear SKILL_* failure messages.",
+        "The implementation is reproducible: the workflow seeds its sampling and produced identical outputs on a repeated TXT smoke test.",
+        "Weak-model cases are handled responsibly through model_quality_flag, interpretation_status, remediation tables, and rerun hints.",
+        "The skill ships a genuinely runnable R workflow with bundled test data, references, and structured output artifacts."
+    ],
+    "recommendations": [
+        {
+            "priority": "P1",
+            "title": "Reframe weak binary example presets",
+            "observed_in": [
+                1,
+                4
+            ],
+            "problem": "Two bundled binary example paths completed successfully but produced caution-only models. The current example labels make those runs feel closer to report-ready presets than they really are.",
+            "root_cause": "The SKILL documentation does not foreground strongly enough that the small bundled binary datasets are primarily smoke or diagnostic workflows.",
+            "fix": "Rename the bundled binary and split-importance examples as diagnostic or smoke presets, and add a short note that interpretation-ready rankings usually require larger or stronger-signal datasets. Keep the current caution guidance, but move it directly into the example headings and validation section."
+        },
+        {
+            "priority": "P2",
+            "title": "Document session_info artifact",
+            "observed_in": [],
+            "problem": "The implementation always writes session_info.txt, but the Outputs and Validation sections do not list it. That creates a small documentation-to-runtime mismatch.",
+            "root_cause": "The SKILL.md artifact inventory was not updated when session metadata export was added to the script.",
+            "fix": "Add session_info.txt to the primary artifact list and validation checklist so the documented contract matches the runtime behavior exactly."
+        },
+        {
+            "priority": "P2",
+            "title": "Add final answer template",
+            "observed_in": [],
+            "problem": "The agent response contract lists required fields, but it does not provide a concrete response shape. Different agents could still vary in how they summarize the same run.",
+            "root_cause": "The SKILL specifies content requirements but not a final reporting template block.",
+            "fix": "Add a short response template showing the expected order for task type, best iteration, primary metrics, top features, quality flags, and artifact paths. Include a mandatory wording pattern for diagnostic-only outcomes."
+        }
+    ]
+}

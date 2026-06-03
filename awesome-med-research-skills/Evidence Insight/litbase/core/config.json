@@ -1,0 +1,5 @@
+{
+  "data_dir": "fill in the path to your research folder",
+  "s2_api_key": "optional — leave empty to use the free tier",
+  "mode": "auto"
+}

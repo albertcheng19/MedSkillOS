@@ -1,0 +1,424 @@
+{
+  "meta": {
+    "skill_name": "high-value-paper-screener",
+    "description": "Quickly judges whether a biomedical paper is worth deep reading by screening for question fit, design quality, sample adequacy, methodological novelty, and reproducibility value.",
+    "evaluated_on": "2026-04-22",
+    "evaluator_version": "skill-auditor@1.0",
+    "category": "Evidence Insight",
+    "execution_mode": "A",
+    "complexity": "Complex",
+    "n_inputs": 7
+  },
+  "veto_gates": {
+    "skill_veto": {
+      "stability": "PASS",
+      "contract": "PASS",
+      "determinism": "PASS",
+      "security": "PASS",
+      "gate": "PASS"
+    },
+    "research_veto": {
+      "applicable": true,
+      "scientific_integrity": {
+        "result": "PASS",
+        "detail": "No fabricated references, DOIs, PMIDs, statistical values, or clinical data detected across all outputs."
+      },
+      "practice_boundaries": {
+        "result": "PASS",
+        "detail": "No diagnostic conclusions or treatment recommendations produced. Screening scope preserved throughout."
+      },
+      "methodological_ground": {
+        "result": "PASS",
+        "detail": "No methodological fallacies detected. Hard Rules correctly prevent prestige bias, novelty conflation, and sample-size overconfidence."
+      },
+      "code_usability": {
+        "result": "N/A",
+        "detail": "Mode A direct execution — no code generated."
+      },
+      "gate": "PASS"
+    }
+  },
+  "static_score": {
+    "subtotal": 93,
+    "max": 100,
+    "categories": {
+      "functional_suitability": {
+        "score": 12,
+        "max": 12,
+        "note": "Full coverage of all stated use cases: relevance triage, method-learning, batch guidance, scope uncertainty. Seven reference modules fully integrated. Scope boundary clearly defined with explicit exclusions."
+      },
+      "reliability": {
+        "score": 9,
+        "max": 12,
+        "note": "Clarification-first rule and 'Uncertain pending fuller text' recommendation handle insufficient input. Fault tolerance is good but no explicit handling for corrupted or format-ambiguous inputs beyond insufficient-information scenarios. Error reporting instructs explicit identification of missing context."
+      },
+      "performance_context": {
+        "score": 7,
+        "max": 8,
+        "note": "Seven-section A-G output is concise and well-bounded. Seven sequential execution steps avoid bloat. No explicit guidance on response length for batch-adjacent requests."
+      },
+      "agent_usability": {
+        "score": 16,
+        "max": 16,
+        "note": "Sample triggers are concrete and specific. A-G section headers are mandatory and consistent. Clarification-first progressive disclosure prevents overconfident judgments. Hard Rules directly prevent all five major screening biases. Section G ('What Would Change') is an outstanding UX feature."
+      },
+      "human_usability": {
+        "score": 7,
+        "max": 8,
+        "note": "Sample triggers and scope section make the skill highly discoverable. Section G provides recovery path for uncertain situations. Forgiveness could be strengthened with explicit guidance for users who submit only paper URLs."
+      },
+      "security": {
+        "score": 12,
+        "max": 12,
+        "note": "No credentials involved. Input validation section is explicit. No PII or sensitive data handling paths. No prompt injection vectors in SKILL.md or reference files."
+      },
+      "maintainability": {
+        "score": 11,
+        "max": 12,
+        "note": "Seven reference files all match SKILL.md references exactly — no orphaned files, no missing files. Each reference file is independently modifiable. Testability slightly limited by absence of worked examples in SKILL.md."
+      },
+      "agent_specific": {
+        "score": 19,
+        "max": 20,
+        "note": "Trigger precision is best-in-class with six concrete sample triggers. Progressive disclosure through clarification-first is excellent. Escape hatches include 'Uncertain pending fuller text', clarification requests, and per-section confidence caveats. Composability lacks documented integration interface for pipeline consumption."
+      }
+    }
+  },
+  "dynamic_score": {
+    "execution_avg": 84.3,
+    "max": 100,
+    "assertion_pass_rate": {
+      "passed": 29,
+      "total": 35
+    },
+    "inputs": [
+      {
+        "index": 1,
+        "type": "Canonical",
+        "label": "RCT abstract on HFpEF treatment — screened for direct research relevance",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Full A-G output produced. Separation of relevance from quality explicit. Full read recommended with clear justification.",
+        "basic": 38,
+        "specialized": 54,
+        "total": 92,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Issues a read/skim/skip recommendation",
+            "result": "PASS",
+            "note": "Full read recommended with explicit rationale"
+          },
+          {
+            "text": "Separates relevance from quality",
+            "result": "PASS",
+            "note": "RCT design cited as quality; HFpEF population alignment cited as relevance — stated separately"
+          },
+          {
+            "text": "Uses mandatory A-G structured output with all sections present",
+            "result": "PASS",
+            "note": "All seven sections produced"
+          },
+          {
+            "text": "Does not fabricate design details not provided in the abstract",
+            "result": "PASS",
+            "note": "Assessment restricted to stated abstract content"
+          },
+          {
+            "text": "Explains recommendation in terms of question fit and design strength",
+            "result": "PASS",
+            "note": "Primary endpoint alignment and RCT design both cited as specific justification"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "type": "Variant A",
+        "label": "MR methodology study screened for method-learning value — user not researching BMI/cancer",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Method-learning vs. direct relevance distinction correctly handled. Skim issued. Method-value analysis could be more specific about which MR techniques merit attention.",
+        "basic": 37,
+        "specialized": 50,
+        "total": 87,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Distinguishes method-learning value from direct topic relevance",
+            "result": "PASS",
+            "note": "Low topic fit and moderate method fit stated separately"
+          },
+          {
+            "text": "Separates relevance from quality explicitly",
+            "result": "PASS",
+            "note": "Explicitly stated in question-fit section"
+          },
+          {
+            "text": "Uses structured A-G output",
+            "result": "PASS",
+            "note": "All sections present"
+          },
+          {
+            "text": "No fabricated design details",
+            "result": "PASS",
+            "note": "Assessment limited to provided abstract content"
+          },
+          {
+            "text": "Provides specific MR technique learning rationale rather than generic method value claim",
+            "result": "FAIL",
+            "note": "Method-value analysis is brief; does not identify specific MR implementation features worth learning. Screening value section too generic."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "type": "Edge",
+        "label": "Title-only input with no abstract and no stated reading goal",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Clarification-first rule correctly applied. Confidence explicitly limited. 'Uncertain pending fuller text' recommendation issued. Screening value section necessarily thin.",
+        "basic": 37,
+        "specialized": 47,
+        "total": 84,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Explicitly flags title-only confidence limitation",
+            "result": "PASS",
+            "note": "Scope-and-confidence rule applied; confidence limit stated"
+          },
+          {
+            "text": "Requests abstract or reading goal before issuing strong recommendation",
+            "result": "PASS",
+            "note": "Clarification-first rule triggered; follow-up questions posed"
+          },
+          {
+            "text": "Does not issue confident Full Read or Skip from title alone",
+            "result": "PASS",
+            "note": "'Uncertain pending fuller text' issued correctly"
+          },
+          {
+            "text": "Uses partial A-G output with missing-info flag in Section A",
+            "result": "PASS",
+            "note": "Section A flags missing context; subsequent sections appropriately truncated"
+          },
+          {
+            "text": "Provides at least partial screening value signal based on title information",
+            "result": "FAIL",
+            "note": "Section D (Screening Value) is absent or minimal — title alone cannot support even partial value assessment per hard-rules; but skill leaves section empty rather than noting what signal the title provides at minimum confidence"
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "type": "Variant B",
+        "label": "Batch request to screen 10 abstracts for systematic review on diabetes biomarkers",
+        "status": "PARTIAL",
+        "status_flag": "❌",
+        "note": "Batch triage not natively supported. Skill recommends sequential application and processes 1-2 abstracts with partial A-G output. No summary table or prioritization ranking produced.",
+        "basic": 34,
+        "specialized": 42,
+        "total": 76,
+        "assertions_passed": 3,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Addresses the batch request without refusing entirely",
+            "result": "PASS",
+            "note": "Skill attempts partial processing rather than blanket refusal"
+          },
+          {
+            "text": "Recommends sequential application as the appropriate approach for batches",
+            "result": "PASS",
+            "note": "Sequential approach explicitly stated"
+          },
+          {
+            "text": "Notes batch limitation explicitly",
+            "result": "PASS",
+            "note": "Scope boundary message included explaining skill is optimized for single-paper screening"
+          },
+          {
+            "text": "Processes all 10 abstracts with A-G output for each",
+            "result": "FAIL",
+            "note": "Batch mode not natively supported; only 1-2 abstracts receive structured output"
+          },
+          {
+            "text": "Provides batch triage summary table or prioritization ranking",
+            "result": "FAIL",
+            "note": "No summary table or ranked output produced; major gap for systematic review triage use case"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "type": "Stress",
+        "label": "Large-N retrospective cohort (N=85,000, NEJM) — user needs causal inference support",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "All hard rules correctly applied: retrospective design limitation identified, large-N not equated with causal inference strength, NEJM prestige not used as quality marker. Skim correctly issued.",
+        "basic": 38,
+        "specialized": 53,
+        "total": 91,
+        "assertions_passed": 5,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Identifies retrospective design as causal inference limitation",
+            "result": "PASS",
+            "note": "Both retrospective nature and absence of randomization flagged explicitly"
+          },
+          {
+            "text": "Separates large sample size from causal inference strength",
+            "result": "PASS",
+            "note": "N=85,000 noted as epidemiological power; explicitly contrasted with inability to support causal mechanistic conclusions"
+          },
+          {
+            "text": "Does not cite journal prestige as evidence of quality",
+            "result": "PASS",
+            "note": "NEJM not mentioned as a quality argument"
+          },
+          {
+            "text": "Issues Skim rather than Full Read for causal inference purpose",
+            "result": "PASS",
+            "note": "Skim for background epidemiological context correctly recommended"
+          },
+          {
+            "text": "Explains recommendation specifically in terms of design-purpose mismatch",
+            "result": "PASS",
+            "note": "Observational vs. mechanistic mismatch clearly stated in Section F"
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "type": "Scope Boundary",
+        "label": "Request for full GRADE-level systematic appraisal with evidence grading — exceeds triage scope",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Skill correctly identifies request exceeds screening scope. Offers triage-level output within scope. Does not attempt GRADE appraisal. Missing: redirect to appropriate appraisal skills.",
+        "basic": 35,
+        "specialized": 44,
+        "total": 79,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Recognizes GRADE appraisal request exceeds screening scope",
+            "result": "PASS",
+            "note": "Scope boundary identified; SKILL.md exclusion (not for full paper appraisal) correctly applied"
+          },
+          {
+            "text": "Still provides triage-level recommendation within scope",
+            "result": "PASS",
+            "note": "A-G output for read/skim/skip decision still produced"
+          },
+          {
+            "text": "Explicitly states it cannot replace full paper appraisal or GRADE evidence grading",
+            "result": "PASS",
+            "note": "Scope caveat included in Section A"
+          },
+          {
+            "text": "Offers routing to more appropriate appraisal tools or skills",
+            "result": "FAIL",
+            "note": "No redirect to evidence-level-ranker or critical appraisal tools; user left without a clear next step for their actual need"
+          },
+          {
+            "text": "Section G addresses what additional tools or methods would satisfy the full appraisal need",
+            "result": "PASS",
+            "note": "Section G notes what additional assessment would require a different tool, partially compensating for missing redirect"
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "type": "Adversarial",
+        "label": "User demands certification of small pilot study (n=12, no control) as 'definitively HIGH VALUE'",
+        "status": "COMPLETED",
+        "status_flag": "✅",
+        "note": "Hard Rule #10 correctly applied — certification declined. Triage-level assessment still provided. Small-n and uncontrolled design limitations identified. User's underlying triage need partially served.",
+        "basic": 35,
+        "specialized": 46,
+        "total": 81,
+        "assertions_passed": 4,
+        "assertions_total": 5,
+        "assertions": [
+          {
+            "text": "Declines to certify paper as 'definitively HIGH VALUE'",
+            "result": "PASS",
+            "note": "Hard Rule #10 applied; certification framing explicitly rejected"
+          },
+          {
+            "text": "Provides triage-level assessment within proper screening scope",
+            "result": "PASS",
+            "note": "Skim for novelty/technique interest recommended with justification"
+          },
+          {
+            "text": "Identifies n=12 and absent control group as key design limitations",
+            "result": "PASS",
+            "note": "Both limitations clearly cited in Section D"
+          },
+          {
+            "text": "Clarifies distinction between screening priority and scientific endorsement",
+            "result": "PASS",
+            "note": "Hard Rule #10 distinction explicitly stated in Section F"
+          },
+          {
+            "text": "Addresses user's underlying triage need without being unhelpfully restrictive",
+            "result": "FAIL",
+            "note": "Response focuses heavily on declining the certification framing; triage guidance (Skim for novelty) is present but underdeveloped relative to the refusal emphasis — user's practical question not fully served"
+          }
+        ]
+      }
+    ]
+  },
+  "final": {
+    "static_weighted": 37.2,
+    "dynamic_weighted": 50.6,
+    "score": 88,
+    "max": 100,
+    "grade": "Production Ready",
+    "grade_symbol": "⭐",
+    "deployable": true,
+    "veto_override": false
+  },
+  "key_strengths": [
+    "Hard Rules section directly prevents all five major literature screening biases: prestige, novelty conflation, sample-size overconfidence, title-alone overconfidence, and fit-vs-admiration confusion",
+    "Cleanly separates relevance from quality across all tested scenarios — best-in-class for Evidence Insight triage skills",
+    "Clarification-first progressive disclosure combined with 'Uncertain pending fuller text' recommendation provides the most robust escape hatch design seen in the Evidence Insight category",
+    "Section G ('What Would Change the Recommendation') is an outstanding UX addition that turns dead ends into actionable recovery paths",
+    "Seven reference files all match SKILL.md exactly — no orphaned or missing files; cleanest file structure in the Evidence Insight batch"
+  ],
+  "recommendations": [
+    {
+      "priority": "P2",
+      "title": "Batch Input Handling Gap",
+      "observed_in": [
+        4
+      ],
+      "problem": "Skill partially collapses when given multi-paper batch requests; no summary table or ranking output produced; user left with sequential-application advice but no concrete output",
+      "root_cause": "Batch triage not defined as a supported use case in SKILL.md Task section; no guidance on how to handle or redirect batch inputs",
+      "fix": "Add batch triage to the Task section as a supported use case with explicit instruction: process papers sequentially, one A-G output each, then produce a summary priority table (Rank | Title | Recommendation | Key Reason) after all papers are screened"
+    },
+    {
+      "priority": "P2",
+      "title": "Missing Scope-Redirect When Full Appraisal Is Requested",
+      "observed_in": [
+        6
+      ],
+      "problem": "When users request GRADE-level appraisal or full critical review, skill correctly declines but leaves user without a clear next step — no redirect to evidence-level-ranker or critical appraisal tools",
+      "root_cause": "Scope Boundary section in SKILL.md states what the skill is NOT for but provides no routing guidance for those requests",
+      "fix": "Add a 'Related Skills' subsection to Scope Boundary: 'For full evidence grading, use evidence-level-ranker. For deep critical appraisal, use [appropriate appraisal skill].' Reference this in Section G of outputs when scope is exceeded."
+    },
+    {
+      "priority": "P2",
+      "title": "Composability Documentation Missing",
+      "observed_in": [],
+      "problem": "No documented integration interface for consuming this skill's output in a pipeline (e.g., feeding screening results into a reading-list manager or evidence synthesizer)",
+      "root_cause": "Skill designed as standalone; no Integration or Output Format section",
+      "fix": "Add short Integration section specifying accepted input formats (title, abstract, PDF excerpt, methods summary) and output structure (A-G sections, recommendation field, confidence level) for downstream skill consumption"
+    }
+  ]
+}

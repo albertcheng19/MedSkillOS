@@ -1,0 +1,343 @@
+{
+    "meta": {
+        "skill_name": "km-survival-curve",
+        "description": "Generate Kaplan-Meier survival curves with log-rank tests for biomarker or molecular subgroup stratification. Inputs: survival time, event status, stratification variable. Outputs: KM plot, log-rank p-value, median survival table, HR estimate.",
+        "evaluated_on": "2026-04-20",
+        "evaluator_version": "skill-auditor@1.0",
+        "category": "Data Analysis",
+        "execution_mode": "B",
+        "complexity": "Moderate",
+        "n_inputs": 5
+    },
+    "veto_gates": {
+        "skill_veto": {
+            "gate": "PASS",
+            "stability": "PASS",
+            "contract": "PASS",
+            "determinism": "PASS",
+            "security": "PASS"
+        },
+        "research_veto": {
+            "applicable": true,
+            "gate": "PASS",
+            "scientific_integrity": {
+                "result": "PASS",
+                "detail": "No fabricated PMIDs, trial results, p-values, or unsupported scientific claims were observed in any output."
+            },
+            "practice_boundaries": {
+                "result": "PASS",
+                "detail": "The skill stayed within data-analysis boundaries and did not issue diagnostic, prescriptive, or treatment advice."
+            },
+            "methodological_ground": {
+                "result": "PASS",
+                "detail": "The workflow applies Kaplan-Meier and documented p-value routes correctly, with explicit rejection of unsupported continuous risk columns."
+            },
+            "code_usability": {
+                "result": "PASS",
+                "detail": "The R workflow executed successfully on four valid cases, and the invalid case failed cleanly with a usable remediation message."
+            }
+        }
+    },
+    "static_score": {
+        "subtotal": 92,
+        "max": 100,
+        "categories": {
+            "functional_suitability": {
+                "score": 11,
+                "max": 12,
+                "note": "The skill covers the documented KM workflow thoroughly; the main gap is that numeric-coded categorical groups can be rejected by the continuity heuristic."
+            },
+            "reliability": {
+                "score": 11,
+                "max": 12,
+                "note": "Validation and remediation are strong, but dependency failures are terse and failure-mode lifecycle details are not fully surfaced in the contract."
+            },
+            "performance_context": {
+                "score": 8,
+                "max": 8,
+                "note": "No issues flagged."
+            },
+            "agent_usability": {
+                "score": 15,
+                "max": 16,
+                "note": "Instructions are clear and layered, though the time-conversion heuristic and failure lifecycle still require careful reading."
+            },
+            "human_usability": {
+                "score": 7,
+                "max": 8,
+                "note": "Examples are practical, but the skill is intentionally strict about input shape and does not include a clarification workflow for near-miss inputs."
+            },
+            "security": {
+                "score": 11,
+                "max": 12,
+                "note": "Input validation is strong and no sensitive operations are exposed, though output paths are accepted directly without extra policy constraints."
+            },
+            "maintainability": {
+                "score": 11,
+                "max": 12,
+                "note": "The skill is cleanly separated into scripts and references, but it does not bundle an explicit automated regression command beyond the manual validation examples."
+            },
+            "agent_specific": {
+                "score": 18,
+                "max": 20,
+                "note": "Triggering, layering, composability, and escape hatches are strong; analytical idempotency is better documented than artifact-level stability."
+            }
+        }
+    },
+    "dynamic_score": {
+        "execution_avg": 91.2,
+        "max": 100,
+        "assertion_pass_rate": {
+            "passed": 25,
+            "total": 25
+        },
+        "inputs": [
+            {
+                "index": 1,
+                "type": "Canonical",
+                "label": "Default KM run on bundled sample1",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Executed perfectly and produced both required artifacts.",
+                "basic": 38,
+                "specialized": 56,
+                "total": 94,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Output validates and loads the requested dataset before fitting.",
+                        "result": "PASS",
+                        "note": "The log reports file type, row count, and column count before analysis."
+                    },
+                    {
+                        "text": "Output confirms the retained groups and sample count.",
+                        "result": "PASS",
+                        "note": "Both group labels and retained sample count are printed."
+                    },
+                    {
+                        "text": "Output produces the required artifacts km-plot.pdf and session_info.txt.",
+                        "result": "PASS",
+                        "note": "The output directory contains both files."
+                    },
+                    {
+                        "text": "Output stays within the skill scope of generating one KM figure and session metadata.",
+                        "result": "PASS",
+                        "note": "No unsupported analysis steps were attempted."
+                    },
+                    {
+                        "text": "Output does not fabricate analytical claims beyond the run log.",
+                        "result": "PASS",
+                        "note": "The script reports execution steps only."
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "type": "Variant A",
+                "label": "Wald route on bundled sample2",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Alternate documented statistical route completed cleanly.",
+                "basic": 38,
+                "specialized": 55,
+                "total": 93,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Output completes successfully on the alternate documented statistical path.",
+                        "result": "PASS",
+                        "note": "The wald run finished and wrote both artifacts."
+                    },
+                    {
+                        "text": "Output preserves the skill's single-figure contract.",
+                        "result": "PASS",
+                        "note": "Only the documented PDF and session metadata were emitted."
+                    },
+                    {
+                        "text": "Output handles a different valid cohort without extra user intervention.",
+                        "result": "PASS",
+                        "note": "The script accepted the alternate sample file directly."
+                    },
+                    {
+                        "text": "Output does not exceed scope with unsupported modeling claims.",
+                        "result": "PASS",
+                        "note": "The run remains a KM plot workflow with the exposed p-value route."
+                    },
+                    {
+                        "text": "Output remains concise and operationally clear.",
+                        "result": "PASS",
+                        "note": "The log is short, ordered, and actionable."
+                    }
+                ]
+            },
+            {
+                "index": 3,
+                "type": "Edge",
+                "label": "Continuous risk column rejection",
+                "status": "PARTIAL",
+                "status_flag": "❌",
+                "note": "Rejected unsupported continuous-looking risk input before fitting, with actionable remediation.",
+                "basic": 35,
+                "specialized": 50,
+                "total": 85,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Output rejects a continuous-looking risk column before model fitting.",
+                        "result": "PASS",
+                        "note": "Validation stops during input preparation."
+                    },
+                    {
+                        "text": "Output gives an actionable remediation path.",
+                        "result": "PASS",
+                        "note": "The message tells the user to supply a precomputed categorical grouping variable or bin upstream."
+                    },
+                    {
+                        "text": "Output avoids stack traces or undefined behavior.",
+                        "result": "PASS",
+                        "note": "Failure is surfaced as a named skill error with no crash dump."
+                    },
+                    {
+                        "text": "Output stays within scope by refusing unsupported grouping semantics.",
+                        "result": "PASS",
+                        "note": "The script does not attempt to derive a cutoff automatically."
+                    },
+                    {
+                        "text": "Output does not produce misleading analytical artifacts after the validation failure.",
+                        "result": "PASS",
+                        "note": "No output directory or plot is created."
+                    }
+                ]
+            },
+            {
+                "index": 4,
+                "type": "Variant B",
+                "label": "Custom-column CSV workflow",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "Custom-column CSV path succeeded and emitted the documented conversion warning.",
+                "basic": 37,
+                "specialized": 54,
+                "total": 91,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Output supports the documented custom-column workflow.",
+                        "result": "PASS",
+                        "note": "The CSV input and renamed columns run successfully."
+                    },
+                    {
+                        "text": "Output warns when heuristic time conversion is applied.",
+                        "result": "PASS",
+                        "note": "A clear warning explains the conversion rule and the opt-out flag."
+                    },
+                    {
+                        "text": "Output still emits the required artifacts after conversion.",
+                        "result": "PASS",
+                        "note": "The output directory contains both required files."
+                    },
+                    {
+                        "text": "Output does not silently change units without notice.",
+                        "result": "PASS",
+                        "note": "The warning is emitted before fitting continues."
+                    },
+                    {
+                        "text": "Output stays within the skill's stated analysis scope.",
+                        "result": "PASS",
+                        "note": "The run remains a single KM plot workflow."
+                    }
+                ]
+            },
+            {
+                "index": 5,
+                "type": "Stress",
+                "label": "Large cohort with multiple plot overrides",
+                "status": "COMPLETED",
+                "status_flag": "✅",
+                "note": "The high-parameter run remained stable and produced the expected artifacts.",
+                "basic": 38,
+                "specialized": 55,
+                "total": 93,
+                "assertions_passed": 5,
+                "assertions_total": 5,
+                "assertions": [
+                    {
+                        "text": "Output handles a larger cohort with multiple plotting overrides.",
+                        "result": "PASS",
+                        "note": "The configured run completed successfully on the 243-row dataset."
+                    },
+                    {
+                        "text": "Output honors explicit time-unit handling without conversion.",
+                        "result": "PASS",
+                        "note": "The log confirms that no automatic conversion was applied."
+                    },
+                    {
+                        "text": "Output preserves the single-figure contract under heavier customization.",
+                        "result": "PASS",
+                        "note": "The expected PDF and session file are still the only artifacts."
+                    },
+                    {
+                        "text": "Output validates complex-but-supported plotting options without instability.",
+                        "result": "PASS",
+                        "note": "The script accepts the supplied line type, colors, legend position, and risk-table settings."
+                    },
+                    {
+                        "text": "Output remains concise, safe, and reproducible in scope.",
+                        "result": "PASS",
+                        "note": "The log is deterministic in structure and no unsupported analysis is introduced."
+                    }
+                ]
+            }
+        ]
+    },
+    "final": {
+        "static_weighted": 36.8,
+        "dynamic_weighted": 54.7,
+        "score": 92,
+        "max": 100,
+        "grade": "Production Ready",
+        "grade_symbol": "⭐",
+        "deployable": true,
+        "veto_override": false
+    },
+    "key_strengths": [
+        "The skill has a clear CLI contract with strong validation and actionable remediation messages.",
+        "The script executed successfully across baseline, alternate, custom-column, and higher-parameter cases.",
+        "Documentation, scripts, and references are well-layered and keep the core workflow easy to follow.",
+        "The workflow stays tightly scoped to producing a single Kaplan-Meier figure and session metadata."
+    ],
+    "recommendations": [
+        {
+            "priority": "P2",
+            "title": "Make source time units more explicit",
+            "observed_in": [
+                4
+            ],
+            "problem": "The current day-conversion behavior depends on a heuristic using max(time) > 365. The warning is good, but users can still mis-scale already-monthly or already-yearly data if they overlook the caveat.",
+            "root_cause": "The skill exposes an inferred conversion path instead of a first-class source-unit contract.",
+            "fix": "Document the heuristic more prominently and add an explicit pre-run checklist near the primary command. In a future revision, prefer a dedicated source-unit argument over heuristic conversion."
+        },
+        {
+            "priority": "P2",
+            "title": "Clarify numeric group-label limitations",
+            "observed_in": [],
+            "problem": "The implementation rejects numeric-looking group columns when they appear continuous or near-unique, which is generally correct, but the user-facing contract does not clearly explain that numeric-coded categorical labels may need relabeling upstream.",
+            "root_cause": "The continuity heuristic is implemented in code, while the SKILL.md describes the requirement only at a higher level.",
+            "fix": "Add an explicit note that nominal groups encoded as numbers should be relabeled to stable category names before use, especially when there are many distinct numeric values."
+        },
+        {
+            "priority": "P2",
+            "title": "Strengthen failure lifecycle documentation",
+            "observed_in": [
+                3
+            ],
+            "problem": "Validation failures stop correctly, but the documentation does not clearly say that no output directory or artifacts will be created when pre-fit checks fail.",
+            "root_cause": "The skill documents error codes and outputs separately without an explicit success-versus-failure lifecycle section.",
+            "fix": "Add a short execution contract section that states success requires both documented artifacts and that validation failures may exit before output directory creation."
+        }
+    ]
+}
